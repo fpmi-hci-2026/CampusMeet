@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusMeet / EventHub — Документация проекта ПЧМИ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-surface: #334155;
+            --border-color: #475569;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-hover: #0284c7;
+            --accent-glow: rgba(56, 189, 248, 0.25);
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --sidebar-width: 320px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Navigation */
+        #sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(180deg, rgba(30, 41, 59, 1) 0%, rgba(15, 23, 42, 0.8) 100%);
+        }
+
+        .brand-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+        }
+
+        .sidebar-header p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .nav-section-title {
+            padding: 16px 24px 8px;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0 12px 16px;
+        }
+
+        .nav-item {
+            margin-bottom: 2px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 10px 14px;
+            color: #cbd5e1;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            background-color: var(--bg-surface);
+            color: #ffffff;
+        }
+
+        .nav-link.active {
+            background: linear-gradient(90deg, rgba(56, 189, 248, 0.2) 0%, rgba(56, 189, 248, 0.05) 100%);
+            color: var(--accent);
+            font-weight: 600;
+            border-left: 3px solid var(--accent);
+        }
+
+        .nav-icon {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* Main Content Area */
+        #content {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 40px 60px;
+            background-color: var(--bg-primary);
+        }
+
+        .content-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography & Components */
+        h1, h2, h3, h4 {
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        h1 { font-size: 2.2rem; margin-bottom: 12px; }
+        h2 { font-size: 1.5rem; margin-top: 32px; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
+        h3 { font-size: 1.2rem; margin-top: 24px; margin-bottom: 12px; color: var(--accent); }
+
+        p { margin-bottom: 16px; color: #cbd5e1; font-size: 1rem; }
+
+        .hero-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 24px 0;
+        }
+
+        .card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+
+        .card h4 {
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+
+        /* Personas Gallery */
+        .personas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            margin: 24px 0;
+        }
+
+        .persona-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .persona-avatar {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .persona-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .persona-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 8px;
+            align-self: flex-start;
+        }
+
+        .tag-key { background: rgba(56, 189, 248, 0.15); color: var(--accent); border: 1px solid rgba(56, 189, 248, 0.3); }
+        .tag-supp { background: rgba(34, 197, 94, 0.15); color: var(--success); border: 1px solid rgba(34, 197, 94, 0.3); }
+        .tag-lead { background: rgba(245, 158, 11, 0.15); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.3); }
+        .tag-anti { background: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.3); }
+
+        .persona-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .persona-meta {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .persona-desc {
+            font-size: 0.88rem;
+            color: #cbd5e1;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            flex-grow: 1;
+        }
+
+        /* Tables & Code */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--bg-surface);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: rgba(51, 65, 85, 0.4);
+        }
+
+        code, pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+        }
+
+        pre {
+            background-color: #0b1120;
+            border: 1px solid var(--border-color);
+            padding: 18px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 16px 0;
+            color: #e2e8f0;
+        }
+
+        .badge-kpi {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .badge-kpi span {
+            color: var(--accent);
+            font-weight: 800;
+        }
+
+        /* Buttons & Links */
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: #0f172a;
+            font-weight: 700;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-action:hover {
+            background: var(--accent-hover);
+            color: #ffffff;
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-surface);
+            color: #ffffff;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--border-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            body { flex-direction: column; height: auto; overflow: visible; }
+            #sidebar { width: 100%; height: auto; }
+            #content { padding: 24px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar">
+        <div class="sidebar-header">
+            <span class="brand-badge">ПЧМИ • ФПМИ БГУ</span>
+            <h1>CampusMeet</h1>
+            <p>Платформа студенческих митапов, хакатонов и офлайн-чекина</p>
+            <div style="margin-top: 10px; font-size: 0.72rem; color: var(--accent); background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 6px; padding: 6px 8px; line-height: 1.4;">
+                Портал и Wiki наполняются в течение всего семестра (Лаб. №1–8)
+            </div>
+        </div>
+
+        <div class="nav-section-title">Лабораторные работы</div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#lab1-overview" class="nav-link active" onclick="switchTab('lab1-overview', this)">
+                    Лаб. №1: Полный отчет
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#survey-data" class="nav-link" onclick="switchTab('survey-data', this)">
+                    Опрос N=68 и статистика
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#personas-gallery" class="nav-link" onclick="switchTab('personas-gallery', this)">
+                    Галерея 7 персонажей
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#as-is-processes" class="nav-link" onclick="switchTab('as-is-processes', this)">
+                    Процессы As-Is
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-section-title">База знаний (GitHub Wiki)</div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#wiki-func" class="nav-link" onclick="switchTab('wiki-func', this)">
+                    Функционал и Use Case
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#wiki-arch" class="nav-link" onclick="switchTab('wiki-arch', this)">
+                    Архитектура Web/Mobile
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#wiki-db" class="nav-link" onclick="switchTab('wiki-db', this)">
+                    Схема базы данных
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#wiki-api" class="nav-link" onclick="switchTab('wiki-api', this)">
+                    REST API и OpenStreetMap
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#wiki-security" class="nav-link" onclick="switchTab('wiki-security', this)">
+                    HMAC токен и безопасность
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#wiki-presentation" class="nav-link" onclick="switchTab('wiki-presentation', this)">
+                    Презентация и регламент
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-section-title">Внешние ресурсы</div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="./reports/Lab1_report.md" class="nav-link" target="_blank">
+                    Открыть сырой Markdown
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="https://github.com/fpmi-hci-2026/CampusMeet" class="nav-link" target="_blank">
+                    GitHub: CampusMeet
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="https://github.com/fpmi-hci-2026/CampusMeet-Server" class="nav-link" target="_blank">
+                    GitHub: Server
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="https://github.com/fpmi-hci-2026/CampusMeet-Web" class="nav-link" target="_blank">
+                    GitHub: Web
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="https://github.com/fpmi-hci-2026/CampusMeet-Mobile" class="nav-link" target="_blank">
+                    GitHub: Mobile
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main id="content">
+        <div class="content-container">
+
+            <!-- TAB 1: Lab 1 Overview -->
+            <section id="lab1-overview" class="tab-pane active">
+                <div class="hero-card">
+                    <span class="brand-badge">Лабораторная работа №1</span>
+                    <h1>Исследование пользователей и предметной области</h1>
+                    <p>Комплексный проект проектирования человеко-машинных интерфейсов для экосистемы CampusMeet / EventHub. Курс 4, ФПМИ БГУ. Преподаватель: Давидовская М.И.</p>
+                    <div style="display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap;">
+                        <a href="#survey-data" class="btn-action" onclick="switchTab('survey-data')">Изучить опрос (N=68)</a>
+                        <a href="#personas-gallery" class="btn-secondary" onclick="switchTab('personas-gallery')">Персонажи</a>
+                        <a href="./reports/Lab1_report.md" class="btn-secondary" target="_blank">Скачать отчет .md</a>
+                    </div>
+                </div>
+
+                <h2>Паспорт проекта и ключевые цели</h2>
+                <div class="grid-cards">
+                    <div class="card">
+                        <h4>Теоретическая цель</h4>
+                        <p>Освоение методологии человеко-центрированного проектирования (Human-Centered Design), ментальных моделей пользователей и профилирования групп.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Практическая цель</h4>
+                        <p>Проведение социологического исследования, синтез 7 персонажей всех типов, разработка ролевой матрицы, объектной модели и сценариев взаимодействия.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Форм-фактор и моторика</h4>
+                        <p>Смартфоны 5.8"–6.7", управление одной рукой на ходу (Thumb Zone), время чекина &lt; 1.5 сек, оптическое сканирование камерой &lt; 500 мс.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Интеграция открытых API</h4>
+                        <p>Геокодирование через Nominatim OpenStreetMap API и производственный календарь праздников Беларуси через Nager.Date API.</p>
+                    </div>
+                </div>
+
+                <h2>Ключевые измеримые метрики успеха (KPIs)</h2>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 24px;">
+                    <div class="badge-kpi">Скорость чекина на входе: <span>&lt; 1.5 сек</span></div>
+                    <div class="badge-kpi">Доступность билета офлайн: <span>100%</span></div>
+                    <div class="badge-kpi">Индекс юзабилити SUS: <span>&gt; 80 баллов</span></div>
+                    <div class="badge-kpi">Снижение No-Show Rate: <span>с 60% до 15%</span></div>
+                </div>
+            </section>
+
+            <!-- TAB 2: Survey Data -->
+            <section id="survey-data" class="tab-pane">
+                <h1>Эмпирическое исследование аудитории (N = 68)</h1>
+                <p>Данные собраны с помощью Google Forms среди профильных студентов ФПМИ БГУ и IT-сообществ Минска. Датасет на 100% реален и доступен в файле <code>survey/CampusMeet-Ответы_на_форму.csv</code>.</p>
+
+                <div class="grid-cards">
+                    <div class="card">
+                        <h4>Баланс мобильных платформ</h4>
+                        <p><strong style="color:var(--accent);">iOS: 52.9%</strong> (36 чел) vs <strong style="color:var(--success);">Android: 47.1%</strong> (32 чел). Необходимость строгого паритета гайдлайнов Apple HIG и Material 3.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Возрастной срез</h4>
+                        <p><strong>95.6%</strong> — студенты бакалавриата и магистратуры в возрасте 17–22 лет. Цифровые аборигены с высоким темпом моторики.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Ролевой полиморфизм</h4>
+                        <p>86.8% слушатели, 55.9% участники хакатонов, 38.2% волонтеры входа, 27.9% организаторы. Один пользователь совмещает множество ролей.</p>
+                    </div>
+                </div>
+
+                <h2>Карта барьеров пользователей (Pain Points)</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Проблема / Точка отказа</th>
+                            <th>Количество (n)</th>
+                            <th>Доля (%)</th>
+                            <th>Критичность</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Сбои мобильного интернета / Wi-Fi в аудиториях</strong></td>
+                            <td>24</td>
+                            <td>35.3%</td>
+                            <td><span style="color:var(--danger); font-weight:700;">Критический</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Очереди на входе из-за ручной сверки фамилий в Excel</strong></td>
+                            <td>23</td>
+                            <td>33.8%</td>
+                            <td><span style="color:var(--danger); font-weight:700;">Критический</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Овербукинг: пришел, а мест в зале не хватило</strong></td>
+                            <td>21</td>
+                            <td>30.9%</td>
+                            <td><span style="color:var(--danger); font-weight:700;">Критический</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Забыл о событии из-за отсутствия пушей</strong></td>
+                            <td>20</td>
+                            <td>29.4%</td>
+                            <td><span style="color:var(--warning); font-weight:700;">Высокий</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Потерял схему прохода в дебрях чатов</strong></td>
+                            <td>11</td>
+                            <td>16.2%</td>
+                            <td><span style="color:var(--text-muted);">Средний</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Кано-модель приоритизации фичей</h2>
+                <div class="grid-cards">
+                    <div class="card" style="border-left: 4px solid var(--danger);">
+                        <h4 style="color:var(--danger);">Must-Be (Обязательные)</h4>
+                        <p>Офлайн-билет с QR-кодом (82.4%), мгновенная бронь места, автоматический учет квоты.</p>
+                    </div>
+                    <div class="card" style="border-left: 4px solid var(--accent);">
+                        <h4 style="color:var(--accent);">One-Dimensional (Линейные)</h4>
+                        <p>Карта площадки и схема прохода (58.8%), личное расписание (55.9%), push-напоминания за 15 мин (54.4%).</p>
+                    </div>
+                    <div class="card" style="border-left: 4px solid var(--success);">
+                        <h4 style="color:var(--success);">Attractive (Восхищающие)</h4>
+                        <p>Умный поиск команды на хакатон (45.6%), интеграция с Apple/Google Wallet (26.5%), экстренный пуш организатора.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: Personas Gallery -->
+            <section id="personas-gallery" class="tab-pane">
+                <h1>Галерея синтезированных персонажей</h1>
+                <p>В соответствии с разделом 5.10 методических указаний синтезировано 7 детализированных персонажей, покрывающих все требуемые категории:</p>
+
+                <div class="personas-grid">
+                    <!-- Persona 1: Artem -->
+                    <div class="persona-card">
+                        <img src="assets/personas/artem.jpg" alt="Артём" class="persona-avatar">
+                        <div class="persona-body">
+                            <span class="persona-tag tag-key">Ключевой персонаж №1</span>
+                            <div class="persona-title">Артём Ковалёв, 20 лет</div>
+                            <div class="persona-meta">Студент 3 курса ФПМИ БГУ • Слушатель митапов</div>
+                            <div class="persona-desc">Активный посетитель лекций и митапов по React и AI. Ценит скорость прохода на входе и возможность заранее собрать персональную программу. Пользуется iPhone 14.</div>
+                        </div>
+                    </div>
+
+                    <!-- Persona 2: Daria -->
+                    <div class="persona-card">
+                        <img src="assets/personas/daria.jpg" alt="Дарья" class="persona-avatar">
+                        <div class="persona-body">
+                            <span class="persona-tag tag-key">Ключевой персонаж №2</span>
+                            <div class="persona-title">Дарья Мельникова, 19 лет</div>
+                            <div class="persona-meta">Студентка 2 курса • Волонтер стойки регистрации</div>
+                            <div class="persona-desc">Встречает гостей на входе. Испытывает огромный стресс от очередей и ручного поиска фамилий в списках. Требует высокоскоростной сканер камерой с откликом &lt; 500 мс.</div>
+                        </div>
+                    </div>
+
+                    <!-- Persona 3: Maxim -->
+                    <div class="persona-card">
+                        <img src="assets/personas/maxim.jpg" alt="Максим" class="persona-avatar">
+                        <div class="persona-body">
+                            <span class="persona-tag tag-key">Ключевой персонаж №3</span>
+                            <div class="persona-title">Максим Романов, 22 года</div>
+                            <div class="persona-meta">Студент 4 курса • Лидер IT-клуба, Организатор</div>
+                            <div class="persona-desc">Организует хакатоны и митапы на 100+ человек. Устал от хаоса Google Forms, потери заявок спикеров и отсутствия инструмента для экстренного оповещения участников.</div>
+                        </div>
+                    </div>
+
+                    <!-- Persona 4: Kirill -->
+                    <div class="persona-card">
+                        <img src="assets/personas/kirill.jpg" alt="Кирилл" class="persona-avatar">
+                        <div class="persona-body">
+                            <span class="persona-tag tag-lead">Дополнительный персонаж</span>
+                            <div class="persona-title">Кирилл Савицкий, 21 год</div>
+                            <div class="persona-meta">Fullstack разработчик • Капитан команды хакатона</div>
+                            <div class="persona-desc">Ищет толковых ML-инженеров и дизайнеров в команду. Нуждается в бирже нетворкинга с фильтрацией по стеку и синхронных напоминаниях о питчах проектов.</div>
+                        </div>
+                    </div>
+
+                    <!-- Persona 5: Viktor -->
+                    <div class="persona-card">
+                        <img src="assets/personas/viktor.jpg" alt="Виктор" class="persona-avatar">
+                        <div class="persona-body">
+                            <span class="persona-tag tag-supp">Вспомогательный персонаж</span>
+                            <div class="persona-title">Виктор Громов, 27 лет</div>
+                            <div class="persona-meta">Senior Backend Architect • Приглашенный спикер</div>
+                            <div class="persona-desc">Выступает с докладами по распределенным системам. Требует прозрачного CFP, четкого регламента времени и оперативного пуша при сдвиге тайминга доклада.</div>
+                        </div>
+                    </div>
+
+                    <!-- Persona 6: Sergey Nikolaevich -->
+                    <div class="persona-card">
+                        <img src="assets/personas/sergey.jpg" alt="Сергей Николаевич" class="persona-avatar">
+                        <div class="persona-body">
+                            <span class="persona-tag tag-supp">Заказчик системы</span>
+                            <div class="persona-title">Сергей Николаевич Котов, 45 лет</div>
+                            <div class="persona-meta">Зам. декана по воспитательной работе ФПМИ БГУ</div>
+                            <div class="persona-desc">Заинтересован в цивилизованном учете посещаемости мероприятий, защите аудиторий от переполнения и формировании официальных отчетов для руководства вуза.</div>
+                        </div>
+                    </div>
+
+                    <!-- Persona 7: Vlad -->
+                    <div class="persona-card">
+                        <img src="assets/personas/vlad.jpg" alt="Влад" class="persona-avatar">
+                        <div class="persona-body">
+                            <span class="persona-tag tag-anti">Отрицательный персонаж (Анти)</span>
+                            <div class="persona-title">Влад Костылев, 21 год</div>
+                            <div class="persona-meta">«Мерч-хантер и халявщик» • No-show фактор</div>
+                            <div class="persona-desc">Регистрируется на все митапы подряд ради бесплатной пиццы и наклеек, блокируя места реальным участникам, и часто не приходит. Система защищается подтверждением явки за 24 ч.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: As-Is Processes -->
+            <section id="as-is-processes" class="tab-pane">
+                <h1>Анализ бизнес-процессов «Как есть» (As-Is)</h1>
+                <p>Исследование выявило катастрофические задержки и точки отказа в существующей практике студенческих мероприятий до внедрения CampusMeet.</p>
+
+                <h2>1. Регистрация и учет участников As-Is</h2>
+                <div class="mermaid">
+flowchart TD
+    Start([Организатор анонсирует митап]) --> Post[Публикация поста со ссылкой на Google Forms]
+    Post --> Fill[Участники заполняют форму в разное время]
+    Fill --> Overbook{Зал рассчитан на 80 мест.<br/>Регистраций уже 140?}
+    Overbook -->|Да, форма открыта| LimitFail[Переполнение зала овербукингом]
+    Overbook -->|Организатор заметил вручную| CloseForm[Ручное закрытие приема ответов]
+    CloseForm --> ManualSort[Ручная чистка Excel-таблицы от дублей]
+    ManualSort --> PrintList[Печать списка фамилий на бумаге А4]
+    LimitFail --> PrintList
+                </div>
+
+                <h2>2. Встреча и чекин на входе As-Is («Бутылочное горлышко»)</h2>
+                <div class="mermaid">
+sequenceDiagram
+    participant A as Гость (Артём)
+    participant V as Волонтер (Дарья)
+    participant P as Бумажные листы А4 / Excel
+    
+    A->>V: Подходит к дверям аудитории в 15:58
+    V->>A: «Назовите вашу фамилию и факультет»
+    A->>V: «Ковалёв, ФПМИ»
+    V->>P: Листает распечатки из 15 страниц по алфавиту...
+    Note over V,P: Задержка: 30-50 секунд на человека!
+    V->>A: «Не нахожу. Покажите письмо на почте»
+    A->>A: Достает телефон, пытается открыть Gmail...
+    Note over A: В холле нет сети / Wi-Fi не подключается
+    A-->>V: «Не грузит интернет, я точно регистрировался!»
+    V->>A: Вручную вписывает ручкой на полях
+    Note over A,V: Итог: толпа у входа, задержка открытия на 25 минут
+                </div>
+
+                <h2>3. Подача и отбор докладов спикеров (CFP) As-Is</h2>
+                <div class="mermaid">
+flowchart TD
+    S([Спикер хочет выступить]) --> Msg[Пишет организатору в личные сообщения Telegram]
+    Msg --> OrgRead{Организатор заметил сообщение<br/>среди сотен рабочих диалогов?}
+    OrgRead -->|Сообщение утонуло| Lost[Заявка потеряна, спикер обижен]
+    OrgRead -->|Прочитал через неделю| Discuss[Хаотичное обсуждение темы в переписке]
+    Discuss --> FileSend[Спикер присылает файл презентации .pptx в чат]
+    FileSend --> FinalDay[День мероприятия]
+    FinalDay --> LaptopCheck{Файл презентации скачан<br/>на презентационный ноутбук?}
+    LaptopCheck -->|Забыли скачать| Panic[Судорожный поиск флешки за 5 минут до доклада]
+    LaptopCheck -->|Скачан| Stage([Спикер выходит на сцену])
+                </div>
+
+                <h2>4. Экстренное оповещение о переносе аудитории As-Is</h2>
+                <div class="mermaid">
+flowchart TD
+    Emerg([Форс-мажор: поломка проектора в зале 512]) --> OrgPanic[Организатор пишет пост в общий чат Telegram]
+    OrgPanic --> Flood{В чате открыт флуд участников?}
+    Flood -->|Да| Drown[Важное сообщение тонет под 150 стикерами и мемами]
+    Flood -->|Канал только для чтения| Seen{Сколько людей увидели пост<br/>со звуком в метро/на ходу?}
+    Seen -->|Менее 35%| LostCrowd[60% участников приходят к запертому залу 512]
+    Seen -->|Прочитали| Redirect[Участники переходят в другой зал]
+    LostCrowd --> Chaos([Хаос в коридоре, срыв тайминга митапа на 40 минут])
+                </div>
+            </section>
+
+            <!-- TAB 5: Wiki Functional -->
+            <section id="wiki-func" class="tab-pane">
+                <h1>Функциональные требования и Use Case</h1>
+                <p>Полный перечень требований зафиксирован в wiki-странице <code>Functional_Requirements.md</code>.</p>
+                <div class="mermaid">
+flowchart LR
+    A[Слушатель] --> UC1([Поиск событий])
+    A --> UC2([Офлайн QR-билет])
+    A --> UC3([Моя программа])
+    V[Волонтер] --> UC4([Камера-сканер &lt;500мс])
+    V --> UC5([Аудит прохода])
+    O[Организатор] --> UC6([Квоты и Waitlist])
+    O --> UC7([CFP Доклады])
+    O --> UC8([Экстренный Push])
+                </div>
+            </section>
+
+            <!-- TAB 6: Wiki Architecture -->
+            <section id="wiki-arch" class="tab-pane">
+                <h1>Архитектура экосистемы (4 репозитория: подгруппы 12а и 12б)</h1>
+                <p>Разделение на репозиторий документации, серверное приложение и API, веб-клиент организатора и мобильный клиент участника/волонтера.</p>
+                <pre><code>CampusMeet/                     # 1. Основной репозиторий для документации
+├── docs/                       # Документация и отчеты по курсу
+│   ├── README.md               # Навигационный реестр отчетов
+│   ├── index.html              # Интерактивный портал GitHub Pages
+│   ├── reports/
+│   │   └── Lab1_report.md      # Академический отчет по Лаб. №1 (16 разделов)
+│   ├── survey/                 # Материалы социологического опроса (N=68)
+│   │   ├── CampusMeet-Ответы_на_форму.csv
+│   │   ├── survey_analysis.md
+│   │   └── survey_analysis_data.json
+│   └── assets/personas/        # Фотопортреты 7 синтезированных персонажей
+└── wiki/                       # Проектная база знаний GitHub Wiki (7 страниц)
+
+Связанные репозитории экосистемы (подгруппы 12а и 12б):
+├── CampusMeet-Server/          # 2. Серверное приложение и API (FastAPI / database/schema.sql)
+├── CampusMeet-Web/             # 3. Веб-клиент организатора (Next.js 14 / Tailwind)
+└── CampusMeet-Mobile/          # 4. Мобильный клиент (React Native / Expo / Camera Scanner)</code></pre>
+            </section>
+
+            <!-- TAB 7: Wiki Database -->
+            <section id="wiki-db" class="tab-pane">
+                <h1>Реляционная схема базы данных</h1>
+                <p>DDL-скрипт размещен в репозитории сервера: <code>CampusMeet-Server/database/schema.sql</code>. Модель включает 10 таблиц: <code>users</code>, <code>venues</code>, <code>events</code>, <code>schedule_items</code>, <code>tickets</code>, <code>check_in_logs</code>, <code>speaker_proposals</code>, <code>team_matches</code>, <code>team_members</code>, <code>emergency_announcements</code>.</p>
+                <div class="mermaid">
+erDiagram
+    USERS ||--o{ EVENTS : organizes
+    USERS ||--o{ TICKETS : owns
+    VENUES ||--o{ EVENTS : hosts
+    EVENTS ||--o{ SCHEDULE_ITEMS : contains
+    EVENTS ||--o{ TICKETS : issues
+    TICKETS ||--o{ CHECK_IN_LOGS : verified_by
+                </div>
+            </section>
+
+            <!-- TAB 8: Wiki API -->
+            <section id="wiki-api" class="tab-pane">
+                <h1>Спецификация REST API и OpenStreetMap</h1>
+                <p>Экосистема интегрируется с двумя открытыми сервисами:</p>
+                <div class="grid-cards">
+                    <div class="card">
+                        <h4>Nominatim OpenStreetMap API</h4>
+                        <p>Прямое геокодирование адресов площадок (лофты, корпуса, лектории) и расчет координат для интерактивной карты в мобильном клиенте.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Nager.Date Public Holidays API</h4>
+                        <p>Валидация производственного календаря Республики Беларусь при назначении дат мероприятий в панели организатора для исключения накладок.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 9: Wiki Security -->
+            <section id="wiki-security" class="tab-pane">
+                <h1>Безопасность и динамический HMAC токен</h1>
+                <p>Для предотвращения подделок и пересылки скриншотов чужих билетов QR-код подписывается криптографическим алгоритмом HMAC-SHA256.</p>
+                <pre><code>Payload = Base64URL(Header) . Base64URL(Claims) . HMAC-SHA256(Header.Claims, Secret)</code></pre>
+                <p>Сканер волонтера сохраняет симметричный ключ проверки события в защищенном хранилище и проводит валидацию подписи билета автономно даже при полном отсутствии интернета на площадке.</p>
+            </section>
+
+            <!-- TAB 10: Wiki Presentation & Regulations -->
+            <section id="wiki-presentation" class="tab-pane">
+                <h1>Концептуальная презентация и регламент команды</h1>
+                <p>В рамках Лабораторной работы №1 сформирована структура концептуальной презентации результатов предпроектного исследования, матрица ответственности команды (RACI) и регламент версионирования Git-flow.</p>
+
+                <div class="card" style="margin-bottom: 24px; border-left: 4px solid var(--accent);">
+                    <h4>Электронные слайды презентации</h4>
+                    <p style="margin-bottom: 0;"><em>Размещение слайдов презентации на Google Slides / PDF будет добавлено перед защитой лабораторной работы.</em></p>
+                </div>
+
+                <h2>Структура концептуальной презентации (10 слайдов)</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 80px; text-align: center;">№</th>
+                            <th>Тема слайда</th>
+                            <th>Содержание и материалы Лабораторной работы №1</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td style="text-align: center;"><strong>1</strong></td><td><strong>Титульный слайд</strong></td><td>CampusMeet — экосистема студенческих митапов и офлайн-чекина. Команда, группа, кафедра ТП ФПМИ БГУ.</td></tr>
+                        <tr><td style="text-align: center;"><strong>2</strong></td><td><strong>Проблема As-Is</strong></td><td>Очереди у аудиторий, потеря регистраций в Google-формах, падение сети в подвальных лекториях.</td></tr>
+                        <tr><td style="text-align: center;"><strong>3</strong></td><td><strong>Исследование N=68</strong></td><td>35% сбои сети, 34% очереди на входе, баланс ОС: iOS (53%) vs Android (47%).</td></tr>
+                        <tr><td style="text-align: center;"><strong>4</strong></td><td><strong>Целевые аудитории</strong></td><td>Слушатель, Организатор/Модератор, Волонтер стойки регистрации, Спикер-докладчик.</td></tr>
+                        <tr><td style="text-align: center;"><strong>5</strong></td><td><strong>Персонажи</strong></td><td>Артём Ковалёв (первичный), Дарья Мельникова (вторичный), Максим (организатор), анти-персонаж Влад.</td></tr>
+                        <tr><td style="text-align: center;"><strong>6</strong></td><td><strong>Процессы As-Is и To-Be</strong></td><td>Устранение задержек ручной сверки списков, ускорение прохода участников на площадку.</td></tr>
+                        <tr><td style="text-align: center;"><strong>7</strong></td><td><strong>Архитектура 4 репозиториев</strong></td><td>Main Docs, Server (FastAPI + DDL), Web (Next.js), Mobile (React Native / Expo).</td></tr>
+                        <tr><td style="text-align: center;"><strong>8</strong></td><td><strong>Модель данных (10 сущностей)</strong></td><td>Реляционная схема БД: билеты, чекины, расписание, доклады, лист ожидания.</td></tr>
+                        <tr><td style="text-align: center;"><strong>9</strong></td><td><strong>Внешние интеграции и безопасность</strong></td><td>Nominatim OpenStreetMap, Nager.Date API, офлайн HMAC-SHA256 подпись билета.</td></tr>
+                        <tr><td style="text-align: center;"><strong>10</strong></td><td><strong>Дорожная карта (Roadmap)</strong></td><td>План проектирования и разработки интерфейсов на семестр (Лабораторные работы №2–8).</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>Матрица ответственности команды (RACI Matrix)</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Задача / Артефакт</th>
+                            <th style="text-align: center;">Тимлид (UI/UX)</th>
+                            <th style="text-align: center;">Web Dev</th>
+                            <th style="text-align: center;">Mobile Dev</th>
+                            <th style="text-align: center;">Backend Dev</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Исследование аудитории и анкетирование ($N=68$)</td><td style="text-align: center;"><strong>A / R</strong></td><td style="text-align: center;">I</td><td style="text-align: center;">I</td><td style="text-align: center;">C</td></tr>
+                        <tr><td>Синтез персонажей и контекстные сценарии</td><td style="text-align: center;"><strong>A / R</strong></td><td style="text-align: center;">C</td><td style="text-align: center;">C</td><td style="text-align: center;">I</td></tr>
+                        <tr><td>Моделирование бизнес-процессов As-Is</td><td style="text-align: center;"><strong>A / R</strong></td><td style="text-align: center;">C</td><td style="text-align: center;">I</td><td style="text-align: center;">C</td></tr>
+                        <tr><td>Проектирование схемы БД (<code>schema.sql</code>)</td><td style="text-align: center;">C</td><td style="text-align: center;">C</td><td style="text-align: center;">C</td><td style="text-align: center;"><strong>A / R</strong></td></tr>
+                        <tr><td>Спецификация REST API и сервисов</td><td style="text-align: center;">C</td><td style="text-align: center;"><strong>R</strong></td><td style="text-align: center;"><strong>R</strong></td><td style="text-align: center;"><strong>A / R</strong></td></tr>
+                        <tr><td>Веб-панель организатора (<code>CampusMeet-Web</code>)</td><td style="text-align: center;">I</td><td style="text-align: center;"><strong>A / R</strong></td><td style="text-align: center;">I</td><td style="text-align: center;">C</td></tr>
+                        <tr><td>Мобильный билет и сканер (<code>CampusMeet-Mobile</code>)</td><td style="text-align: center;">C</td><td style="text-align: center;">I</td><td style="text-align: center;"><strong>A / R</strong></td><td style="text-align: center;">C</td></tr>
+                        <tr><td>Итоговый сводный отчет (<code>docs/reports/Lab1_report.md</code>)</td><td style="text-align: center;"><strong>A / R</strong></td><td style="text-align: center;">C</td><td style="text-align: center;">C</td><td style="text-align: center;">C</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>Регламент ветвления Git-flow и правила Pull Request</h2>
+                <ul>
+                    <li style="margin-bottom: 8px;"><strong>main:</strong> Защищенная ветка (Protected Branch), содержит только релизные версии после сдачи лабораторных работ преподавателю. Прямые коммиты запрещены.</li>
+                    <li style="margin-bottom: 8px;"><strong>develop:</strong> Ветка интеграции текущего семестра.</li>
+                    <li style="margin-bottom: 8px;"><strong>feature/* и docs/*:</strong> Тематические ветки для выполнения отдельных задач с обязательным Code Review перед слиянием.</li>
+                </ul>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+
+        function switchTab(tabId, element) {
+            // Hide all tabs
+            const panes = document.querySelectorAll('.tab-pane');
+            panes.forEach(pane => pane.classList.remove('active'));
+
+            // Show selected tab
+            const targetPane = document.getElementById(tabId);
+            if (targetPane) {
+                targetPane.classList.add('active');
+            }
+
+            // Update active nav link
+            if (element) {
+                const links = document.querySelectorAll('.nav-link');
+                links.forEach(link => link.classList.remove('active'));
+                element.classList.add('active');
+            }
+
+            // Scroll content to top
+            document.getElementById('content').scrollTop = 0;
+        }
+    </script>
+</body>
+</html>
