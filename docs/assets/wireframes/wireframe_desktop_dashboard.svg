@@ -7,7 +7,7 @@
   <!-- Brand -->
   <rect x="25" y="24" width="140" height="32" rx="6" fill="#38bdf8"/>
   <text x="95" y="46" fill="#0f172a" font-size="15" font-weight="800" text-anchor="middle">CampusMeet</text>
-  <text x="25" y="80" fill="#94a3b8" font-size="11">КАБИНЕТ ОРГАНИЗАТОРА</text>
+  <text x="25" y="80" fill="#94a3b8" font-size="11" font-weight="700" letter-spacing="0.5">КАБИНЕТ ОРГАНИЗАТОРА</text>
 
   <!-- Nav Items -->
   <g transform="translate(15, 110)">
@@ -25,112 +25,190 @@
 
   <!-- Top App Bar -->
   <rect x="260" y="0" width="1180" height="70" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
-  <g transform="translate(290, 20)">
-    <text x="0" y="20" fill="#64748b" font-size="12">Текущее событие:</text>
-    <text x="0" y="40" fill="#0f172a" font-size="16" font-weight="bold">CampusMeet: AI &amp; Modern Web 2026</text>
-    <rect x="330" y="22" width="140" height="24" rx="12" fill="#ecfdf5"/>
-    <text x="400" y="38" fill="#059669" font-size="11" font-weight="bold" text-anchor="middle">🟢 ЧЕКИН АКТИВЕН</text>
+  <g transform="translate(290, 16)">
+    <text x="0" y="14" fill="#64748b" font-size="11" font-weight="600" letter-spacing="0.5">ТЕКУЩЕЕ СОБЫТИЕ</text>
+    <text x="0" y="38" fill="#0f172a" font-size="16" font-weight="bold">CampusMeet: AI &amp; Modern Web 2026</text>
+    
+    <rect x="350" y="20" width="145" height="26" rx="13" fill="#ecfdf5" stroke="#10b981"/>
+    <circle cx="365" cy="33" r="4.5" fill="#10b981"/>
+    <text x="430" y="37" fill="#059669" font-size="11" font-weight="bold" text-anchor="middle">ЧЕКИН АКТИВЕН</text>
     
     <!-- Fast Emergency Alert Button -->
-    <rect x="780" y="6" width="200" height="38" rx="8" fill="#ef4444"/>
-    <text x="880" y="30" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">🚨 Экстренный Push (1 клик)</text>
+    <rect x="760" y="7" width="220" height="38" rx="8" fill="#ef4444"/>
+    <text x="870" y="31" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">🚨 Экстренный Push (1 клик)</text>
     
-    <circle cx="1080" cy="25" r="18" fill="#e2e8f0"/>
-    <text x="1080" y="30" fill="#334155" font-size="11" font-weight="bold" text-anchor="middle">МР</text>
+    <circle cx="1070" cy="26" r="18" fill="#e2e8f0" stroke="#cbd5e1"/>
+    <text x="1070" y="31" fill="#334155" font-size="11" font-weight="bold" text-anchor="middle">МР</text>
   </g>
 
   <!-- Workspace Container -->
   <g transform="translate(290, 95)">
-    <!-- Title -->
-    <text x="0" y="25" fill="#0f172a" font-size="24" font-weight="800">[WIREFRAME] Мониторинг проходов и квот зала в реальном времени</text>
+    <!-- Title & Subtitle -->
+    <text x="0" y="22" fill="#0f172a" font-size="22" font-weight="800">[WIREFRAME] Мониторинг проходов и квот зала в реальном времени</text>
+    <text x="0" y="42" fill="#64748b" font-size="12">Контроль квот зала, очереди на входе и потоковая верификация билетов</text>
     
     <!-- 4 KPI Cards -->
-    <g transform="translate(0, 45)">
+    <g transform="translate(0, 58)">
       <!-- KPI 1 -->
-      <rect x="0" y="0" width="265" height="95" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
-      <text x="20" y="28" fill="#64748b" font-size="12">ВСЕГО РЕГИСТРАЦИЙ</text>
-      <text x="20" y="62" fill="#0f172a" font-size="26" font-weight="800">100 / 100</text>
-      <text x="20" y="82" fill="#059669" font-size="11">✓ Hard Cap заполнен на 100%</text>
+      <g transform="translate(0, 0)">
+        <rect width="265" height="112" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+        <text x="18" y="26" fill="#64748b" font-size="11" font-weight="700">РЕГИСТРАЦИИ</text>
+        <rect x="180" y="12" width="67" height="18" rx="9" fill="#f1f5f9" stroke="#cbd5e1"/>
+        <text x="213" y="25" fill="#475569" font-size="9" font-weight="700" text-anchor="middle">100% CAP</text>
+        <text x="18" y="60" fill="#0f172a" font-size="26" font-weight="800">100 / 100</text>
+        <rect x="18" y="74" width="229" height="6" rx="3" fill="#e2e8f0"/>
+        <rect x="18" y="74" width="229" height="6" rx="3" fill="#0284c7"/>
+        <text x="18" y="98" fill="#059669" font-size="11" font-weight="600">✓ Hard Cap заполнен на 100%</text>
+      </g>
 
       <!-- KPI 2 -->
-      <rect x="285" y="0" width="265" height="95" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
-      <text x="20" y="28" fill="#64748b" font-size="12">ПРОШЛИ ЧЕКИН НА ВХОДЕ</text>
-      <text x="20" y="62" fill="#22c55e" font-size="26" font-weight="800">88 чел. (88%)</text>
-      <text x="20" y="82" fill="#64748b" font-size="11">Осталось подойти: 12 чел.</text>
+      <g transform="translate(285, 0)">
+        <rect width="265" height="112" rx="10" fill="#ffffff" stroke="#a7f3d0" stroke-width="1.5"/>
+        <text x="18" y="26" fill="#059669" font-size="11" font-weight="700">ПРОШЛИ ЧЕКИН</text>
+        <rect x="180" y="12" width="67" height="18" rx="9" fill="#ecfdf5" stroke="#a7f3d0"/>
+        <text x="213" y="25" fill="#059669" font-size="9" font-weight="700" text-anchor="middle">88% ЯВКА</text>
+        <text x="18" y="60" fill="#059669" font-size="26" font-weight="800">88 чел. (88%)</text>
+        <rect x="18" y="74" width="229" height="6" rx="3" fill="#e2e8f0"/>
+        <rect x="18" y="74" width="201" height="6" rx="3" fill="#10b981"/>
+        <text x="18" y="98" fill="#64748b" font-size="11">Осталось подойти: 12 чел.</text>
+      </g>
 
       <!-- KPI 3 -->
-      <rect x="570" y="0" width="265" height="95" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
-      <text x="20" y="28" fill="#64748b" font-size="12">ЛИСТ ОЖИДАНИЯ (WAITLIST)</text>
-      <text x="20" y="62" fill="#f59e0b" font-size="26" font-weight="800">14 чел.</text>
-      <text x="20" y="82" fill="#d97706" font-size="11">Авто-перевод при неявке</text>
+      <g transform="translate(570, 0)">
+        <rect width="265" height="112" rx="10" fill="#ffffff" stroke="#fde68a" stroke-width="1.5"/>
+        <text x="18" y="26" fill="#d97706" font-size="11" font-weight="700">ЛИСТ ОЖИДАНИЯ</text>
+        <rect x="175" y="12" width="72" height="18" rx="9" fill="#fef3c7" stroke="#fde68a"/>
+        <text x="211" y="25" fill="#d97706" font-size="9" font-weight="700" text-anchor="middle">WAITLIST</text>
+        <text x="18" y="60" fill="#d97706" font-size="26" font-weight="800">14 чел.</text>
+        <rect x="18" y="74" width="229" height="6" rx="3" fill="#e2e8f0"/>
+        <rect x="18" y="74" width="32" height="6" rx="3" fill="#f59e0b"/>
+        <text x="18" y="98" fill="#d97706" font-size="11">Авто-перевод при неявке: ВКЛ</text>
+      </g>
 
       <!-- KPI 4 -->
-      <rect x="855" y="0" width="265" height="95" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
-      <text x="20" y="28" fill="#64748b" font-size="12">СРЕДНЯЯ СКОРОСТЬ ВХОДА</text>
-      <text x="20" y="62" fill="#3b82f6" font-size="26" font-weight="800">1.1 сек / чел</text>
-      <text x="20" y="82" fill="#059669" font-size="11">2 активных сканера волонтеров</text>
+      <g transform="translate(855, 0)">
+        <rect width="265" height="112" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+        <text x="18" y="26" fill="#2563eb" font-size="11" font-weight="700">ТЕМП ВХОДА</text>
+        <rect x="180" y="12" width="67" height="18" rx="9" fill="#eff6ff" stroke="#bfdbfe"/>
+        <text x="213" y="25" fill="#2563eb" font-size="9" font-weight="700" text-anchor="middle">2 СКАНЕРА</text>
+        <text x="18" y="60" fill="#2563eb" font-size="26" font-weight="800">1.1 сек / чел</text>
+        <rect x="18" y="74" width="229" height="6" rx="3" fill="#e2e8f0"/>
+        <rect x="18" y="74" width="210" height="6" rx="3" fill="#3b82f6"/>
+        <text x="18" y="98" fill="#059669" font-size="11">✓ Очереди нет (0 мин ожидания)</text>
+      </g>
     </g>
 
     <!-- Main Table & Live Stream -->
-    <g transform="translate(0, 165)">
-      <rect width="1120" height="580" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <g transform="translate(0, 192)">
+      <rect width="1120" height="540" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
       
       <!-- Table Header Bar -->
-      <text x="25" y="36" fill="#0f172a" font-size="16" font-weight="bold">Поток верификации участников (Live Check-In Feed)</text>
-      <rect x="800" y="16" width="150" height="32" rx="6" fill="#f8fafc" stroke="#cbd5e1"/>
-      <text x="875" y="37" fill="#475569" font-size="12" text-anchor="middle">🔍 Поиск по ФИО</text>
-      <rect x="965" y="16" width="130" height="32" rx="6" fill="#0f172a"/>
-      <text x="1030" y="37" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">Экспорт CSV</text>
+      <text x="25" y="34" fill="#0f172a" font-size="16" font-weight="bold">Поток верификации участников (Live Check-In Feed)</text>
+      <rect x="740" y="14" width="200" height="32" rx="6" fill="#f8fafc" stroke="#cbd5e1"/>
+      <text x="840" y="34" fill="#64748b" font-size="12" text-anchor="middle">🔍 Поиск по ФИО...</text>
+      <rect x="955" y="14" width="140" height="32" rx="6" fill="#0f172a"/>
+      <text x="1025" y="34" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">📥 Экспорт CSV</text>
 
-      <line x1="0" y1="65" x2="1120" y2="65" stroke="#cbd5e1"/>
+      <line x1="0" y1="60" x2="1120" y2="60" stroke="#cbd5e1"/>
 
       <!-- Table Headings -->
-      <text x="30" y="90" fill="#64748b" font-size="12" font-weight="bold">ВРЕМЯ</text>
-      <text x="140" y="90" fill="#64748b" font-size="12" font-weight="bold">ФИО УЧАСТНИКА</text>
-      <text x="360" y="90" fill="#64748b" font-size="12" font-weight="bold">КУРС / ГРУППА</text>
-      <text x="540" y="90" fill="#64748b" font-size="12" font-weight="bold">ТИП БИЛЕТА</text>
-      <text x="720" y="90" fill="#64748b" font-size="12" font-weight="bold">ВОЛОНТЕР / ТОЧКА</text>
-      <text x="940" y="90" fill="#64748b" font-size="12" font-weight="bold">СТАТУС</text>
+      <text x="25" y="84" fill="#64748b" font-size="11" font-weight="bold">ВРЕМЯ</text>
+      <text x="125" y="84" fill="#64748b" font-size="11" font-weight="bold">ФИО УЧАСТНИКА</text>
+      <text x="380" y="84" fill="#64748b" font-size="11" font-weight="bold">КУРС / ГРУППА</text>
+      <text x="565" y="84" fill="#64748b" font-size="11" font-weight="bold">ТИП БИЛЕТА</text>
+      <text x="735" y="84" fill="#64748b" font-size="11" font-weight="bold">ВОЛОНТЕР / ТОЧКА</text>
+      <text x="925" y="84" fill="#64748b" font-size="11" font-weight="bold">СТАТУС</text>
 
       <!-- Row 1 -->
-      <line x1="0" y1="105" x2="1120" y2="105" stroke="#f1f5f9"/>
-      <text x="30" y="130" fill="#334155" font-size="13">16:48:12</text>
-      <text x="140" y="130" fill="#0f172a" font-size="13" font-weight="bold">Ковалёв Артём Игоревич</text>
-      <text x="360" y="130" fill="#475569" font-size="13">ФПМИ БГУ, 3 курс</text>
-      <text x="540" y="130" fill="#475569" font-size="13">Слушатель (#88)</text>
-      <text x="720" y="130" fill="#475569" font-size="13">Дарья М. (Сканер №1)</text>
-      <rect x="940" y="115" width="100" height="24" rx="4" fill="#ecfdf5"/>
-      <text x="990" y="131" fill="#059669" font-size="11" font-weight="bold" text-anchor="middle">✓ Подтвержден</text>
+      <line x1="0" y1="98" x2="1120" y2="98" stroke="#f1f5f9"/>
+      <text x="25" y="124" fill="#334155" font-size="13">16:48:12</text>
+      <text x="125" y="124" fill="#0f172a" font-size="13" font-weight="bold">Ковалёв Артём Игоревич</text>
+      <text x="380" y="124" fill="#475569" font-size="13">ФПМИ БГУ, 3 курс</text>
+      <text x="565" y="124" fill="#475569" font-size="13">Слушатель (#88)</text>
+      <text x="735" y="124" fill="#475569" font-size="13">Дарья М. (Сканер №1)</text>
+      <rect x="925" y="109" width="135" height="26" rx="4" fill="#ecfdf5"/>
+      <text x="992" y="126" fill="#059669" font-size="11" font-weight="bold" text-anchor="middle">✓ Подтвержден</text>
 
       <!-- Row 2 -->
-      <line x1="0" y1="150" x2="1120" y2="150" stroke="#f1f5f9"/>
-      <text x="30" y="175" fill="#334155" font-size="13">16:47:58</text>
-      <text x="140" y="175" fill="#0f172a" font-size="13" font-weight="bold">Савицкий Кирилл Павлович</text>
-      <text x="360" y="175" fill="#475569" font-size="13">ФПМИ БГУ, 4 курс</text>
-      <text x="540" y="175" fill="#475569" font-size="13">Капитан хакатона</text>
-      <text x="720" y="175" fill="#475569" font-size="13">Иван К. (Сканер №2)</text>
-      <rect x="940" y="160" width="100" height="24" rx="4" fill="#ecfdf5"/>
-      <text x="990" y="176" fill="#059669" font-size="11" font-weight="bold" text-anchor="middle">✓ Подтвержден</text>
+      <line x1="0" y1="144" x2="1120" y2="144" stroke="#f1f5f9"/>
+      <text x="25" y="170" fill="#334155" font-size="13">16:47:58</text>
+      <text x="125" y="170" fill="#0f172a" font-size="13" font-weight="bold">Савицкий Кирилл Павлович</text>
+      <text x="380" y="170" fill="#475569" font-size="13">ФПМИ БГУ, 4 курс</text>
+      <text x="565" y="170" fill="#475569" font-size="13">Капитан хакатона</text>
+      <text x="735" y="170" fill="#475569" font-size="13">Иван К. (Сканер №2)</text>
+      <rect x="925" y="155" width="135" height="26" rx="4" fill="#ecfdf5"/>
+      <text x="992" y="172" fill="#059669" font-size="11" font-weight="bold" text-anchor="middle">✓ Подтвержден</text>
 
       <!-- Row 3: Duplicate Warning -->
-      <line x1="0" y1="195" x2="1120" y2="195" stroke="#f1f5f9"/>
-      <text x="30" y="220" fill="#ef4444" font-size="13">16:46:40</text>
-      <text x="140" y="220" fill="#ef4444" font-size="13" font-weight="bold">Костылев Влад (Повторный QR)</text>
-      <text x="360" y="220" fill="#475569" font-size="13">Сторонний гость</text>
-      <text x="540" y="220" fill="#475569" font-size="13">Скриншот (#42)</text>
-      <text x="720" y="220" fill="#475569" font-size="13">Дарья М. (Сканер №1)</text>
-      <rect x="940" y="205" width="120" height="24" rx="4" fill="#fef2f2"/>
-      <text x="1000" y="221" fill="#dc2626" font-size="11" font-weight="bold" text-anchor="middle">⚠ Дубликат (16:34)</text>
+      <line x1="0" y1="190" x2="1120" y2="190" stroke="#fef2f2"/>
+      <text x="25" y="216" fill="#dc2626" font-size="13" font-weight="bold">16:46:40</text>
+      <text x="125" y="216" fill="#dc2626" font-size="13" font-weight="bold">Костылев Владислав</text>
+      <text x="380" y="216" fill="#475569" font-size="13">Сторонний гость</text>
+      <text x="565" y="216" fill="#dc2626" font-size="13">Билет #42 (Скриншот)</text>
+      <text x="735" y="216" fill="#475569" font-size="13">Дарья М. (Сканер №1)</text>
+      <rect x="925" y="201" width="155" height="26" rx="4" fill="#fef2f2" stroke="#fecaca"/>
+      <text x="1002" y="218" fill="#dc2626" font-size="11" font-weight="bold" text-anchor="middle">⚠ Дубликат (16:34)</text>
 
       <!-- Row 4 -->
-      <line x1="0" y1="240" x2="1120" y2="240" stroke="#f1f5f9"/>
-      <text x="30" y="265" fill="#334155" font-size="13">16:45:10</text>
-      <text x="140" y="265" fill="#0f172a" font-size="13" font-weight="bold">Громов Виктор Михайлович</text>
-      <text x="360" y="265" fill="#475569" font-size="13">Приглашенный докладчик</text>
-      <text x="540" y="265" fill="#475569" font-size="13">Спикер (VIP pass)</text>
-      <text x="720" y="265" fill="#475569" font-size="13">Максим Р. (Организатор)</text>
-      <rect x="940" y="250" width="100" height="24" rx="4" fill="#ecfdf5"/>
-      <text x="990" y="266" fill="#059669" font-size="11" font-weight="bold" text-anchor="middle">✓ Подтвержден</text>
+      <line x1="0" y1="236" x2="1120" y2="236" stroke="#f1f5f9"/>
+      <text x="25" y="262" fill="#334155" font-size="13">16:45:10</text>
+      <text x="125" y="262" fill="#0f172a" font-size="13" font-weight="bold">Громов Виктор Михайлович</text>
+      <text x="380" y="262" fill="#475569" font-size="13">Lead Backend Arch</text>
+      <text x="565" y="262" fill="#0284c7" font-size="13" font-weight="bold">Спикер (VIP pass)</text>
+      <text x="735" y="262" fill="#475569" font-size="13">Максим Р. (Организатор)</text>
+      <rect x="925" y="247" width="135" height="26" rx="4" fill="#ecfdf5"/>
+      <text x="992" y="264" fill="#059669" font-size="11" font-weight="bold" text-anchor="middle">✓ Подтвержден</text>
+
+      <!-- Row 5 -->
+      <line x1="0" y1="282" x2="1120" y2="282" stroke="#f1f5f9"/>
+      <text x="25" y="308" fill="#334155" font-size="13">16:44:22</text>
+      <text x="125" y="308" fill="#0f172a" font-size="13" font-weight="bold">Новикова Анна Сергеевна</text>
+      <text x="380" y="308" fill="#475569" font-size="13">ФПМИ БГУ, 2 курс</text>
+      <text x="565" y="308" fill="#475569" font-size="13">Слушатель (#87)</text>
+      <text x="735" y="308" fill="#475569" font-size="13">Иван К. (Сканер №2)</text>
+      <rect x="925" y="293" width="135" height="26" rx="4" fill="#ecfdf5"/>
+      <text x="992" y="310" fill="#059669" font-size="11" font-weight="bold" text-anchor="middle">✓ Подтвержден</text>
+
+      <!-- Row 6 -->
+      <line x1="0" y1="328" x2="1120" y2="328" stroke="#f1f5f9"/>
+      <text x="25" y="354" fill="#334155" font-size="13">16:43:05</text>
+      <text x="125" y="354" fill="#0f172a" font-size="13" font-weight="bold">Романов Дмитрий Олегович</text>
+      <text x="380" y="354" fill="#475569" font-size="13">БГУИР, КСИС, 4 курс</text>
+      <text x="565" y="354" fill="#475569" font-size="13">Участник хакатона</text>
+      <text x="735" y="354" fill="#475569" font-size="13">Дарья М. (Сканер №1)</text>
+      <rect x="925" y="339" width="135" height="26" rx="4" fill="#ecfdf5"/>
+      <text x="992" y="356" fill="#059669" font-size="11" font-weight="bold" text-anchor="middle">✓ Подтвержден</text>
+
+      <!-- Row 7 -->
+      <line x1="0" y1="374" x2="1120" y2="374" stroke="#f1f5f9"/>
+      <text x="25" y="400" fill="#334155" font-size="13">16:41:50</text>
+      <text x="125" y="400" fill="#0f172a" font-size="13" font-weight="bold">Белов Алексей Павлович</text>
+      <text x="380" y="400" fill="#475569" font-size="13">Яндекс / Cloud Team</text>
+      <text x="565" y="400" fill="#0284c7" font-size="13" font-weight="bold">Спикер (VIP pass)</text>
+      <text x="735" y="400" fill="#475569" font-size="13">Максим Р. (Организатор)</text>
+      <rect x="925" y="385" width="135" height="26" rx="4" fill="#ecfdf5"/>
+      <text x="992" y="402" fill="#059669" font-size="11" font-weight="bold" text-anchor="middle">✓ Подтвержден</text>
+
+      <!-- Row 8 -->
+      <line x1="0" y1="420" x2="1120" y2="420" stroke="#f1f5f9"/>
+      <text x="25" y="446" fill="#334155" font-size="13">16:40:15</text>
+      <text x="125" y="446" fill="#0f172a" font-size="13" font-weight="bold">Мельникова Ольга Дмитриевна</text>
+      <text x="380" y="446" fill="#475569" font-size="13">ФПМИ БГУ, 1 курс</text>
+      <text x="565" y="446" fill="#475569" font-size="13">Волонтер гардероба</text>
+      <text x="735" y="446" fill="#475569" font-size="13">Иван К. (Сканер №2)</text>
+      <rect x="925" y="431" width="135" height="26" rx="4" fill="#ecfdf5"/>
+      <text x="992" y="448" fill="#059669" font-size="11" font-weight="bold" text-anchor="middle">✓ Подтвержден</text>
+
+      <!-- Table Footer / Live Summary -->
+      <line x1="0" y1="472" x2="1120" y2="472" stroke="#cbd5e1"/>
+      <circle cx="35" cy="506" r="4.5" fill="#10b981"/>
+      <text x="48" y="510" fill="#64748b" font-size="12">WebSocket активен • 88 чекинов обработано • Синхронизация с БД: 0.1с</text>
+      
+      <rect x="850" y="493" width="75" height="26" rx="4" fill="#f8fafc" stroke="#cbd5e1"/>
+      <text x="887" y="510" fill="#475569" font-size="11" text-anchor="middle">← Назад</text>
+      <text x="965" y="510" fill="#64748b" font-size="11" text-anchor="middle">Стр. 1 из 11</text>
+      <rect x="1005" y="493" width="75" height="26" rx="4" fill="#f8fafc" stroke="#cbd5e1"/>
+      <text x="1042" y="510" fill="#475569" font-size="11" text-anchor="middle">Вперед →</text>
     </g>
   </g>
 </svg>
