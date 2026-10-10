@@ -1554,16 +1554,165 @@ def generate_mockup_mobile_scanner():
     with open("docs/assets/mockups/mockup_mobile_scanner.svg", "w", encoding="utf-8") as f:
         f.write(svg)
 
+
+def generate_wireframe_desktop_search_modal():
+    svg = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="'Inter', -apple-system, sans-serif">
+  <defs>
+    <pattern id="grid_search" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+
+  <!-- Background (Dimmed Catalog) -->
+  <rect width="1440" height="900" fill="#f8fafc"/>
+  <rect width="1440" height="900" fill="url(#grid_search)" opacity="0.6"/>
+  <rect width="1440" height="900" fill="#0f172a" opacity="0.55"/>
+
+  <!-- Centered Search Omnibox Modal Window -->
+  <g transform="translate(270, 70)">
+    <!-- Modal Container -->
+    <rect width="900" height="760" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="drop-shadow(0 20px 30px rgba(0,0,0,0.25))"/>
+
+    <!-- Search Input Header -->
+    <g transform="translate(30, 24)">
+      <rect width="840" height="60" rx="10" fill="#f8fafc" stroke="#3b82f6" stroke-width="2"/>
+      <text x="24" y="38" fill="#3b82f6" font-size="22">🔍</text>
+      <text x="64" y="38" fill="#0f172a" font-size="18" font-weight="600">митап по голангу</text>
+      <line x1="228" y1="20" x2="228" y2="44" stroke="#3b82f6" stroke-width="2"/>
+      
+      <!-- Clear button & Keyboard Hint -->
+      <rect x="730" y="16" width="46" height="28" rx="6" fill="#e2e8f0"/>
+      <text x="753" y="35" fill="#475569" font-size="12" font-weight="bold" text-anchor="middle">⌘K</text>
+      <rect x="784" y="16" width="46" height="28" rx="6" fill="#e2e8f0"/>
+      <text x="807" y="35" fill="#475569" font-size="12" font-weight="bold" text-anchor="middle">ESC</text>
+    </g>
+
+    <!-- Did-You-Mean / Levenshtein Fuzzy Correction Banner -->
+    <g transform="translate(30, 100)">
+      <rect width="840" height="42" rx="8" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+      <text x="20" y="26" fill="#1e40af" font-size="13" font-weight="500">
+        💡 Возможно, вы имели в виду: <tspan font-weight="bold">«Митап по Go / Golang»</tspan> <tspan fill="#3b82f6">(нечеткий поиск Левенштейна, расстояние D = 1)</tspan>
+      </text>
+    </g>
+
+    <!-- Active Facet Filters Row -->
+    <g transform="translate(30, 156)">
+      <text x="0" y="18" fill="#64748b" font-size="11" font-weight="bold" letter-spacing="0.5">АКТИВНЫЕ ФАСЕТЫ:</text>
+      
+      <rect x="130" y="2" width="165" height="26" rx="13" fill="#e0f2fe" stroke="#38bdf8"/>
+      <text x="145" y="19" fill="#0369a1" font-size="11" font-weight="600">Формат: Офлайн-митап ×</text>
+
+      <rect x="305" y="2" width="180" height="26" rx="13" fill="#dcfce7" stroke="#22c55e"/>
+      <text x="320" y="19" fill="#15803d" font-size="11" font-weight="600">Свободные места: Есть ×</text>
+
+      <rect x="495" y="2" width="155" height="26" rx="13" fill="#f1f5f9" stroke="#cbd5e1"/>
+      <text x="510" y="19" fill="#475569" font-size="11">БГУ: Главный корпус ×</text>
+
+      <text x="665" y="19" fill="#3b82f6" font-size="12" font-weight="600">+ Фильтры</text>
+    </g>
+
+    <line x1="30" y1="196" x2="870" y2="196" stroke="#e2e8f0" stroke-width="1"/>
+
+    <!-- Results Section 1: Events (2 matches) -->
+    <g transform="translate(30, 210)">
+      <text x="0" y="16" fill="#475569" font-size="12" font-weight="bold" letter-spacing="0.5">МЕРОПРИЯТИЯ (2 НАЙДЕНО)</text>
+
+      <!-- Result Card 1 -->
+      <g transform="translate(0, 30)">
+        <rect width="840" height="78" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+        <rect x="14" y="14" width="75" height="50" rx="6" fill="#0f172a"/>
+        <text x="51" y="44" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">GO</text>
+
+        <text x="105" y="30" fill="#0f172a" font-size="15" font-weight="700">CampusMeet #5: Distributed Systems &amp; Highload на <tspan fill="#2563eb" text-decoration="underline">Go</tspan></text>
+        <text x="105" y="52" fill="#64748b" font-size="12">📅 18 ноября 2026, 18:30 • 📍 Главный корпус БГУ, ауд. 512 • Докладчик: Виктор Громов</text>
+
+        <!-- Availability Badge -->
+        <rect x="680" y="24" width="140" height="30" rx="6" fill="#dcfce7"/>
+        <text x="750" y="44" fill="#15803d" font-size="12" font-weight="bold" text-anchor="middle">Осталось 14 мест</text>
+      </g>
+
+      <!-- Result Card 2 -->
+      <g transform="translate(0, 118)">
+        <rect width="840" height="78" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+        <rect x="14" y="14" width="75" height="50" rx="6" fill="#334155"/>
+        <text x="51" y="44" fill="#a7f3d0" font-size="11" font-weight="bold" text-anchor="middle">WS</text>
+
+        <text x="105" y="30" fill="#0f172a" font-size="15" font-weight="700">Воркшоп: Паттерны многопоточности и каналы в <tspan fill="#2563eb" text-decoration="underline">Golang</tspan></text>
+        <text x="105" y="52" fill="#64748b" font-size="12">📅 25 ноября 2026, 17:00 • 📍 ФПМИ БГУ, ауд. 314 • Практикум с ноутбуками</text>
+
+        <!-- Waitlist Badge -->
+        <rect x="680" y="24" width="140" height="30" rx="6" fill="#fef3c7"/>
+        <text x="750" y="44" fill="#b45309" font-size="12" font-weight="bold" text-anchor="middle">Лист ожидания (3)</text>
+      </g>
+    </g>
+
+    <!-- Results Section 2: Speakers (1 match) -->
+    <g transform="translate(30, 436)">
+      <text x="0" y="16" fill="#475569" font-size="12" font-weight="bold" letter-spacing="0.5">ДОКЛАДЧИКИ И ЭКСПЕРТЫ (1 НАЙДЕН)</text>
+      
+      <g transform="translate(0, 30)">
+        <rect width="840" height="66" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+        <circle cx="45" cy="33" r="22" fill="#e2e8f0"/>
+        <text x="45" y="38" fill="#475569" font-size="13" font-weight="bold" text-anchor="middle">ВГ</text>
+
+        <text x="85" y="28" fill="#0f172a" font-size="14" font-weight="700">Виктор Громов</text>
+        <text x="85" y="48" fill="#64748b" font-size="12">Lead Backend Architect • Доклад: «Raft Consensus и репликация на <tspan fill="#2563eb">Go</tspan>»</text>
+
+        <rect x="710" y="18" width="110" height="30" rx="6" fill="#f1f5f9"/>
+        <text x="765" y="38" fill="#334155" font-size="11" font-weight="600" text-anchor="middle">Профиль спикера</text>
+      </g>
+    </g>
+
+    <!-- Results Section 3: Tags & Topics -->
+    <g transform="translate(30, 560)">
+      <text x="0" y="16" fill="#475569" font-size="12" font-weight="bold" letter-spacing="0.5">ТЕМАТИЧЕСКИЕ ТЕГИ</text>
+      <g transform="translate(0, 28)">
+        <rect x="0" y="0" width="85" height="28" rx="14" fill="#eff6ff" stroke="#bfdbfe"/>
+        <text x="42" y="18" fill="#1d4ed8" font-size="12" font-weight="600" text-anchor="middle">#Golang</text>
+
+        <rect x="95" y="0" width="130" height="28" rx="14" fill="#f1f5f9" stroke="#cbd5e1"/>
+        <text x="160" y="18" fill="#334155" font-size="12" text-anchor="middle">#DistributedSystems</text>
+
+        <rect x="235" y="0" width="95" height="28" rx="14" fill="#f1f5f9" stroke="#cbd5e1"/>
+        <text x="282" y="18" fill="#334155" font-size="12" text-anchor="middle">#Highload</text>
+
+        <rect x="340" y="0" width="115" height="28" rx="14" fill="#f1f5f9" stroke="#cbd5e1"/>
+        <text x="397" y="18" fill="#334155" font-size="12" text-anchor="middle">#Concurrency</text>
+
+        <rect x="465" y="0" width="120" height="28" rx="14" fill="#f1f5f9" stroke="#cbd5e1"/>
+        <text x="525" y="18" fill="#334155" font-size="12" text-anchor="middle">#Microservices</text>
+      </g>
+    </g>
+
+    <!-- Modal Footer with Keyboard Shortcuts -->
+    <g transform="translate(30, 680)">
+      <line x1="0" y1="0" x2="840" y2="0" stroke="#e2e8f0" stroke-width="1"/>
+      <text x="0" y="28" fill="#64748b" font-size="12">
+        <tspan font-weight="bold" fill="#0f172a">[↑ / ↓]</tspan> Навигация • 
+        <tspan font-weight="bold" fill="#0f172a">[↵ Enter]</tspan> Перейти • 
+        <tspan font-weight="bold" fill="#0f172a">[ESC]</tspan> Закрыть • 
+        <tspan font-weight="bold" fill="#0f172a">[⌘+F]</tspan> Расширенный поиск
+      </text>
+      <text x="840" y="28" fill="#94a3b8" font-size="11" text-anchor="end">Интеллектуальный Omnibox CampusMeet (Fuzzy &amp; Facet Search)</text>
+    </g>
+  </g>
+</svg>'''
+    with open("docs/assets/wireframes/wireframe_desktop_search_modal.svg", "w", encoding="utf-8") as f:
+        f.write(svg)
+
+
 if __name__ == "__main__":
     generate_wireframe_desktop_catalog()
     generate_wireframe_desktop_event_details()
     generate_wireframe_mobile_ticket()
     generate_wireframe_mobile_scanner()
     generate_wireframe_desktop_dashboard()
+    generate_wireframe_desktop_search_modal()
     generate_mockup_desktop_catalog()
     generate_mockup_desktop_event_details()
     generate_mockup_desktop_dashboard()
     generate_mockup_mobile_catalog()
     generate_mockup_mobile_ticket()
     generate_mockup_mobile_scanner()
-    print("Successfully generated all 11 SVG wireframe and mockup assets!")
+    print("Successfully generated all 12 SVG wireframe and mockup assets!")
+

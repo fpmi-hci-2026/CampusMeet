@@ -36,7 +36,7 @@ docs/
 ├── index.html                   # Интерактивный SPA-портал документации GitHub Pages
 ├── reports/                     # Академические отчеты по лабораторным работам
 │   ├── Lab1_report.md           # Итоговый отчет по Лабораторной работе №1 (16 разделов)
-│   └── Lab2_report.md           # Комплексный отчет по Лабораторной работе №2 (1375 строк, ИА, CJM, макеты)
+│   └── Lab2_report.md           # Комплексный отчет по Лабораторной работе №2 (1466 строк, ИА, CJM 7 персонажей, 7 раскадровок)
 ├── survey/                      # Первичные данные и аналитика исследования пользователей (N=68)
 │   ├── CampusMeet-Ответы_на_форму.csv  # Исходный CSV-датасет Google Forms
 │   ├── survey_analysis.md       # Детальный аналитический отчет по социологическому опросу
@@ -44,9 +44,10 @@ docs/
 └── assets/                      # Графические материалы и иллюстрации
     ├── personas/                # Фотографии и аватары всех 7 синтезированных персонажей
     │   ├── artem.jpg, daria.jpg, maxim.jpg, kirill.jpg, viktor.jpg, sergey.jpg, vlad.jpg
-    ├── wireframes/              # 5 векторных структурных схем низкой точности (Wireframes SVG)
-    │   ├── wireframe_desktop_catalog.svg, wireframe_desktop_event_details.svg
-    │   ├── wireframe_desktop_dashboard.svg, wireframe_mobile_ticket.svg, wireframe_mobile_scanner.svg
+    ├── wireframes/              # 6 векторных структурных схем низкой точности (Wireframes SVG)
+    │   ├── wireframe_desktop_search_modal.svg (Omnibox ⌘K), wireframe_desktop_catalog.svg
+    │   ├── wireframe_desktop_event_details.svg, wireframe_desktop_dashboard.svg
+    │   ├── wireframe_mobile_ticket.svg, wireframe_mobile_scanner.svg
     └── mockups/                 # 6 цветных дизайн-макетов высокого уровня детализации (UI Mockups SVG)
         ├── mockup_desktop_catalog.svg, mockup_desktop_event_details.svg, mockup_desktop_dashboard.svg
         ├── mockup_mobile_catalog.svg, mockup_mobile_ticket.svg, mockup_mobile_scanner.svg

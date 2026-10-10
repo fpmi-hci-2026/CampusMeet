@@ -1,242 +1,76 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Update docs/index.html to include comprehensive interactive sections for Laboratory Work No. 2
+Update docs/index.html to include:
+1. 12 screens counter and all 7 personas indicators
+2. Dedicated search wireframe in navigation/search tab & mockups tab
+3. Complete 7 personas in Impact Map & CJM table & CJM detailed cards
+4. Complete 7 personas in Storyboards & VS-01..07 Edge Cases
+5. Resilient offline JS (typeof mermaid !== 'undefined') & hash-based routing
 """
 
 with open("docs/index.html", "r", encoding="utf-8") as f:
     html = f.read()
 
-# 1. Update sidebar
-lab2_nav = '''
-        <div class="nav-section-title">Лабораторная работа №2</div>
-        <ul class="nav-menu">
-            <li class="nav-item">
-                <a href="#lab2-overview" class="nav-link" onclick="switchTab('lab2-overview', this)">
-                    Лаб. №2: Обзор и концепция
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#lab2-ia" class="nav-link" onclick="switchTab('lab2-ia', this)">
-                    Инфо-архитектура и Sitemap
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#lab2-nav-search" class="nav-link" onclick="switchTab('lab2-nav-search', this)">
-                    Системы навигации и поиска
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#lab2-cjm-impact" class="nav-link" onclick="switchTab('lab2-cjm-impact', this)">
-                    Impact Map и CJM пути
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#lab2-storyboards" class="nav-link" onclick="switchTab('lab2-storyboards', this)">
-                    Раскадровки и Edge Cases
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#lab2-mockups" class="nav-link" onclick="switchTab('lab2-mockups', this)">
-                    Вайрфреймы и UI Макеты
-                </a>
-            </li>
-        </ul>
+# 1. Update stats in #lab2-overview
+html = html.replace(
+    '<div class="stat-value" style="color: #818cf8;">11 экранов</div>\n                        <div class="stat-label">Векторных Wireframes & UI Mockups</div>',
+    '<div class="stat-value" style="color: #818cf8;">12 экранов</div>\n                        <div class="stat-label">Векторных Wireframes & UI Mockups (6 + 6)</div>'
+)
+html = html.replace(
+    '<div class="stat-value" style="color: var(--warning);">7 персонажей</div>\n                        <div class="stat-label">Навигационные модели & Storyboards</div>',
+    '<div class="stat-value" style="color: var(--warning);">7 персонажей</div>\n                        <div class="stat-label">Навигационные модели, CJM & Storyboards</div>'
+)
+html = html.replace(
+    'Lab2_report.md (1375 строк)',
+    'Lab2_report.md (1466 строк)'
+)
+
+# 2. Update #lab2-nav-search with Search Modal Wireframe
+search_wireframe_html = '''
+                <div class="profile-card" style="margin-top: 24px;">
+                    <h3>Вайрфрейм модального окна сквозного поиска Omnibox (⌘K / Ctrl+K)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">
+                        Векторный каркас интерфейса быстрого поиска и фасетной фильтрации: поисковая строка с автодополнением и нечетким поиском ($D \\le 2$), чипы активных фильтров, мгновенная выдача с категоризацией (События, Спикеры, Теги), подсказки навигации по стрелкам клавиатуры.
+                    </p>
+                    <img src="./assets/wireframes/wireframe_desktop_search_modal.svg" alt="Wireframe Desktop Search Modal" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #0b1120; margin-top: 8px;"/>
+                </div>
 '''
 
-# Find insertion point in sidebar: right after the first <ul class="nav-menu">...</ul> of Lab 1
-target_sidebar_str = '            <li class="nav-item">\n                <a href="#as-is-processes" class="nav-link" onclick="switchTab(\'as-is-processes\', this)">\n                    Процессы As-Is\n                </a>\n            </li>\n        </ul>'
-if target_sidebar_str in html:
-    html = html.replace(target_sidebar_str, target_sidebar_str + lab2_nav)
-else:
-    print("Warning: target_sidebar_str not found!")
+if '<h3>Полнотекстовый и нечеткий поиск (Fuzzy Search)</h3>' in html and 'wireframe_desktop_search_modal.svg' not in html:
+    html = html.replace(
+        '            </section>\n\n            <!-- TAB: Lab 2 CJM & Impact Map -->',
+        search_wireframe_html + '            </section>\n\n            <!-- TAB: Lab 2 CJM & Impact Map -->'
+    )
 
-# Update external links in sidebar to include Lab 2 report
-ext_target = '<a href="./reports/Lab1_report.md" class="nav-link" target="_blank">\n                    Открыть сырой Markdown\n                </a>'
-new_ext = '<a href="./reports/Lab2_report.md" class="nav-link" target="_blank" style="color: #38bdf8; font-weight: bold;">\n                    📄 Отчет Лаб. №2 (Markdown)\n                </a>\n            </li>\n            <li class="nav-item">\n                <a href="./reports/Lab1_report.md" class="nav-link" target="_blank">\n                    📄 Отчет Лаб. №1 (Markdown)\n                </a>'
-if ext_target in html:
-    html = html.replace(ext_target, new_ext)
+# 3. Update #lab2-cjm-impact with all 7 actors and all 7 personas CJM
+new_impact_mermaid = '''flowchart TD
+    Goal["ЦЕЛЬ ПЛАТФОРМЫ:<br/>Чекин &lt;1.5 сек, No-Show &lt;15%, 100% Offline-Safe"]
+    Goal --> A1["1. Слушатели (Артём)"]
+    Goal --> A2["2. Волонтеры (Дарья)"]
+    Goal --> A3["3. Организаторы (Максим)"]
+    Goal --> A4["4. Капитаны хакатонов (Кирилл)"]
+    Goal --> A5["5. Спикеры (Виктор)"]
+    Goal --> A6["6. Заказчик деканат (Сергей Николаевич)"]
+    Goal --> A7["7. Анти-персонаж (Влад)"]
 
-# 2. Add Tab panes before </main>
-lab2_sections = '''
-            <!-- TAB: Lab 2 Overview -->
-            <section id="lab2-overview" class="tab-pane">
-                <div class="hero-card" style="border-left: 4px solid var(--accent);">
-                    <span class="brand-badge">Лабораторная работа №2</span>
-                    <h1>Проектирование информационной архитектуры и взаимодействия с пользователем</h1>
-                    <p>Концептуальное проектирование кроссплатформенной экосистемы CampusMeet / EventHub: дуальная модель Web & Mobile, структуры систем организации, именования, навигации и поиска, эмпирическая карточная сортировка OptimalSort, карты путей клиентов (CJM) и Impact Mapping.</p>
-                    <div style="display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap;">
-                        <a href="./reports/Lab2_report.md" class="btn btn-primary" target="_blank">📄 Открыть полный отчет Lab2_report.md (1375 строк)</a>
-                        <button class="btn btn-secondary" onclick="switchTab('lab2-mockups', document.querySelector('a[href=\\'#lab2-mockups\\']'))">🎨 Перейти к дизайн-макетам</button>
-                    </div>
-                </div>
+    A1 --> I1["Регистрация в 1 тап и офлайн-билет"]
+    A2 --> I2["Потоковое сканирование &lt;500 мс"]
+    A3 --> I3["Контроль квот и экстренный Push"]
+    A4 --> I4["Мгновенный добор людей по стеку"]
+    A5 --> I5["Подача CFP и контроль сценического тайминга"]
+    A6 --> I6["Аудит пожарной безопасности и CSV-отчет"]
+    A7 --> I7["Пресечение фрода и захвата мест"]
 
-                <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 24px;">
-                    <div class="stat-card">
-                        <div class="stat-value" style="color: var(--accent);">4 уровня</div>
-                        <div class="stat-label">Глубина карты сайта (Sitemap)</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value" style="color: var(--success);">N = 15</div>
-                        <div class="stat-label">Респондентов OptimalSort</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value" style="color: var(--warning);">7 персонажей</div>
-                        <div class="stat-label">Навигационные модели & Storyboards</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value" style="color: #818cf8;">11 экранов</div>
-                        <div class="stat-label">Векторных Wireframes & UI Mockups</div>
-                    </div>
-                </div>
+    I1 --> D1["Крипто-билет HMAC-SHA256 + Apple Wallet"]
+    I2 --> D2["Оптический сканер с тактильным HUD"]
+    I3 --> D3["D&D конструктор сетки + Broadcast шлюз"]
+    I4 --> D4["Биржа команд с фильтром компетенций"]
+    I5 --> D5["Личный кабинет докладчика + Live-таймер"]
+    I6 --> D6["Модуль экспорта ведомостей посещаемости"]
+    I7 --> D7["Hard Cap квота + Блокировка дубликатов токена"]'''
 
-                <h2>Ключевые концептуальные решения Лабораторной работы №2</h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 16px;">
-                    <div class="profile-card">
-                        <h3>1. Разделение типов интерфейса (Купер)</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">
-                            <strong>Монопольный интерфейс:</strong> Десктопный Web-кабинет организатора для длительных рабочих сессий (30–90 мин), высокой информационной плотности и верстки таймлайна.<br/><br/>
-                            <strong>Временный интерфейс:</strong> Мобильный экран электронного билета и сканер волонтера (внимание на 5–15 секунд, эргономика Thumb Zone).
-                        </p>
-                    </div>
-                    <div class="profile-card">
-                        <h3>2. Отказоустойчивость Zero-Latency Offline</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">
-                            Локальное шифрованное хранение билета (SecureStore / Keystore), криптографическая подпись HMAC-SHA256 с ротацией токена каждые 60с для защиты от скриншотов, авто-яркость 100% при открытии билета.
-                        </p>
-                    </div>
-                    <div class="profile-card">
-                        <h3>3. Управление квотами и лист ожидания</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">
-                            Жесткий лимит вместимости (Hard Cap), обязательное подтверждение явки за 24 часа и автоматическая передача освободившихся мест кандидатам из листа ожидания (Waitlist auto-promotion).
-                        </p>
-                    </div>
-                </div>
-
-                <h2>Сводная диаграмма путей экосистемы CampusMeet</h2>
-                <div class="mermaid">
-flowchart LR
-    Start([Точка входа: Web / Mobile]) --> Landing[Афиша событий]
-    Landing --> Details[Детальная страница митапа]
-    Details --> CapCheck{Места есть?}
-    CapCheck -->|Да| TicketVault[(Локальный SecureStore)]
-    CapCheck -->|Лимит исчерпан| Waitlist[Лист ожидания]
-    TicketVault --> OfflinePass[Офлайн QR-билет]
-    OfflinePass --> ScanCheckin[Оптический сканер волонтера: &lt;500мс]
-    ScanCheckin --> SuccessAdmission[Вход: Зеленый HUD]
-    SuccessAdmission --> TrackStream[Интерактивная программа]
-    ScanCheckin --> LiveAudit[(Live-лента чекина организатора)]
-                </div>
-            </section>
-
-            <!-- TAB: Lab 2 IA & Sitemap -->
-            <section id="lab2-ia" class="tab-pane">
-                <h1>Информационная архитектура и Карта сайта (Sitemap)</h1>
-                <p>Разработка структуры данных, классификации контента и иерархического чертежа сайта с глубиной вложенности более 3 уровней.</p>
-
-                <h2>Иерархическая карта сайта (Sitemap)</h2>
-                <div class="mermaid">
-graph TD
-    Root["Главная страница (CampusMeet Portal)"]
-    Root --> Events["1.0. Каталог событий (Афиша)"]
-    Root --> Hackathons["2.0. Хакатоны и контесты"]
-    Root --> Teams["3.0. Биржа команд (Team Match)"]
-    Root --> MyTickets["4.0. Личный кабинет участника"]
-    Root --> Organizer["5.0. Кабинет организатора"]
-
-    Events --> EventPage["1.1. Страница события (:slug)"]
-    EventPage --> EventReg["1.1.1. Регистрация в 1 клик"]
-    EventPage --> EventSchedule["1.1.2. Программа докладов"]
-    EventPage --> EventSpeakers["1.1.3. Список спикеров"]
-    EventPage --> EventVenue["1.1.4. Схема проезда (OSM)"]
-
-    EventSchedule --> TrackSlot["1.1.2.1. Детали доклада и тезисы"]
-    EventVenue --> FloorMap["1.1.4.1. План этажа аудитории 512"]
-
-    Teams --> TeamCard["3.1. Карточка команды (:team_id)"]
-    TeamCard --> ApplyRole["3.1.1. Отклик на вакансию"]
-
-    MyTickets --> TicketPass["4.1. Электронный билет (:ticket_id)"]
-    TicketPass --> AppleWallet["4.1.1. Apple Wallet (.pkpass)"]
-
-    Organizer --> OrgEvent["5.1. Управление митапом (:id)"]
-    OrgEvent --> OrgBuilder["5.1.1. Конструктор таймлайна D&D"]
-    OrgEvent --> OrgCheckin["5.1.2. Live-мониторинг чекина"]
-    OrgEvent --> OrgBroadcast["5.1.3. Экстренный Push"]
-                </div>
-
-                <h2>Инвентаризация и аудит контента</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Единица контента</th>
-                            <th>Тип данных</th>
-                            <th>Объем</th>
-                            <th>Владелец</th>
-                            <th>Частота обновления</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td><strong>CNT-01</strong></td><td>Карточка анонса митапа</td><td>Текст + Баннер 16:9 + Теги</td><td>500–1000 Б</td><td>Организатор</td><td>1–3 раза в неделю</td></tr>
-                        <tr><td><strong>CNT-02</strong></td><td>Программа докладов (Таймлайн)</td><td>Иерархический список слотов</td><td>2–5 КБ</td><td>Модератор</td><td>До начала события</td></tr>
-                        <tr><td><strong>CNT-03</strong></td><td>Электронный билет</td><td>QR-код + HMAC-SHA256 токен</td><td>256 Б</td><td>Ядро системы</td><td>Ротация каждые 60с</td></tr>
-                        <tr><td><strong>CNT-06</strong></td><td>Профиль команды хакатона</td><td>Стек + Список вакансий ролей</td><td>1–2 КБ</td><td>Капитан</td><td>По мере комплектования</td></tr>
-                        <tr><td><strong>CNT-07</strong></td><td>Интерактивная карта проезда</td><td>Векторные тайлы OSM + Геомаркер</td><td>50–200 КБ</td><td>Nominatim API</td><td>Привязана к залу</td></tr>
-                        <tr><td><strong>CNT-08</strong></td><td>Лог входа (Check-in feed)</td><td>Транзакционная запись</td><td>128 Б</td><td>Сканер волонтера</td><td>Real-time потоковое</td></tr>
-                        <tr><td><strong>CNT-09</strong></td><td>Экстренное оповещение</td><td>Высокоприоритетный Push-алерт</td><td>100–300 Б</td><td>Организатор</td><td>По факту форс-мажора</td></tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <!-- TAB: Lab 2 Navigation & Search -->
-            <section id="lab2-nav-search" class="tab-pane">
-                <h1>Системы навигации и поиска</h1>
-                <p>Эмпирическая открытая карточная сортировка OptimalSort ($N=15$), трехуровневая навигация, граф состояний главного меню и фасетный полнотекстовый поиск.</p>
-
-                <h2>Результаты открытой карточной сортировки OptimalSort (35 карточек, N=15)</h2>
-                <div class="mermaid">
-flowchart LR
-    subgraph Clusters["Сформированные кластеры навигации"]
-        C1["Кластер 1 (Сходство 88%): Афиша и каталог<br/>- Каталог митапов<br/>- Фасетные фильтры<br/>- Поиск событий ⌘K<br/>- Календарь"]
-        C2["Кластер 2 (Сходство 93%): Мой билет<br/>- QR-пропуск офлайн<br/>- Apple Wallet<br/>- Схема прохода в ауд. 512"]
-        C3["Кластер 3 (Сходство 80%): Биржа команд<br/>- Команды хакатона<br/>- Поиск по стеку технологий<br/>- Отклик на вакансию"]
-        C4["Кластер 4 (Сходство 91%): Кабинет организатора<br/>- Конструктор расписания D&D<br/>- Live-чекин поток<br/>- Экстренный Push-алерт<br/>- Экспорт CSV для деканата"]
-    end
-                </div>
-
-                <h2>Граф состояний главного меню (Menu State Graph)</h2>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">Отображает изменение доступности разделов и команд меню в зависимости от роли и контекста экранной формы:</p>
-                <div class="mermaid">
-stateDiagram-v2
-    [*] --> GuestState: Вход на сайт
-    GuestState --> AttendeeState: Авторизация студента
-    AttendeeState --> VolunteerState: Ввод PIN-кода волонтера
-    AttendeeState --> OrganizerState: Открытие созданного митапа
-    GuestState --> DeanState: Вход BSU SSO (@bsu.by)
-    VolunteerState --> AttendeeState: Закрытие смены
-    OrganizerState --> AttendeeState: Возврат в профиль
-    DeanState --> GuestState: Выход
-                </div>
-
-                <h2>Архитектура поисковой системы и фасетов</h2>
-                <div class="profile-card" style="margin-top: 16px;">
-                    <h3>Полнотекстовый и нечеткий поиск (Fuzzy Search)</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">
-                        Поддержка горячих клавиш <code>⌘K</code> / <code>Ctrl+K</code>, автодополнение подсказок с классификацией (События, Спикеры, Теги), обработка опечаток с расстоянием Левенштейна $D \le 2$. Взвешенная формула релевантности:<br/>
-                        <code>Score = 10·Title + 8·Tags + 6·Speakers + 5·Venue + 3·Description</code>.
-                    </p>
-                </div>
-            </section>
-
-            <!-- TAB: Lab 2 CJM & Impact Map -->
-            <section id="lab2-cjm-impact" class="tab-pane">
-                <h1>Карта влияния (Impact Map) и Пути клиентов (CJM)</h1>
-                <p>Декомпозиция целей платформы и подробные карты клиентского пути (Customer Journey Maps) для ключевых персонажей проекта.</p>
-
-                <h2>Карта влияния (Impact Map)</h2>
-                <div class="mermaid">
-flowchart LR
+old_impact_block = '''flowchart LR
     Goal["ЦЕЛЬ:<br/>Чекин &lt;1.5 сек,<br/>No-Show &lt;15%,<br/>100% без сети"]
     Goal --> A1["Слушатели"]
     Goal --> A2["Волонтеры"]
@@ -254,23 +88,11 @@ flowchart LR
     I3 --> D3["Камера-сканер с виброоткликом"]
     I4 --> D4["Детектор дубликатов в real-time"]
     I5 --> D5["Авто-перевод из Waitlist при отмене"]
-    I6 --> D6["Шлюз широковещательного Push"]
-                </div>
+    I6 --> D6["Шлюз широковещательного Push"]'''
 
-                <h2>Сводная матрица этапов CJM ключевых персонажей</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Персонаж</th>
-                            <th>1. Поиск / Подготовка</th>
-                            <th>2. Регистрация</th>
-                            <th>3. Вход на площадку</th>
-                            <th>4. Участие / Деятельность</th>
-                            <th>5. Финал / Отчет</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
+html = html.replace(old_impact_block, new_impact_mermaid)
+
+all_7_cjm_rows = '''                        <tr>
                             <td><strong>Артём Ковалёв</strong><br/>(Слушатель)</td>
                             <td>Находит анонс митапа по тегам GenAI в перерыве между парами</td>
                             <td>Регистрируется в 1 тап; подтверждает бронь за 24ч через Push</td>
@@ -294,171 +116,339 @@ flowchart LR
                             <td>При ремонте проводки жмет «Экстренный Push»: перенос в ауд. 519</td>
                             <td>Экспортирует официальную ведомость с явкой 88% для зам. декана</td>
                         </tr>
-                    </tbody>
-                </table>
-            </section>
+                        <tr>
+                            <td><strong>Кирилл Савицкий</strong><br/>(Капитан хакатона)</td>
+                            <td>Изучает регламент хакатона; видит нехватку ML-инженера</td>
+                            <td>Создает профиль команды на бирже; выставляет вакансию роли</td>
+                            <td>Принимает отклик за 3 часа до дедлайна; команда укомплектована</td>
+                            <td>Команда кодит; капитан получает синхронные алерты чекпоинтов</td>
+                            <td>Загружает ссылку на репозиторий проекта в 1 клик на финальном питче</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Виктор Громов</strong><br/>(Приглашенный спикер)</td>
+                            <td>Получает инвайт от Максима через Telegram; согласовывает тему</td>
+                            <td>Загружает тезисы и слайды в кабинет спикера; проверяет тайминг 30 мин</td>
+                            <td>Приезжает в корпус; персональный бейдж спикера готов без очереди</td>
+                            <td>Выступает с докладом; видит мягкий желтый таймер обратного отсчета</td>
+                            <td>Получает мгновенный фидбек зала (4.9/5.0) и контакты сильных студентов</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Сергей Николаевич Котов</strong><br/>(Зам. декана / Заказчик)</td>
+                            <td>Получает запрос на согласование аудитории 512 на 100 мест</td>
+                            <td>Проверяет лимит вместимости Hard Cap в деканском интерфейсе; ставит визу</td>
+                            <td>Приходит на площадку во время чекина; очередей в коридоре нет</td>
+                            <td>Наблюдает за ходом мероприятия с гостевого планшета</td>
+                            <td>Выгружает верифицированный реестр присутствовавших студентов в 1 клик</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Влад Костылев</strong><br/>(Анти-герой / Мерч-хантер)</td>
+                            <td>Видит анонс бесплатной пиццы; жмет регистрацию на все ивенты подряд</td>
+                            <td>Сталкивается с барьером подтверждения брони за 24 часа</td>
+                            <td>Не подтверждает явку; система отзывает билет и передает кандидату из Waitlist</td>
+                            <td>Пытается пройти по старому скриншоту билета друга; сканер выдает отказ «Фрод»</td>
+                            <td>Остается вне площадки; добросовестные студенты занимают свободные места</td>
+                        </tr>'''
 
-            <!-- TAB: Lab 2 Storyboards & Edge Cases -->
-            <section id="lab2-storyboards" class="tab-pane">
-                <h1>Интерактивные раскадровки и Проверочные сценарии</h1>
-                <p>Моделирование нестандартных и форс-мажорных ситуаций (Verification Scenarios / Edge Cases) для гарантии отказоустойчивости решений.</p>
+old_3_cjm_rows = '''                        <tr>
+                            <td><strong>Артём Ковалёв</strong><br/>(Слушатель)</td>
+                            <td>Находит анонс митапа по тегам GenAI в перерыве между парами</td>
+                            <td>Регистрируется в 1 тап; подтверждает бронь за 24ч через Push</td>
+                            <td>Открывает офлайн-билет в подвале; проходит контроль за 1 секунду</td>
+                            <td>Смотрит персональный таймлайн докладов во 2 ряду</td>
+                            <td>Оценивает доклады на 5 звезд; скачивает слайды презентации</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Дарья Мельникова</strong><br/>(Волонтер)</td>
+                            <td>Получает PIN смены; открывает режим сканера камеры</td>
+                            <td>Тестирует прицел видоискателя и тактильный виброотклик</td>
+                            <td>Сканирует 100 гостей со скоростью 1 чел в 1.1 сек</td>
+                            <td>Пресекает вход по пересланному скриншоту билета</td>
+                            <td>Счетчик 94/100; закрывает смену без утомления и очередей</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Максим Романов</strong><br/>(Организатор)</td>
+                            <td>Создает карточку митапа; валидирует праздники через Nager.Date</td>
+                            <td>Верстает таймлайн в Drag-and-Drop конструкторе; модерирует CFP</td>
+                            <td>Следит за дашбордом входов; Waitlist закрывает неявки</td>
+                            <td>При ремонте проводки жмет «Экстренный Push»: перенос в ауд. 519</td>
+                            <td>Экспортирует официальную ведомость с явкой 88% для зам. декана</td>
+                        </tr>'''
 
-                <h2>Матрица проверочных сценариев отказоустойчивости (Edge Cases)</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Код</th>
-                            <th>Стресс-сценарий</th>
-                            <th>Входные условия</th>
-                            <th>Поведение системы и алгоритм защиты</th>
-                            <th>Результат верификации</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>VS-01</strong></td>
-                            <td><strong>Полный офлайн у гостя</strong></td>
-                            <td>0% сигнала LTE в цокольном этаже</td>
-                            <td>Рендеринг QR из локального защищенного SecureStore</td>
-                            <td>Билет открыт за &lt;200 мс</td>
-                        </tr>
-                        <tr>
-                            <td><strong>VS-02</strong></td>
-                            <td><strong>Повторный проход (Фрод)</strong></td>
-                            <td>Пересылка скриншота троим друзьям</td>
-                            <td>Сканер фиксирует повторный хэш: двойная вибрация, красный экран с временем первого чекина</td>
-                            <td>100% блокировка дубликата</td>
-                        </tr>
-                        <tr>
-                            <td><strong>VS-03</strong></td>
-                            <td><strong>Разбитый экран смартфона</strong></td>
-                            <td>Треснувшее защитное стекло гостя</td>
-                            <td>Волонтер переключается в «Ручной поиск» по фамилии в 1 тап</td>
-                            <td>Гость верифицирован за &lt;5 сек</td>
-                        </tr>
-                        <tr>
-                            <td><strong>VS-04</strong></td>
-                            <td><strong>Овербукинг и лист ожидания</strong></td>
-                            <td>Заняты все 100 мест в зале</td>
-                            <td>101-й ставится в Waitlist; при отказе брони за 24ч место мгновенно передается кандидату</td>
-                            <td>100% заполняемость без давки</td>
-                        </tr>
-                        <tr>
+html = html.replace(old_3_cjm_rows, all_7_cjm_rows)
+
+# Add detailed CJM cards below the table in #lab2-cjm-impact
+detailed_cjm_cards = '''
+                <h2>Детальный анализ путей взаимодействия (CJM Breakdown)</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-top: 16px;">
+                    <div class="profile-card">
+                        <h3>1. Артём Ковалёв (Слушатель)</h3>
+                        <p style="color: var(--text-muted); font-size: 0.85rem;">
+                            <strong>Ключевая цель:</strong> Попасть на полезный доклад и пройти в аудиторию мгновенно.<br/>
+                            <strong>Эмоциональный трек:</strong> Интерес (+1) → Уверенность (+2) → Облегчение (+2) → Вовлечение (+2) → Удовлетворение (+2).<br/>
+                            <strong>Интерфейсное решение:</strong> 1-Tap RSVP, локальный токен билета HMAC-SHA256, авто-яркость 100%, экспорт в Apple Wallet.
+                        </p>
+                    </div>
+                    <div class="profile-card">
+                        <h3>2. Дарья Мельникова (Волонтер)</h3>
+                        <p style="color: var(--text-muted); font-size: 0.85rem;">
+                            <strong>Ключевая цель:</strong> Проверить поток гостей со скоростью &lt;1.5 сек/чел без очередей.<br/>
+                            <strong>Эмоциональный трек:</strong> Тревога (-1) → Спокойствие (+1) → Драйв (+2) → Победа (+2) → Гордость (+2).<br/>
+                            <strong>Интерфейсное решение:</strong> Видоискатель с тактильным HUD, звуковой/виброотклик, мгновенный детектор дубликатов.
+                        </p>
+                    </div>
+                    <div class="profile-card">
+                        <h3>3. Максим Романов (Организатор)</h3>
+                        <p style="color: var(--text-muted); font-size: 0.85rem;">
+                            <strong>Ключевая цель:</strong> Собрать полный зал, удержать тайминг и не допустить давки.<br/>
+                            <strong>Эмоциональный трек:</strong> Напряжение (0) → Контроль (+1) → Стресс (-1) → Облегчение (+2) → Триумф (+2).<br/>
+                            <strong>Интерфейсное решение:</strong> Монопольный веб-кабинет, D&D сетка программы, 1-Click экстренный пуш-шлюз.
+                        </p>
+                    </div>
+                    <div class="profile-card">
+                        <h3>4. Кирилл Савицкий (Капитан хакатона)</h3>
+                        <p style="color: var(--text-muted); font-size: 0.85rem;">
+                            <strong>Ключевая цель:</strong> Быстро закрыть дефицит стека в команде и сдать проект вовремя.<br/>
+                            <strong>Эмоциональный трек:</strong> Беспокойство (-1) → Надежда (+1) → Воодушевление (+2) → Фокус (+2) → Успех (+2).<br/>
+                            <strong>Интерфейсное решение:</strong> Биржа команд с фильтрами по технологиям, командный таймлайн чекпоинтов.
+                        </p>
+                    </div>
+                    <div class="profile-card">
+                        <h3>5. Виктор Громов (Приглашенный спикер)</h3>
+                        <p style="color: var(--text-muted); font-size: 0.85rem;">
+                            <strong>Ключевая цель:</strong> Выступить перед мотивированной аудиторией и уложиться в 30 минут.<br/>
+                            <strong>Эмоциональный трек:</strong> Скепсис (0) → Удобство (+1) → Уверенность (+2) → Энергия (+2) → Удовлетворение (+2).<br/>
+                            <strong>Интерфейсное решение:</strong> Кабинет докладчика, статус готовности слайдов, таймер сцены с предупреждением о 5 минутах.
+                        </p>
+                    </div>
+                    <div class="profile-card">
+                        <h3>6. Сергей Николаевич Котов (Заказчик / Зам. декана)</h3>
+                        <p style="color: var(--text-muted); font-size: 0.85rem;">
+                            <strong>Ключевая цель:</strong> Соблюдение регламентов пожарной безопасности и отчетность по посещаемости.<br/>
+                            <strong>Эмоциональный трек:</strong> Настороженность (0) → Одобрение (+1) → Спокойствие (+2) → Уважение (+2) → Удовлетворение (+2).<br/>
+                            <strong>Интерфейсное решение:</strong> Деканский дашборд аудиторного фонда с Hard Cap лимитами и экспорт CSV ведомостей.
+                        </p>
+                    </div>
+                    <div class="profile-card" style="border-left: 3px solid var(--danger);">
+                        <h3>7. Влад Костылев (Анти-персонаж / Мерч-хантер)</h3>
+                        <p style="color: var(--text-muted); font-size: 0.85rem;">
+                            <strong>Паттерн:</strong> Захват бесплатных мест, No-Show 70%, попытки пройти по чужому скриншоту.<br/>
+                            <strong>Эмоциональный трек:</strong> Азарт (+1) → Раздражение (-1) → Досада (-2) → Стыд (-2) → Уход (0).<br/>
+                            <strong>Барьеры системы:</strong> Обязательное подтверждение брони за 24ч, динамический QR с ротацией каждые 60с, детектор дубликатов.
+                        </p>
+                    </div>
+                </div>
+'''
+
+if 'Детальный анализ путей взаимодействия (CJM Breakdown)' not in html:
+    html = html.replace(
+        '            </section>\n\n            <!-- TAB: Lab 2 Storyboards & Edge Cases -->',
+        detailed_cjm_cards + '            </section>\n\n            <!-- TAB: Lab 2 Storyboards & Edge Cases -->'
+    )
+
+# 4. Update #lab2-storyboards with all 7 personas Storyboards and VS-01..07
+storyboards_cards_html = '''
+                <h2>Интерактивные раскадровки (Storyboards) для каждого из 7 персонажей</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-bottom: 24px;">
+                    <div class="profile-card">
+                        <h4>1. Артём Ковалёв (Слушатель)</h4>
+                        <ol style="font-size: 0.85rem; padding-left: 18px; color: var(--text-muted);">
+                            <li><strong>Кадр 1:</strong> Листает ленту в перерыве между парами, видит анонс «Deep Learning в продакшене».</li>
+                            <li><strong>Кадр 2:</strong> Нажимает «Иду в 1 тап»; билет загружается в локальный защищенный кэш приложения.</li>
+                            <li><strong>Кадр 3:</strong> Спускается в подвал без связи, открывает экран билета; экран автоматически включает 100% яркость.</li>
+                            <li><strong>Кадр 4:</strong> Волонтер подносит сканер — зеленый сигнал за 0.8 сек, турникет открыт, Артём проходит в зал.</li>
+                        </ol>
+                    </div>
+                    <div class="profile-card">
+                        <h4>2. Дарья Мельникова (Волонтер)</h4>
+                        <ol style="font-size: 0.85rem; padding-left: 18px; color: var(--text-muted);">
+                            <li><strong>Кадр 1:</strong> Вводит 4-значный PIN смены организатора, активируется камера мобильного сканера.</li>
+                            <li><strong>Кадр 2:</strong> Направляет прицел видоискателя на QR-код первого подошедшего студента — мягкая тактильная вибрация.</li>
+                            <li><strong>Кадр 3:</strong> Второй гость предъявляет скриншот чужого билета — экран вспыхивает красным HUD «ДУБЛИКАТ».</li>
+                            <li><strong>Кадр 4:</strong> Дарья спокойно отводит нарушителя, счетчик смены показывает 94/100, очередь движется без пауз.</li>
+                        </ol>
+                    </div>
+                    <div class="profile-card">
+                        <h4>3. Максим Романов (Организатор)</h4>
+                        <ol style="font-size: 0.85rem; padding-left: 18px; color: var(--text-muted);">
+                            <li><strong>Кадр 1:</strong> В веб-панели задает лимит зала (100 мест) и перетаскивает мышью тайм-слоты спикеров в Drag-and-Drop сетке.</li>
+                            <li><strong>Кадр 2:</strong> За 30 минут до старта комендант сообщает о закрытии аудитории 512 из-за проводки.</li>
+                            <li><strong>Кадр 3:</strong> Максим нажимает «🚨 Экстренный Push в 1 клик», выбирает «Перенос в ауд. 519» и отправляет оповещение.</li>
+                            <li><strong>Кадр 4:</strong> Все 100 участников мгновенно получают Push со схемой этажа; митап начинается минута в минуту.</li>
+                        </ol>
+                    </div>
+                    <div class="profile-card">
+                        <h4>4. Кирилл Савицкий (Капитан хакатона)</h4>
+                        <ol style="font-size: 0.85rem; padding-left: 18px; color: var(--text-muted);">
+                            <li><strong>Кадр 1:</strong> Заходит в раздел «Биржа команд», видит статус состава: «3/4 участников, нужен Computer Vision разработчик».</li>
+                            <li><strong>Кадр 2:</strong> Размещает карточку вакансии роли с фильтрами по стеку PyTorch / OpenCV.</li>
+                            <li><strong>Кадр 3:</strong> Получает пуш с откликом студента с профилем GitHub, принимает заявку за 2 клика.</li>
+                            <li><strong>Кадр 4:</strong> Команда в полном составе получает доступ к чекпоинтам и загружает итоговое решение на питч.</li>
+                        </ol>
+                    </div>
+                    <div class="profile-card">
+                        <h4>5. Виктор Громов (Приглашенный спикер)</h4>
+                        <ol style="font-size: 0.85rem; padding-left: 18px; color: var(--text-muted);">
+                            <li><strong>Кадр 1:</strong> Открывает личный кабинет спикера по инвайт-ссылке из Telegram, загружает тезисы доклада.</li>
+                            <li><strong>Кадр 2:</strong> Видит статус модерации «Одобрено» и тайм-слот: 18:30–19:00, ауд. 512.</li>
+                            <li><strong>Кадр 3:</strong> Выходит к трибуне, интерфейс докладчика показывает таймер с обратным отсчетом (желтый цвет за 5 минут).</li>
+                            <li><strong>Кадр 4:</strong> Завершает доклад вовремя, видит в дашборде среднюю оценку зала 4.9/5.0 и контакты 5 лучших студентов.</li>
+                        </ol>
+                    </div>
+                    <div class="profile-card">
+                        <h4>6. Сергей Николаевич Котов (Заказчик / Зам. декана)</h4>
+                        <ol style="font-size: 0.85rem; padding-left: 18px; color: var(--text-muted);">
+                            <li><strong>Кадр 1:</strong> Открывает модуль согласования мероприятий БГУ, видит заявку на митап с ограничением 100 мест.</li>
+                            <li><strong>Кадр 2:</strong> Проверяет соблюдение лимитов пожарной безопасности (Hard Cap не превышает емкость зала 512).</li>
+                            <li><strong>Кадр 3:</strong> В день события инспектирует коридор — столпотворения и заторов нет благодаря быстрому чекину.</li>
+                            <li><strong>Кадр 4:</strong> По окончании мероприятия в 1 клик скачивает официальную ведомость посещаемости в формате `.xlsx`.</li>
+                        </ol>
+                    </div>
+                    <div class="profile-card" style="border-left: 3px solid var(--danger);">
+                        <h4>7. Влад Костылев (Анти-персонаж / Мерч-хантер)</h4>
+                        <ol style="font-size: 0.85rem; padding-left: 18px; color: var(--text-muted);">
+                            <li><strong>Кадр 1:</strong> Видит анонс бесплатной пиццы и автоматически кликает бронь, занимая последнее 100-е место.</li>
+                            <li><strong>Кадр 2:</strong> За 24 часа получает push-запрос на подтверждение брони; игнорирует его, предпочитая компьютерную игру.</li>
+                            <li><strong>Кадр 3:</strong> Система аннулирует неподтвержденный билет и автоматически передает его первому человеку из листа ожидания.</li>
+                            <li><strong>Кадр 4:</strong> Пытается войти на площадку по скриншоту билета друга, сканер Дарьи блокирует проход «Ошибка: код уже использован».</li>
+                        </ol>
+                    </div>
+                </div>
+'''
+
+if 'Интерактивные раскадровки (Storyboards) для каждого из 7 персонажей' not in html:
+    html = html.replace(
+        '                <h2>Матрица проверочных сценариев отказоустойчивости (Edge Cases)</h2>',
+        storyboards_cards_html + '                <h2>Матрица проверочных сценариев отказоустойчивости (Edge Cases)</h2>'
+    )
+
+# Expand Edge cases table with VS-06 and VS-07
+old_vs_rows = '''                        <tr>
                             <td><strong>VS-05</strong></td>
                             <td><strong>Срочный перенос зала</strong></td>
                             <td>Аудитория 512 закрыта комендантом</td>
                             <td>Организатор жмет «Экстренный Push» в 1 клик: звуковой алерт 100 участникам с новой картой</td>
                             <td>Доставка за 1.8 секунды</td>
                         </tr>
-                    </tbody>
-                </table>
+                    </tbody>'''
 
-                <h2>Совокупная диаграмма взаимодействия (State Machine)</h2>
-                <div class="mermaid">
-stateDiagram-v2
-    [*] --> Idle: Открытие приложения
-    Idle --> Booking: Выбор митапа и регистрация
-    Booking --> IssueTicket: Hard Cap доступен
-    Booking --> WaitlistQueue: Лимит исчерпан
-    WaitlistQueue --> IssueTicket: Авто-промоушн
-    IssueTicket --> LocalSecureVault: Шифрование HMAC-SHA256
-    LocalSecureVault --> PresentationMode: Вызов билета офлайн (100% яркость)
-    PresentationMode --> ScannerReading: Оптическое сканирование
-    ScannerReading --> ValidEntry: Код уникален и валиден
-    ScannerReading --> DuplicateAlert: Повторный код (Фрод)
-    ValidEntry --> HallAdmission: Зеленый вибро-отклик
-    DuplicateAlert --> Rejection: Красный звуковой алерт
-    HallAdmission --> EmergencyHandling: Возникновение форс-мажора
-    EmergencyHandling --> HallAdmission: Обновление зала по Push
-    HallAdmission --> FeedbackRating: Оценка и закрытие
-    FeedbackRating --> [*]
-                </div>
-            </section>
+new_vs_rows = '''                        <tr>
+                            <td><strong>VS-05</strong></td>
+                            <td><strong>Срочный перенос зала</strong></td>
+                            <td>Аудитория 512 закрыта комендантом на внеплановый ремонт</td>
+                            <td>Организатор жмет «🚨 Экстренный Push в 1 клик»: шлюз рассылает 100 участникам приоритетный Push с обновленной картой этажа</td>
+                            <td>Доставка Push 100% активных участников за &lt;2 сек</td>
+                        </tr>
+                        <tr>
+                            <td><strong>VS-06</strong></td>
+                            <td><strong>Опоздание ключевого спикера</strong></td>
+                            <td>Спикер застрял в дорожной пробке; слот доклада необходимо сдвинуть на 40 минут</td>
+                            <td>Организатор в веб-кабинете перетаскивает слоты в Drag-and-Drop конструкторе; мобильные клиенты обновляют таймлайн на лету</td>
+                            <td>Сетка докладов синхронизирована без перезагрузки страницы</td>
+                        </tr>
+                        <tr>
+                            <td><strong>VS-07</strong></td>
+                            <td><strong>Некомплект команды за 2ч до старта</strong></td>
+                            <td>В команде хакатона заболел фронтендер; риск дисквалификации</td>
+                            <td>Капитан выставляет статус «🔥 Срочно ищем разработчика»; свободные участники получают push с биржи команд</td>
+                            <td>Вакансия закрыта за 40 минут до жеребьевки</td>
+                        </tr>
+                    </tbody>'''
 
-            <!-- TAB: Lab 2 Mockups & Wireframes Gallery -->
-            <section id="lab2-mockups" class="tab-pane">
-                <h1>Векторные каркасы (Wireframes) и Дизайн-макеты (Mockups)</h1>
-                <p>Полная галерея проектных макетов экосистемы CampusMeet: 12-колоночная сетка десктопа (1440px) и 8-точечная сетка мобильных устройств (375x812px).</p>
+html = html.replace(old_vs_rows, new_vs_rows)
 
-                <h2>1. Цветные дизайн-макеты высокого уровня детализации (UI Mockups)</h2>
-                
-                <div class="profile-card" style="margin-bottom: 24px;">
-                    <h3>Десктоп: Каталог событий и митапов (1440 × 960 px)</h3>
-                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">Полноэкранный темный интерфейс с фасетной фильтрацией, поиском Omnibox ⌘K, карточками событий и индикаторами квот.</p>
-                    <img src="./assets/mockups/mockup_desktop_catalog.svg" alt="Mockup Desktop Catalog" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #0b1120;"/>
-                </div>
-
-                <div class="profile-card" style="margin-bottom: 24px;">
-                    <h3>Десктоп: Страница события с интерактивным таймлайном и картой OSM (1440 × 1100 px)</h3>
-                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">Двухколоночная верстка: сетка докладов спикеров, Sticky-виджет регистрации со статусом Hard Cap и векторная схема проезда.</p>
-                    <img src="./assets/mockups/mockup_desktop_event_details.svg" alt="Mockup Desktop Event Details" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #0b1120;"/>
-                </div>
-
-                <div class="profile-card" style="margin-bottom: 24px;">
-                    <h3>Десктоп: Кабинет организатора и Live Check-in мониторинг (1440 × 960 px)</h3>
-                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">4 аналитические карточки KPI, журнал потоковой верификации с выявлением попытки прохода по дубликату и кнопка экстренного пуша.</p>
-                    <img src="./assets/mockups/mockup_desktop_dashboard.svg" alt="Mockup Desktop Dashboard" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #0b1120;"/>
-                </div>
-
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-bottom: 32px;">
-                    <div class="profile-card">
-                        <h3>Мобайл: Афиша событий (375 × 812 px)</h3>
-                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">Карусель категорий, карточки с регистрацией в 1 тап и эргономичный таб-бар.</p>
-                        <div style="text-align: center;">
-                            <img src="./assets/mockups/mockup_mobile_catalog.svg" alt="Mockup Mobile Catalog" style="width: 100%; max-width: 320px; border-radius: 20px; border: 1px solid var(--border-color);"/>
-                        </div>
-                    </div>
-
-                    <div class="profile-card">
-                        <h3>Мобайл: Офлайн-билет с QR (375 × 812 px)</h3>
-                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">Высококонтрастный матричный QR-код, таймер HMAC, 100% авто-яркость и Apple Wallet.</p>
-                        <div style="text-align: center;">
-                            <img src="./assets/mockups/mockup_mobile_ticket.svg" alt="Mockup Mobile Ticket" style="width: 100%; max-width: 320px; border-radius: 20px; border: 1px solid var(--border-color);"/>
-                        </div>
-                    </div>
-
-                    <div class="profile-card">
-                        <h3>Мобайл: Сканер волонтера (375 × 812 px)</h3>
-                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">Видоискатель камеры с прицелом, зеленый HUD верификации, счетчик смены и ручной поиск.</p>
-                        <div style="text-align: center;">
-                            <img src="./assets/mockups/mockup_mobile_scanner.svg" alt="Mockup Mobile Scanner" style="width: 100%; max-width: 320px; border-radius: 20px; border: 1px solid var(--border-color);"/>
-                        </div>
-                    </div>
-                </div>
-
-                <h2>2. Структурные схемы низкой точности (Wireframes)</h2>
+# 5. Add search modal wireframe in #lab2-mockups
+old_wireframes_grid = '''                <h2>2. Структурные схемы низкой точности (Wireframes)</h2>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px;">
                     <div class="profile-card">
                         <h3>Wireframe: Десктопный каталог</h3>
                         <img src="./assets/wireframes/wireframe_desktop_catalog.svg" alt="Wireframe Catalog" style="width: 100%; border-radius: 6px; border: 1px solid var(--border-color);"/>
-                    </div>
-                    <div class="profile-card">
-                        <h3>Wireframe: Детали события и регистрация</h3>
-                        <img src="./assets/wireframes/wireframe_desktop_event_details.svg" alt="Wireframe Details" style="width: 100%; border-radius: 6px; border: 1px solid var(--border-color);"/>
-                    </div>
-                    <div class="profile-card">
-                        <h3>Wireframe: Панель организатора</h3>
-                        <img src="./assets/wireframes/wireframe_desktop_dashboard.svg" alt="Wireframe Dashboard" style="width: 100%; border-radius: 6px; border: 1px solid var(--border-color);"/>
-                    </div>
-                    <div class="profile-card">
-                        <h3>Wireframe: Мобильный билет и Сканер</h3>
-                        <div style="display: flex; gap: 12px; justify-content: center;">
-                            <img src="./assets/wireframes/wireframe_mobile_ticket.svg" alt="Wireframe Ticket" style="width: 48%; border-radius: 12px; border: 1px solid var(--border-color);"/>
-                            <img src="./assets/wireframes/wireframe_mobile_scanner.svg" alt="Wireframe Scanner" style="width: 48%; border-radius: 12px; border: 1px solid var(--border-color);"/>
-                        </div>
-                    </div>
-                </div>
-            </section>
-'''
+                    </div>'''
 
-# Insert lab2_sections right before </main>
-main_close = '        </div>\n    </main>'
-if main_close in html:
-    html = html.replace(main_close, lab2_sections + '\n        </div>\n    </main>')
-else:
-    print("Warning: main_close not found!")
+new_wireframes_grid = '''                <h2>2. Структурные схемы низкой точности (Wireframes)</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px;">
+                    <div class="profile-card">
+                        <h3>Wireframe: Модальное окно поиска Omnibox ⌘K</h3>
+                        <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 8px;">Быстрый поиск, фасетные чипы, категоризированные результаты и горячие клавиши.</p>
+                        <img src="./assets/wireframes/wireframe_desktop_search_modal.svg" alt="Wireframe Search Modal" style="width: 100%; border-radius: 6px; border: 1px solid var(--border-color);"/>
+                    </div>
+                    <div class="profile-card">
+                        <h3>Wireframe: Десктопный каталог</h3>
+                        <img src="./assets/wireframes/wireframe_desktop_catalog.svg" alt="Wireframe Catalog" style="width: 100%; border-radius: 6px; border: 1px solid var(--border-color);"/>
+                    </div>'''
+
+html = html.replace(old_wireframes_grid, new_wireframes_grid)
+
+# 6. Update script at bottom: safe mermaid and hash routing
+old_script = '''    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+
+        function switchTab(tabId, element) {
+            // Hide all tabs
+            const panes = document.querySelectorAll('.tab-pane');
+            panes.forEach(pane => pane.classList.remove('active'));
+
+            // Show selected tab
+            const targetPane = document.getElementById(tabId);
+            if (targetPane) {
+                targetPane.classList.add('active');
+            }
+
+            // Update active nav link
+            if (element) {
+                const links = document.querySelectorAll('.nav-link');
+                links.forEach(link => link.classList.remove('active'));
+                element.classList.add('active');
+            }
+
+            // Scroll content to top
+            document.getElementById('content').scrollTop = 0;
+        }
+    </script>'''
+
+new_script = '''    <script>
+        // Safe mermaid initialization (offline-resilient)
+        if (typeof mermaid !== 'undefined') {
+            mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+        }
+
+        function switchTab(tabId, element) {
+            // Hide all tabs
+            const panes = document.querySelectorAll('.tab-pane');
+            panes.forEach(pane => pane.classList.remove('active'));
+
+            // Show selected tab
+            const targetPane = document.getElementById(tabId);
+            if (targetPane) {
+                targetPane.classList.add('active');
+            }
+
+            // Update active nav link
+            if (element) {
+                const links = document.querySelectorAll('.nav-link');
+                links.forEach(link => link.classList.remove('active'));
+                element.classList.add('active');
+            }
+
+            // Scroll content to top
+            const content = document.getElementById('content');
+            if (content) content.scrollTop = 0;
+        }
+
+        // URL hash routing support
+        function handleHash() {
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                const link = document.querySelector(`.nav-link[href="#${hash}"]`);
+                switchTab(hash, link);
+            }
+        }
+        window.addEventListener('DOMContentLoaded', handleHash);
+        window.addEventListener('hashchange', handleHash);
+    </script>'''
+
+html = html.replace(old_script, new_script)
 
 with open("docs/index.html", "w", encoding="utf-8") as f:
     f.write(html)
 
-print(f"Updated docs/index.html successfully! Total length: {len(html)} chars")
+print("Successfully updated docs/index.html! Length:", len(html))

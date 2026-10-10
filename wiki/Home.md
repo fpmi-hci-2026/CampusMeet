@@ -50,8 +50,8 @@
 ## Связанные репозитории и документация (Структура 4 репозиториев для подгрупп 12а и 12б)
 
 * **[Комплексный отчет по Лабораторной работе №1](../docs/reports/Lab1_report.md)**
-* **[Комплексный отчет по Лабораторной работе №2 (Информационная архитектура и CJM)](../docs/reports/Lab2_report.md)**
-* **[Векторные вайрфреймы и UI макеты](../docs/assets/mockups/)**
+* **[Комплексный отчет по Лабораторной работе №2 (Информационная архитектура, CJM 7 персонажей, 7 раскадровок)](../docs/reports/Lab2_report.md)**
+* **[Векторные UI макеты (6 SVG)](../docs/assets/mockups/) и [Вайрфреймы (6 SVG)](../docs/assets/wireframes/)**
 * **[Анализ результатов исследования аудитории N=68](../docs/survey/survey_analysis.md)**
 * **[Интерактивный сайт документации GitHub Pages](../docs/index.html)**
 * **[Основной репозиторий CampusMeet (GitHub)](https://github.com/fpmi-hci-2026/CampusMeet)** (`git@github.com:fpmi-hci-2026/CampusMeet.git`)
