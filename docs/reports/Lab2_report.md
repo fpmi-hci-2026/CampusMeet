@@ -937,7 +937,7 @@ flowchart TB
     
     EventDetails --> CheckQuota{Свободные места?}
     CheckQuota -->|Да| RegSuccess[Бронирование билета]
-    CheckQuota -->|Нет (Hard Cap)| WaitlistQueue[Добавление в Лист ожидания]
+    CheckQuota -->|"Нет (Hard Cap)"| WaitlistQueue[Добавление в Лист ожидания]
 
     RegSuccess --> SecureVault[(Локальный SecureStore смартфона)]
     SecureVault --> OfflineTicket[Экран билета: Offline QR Code]
