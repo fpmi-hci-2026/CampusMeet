@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="'Inter', -apple-system, sans-serif">
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+  <!-- Background -->
+  <rect width="1440" height="900" fill="#f8fafc"/>
+  <rect width="1440" height="900" fill="url(#grid)" opacity="0.6"/>
+
+  <!-- Top Navigation Bar -->
+  <rect x="0" y="0" width="1440" height="70" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="60" y="18" width="160" height="34" rx="6" fill="#0f172a"/>
+  <text x="140" y="40" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle">CampusMeet</text>
+
+  <!-- Nav links -->
+  <text x="270" y="41" fill="#0f172a" font-size="14" font-weight="600">Афиша</text>
+  <line x1="270" y1="48" x2="320" y2="48" stroke="#0f172a" stroke-width="2"/>
+  <text x="350" y="41" fill="#64748b" font-size="14">Хакатоны</text>
+  <text x="450" y="41" fill="#64748b" font-size="14">Биржа команд</text>
+  <text x="580" y="41" fill="#64748b" font-size="14">Календарь</text>
+  <text x="680" y="41" fill="#64748b" font-size="14">О платформе</text>
+
+  <!-- Search Bar -->
+  <rect x="800" y="16" width="340" height="38" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="820" y="40" fill="#64748b" font-size="13">🔍 Поиск событий, спикеров, тегов...</text>
+
+  <!-- Right CTA -->
+  <rect x="1160" y="16" width="150" height="38" rx="8" fill="#3b82f6"/>
+  <text x="1235" y="40" fill="#ffffff" font-size="13" font-weight="600" text-anchor="middle">+ Создать митап</text>
+  <circle cx="1350" cy="35" r="18" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="1350" y="40" fill="#475569" font-size="12" font-weight="bold" text-anchor="middle">АК</text>
+
+  <!-- Breadcrumbs & Title Row -->
+  <g transform="translate(60, 95)">
+    <text x="0" y="15" fill="#64748b" font-size="12">Главная &gt; События &gt; Каталог</text>
+    <text x="0" y="50" fill="#0f172a" font-size="28" font-weight="800">[WIREFRAME] Каталог IT-мероприятий и митапов</text>
+    <text x="0" y="75" fill="#64748b" font-size="14">12-колоночная модульная сетка Bootstrap 1440px | Логическая разметка элементов низкой точности</text>
+  </g>
+
+  <!-- Left Sidebar (Filters) -->
+  <g transform="translate(60, 195)">
+    <rect width="280" height="660" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="24" y="36" fill="#0f172a" font-size="16" font-weight="bold">Фильтрация (Фасеты)</text>
+
+    <!-- Filter Block 1: Date -->
+    <text x="24" y="70" fill="#334155" font-size="13" font-weight="600">ДАТА ПРОВЕДЕНИЯ</text>
+    <rect x="24" y="85" width="232" height="32" rx="6" fill="#f8fafc" stroke="#cbd5e1"/>
+    <text x="36" y="106" fill="#64748b" font-size="12">📅 Выберите даты</text>
+
+    <rect x="24" y="125" width="110" height="28" rx="4" fill="#e2e8f0"/>
+    <text x="79" y="143" fill="#1e293b" font-size="11" text-anchor="middle">Сегодня (2)</text>
+    <rect x="146" y="125" width="110" height="28" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="201" y="143" fill="#64748b" font-size="11" text-anchor="middle">На неделе (7)</text>
+
+    <!-- Filter Block 2: Format -->
+    <text x="24" y="185" fill="#334155" font-size="13" font-weight="600">ФОРМАТ СОБЫТИЯ</text>
+    <rect x="24" y="200" width="16" height="16" rx="3" fill="#3b82f6"/>
+    <text x="50" y="213" fill="#1e293b" font-size="13">Офлайн-митап (14)</text>
+
+    <rect x="24" y="228" width="16" height="16" rx="3" fill="#ffffff" stroke="#94a3b8"/>
+    <text x="50" y="241" fill="#1e293b" font-size="13">Хакатон (4)</text>
+
+    <rect x="24" y="256" width="16" height="16" rx="3" fill="#ffffff" stroke="#94a3b8"/>
+    <text x="50" y="269" fill="#1e293b" font-size="13">Воркшоп / Лекция (6)</text>
+
+    <!-- Filter Block 3: Categories -->
+    <text x="24" y="315" fill="#334155" font-size="13" font-weight="600">НАПРАВЛЕНИЕ / СТЕК</text>
+    <rect x="24" y="330" width="16" height="16" rx="3" fill="#3b82f6"/>
+    <text x="50" y="343" fill="#1e293b" font-size="13">Artificial Intelligence / ML</text>
+
+    <rect x="24" y="358" width="16" height="16" rx="3" fill="#3b82f6"/>
+    <text x="50" y="371" fill="#1e293b" font-size="13">Web Development / TS</text>
+
+    <rect x="24" y="386" width="16" height="16" rx="3" fill="#ffffff" stroke="#94a3b8"/>
+    <text x="50" y="399" fill="#1e293b" font-size="13">Distributed Systems &amp; Go</text>
+
+    <rect x="24" y="414" width="16" height="16" rx="3" fill="#ffffff" stroke="#94a3b8"/>
+    <text x="50" y="427" fill="#1e293b" font-size="13">UI/UX &amp; HCI Design</text>
+
+    <!-- Filter Block 4: Availability -->
+    <text x="24" y="475" fill="#334155" font-size="13" font-weight="600">ДОСТУПНОСТЬ МЕСТ</text>
+    <rect x="24" y="490" width="16" height="16" rx="3" fill="#3b82f6"/>
+    <text x="50" y="503" fill="#1e293b" font-size="13">Есть свободные места</text>
+    <rect x="24" y="518" width="16" height="16" rx="3" fill="#ffffff" stroke="#94a3b8"/>
+    <text x="50" y="531" fill="#1e293b" font-size="13">Лист ожидания (Waitlist)</text>
+
+    <!-- Filter Block 5: Location -->
+    <text x="24" y="580" fill="#334155" font-size="13" font-weight="600">ЛОКАЦИЯ</text>
+    <rect x="24" y="595" width="232" height="32" rx="6" fill="#f8fafc" stroke="#cbd5e1"/>
+    <text x="36" y="616" fill="#64748b" font-size="12">🏛 Все корпуса БГУ</text>
+  </g>
+
+  <!-- Right Content Area (Grid of Events) -->
+  <g transform="translate(365, 195)">
+    <!-- Controls Bar -->
+    <rect width="1015" height="46" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="20" y="28" fill="#64748b" font-size="13">Найдено: <tspan fill="#0f172a" font-weight="bold">18 мероприятий</tspan></text>
+
+    <!-- Active Tags -->
+    <rect x="200" y="10" width="130" height="26" rx="13" fill="#e2e8f0"/>
+    <text x="265" y="27" fill="#334155" font-size="11" text-anchor="middle">AI / ML ✕</text>
+    <rect x="340" y="10" width="120" height="26" rx="13" fill="#e2e8f0"/>
+    <text x="400" y="27" fill="#334155" font-size="11" text-anchor="middle">Офлайн ✕</text>
+
+    <!-- Sort Dropdown -->
+    <rect x="800" y="8" width="195" height="30" rx="6" fill="#f8fafc" stroke="#cbd5e1"/>
+    <text x="815" y="28" fill="#334155" font-size="12">Сортировка: Ближайшие ▼</text>
+
+    <!-- Event Cards Grid (2 rows x 3 cols) -->
+    <!-- Card 1 -->
+    <g transform="translate(0, 65)">
+      <rect width="325" height="375" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect x="1" y="1" width="323" height="150" rx="9" fill="#e2e8f0" stroke="#94a3b8" stroke-dasharray="4,4"/>
+      <text x="162" y="80" fill="#64748b" font-size="14" text-anchor="middle">[Изображение / Баннер ивента]</text>
+      <rect x="15" y="15" width="80" height="24" rx="4" fill="#0f172a"/>
+      <text x="55" y="31" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">МИТАП</text>
+
+      <text x="15" y="180" fill="#3b82f6" font-size="12" font-weight="600">15 октября 2026 • 17:00</text>
+      <text x="15" y="208" fill="#0f172a" font-size="16" font-weight="bold">CampusMeet: AI &amp; Web</text>
+      <text x="15" y="232" fill="#64748b" font-size="12">🏛 Главный корпус БГУ, Ауд. 512</text>
+      <text x="15" y="254" fill="#64748b" font-size="12">👤 Спикеры: В. Громов (Lead Arch), Д. Мельниченко</text>
+
+      <!-- Progress bar -->
+      <rect x="15" y="280" width="295" height="8" rx="4" fill="#e2e8f0"/>
+      <rect x="15" y="280" width="260" height="8" rx="4" fill="#22c55e"/>
+      <text x="15" y="306" fill="#64748b" font-size="11">Занято: 88 / 100 мест (Осталось 12)</text>
+
+      <!-- CTA -->
+      <rect x="15" y="325" width="295" height="36" rx="6" fill="#0f172a"/>
+      <text x="162" y="347" fill="#ffffff" font-size="13" font-weight="600" text-anchor="middle">Зарегистрироваться (Free)</text>
+    </g>
+
+    <!-- Card 2 -->
+    <g transform="translate(345, 65)">
+      <rect width="325" height="375" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect x="1" y="1" width="323" height="150" rx="9" fill="#e2e8f0" stroke="#94a3b8" stroke-dasharray="4,4"/>
+      <text x="162" y="80" fill="#64748b" font-size="14" text-anchor="middle">[Изображение / Баннер ивента]</text>
+      <rect x="15" y="15" width="90" height="24" rx="4" fill="#f59e0b"/>
+      <text x="60" y="31" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">ХАКАТОН</text>
+
+      <text x="15" y="180" fill="#3b82f6" font-size="12" font-weight="600">24-25 октября 2026 • 10:00</text>
+      <text x="15" y="208" fill="#0f172a" font-size="16" font-weight="bold">FPMI Hack 2026 (24h)</text>
+      <text x="15" y="232" fill="#64748b" font-size="12">🏛 ФПМИ БГУ, 5 этаж коворкинг</text>
+      <text x="15" y="254" fill="#64748b" font-size="12">👥 Команды по 3-5 чел • Призовой фонд</text>
+
+      <rect x="15" y="280" width="295" height="8" rx="4" fill="#e2e8f0"/>
+      <rect x="15" y="280" width="295" height="8" rx="4" fill="#ef4444"/>
+      <text x="15" y="306" fill="#ef4444" font-size="11" font-weight="600">Лимит исчерпан: Лист ожидания (+14)</text>
+
+      <rect x="15" y="325" width="295" height="36" rx="6" fill="#f1f5f9" stroke="#cbd5e1"/>
+      <text x="162" y="347" fill="#475569" font-size="13" font-weight="600" text-anchor="middle">В лист ожидания</text>
+    </g>
+
+    <!-- Card 3 -->
+    <g transform="translate(690, 65)">
+      <rect width="325" height="375" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect x="1" y="1" width="323" height="150" rx="9" fill="#e2e8f0" stroke="#94a3b8" stroke-dasharray="4,4"/>
+      <text x="162" y="80" fill="#64748b" font-size="14" text-anchor="middle">[Изображение / Баннер ивента]</text>
+      <rect x="15" y="15" width="95" height="24" rx="4" fill="#8b5cf6"/>
+      <text x="62" y="31" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">ВОРКШОП</text>
+
+      <text x="15" y="180" fill="#3b82f6" font-size="12" font-weight="600">29 октября 2026 • 18:30</text>
+      <text x="15" y="208" fill="#0f172a" font-size="16" font-weight="bold">System Design &amp; Highload</text>
+      <text x="15" y="232" fill="#64748b" font-size="12">🏛 Корпус ФФСН, Ауд. 302</text>
+      <text x="15" y="254" fill="#64748b" font-size="12">👤 Практический разбор микросервисов</text>
+
+      <rect x="15" y="280" width="295" height="8" rx="4" fill="#e2e8f0"/>
+      <rect x="15" y="280" width="130" height="8" rx="4" fill="#22c55e"/>
+      <text x="15" y="306" fill="#64748b" font-size="11">Занято: 35 / 80 мест (Свободно 45)</text>
+
+      <rect x="15" y="325" width="295" height="36" rx="6" fill="#0f172a"/>
+      <text x="162" y="347" fill="#ffffff" font-size="13" font-weight="600" text-anchor="middle">Зарегистрироваться (Free)</text>
+    </g>
+
+    <!-- Pagination -->
+    <g transform="translate(350, 480)">
+      <rect x="0" y="0" width="36" height="36" rx="6" fill="#0f172a"/>
+      <text x="18" y="23" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">1</text>
+      <rect x="46" y="0" width="36" height="36" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="64" y="23" fill="#475569" font-size="14" text-anchor="middle">2</text>
+      <rect x="92" y="0" width="36" height="36" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="110" y="23" fill="#475569" font-size="14" text-anchor="middle">3</text>
+      <text x="150" y="23" fill="#64748b" font-size="14">... Следующая →</text>
+    </g>
+  </g>
+</svg>

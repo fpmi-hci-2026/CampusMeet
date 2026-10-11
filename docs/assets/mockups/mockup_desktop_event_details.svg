@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 1100" width="1440" height="1100" font-family="'Inter', -apple-system, sans-serif">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1120"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="cardGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="accentGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <linearGradient id="heroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1440" height="1100" fill="url(#bgGrad2)"/>
+
+  <!-- Top Glassmorphic Navigation -->
+  <rect width="1440" height="72" fill="#0f172acc" stroke="#334155" stroke-width="1"/>
+  <g transform="translate(60, 20)">
+    <rect width="36" height="36" rx="8" fill="url(#accentGrad2)"/>
+    <text x="18" y="24" fill="#0f172a" font-size="18" font-weight="900" text-anchor="middle">⚡</text>
+    <text x="46" y="25" fill="#ffffff" font-size="18" font-weight="800">Campus<tspan fill="#38bdf8">Meet</tspan></text>
+  </g>
+  <g transform="translate(240, 36)">
+    <text x="0" y="0" fill="#38bdf8" font-size="14" font-weight="700">Афиша</text>
+    <text x="80" y="0" fill="#94a3b8" font-size="14" font-weight="500">Хакатоны</text>
+    <text x="185" y="0" fill="#94a3b8" font-size="14" font-weight="500">Биржа команд</text>
+  </g>
+  <circle cx="1380" cy="36" r="18" fill="#334155" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="1380" y="41" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">АК</text>
+
+  <!-- Breadcrumbs & Hero Banner -->
+  <g transform="translate(60, 95)">
+    <text x="0" y="15" fill="#64748b" font-size="13">Главная &gt; Афиша &gt; CampusMeet #4: Распределенные системы и GenAI</text>
+
+    <!-- Hero Card Container -->
+    <rect x="0" y="30" width="1320" height="250" rx="16" fill="url(#heroGrad)" stroke="#38bdf844" stroke-width="1.5"/>
+    
+    <!-- Hero Badges -->
+    <rect x="40" y="60" width="75" height="24" rx="4" fill="#38bdf8"/>
+    <text x="77" y="76" fill="#0f172a" font-size="11" font-weight="bold" text-anchor="middle">МИТАП</text>
+
+    <rect x="125" y="60" width="90" height="24" rx="4" fill="#22c55e"/>
+    <text x="170" y="76" fill="#0f172a" font-size="11" font-weight="bold" text-anchor="middle">БЕСПЛАТНО</text>
+
+    <rect x="225" y="60" width="140" height="24" rx="4" fill="#0f172a88" stroke="#38bdf8"/>
+    <text x="295" y="76" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">ОСТАЛОСЬ 12 МЕСТ</text>
+
+    <!-- Main Title -->
+    <text x="40" y="125" fill="#ffffff" font-size="32" font-weight="800">CampusMeet #4: Архитектура распределенных систем и GenAI</text>
+    
+    <!-- Meta details bar -->
+    <text x="40" y="165" fill="#93c5fd" font-size="15">📅 15 октября 2026 • 17:00 – 20:30 (Сбор гостей в 16:30)</text>
+    <text x="40" y="195" fill="#cbd5e1" font-size="15">🏛 Главный корпус БГУ, Ленинский пр-т / Независимости 4, Ауд. 512 (5 этаж)</text>
+    <text x="40" y="225" fill="#94a3b8" font-size="13">Организатор: Студенческий IT-клуб ФПМИ БГУ • Модератор: Максим Романов</text>
+  </g>
+
+  <!-- Two-column Body -->
+  <g transform="translate(60, 395)">
+    <!-- Left Column: Tabs, Schedule, Speakers (860px) -->
+    <g transform="translate(0, 0)">
+      <rect width="860" height="660" rx="12" fill="url(#cardGrad2)" stroke="#334155" stroke-width="1.5"/>
+      
+      <!-- Sub-tabs Navigation -->
+      <line x1="0" y1="52" x2="860" y2="52" stroke="#334155"/>
+      <text x="35" y="34" fill="#38bdf8" font-size="15" font-weight="700">Программа докладов</text>
+      <line x1="35" y1="50" x2="200" y2="50" stroke="#38bdf8" stroke-width="3"/>
+
+      <text x="240" y="34" fill="#94a3b8" font-size="15" font-weight="500">Спикеры (3)</text>
+      <text x="360" y="34" fill="#94a3b8" font-size="15" font-weight="500">О митапе</text>
+      <text x="470" y="34" fill="#94a3b8" font-size="15" font-weight="500">Схема прохода</text>
+      <text x="620" y="34" fill="#94a3b8" font-size="15" font-weight="500">Вопросы и ответы (FAQ)</text>
+
+      <!-- Interactive Schedule Timeline -->
+      <g transform="translate(35, 80)">
+        <!-- Slot 1 -->
+        <rect width="790" height="85" rx="10" fill="#1e293b" stroke="#334155"/>
+        <rect x="0" y="0" width="6" height="85" rx="3" fill="#38bdf8"/>
+        <text x="25" y="32" fill="#38bdf8" font-size="14" font-weight="700">17:00 – 17:15</text>
+        <text x="160" y="32" fill="#ffffff" font-size="16" font-weight="700">Открытие митапа и представление спикеров</text>
+        <text x="160" y="55" fill="#94a3b8" font-size="13">Максим Романов (Председатель IT-клуба ФПМИ)</text>
+        <rect x="680" y="24" width="90" height="30" rx="6" fill="#334155"/>
+        <text x="725" y="44" fill="#cbd5e1" font-size="12" text-anchor="middle">В программе</text>
+
+        <!-- Slot 2 (Keynote) -->
+        <g transform="translate(0, 100)">
+          <rect width="790" height="110" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+          <rect x="0" y="0" width="6" height="110" rx="3" fill="#22c55e"/>
+          <text x="25" y="32" fill="#22c55e" font-size="14" font-weight="700">17:15 – 18:00</text>
+          <text x="160" y="32" fill="#ffffff" font-size="16" font-weight="700">Highload &amp; Distributed Systems: Практика построения на Go</text>
+          <text x="160" y="55" fill="#cbd5e1" font-size="13">Виктор Громов (Senior Backend Architect, 8+ лет в финтехе)</text>
+          <text x="160" y="80" fill="#94a3b8" font-size="12">Разбор реальных кейсов масштабирования, шардирования и обработки 100k RPS.</text>
+          
+          <rect x="660" y="24" width="110" height="32" rx="6" fill="#22c55e22" stroke="#22c55e"/>
+          <text x="715" y="45" fill="#22c55e" font-size="12" font-weight="bold" text-anchor="middle">★ Мой трек</text>
+        </g>
+
+        <!-- Slot 3 (Networking & Pizza) -->
+        <g transform="translate(0, 225)">
+          <rect width="790" height="70" rx="10" fill="#064e3b33" stroke="#059669"/>
+          <text x="25" y="40" fill="#34d399" font-size="14" font-weight="700">18:00 – 18:30</text>
+          <text x="160" y="40" fill="#ffffff" font-size="15" font-weight="600">🍕 Кофе-брейк, горячая пицца и нетворкинг у стендов IT-компаний</text>
+        </g>
+
+        <!-- Slot 4 (GenAI) -->
+        <g transform="translate(0, 310)">
+          <rect width="790" height="110" rx="10" fill="#1e293b" stroke="#334155"/>
+          <rect x="0" y="0" width="6" height="110" rx="3" fill="#818cf8"/>
+          <text x="25" y="32" fill="#818cf8" font-size="14" font-weight="700">18:30 – 19:20</text>
+          <text x="160" y="32" fill="#ffffff" font-size="16" font-weight="700">Автономные мультиагентные системы на базе LLM в продакшене</text>
+          <text x="160" y="55" fill="#cbd5e1" font-size="13">Александр Белов (AI Research Lead) • Демо реального пайплайна</text>
+          <text x="160" y="80" fill="#94a3b8" font-size="12">Как заставить агентов оркестрировать сложные задачи без галлюцинаций.</text>
+          
+          <rect x="660" y="24" width="110" height="32" rx="6" fill="#334155"/>
+          <text x="715" y="45" fill="#cbd5e1" font-size="12" text-anchor="middle">+ Добавить</text>
+        </g>
+
+        <!-- Slot 5 (Q&A Panel) -->
+        <g transform="translate(0, 435)">
+          <rect width="790" height="85" rx="10" fill="#1e293b" stroke="#334155"/>
+          <rect x="0" y="0" width="6" height="85" rx="3" fill="#f59e0b"/>
+          <text x="25" y="32" fill="#f59e0b" font-size="14" font-weight="700">19:20 – 20:15</text>
+          <text x="160" y="32" fill="#ffffff" font-size="16" font-weight="700">Открытая панельная дискуссия и вопросы из зала</text>
+          <text x="160" y="55" fill="#94a3b8" font-size="13">Все спикеры на сцене • Розыгрыш подарков и мерча от партнеров</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- Right Sticky Column: Registration & Map (430px) -->
+    <g transform="translate(890, 0)">
+      <rect width="430" height="660" rx="12" fill="url(#cardGrad2)" stroke="#334155" stroke-width="1.5"/>
+      <g transform="translate(30, 30)">
+        <text x="0" y="20" fill="#ffffff" font-size="20" font-weight="800">Бронирование билета</text>
+        <text x="0" y="45" fill="#94a3b8" font-size="13">Вход свободный по электронному билету</text>
+
+        <!-- Hard Cap Capacity -->
+        <rect x="0" y="65" width="370" height="8" rx="4" fill="#334155"/>
+        <rect x="0" y="65" width="325" height="8" rx="4" fill="#22c55e"/>
+        <text x="0" y="95" fill="#cbd5e1" font-size="12">Занято мест: 88 из 100 (88%)</text>
+        <text x="370" y="95" fill="#22c55e" font-size="12" font-weight="bold" text-anchor="end">Осталось 12 мест</text>
+
+        <!-- CTA Register -->
+        <rect x="0" y="115" width="370" height="50" rx="10" fill="url(#accentGrad2)"/>
+        <text x="185" y="146" fill="#0f172a" font-size="16" font-weight="800" text-anchor="middle">Зарегистрироваться в 1 клик</text>
+        <text x="185" y="185" fill="#94a3b8" font-size="11" text-anchor="middle">⚡ Билет сразу сохранится в смартфон для офлайн-прохода</text>
+
+        <line x1="0" y1="210" x2="370" y2="210" stroke="#334155"/>
+
+        <!-- Details -->
+        <text x="0" y="240" fill="#38bdf8" font-size="11" font-weight="bold" letter-spacing="1">МЕСТО ПРОВЕДЕНИЯ</text>
+        <text x="0" y="265" fill="#ffffff" font-size="15" font-weight="700">Главный корпус БГУ, Ауд. 512</text>
+        <text x="0" y="288" fill="#cbd5e1" font-size="13">г. Минск, пр-т Независимости 4 (метро Площадь Ленина)</text>
+
+        <!-- OpenStreetMap Vector Mockup -->
+        <g transform="translate(0, 310)">
+          <rect width="370" height="170" rx="10" fill="#1e293b" stroke="#475569"/>
+          <!-- Map streets vector simulation -->
+          <path d="M 0 50 L 370 70" stroke="#475569" stroke-width="8"/>
+          <path d="M 120 0 L 140 170" stroke="#475569" stroke-width="6"/>
+          <path d="M 260 0 L 240 170" stroke="#475569" stroke-width="6"/>
+          <rect x="150" y="60" width="80" height="50" rx="4" fill="#334155" stroke="#38bdf8" stroke-width="1.5"/>
+          <text x="190" y="90" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">Главный БГУ</text>
+          
+          <!-- Map Pin -->
+          <circle cx="190" cy="55" r="14" fill="#ef4444"/>
+          <circle cx="190" cy="55" r="5" fill="#ffffff"/>
+          
+          <rect x="10" y="130" width="350" height="30" rx="6" fill="#0f172acc"/>
+          <text x="185" y="150" fill="#94a3b8" font-size="11" text-anchor="middle">OpenStreetMap Nominatim: 53.8938° N, 27.5471° E</text>
+        </g>
+
+        <!-- Calendar Buttons -->
+        <g transform="translate(0, 510)">
+          <rect width="180" height="38" rx="8" fill="#1e293b" stroke="#334155"/>
+          <text x="90" y="24" fill="#cbd5e1" font-size="12" text-anchor="middle">📅 Google Calendar</text>
+
+          <rect x="190" y="0" width="180" height="38" rx="8" fill="#1e293b" stroke="#334155"/>
+          <text x="280" y="24" fill="#cbd5e1" font-size="12" text-anchor="middle">🍏 Apple iCal</text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
