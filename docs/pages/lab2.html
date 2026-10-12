@@ -67,170 +67,99 @@
             </button>
         </div>
 
-        <div class="nav-section-title">Навигация</div>
+        <div class="nav-section-title">Разделы портала</div>
         <ul class="nav-menu">
             <li class="nav-item">
                 <a href="../index.html" class="nav-link">
                     <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                    Портал проекта
+                    <span>Главный портал</span>
+                    <span class="nav-badge">Hub</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab1.html" class="nav-link">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    <span>Лабораторная №1</span>
+                    <span class="nav-badge">L1</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab2.html" class="nav-link current-page">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                    <span>Лабораторная №2</span>
+                    <span class="nav-badge">L2</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab3.html" class="nav-link">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                    <span>Лабораторная №3</span>
+                    <span class="nav-badge">L3</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="wiki.html" class="nav-link">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    <span>База знаний (Wiki)</span>
+                    <span class="nav-badge">Docs</span>
                 </a>
             </li>
         </ul>
 
-        <div class="nav-section-title">Лабораторная работа №1</div>
-        <ul class="nav-menu">
-            <li class="nav-item">
-                <a href="lab1.html#lab1-overview" class="nav-link">
-                    Лаб. №1: Полный отчет
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="lab1.html#survey-data" class="nav-link">
-                    Опрос N=68 и статистика
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="lab1.html#personas-gallery" class="nav-link">
-                    Галерея 7 персонажей
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="lab1.html#as-is-processes" class="nav-link">
-                    Процессы As-Is
-                </a>
-            </li>
-        </ul>
-
-        <div class="nav-section-title">Лабораторная работа №2</div>
+        <div class="nav-section-title">Содержание работы</div>
         <ul class="nav-menu">
             <li class="nav-item">
                 <a href="#lab2-overview" class="nav-link active" onclick="switchTab('lab2-overview', this)">
-                    Лаб. №2: Обзор и концепция
+                    <span class="nav-num">01</span>
+                    <span>Обзор и концепция</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#lab2-ia" class="nav-link" onclick="switchTab('lab2-ia', this)">
-                    Инфо-архитектура и Sitemap
+                    <span class="nav-num">02</span>
+                    <span>Sitemap и контент</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#lab2-nav-search" class="nav-link" onclick="switchTab('lab2-nav-search', this)">
-                    Системы навигации и поиска
+                    <span class="nav-num">03</span>
+                    <span>Навигация и поиск</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#lab2-cjm-impact" class="nav-link" onclick="switchTab('lab2-cjm-impact', this)">
-                    Impact Map и CJM пути
+                    <span class="nav-num">04</span>
+                    <span>Impact Map и CJM</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#lab2-storyboards" class="nav-link" onclick="switchTab('lab2-storyboards', this)">
-                    Раскадровки и Edge Cases
+                    <span class="nav-num">05</span>
+                    <span>Сценарии и Edge Cases</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#lab2-mockups" class="nav-link" onclick="switchTab('lab2-mockups', this)">
-                    Вайрфреймы и UI Макеты
+                    <span class="nav-num">06</span>
+                    <span>12 Векторных экранов</span>
                 </a>
             </li>
         </ul>
 
-        <div class="nav-section-title">Лабораторная работа №3</div>
-        <ul class="nav-menu">
-            <li class="nav-item">
-                <a href="lab3.html#lab3-overview" class="nav-link">
-                    Лаб. №3: Обзор и User Stories
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="lab3.html#lab3-uml" class="nav-link">
-                    Диаграммы UML (PlantUML)
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="lab3.html#lab3-events" class="nav-link">
-                    EventStorming & Modeling
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="lab3.html#lab3-c4-srs" class="nav-link">
-                    C4 Model & ТЗ (SRS)
-                </a>
-            </li>
-        </ul>
 
-        <div class="nav-section-title">База знаний (GitHub Wiki)</div>
-        <ul class="nav-menu">
-            <li class="nav-item">
-                <a href="wiki.html#wiki-func" class="nav-link">
-                    Функционал и Use Case
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="wiki.html#wiki-arch" class="nav-link">
-                    Архитектура Web/Mobile
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="wiki.html#wiki-db" class="nav-link">
-                    Схема базы данных
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="wiki.html#wiki-api" class="nav-link">
-                    REST API и OpenStreetMap
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="wiki.html#wiki-security" class="nav-link">
-                    HMAC токен и безопасность
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="wiki.html#wiki-presentation" class="nav-link">
-                    Презентация и регламент
-                </a>
-            </li>
-        </ul>
 
-        <div class="nav-section-title">Внешние ресурсы</div>
+        <div class="nav-section-title">Материалы и отчеты</div>
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="../reports/Lab3_report.md" class="nav-link" target="_blank" style="font-weight: 500;">
+                <a href="../reports/Lab2_report.md" class="nav-link" target="_blank" rel="noopener noreferrer">
                     <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                    Отчет Лаб. №3 (Markdown)
+                    <span>Отчет Лаб. №2 (MD)</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="../reports/Lab2_report.md" class="nav-link" target="_blank" style="font-weight: 500;">
-                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                    Отчет Лаб. №2 (Markdown)
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="../reports/Lab1_report.md" class="nav-link" target="_blank">
-                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                    Отчет Лаб. №1 (Markdown)
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="https://github.com/fpmi-hci-2026/CampusMeet" class="nav-link" target="_blank">
-                    GitHub: CampusMeet
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="https://github.com/fpmi-hci-2026/CampusMeet-Server" class="nav-link" target="_blank">
-                    GitHub: Server
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="https://github.com/fpmi-hci-2026/CampusMeet-Web" class="nav-link" target="_blank">
-                    GitHub: Web
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="https://github.com/fpmi-hci-2026/CampusMeet-Mobile" class="nav-link" target="_blank">
-                    GitHub: Mobile
+                <a href="https://github.com/fpmi-hci-2026/CampusMeet" class="nav-link" target="_blank" rel="noopener noreferrer">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    <span>GitHub: Организация</span>
                 </a>
             </li>
         </ul>
@@ -239,6 +168,17 @@
     <!-- Main Content Area -->
     <main id="content">
         <div class="content-container">
+
+            <!-- Breadcrumbs Navigation -->
+            <nav class="content-breadcrumbs" aria-label="Хлебные крошки">
+                <ol class="breadcrumbs-list">
+                    <li class="breadcrumb-item"><a href="../index.html">Главная</a></li>
+                    <li class="breadcrumb-separator">/</li>
+                    <li class="breadcrumb-item"><a href="lab2.html">Лабораторная работа №2</a></li>
+                    <li class="breadcrumb-separator">/</li>
+                    <li class="breadcrumb-item breadcrumb-active" id="active-breadcrumb-tab">Обзор и концепция</li>
+                </ol>
+            </nav>
 
             <!-- TAB: Lab 2 Overview -->
             <section id="lab2-overview" class="tab-pane active">
@@ -529,7 +469,7 @@ stateDiagram-v2
                 <h1>Векторные каркасы (Wireframes) и Дизайн-макеты (Mockups)</h1>
                 <p>Полная галерея проектных макетов экосистемы CampusMeet: 12-колоночная сетка десктопа (1440px) и 8-точечная сетка мобильных устройств (375x812px).</p>
 
-                <h2>1. Цветные дизайн-макеты высокого уровня детализации (UI Mockups)</h2>
+                <h2>1. Высокодетализированные дизайн-макеты (UI Mockups)</h2>
                 
                 <div class="profile-card" style="margin-bottom: 24px;">
                     <h3>Десктоп: Каталог событий и митапов (1440 × 960 px)</h3>
@@ -603,6 +543,20 @@ stateDiagram-v2
                     </div>
                 </div>
             </section>
+
+            <!-- Sequential Page Pager -->
+            <nav class="page-nav-pager" aria-label="Навигация по разделам">
+                <a href="lab1.html" class="pager-card pager-prev">
+                    <span class="pager-caption">← ПРЕДЫДУЩИЙ РАЗДЕЛ</span>
+                    <span class="pager-title">Лабораторная работа №1: Исследование пользователей</span>
+                    <span class="pager-desc">Социологический опрос N=68, 7 синтезированных персон, матрица болей и процессы As-Is</span>
+                </a>
+                <a href="lab3.html" class="pager-card pager-next">
+                    <span class="pager-caption">СЛЕДУЮЩИЙ РАЗДЕЛ →</span>
+                    <span class="pager-title">Лабораторная работа №3: Требования и моделирование</span>
+                    <span class="pager-desc">12 User Stories (BDD), 29 диаграмм PlantUML, EventStorming, C4 Model и ТЗ (SRS)</span>
+                </a>
+            </nav>
         </div>
     </main>
 

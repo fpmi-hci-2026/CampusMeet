@@ -26,11 +26,24 @@
     };
 
     /**
-     * Core SPA Tab Router
+     * Core SPA Tab Router & Deep Linking Engine
      */
     window.switchTab = function (tabId, element) {
-        const targetPane = document.getElementById(tabId);
-        if (!targetPane) return;
+        let targetElem = document.getElementById(tabId);
+        if (!targetElem) return;
+
+        let targetPane = targetElem;
+        let scrollToSubElement = false;
+
+        if (!targetPane.classList.contains('tab-pane')) {
+            const parentPane = targetPane.closest('.tab-pane');
+            if (parentPane) {
+                targetPane = parentPane;
+                scrollToSubElement = true;
+            } else {
+                return;
+            }
+        }
 
         // Hide all tabs
         const panes = document.querySelectorAll('.tab-pane');
@@ -39,11 +52,13 @@
         // Show active tab
         targetPane.classList.add('active');
 
-        // Update active navigation link in sidebar
-        const links = document.querySelectorAll('.nav-link');
-        links.forEach(l => l.classList.remove('active'));
+        // Update active in-page tab link in sidebar
+        const tabLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
+        tabLinks.forEach(l => l.classList.remove('active'));
 
-        const activeLink = document.querySelector(`.nav-link[href="#${tabId}"]`) || (element && element.classList.contains('nav-link') ? element : null);
+        const activeLink = document.querySelector(`.nav-menu a[href="#${tabId}"]`) ||
+                           document.querySelector(`.nav-menu a[href="#${targetPane.id}"]`) ||
+                           (element && element.classList.contains('nav-link') ? element : null);
         if (activeLink) {
             activeLink.classList.add('active');
         }
@@ -57,14 +72,41 @@
         const titles = getTitleMap();
         if (titles[tabId]) {
             document.title = titles[tabId];
+        } else if (titles[targetPane.id]) {
+            document.title = titles[targetPane.id];
         }
 
-        // Scroll to top
-        const content = document.getElementById('content');
-        if (window.innerWidth > 900 && content) {
-            content.scrollTop = 0;
+        // Update dynamic breadcrumb leaf item
+        const breadcrumbTab = document.getElementById('active-breadcrumb-tab');
+        if (breadcrumbTab) {
+            if (activeLink) {
+                const clone = activeLink.cloneNode(true);
+                const num = clone.querySelector('.nav-num');
+                if (num) num.remove();
+                const badge = clone.querySelector('.nav-badge');
+                if (badge) badge.remove();
+                const icon = clone.querySelector('.icon');
+                if (icon) icon.remove();
+                breadcrumbTab.textContent = clone.textContent.trim();
+            } else if (titles[tabId] || titles[targetPane.id]) {
+                const titleStr = titles[tabId] || titles[targetPane.id];
+                const clean = titleStr.split('—')[0].replace(/^(Лаб\.\s*№\d+:|Wiki:)\s*/, '').trim();
+                breadcrumbTab.textContent = clean;
+            }
+        }
+
+        // Scroll to element or top
+        if (scrollToSubElement && targetElem) {
+            setTimeout(() => {
+                targetElem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 60);
         } else {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            const content = document.getElementById('content');
+            if (window.innerWidth > 900 && content) {
+                content.scrollTop = 0;
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
         }
 
         // Close mobile drawer if open
