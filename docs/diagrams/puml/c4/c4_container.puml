@@ -1,0 +1,43 @@
+@startuml
+!include <C4/C4_Container>
+
+LAYOUT_WITH_LEGEND()
+
+title C4 Model: Диаграмма контейнеров уровня C2 (Container Diagram) (Задание 7)
+
+Person(attendee, "Слушатель", "Посетитель мероприятий")
+Person(volunteer, "Волонтер", "Контролер на входе")
+Person(organizer, "Организатор", "Администратор митапа")
+
+System_Boundary(campusmeet_boundary, "Экосистема CampusMeet") {
+    Container(web_app, "Web Organizer Dashboard", "Next.js 14, React, Tailwind CSS", "Десктопный веб-кабинет для управления карточками митапов, квотами, CFP и сквозного поиска Omnibox ⌘K.")
+    Container(mobile_app, "Mobile Client & Scanner", "React Native, Expo, TypeScript", "Кроссплатформенное приложение участника (Offline-First билет) и оптический сканер волонтера (<500 мс).")
+    ContainerDb(mobile_cache, "Mobile Secure Vault", "SecureStore & SQLite Cache", "Локальное шифрованное хранилище билетов и открытых ключей мероприятий на смартфоне.")
+    Container(api_gateway, "API Gateway & Core Service", "Python, FastAPI, Uvicorn, Pydantic", "Центральный REST API шлюз, аутентификация JWT, генерация HMAC-SHA256, бизнес-логика регистрации.")
+    Container(task_worker, "Async Task Worker", "Celery, Python", "Фоновый асинхронный обработчик очередей: массовая отправка Push-уведомлений, экспорт CSV/Excel отчетов.")
+    ContainerDb(redis_broker, "Message Broker & Cache", "Redis 7", "Брокер сообщений для Celery, хранилище сессий, rate limiter и блокировки распределенных транзакций.")
+    ContainerDb(relational_db, "Relational Database", "PostgreSQL 16", "Хранилище реляционных данных: пользователи, мероприятия, площадки, билеты, логи чекинов, заявки CFP.")
+}
+
+System_Ext(osm, "OpenStreetMap Nominatim", "Геокодирование")
+System_Ext(nager, "Nager.Date", "Праздники Беларуси")
+System_Ext(push, "Apple APNs & Google FCM", "Push-шлюзы")
+
+Rel(organizer, web_app, "Администрирует события и расписание", "HTTPS / Desktop Browser")
+Rel(attendee, mobile_app, "Регистрируется и открывает билет", "Touch UI")
+Rel(volunteer, mobile_app, "Сканирует QR-билеты камерой", "Touch / Camera")
+
+Rel(mobile_app, mobile_cache, "Кеширует билеты и проверяет HMAC офлайн", "Local IPC / C++ JSI")
+Rel(web_app, api_gateway, "Вызывает REST API", "HTTPS / JSON")
+Rel(mobile_app, api_gateway, "Синхронизирует данные и отправляет чекины", "HTTPS / JSON")
+
+Rel(api_gateway, relational_db, "Выполняет CRUD-операции и транзакции", "TCP / PostgreSQL Wire (5432)")
+Rel(api_gateway, redis_broker, "Кеширует запросы и ставит задачи", "TCP / Redis Protocol (6379)")
+Rel(api_gateway, osm, "Геокодирует адреса", "HTTPS REST")
+Rel(api_gateway, nager, "Проверяет календарь", "HTTPS REST")
+
+Rel(task_worker, redis_broker, "Считывает задачи из очереди", "TCP / Redis (6379)")
+Rel(task_worker, relational_db, "Выбирает адресатов рассылки", "TCP (5432)")
+Rel(task_worker, push, "Отправляет push-пакеты", "HTTPS REST")
+
+@enduml

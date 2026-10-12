@@ -1,0 +1,52 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 12
+
+skinparam actor {
+    BackgroundColor #F8FAFC
+    BorderColor #334155
+    FontColor #0F172A
+}
+
+skinparam usecase {
+    BackgroundColor #EFF6FF
+    BorderColor #2563EB
+    FontColor #1E293B
+    ArrowColor #475569
+}
+
+title Базовая Use Case диаграмма экосистемы CampusMeet (Задание 2)
+
+actor "Слушатель (Attendee)" as Attendee
+actor "Волонтер (Volunteer)" as Volunteer
+actor "Организатор (Organizer)" as Organizer
+actor "Спикер (Speaker)" as Speaker
+
+rectangle "Экосистема CampusMeet" {
+    usecase "UC-B1: Просмотр каталога\nи поиск митапов" as UC_Catalog
+    usecase "UC-B2: Регистрация на событие\nи получение билета" as UC_Register
+    usecase "UC-B3: Просмотр билета\nв офлайн-режиме" as UC_OfflineTicket
+    usecase "UC-B4: Оптическое сканирование\nQR-билета камерой" as UC_ScanTicket
+    usecase "UC-B5: Создание митапа и\nуправление квотами" as UC_CreateEvent
+    usecase "UC-B6: Модерация заявок\nдокладчиков (CFP)" as UC_ModerateCFP
+    usecase "UC-B7: Подача заявки на доклад" as UC_SubmitTalk
+    usecase "UC-B8: Отправка экстренного\nPush-оповещения" as UC_EmergencyPush
+}
+
+Attendee --> UC_Catalog
+Attendee --> UC_Register
+Attendee --> UC_OfflineTicket
+
+Volunteer --> UC_ScanTicket
+
+Organizer --> UC_CreateEvent
+Organizer --> UC_ModerateCFP
+Organizer --> UC_EmergencyPush
+
+Speaker --> UC_SubmitTalk
+
+@enduml

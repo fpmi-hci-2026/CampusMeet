@@ -1,0 +1,67 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+skinparam class {
+    BackgroundColor #F8FAFC
+    BorderColor #334155
+    ArrowColor #2563EB
+    HeaderBackgroundColor #E2E8F0
+}
+
+title Диаграмма классов: Криптографическая защита и офлайн-валидация билета (Задание 4)
+
+class TicketPayload {
+    +ticket_id: UUID
+    +event_id: UUID
+    +user_id: UUID
+    +issued_timestamp: Long
+    +expires_timestamp: Long
+    +toCanonicalString(): String
+}
+
+class HMACSigner {
+    -algorithm: String = "HmacSHA256"
+    +sign(data: String, secretKey: Byte[]): String
+    +verify(data: String, signature: String, secretKey: Byte[]): Boolean
+}
+
+class DynamicTokenGenerator {
+    -time_step_seconds: Integer = 30
+    +computeTimeBasedHash(ticket: TicketPayload, masterSecret: Byte[]): String
+    +generateQRCodeData(ticket: TicketPayload, signature: String): String
+}
+
+class MobileOfflineStorage {
+    -storage_backend: String = "SecureStore"
+    +saveCachedTicket(ticket: TicketPayload, signature: String): Void
+    +loadCachedTicket(ticket_id: UUID): TicketPayload
+    +getOfflineManifest(event_id: UUID): Byte[]
+}
+
+class VolunteerOfflineCache {
+    -event_id: UUID
+    -event_public_key: String
+    -scanned_hash_registry: Set<String>
+    -pending_sync_queue: List<CheckInDTO>
+    +isHashAlreadyUsed(hash: String): Boolean
+    +recordLocalCheckIn(ticket_id: UUID, hash: String): Boolean
+    +drainSyncQueueToServer(): List<CheckInDTO>
+}
+
+class OpticalScannerEngine {
+    -camera_fps: Integer = 60
+    -timeout_ms: Integer = 500
+    +decodeFrame(image_buffer: Byte[]): String
+    +validatePassLocally(qr_string: String, cache: VolunteerOfflineCache): ValidationResult
+}
+
+TicketPayload ..> HMACSigner : uses
+DynamicTokenGenerator ..> TicketPayload : encodes
+MobileOfflineStorage o-- TicketPayload : caches
+VolunteerOfflineCache "1" <.. "1" OpticalScannerEngine : queries
+
+@enduml

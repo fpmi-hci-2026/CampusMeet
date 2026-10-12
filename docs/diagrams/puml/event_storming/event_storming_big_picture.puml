@@ -1,0 +1,94 @@
+@startuml
+skinparam handwritten false
+skinparam shadowing true
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+' Цветовые константы EventStorming (Alberto Brandolini)
+<style>
+.event {
+    BackgroundColor #FFA726
+    BorderColor #FB8C00
+    FontColor #000000
+    RoundCorner 0
+}
+.hotspot {
+    BackgroundColor #E91E63
+    BorderColor #C2185B
+    FontColor #FFFFFF
+    RoundCorner 0
+}
+.role {
+    BackgroundColor #FFF59D
+    BorderColor #FBC02D
+    FontColor #000000
+    RoundCorner 0
+}
+</style>
+
+title EventStorming: Уровень 1 — Крупномасштабное исследование (Big Picture) (Задание 5)
+
+legend top left
+|= Элемент |= Цвет |= Описание |
+|<#FFA726>| Оранжевый | Событие предметной области (Domain Event, прош. вр.) |
+|<#E91E63>| Малиновый | Противоречие / Риск / Проблема (Hotspot) |
+endlegend
+
+rectangle "Хронологическая ось (Timeline слева направо)" {
+    rectangle "Инициация митапа" {
+        card "Событие анонсировано" as E1 <<event>>
+        card "Лимит квоты установлен" as E2 <<event>>
+        card "Аудитория забронирована" as E3 <<event>>
+        card "Конфликт бронирования\nаудиторий деканата" as H1 <<hotspot>>
+        E1 -[hidden]right-> E2
+        E2 -[hidden]right-> E3
+        E3 -[hidden]down-> H1
+    }
+
+    rectangle "Прием заявок и регистрация" {
+        card "Регистрация участников открыта" as E4 <<event>>
+        card "Билет забронирован гостем" as E5 <<event>>
+        card "Лимит мест исчерпан" as E6 <<event>>
+        card "Слушатель добавлен в лист ожидания" as E7 <<event>>
+        card "Проблема: Овербукинг и неявка\n(No-Show до 35%)" as H2 <<hotspot>>
+        E4 -[hidden]right-> E5
+        E5 -[hidden]right-> E6
+        E6 -[hidden]right-> E7
+        E6 -[hidden]down-> H2
+    }
+
+    rectangle "Формирование программы" {
+        card "Тема доклада подана спикером" as E8 <<event>>
+        card "Доклад утвержден программным комитетом" as E9 <<event>>
+        card "Сетка расписания опубликована" as E10 <<event>>
+        E8 -[hidden]right-> E9
+        E9 -[hidden]right-> E10
+    }
+
+    rectangle "День мероприятия: Входной контроль" {
+        card "QR-билет открыт участником офлайн" as E11 <<event>>
+        card "QR-код считан камерой волонтера" as E12 <<event>>
+        card "Проход в аудиторию разрешен" as E13 <<event>>
+        card "Попытка повторного прохода заблокирована" as E14 <<event>>
+        card "Критический риск: В цоколе корпуса\nполностью отсутствует интернет!" as H3 <<hotspot>>
+        E11 -[hidden]right-> E12
+        E12 -[hidden]right-> E13
+        E13 -[hidden]right-> E14
+        E12 -[hidden]down-> H3
+    }
+
+    rectangle "Проведение и завершение" {
+        card "Экстренное Push-оповещение разослано" as E15 <<event>>
+        card "Митап успешно завершен" as E16 <<event>>
+        card "Аналитика явки экспортирована в отчет" as E17 <<event>>
+        E15 -[hidden]right-> E16
+        E16 -[hidden]right-> E17
+    }
+}
+
+E3 -right-> E4
+E7 -right-> E8
+E10 -right-> E11
+E14 -right-> E15
+
+@enduml

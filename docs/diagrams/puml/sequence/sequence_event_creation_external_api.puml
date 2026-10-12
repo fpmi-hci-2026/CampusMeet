@@ -1,0 +1,69 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+skinparam sequence {
+    ArrowColor #2563EB
+    ActorBorderColor #334155
+    LifeLineBorderColor #64748B
+    LifeLineBackgroundColor #F1F5F9
+    ParticipantBorderColor #334155
+    ParticipantBackgroundColor #EFF6FF
+}
+
+title Диаграмма последовательности: Создание события и интеграция с внешними API (Задание 4)
+
+actor "Организатор (Максим)" as Organizer
+participant "Web-кабинет\n(Next.js UI)" as WebUI
+participant "API Gateway\n(FastAPI)" as Gateway
+participant "OSM Nominatim\nAPI (OpenStreetMap)" as OSM
+participant "Nager.Date API\n(Public Holidays)" as NagerDate
+database "PostgreSQL\nDatabase" as DB
+
+Organizer -> WebUI: Ввод адреса площадки: "Минск, пр. Независимости 4"
+activate WebUI
+WebUI -> Gateway: GET /api/v1/integrations/geocode?q=Минск, пр. Независимости 4
+activate Gateway
+
+Gateway -> OSM: GET https://nominatim.openstreetmap.org/search?format=json&q=...
+activate OSM
+OSM --> Gateway: 200 OK [lat: 53.8938, lon: 27.5471, display_name: ...]
+deactivate OSM
+
+Gateway --> WebUI: Данные геокодирования
+deactivate Gateway
+WebUI --> Organizer: Отображение интерактивной миникарты локации
+
+Organizer -> WebUI: Выбор даты проведения: "2026-11-07"
+WebUI -> Gateway: GET /api/v1/integrations/holidays/check?country=BY&date=2026-11-07
+activate Gateway
+
+Gateway -> NagerDate: GET https://date.nager.at/api/v3/PublicHolidays/2026/BY
+activate NagerDate
+NagerDate --> Gateway: 200 OK [JSON массив государственных праздников]
+deactivate NagerDate
+
+Gateway -> Gateway: Проверка пересечения даты 2026-11-07
+Gateway --> WebUI: { is_holiday: true, name: "День Октябрьской революции" }
+deactivate Gateway
+
+WebUI --> Organizer: Предупреждение: "Внимание! Выбранная дата является государственным выходным днем в РБ"
+
+Organizer -> WebUI: Подтверждение создания события и лимита квот
+WebUI -> Gateway: POST /api/v1/events (Payload события)
+activate Gateway
+
+Gateway -> DB: INSERT INTO events (...), INSERT INTO venues (...)
+activate DB
+DB --> Gateway: EventCreated (id = e102-...)
+deactivate DB
+
+Gateway --> WebUI: 201 Created
+deactivate Gateway
+WebUI --> Organizer: Сообщение: "Мероприятие успешно создано и опубликовано!"
+deactivate WebUI
+
+@enduml

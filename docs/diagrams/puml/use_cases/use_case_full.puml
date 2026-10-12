@@ -1,0 +1,107 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+skinparam actor {
+    BackgroundColor #F8FAFC
+    BorderColor #334155
+    FontColor #0F172A
+}
+
+skinparam usecase {
+    BackgroundColor #EFF6FF
+    BorderColor #2563EB
+    FontColor #1E293B
+    ArrowColor #3B82F6
+}
+
+title Расширенная Use Case диаграмма экосистемы CampusMeet (Задание 4)
+
+actor "Слушатель (Attendee)" as Attendee
+actor "Капитан команды (Hacker Lead)" as HackLead
+actor "Волонтер (Volunteer)" as Volunteer
+actor "Организатор (Organizer)" as Organizer
+actor "Спикер (Speaker)" as Speaker
+actor "Администратор площадки (Patron)" as Patron
+
+Attendee <|-- HackLead
+
+rectangle "CampusMeet Core Platform" {
+    package "Каталог и Регистрация" {
+        usecase "UC-01: Поиск и фильтрация событий" as UC_Search
+        usecase "UC-02: Регистрация на событие" as UC_Register
+        usecase "UC-03: Добавление в лист ожидания (Waitlist)" as UC_Waitlist
+        usecase "UC-04: Выпуск динамического QR-билета" as UC_IssueTicket
+        usecase "UC-05: Кеширование билета (Offline-First)" as UC_CacheTicket
+    }
+
+    package "Контроль входа и Безопасность" {
+        usecase "UC-06: Сканирование QR-билета" as UC_Scan
+        usecase "UC-07: Автономная HMAC-валидация" as UC_ValidateHMAC
+        usecase "UC-08: Резервный ручной поиск гостя" as UC_ManualCheckin
+        usecase "UC-09: Фиксация повторного прохода" as UC_DetectDuplicate
+    }
+
+    package "Администрирование и Программа" {
+        usecase "UC-10: Создание события и квот" as UC_CreateEvent
+        usecase "UC-11: Геокодирование адреса (OSM)" as UC_GeocodeOSM
+        usecase "UC-12: Проверка календаря праздников" as UC_CheckHolidays
+        usecase "UC-13: Конструктор расписания" as UC_Schedule
+        usecase "UC-14: Модерация заявок спикеров (CFP)" as UC_ModerateCFP
+        usecase "UC-15: Экстренная Push-рассылка" as UC_EmergencyPush
+        usecase "UC-16: Выгрузка аналитики явки (XLSX)" as UC_Analytics
+    }
+
+    package "Хакатон и Команды" {
+        usecase "UC-17: Создание профиля команды" as UC_CreateTeam
+        usecase "UC-18: Поиск участников по навыкам" as UC_MatchSkills
+        usecase "UC-19: Подача заявки на вступление" as UC_ApplyTeam
+    }
+
+    package "Докладчики и Площадка" {
+        usecase "UC-20: Подача темы и тезисов CFP" as UC_SubmitTalk
+        usecase "UC-21: Загрузка файлов презентации" as UC_UploadSlides
+        usecase "UC-22: Аудит пожарной безопасности зала" as UC_AuditSafety
+    }
+}
+
+' Связи слушателя
+Attendee --> UC_Search
+Attendee --> UC_Register
+UC_Register ..> UC_IssueTicket : <<include>>
+UC_IssueTicket ..> UC_CacheTicket : <<include>>
+UC_Register ..> UC_Waitlist : <<extend>> \n (при исчерпании квоты)
+
+' Связи капитана хакатона
+HackLead --> UC_CreateTeam
+HackLead --> UC_MatchSkills
+Attendee --> UC_ApplyTeam
+
+' Связи волонтера
+Volunteer --> UC_Scan
+Volunteer --> UC_ManualCheckin
+UC_Scan ..> UC_ValidateHMAC : <<include>>
+UC_Scan ..> UC_DetectDuplicate : <<extend>> \n (при повторном сканировании)
+
+' Связи организатора
+Organizer --> UC_CreateEvent
+UC_CreateEvent ..> UC_GeocodeOSM : <<include>>
+UC_CreateEvent ..> UC_CheckHolidays : <<include>>
+Organizer --> UC_Schedule
+Organizer --> UC_ModerateCFP
+Organizer --> UC_EmergencyPush
+Organizer --> UC_Analytics
+
+' Связи спикера
+Speaker --> UC_SubmitTalk
+UC_SubmitTalk ..> UC_UploadSlides : <<include>>
+
+' Связи куратора площадки
+Patron --> UC_AuditSafety
+Patron --> UC_Analytics
+
+@enduml

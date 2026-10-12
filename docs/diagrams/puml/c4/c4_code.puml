@@ -1,0 +1,58 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+skinparam class {
+    BackgroundColor #F8FAFC
+    BorderColor #334155
+    ArrowColor #2563EB
+    HeaderBackgroundColor #E2E8F0
+}
+
+title C4 Model: Диаграмма уровня C4 (Code Level) — Криптографический движок TicketCryptoEngine (Задание 7)
+
+interface ITicketSigner {
+    +sign_ticket_payload(payload: Dict, secret_salt: str) -> str
+    +verify_ticket_signature(payload: Dict, signature: str, secret_salt: str) -> bool
+}
+
+interface IOfflineCacheStorage {
+    +get_event_public_key(event_id: str) -> str
+    +has_scanned_hash(hash_code: str) -> bool
+    +mark_hash_scanned(hash_code: str, volunteer_id: str) -> None
+}
+
+class HMACSHA256TicketEngine implements ITicketSigner {
+    -algorithm_name: str = "SHA256"
+    -time_step_window_sec: int = 30
+    +sign_ticket_payload(payload: Dict, secret_salt: str) -> str
+    +verify_ticket_signature(payload: Dict, signature: str, secret_salt: str) -> bool
+    +build_dynamic_qr_payload(ticket_id: str, user_id: str, event_id: str) -> str
+    -compute_hmac(raw_bytes: bytes, salt: bytes) -> str
+}
+
+class OfflineValidationScanner implements IOfflineCacheStorage {
+    -local_sqlite_connection: Connection
+    -cached_public_keys: Dict[str, str]
+    +validate_qr_offline(raw_qr_string: str) -> CheckInDecision
+    +record_offline_entry(ticket_id: str, timestamp: datetime) -> bool
+    +sync_offline_batch_to_cloud(api_endpoint: str) -> SyncReport
+}
+
+class CheckInDecision {
+    +is_allowed: bool
+    +status_code: str
+    +attendee_name: str
+    +badge_category: str
+    +rejection_reason: Optional[str]
+    +first_scanned_timestamp: Optional[datetime]
+}
+
+HMACSHA256TicketEngine ..> CheckInDecision : generates status
+OfflineValidationScanner o-- ITicketSigner : delegates verification
+OfflineValidationScanner ..> CheckInDecision : returns evaluation
+
+@enduml

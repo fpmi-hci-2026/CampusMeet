@@ -17,6 +17,15 @@
 | **5. Схема базы данных** | Реляционная модель данных (ER-диаграмма Mermaid), описание сущностей и DDL-скрипт | [Database_Schema.md](Database_Schema.md) |
 | **6. Спецификация REST API** | Описание эндпоинтов, форматы запросов/ответов, интеграция с OSM Nominatim и Nager.Date | [API_Specification.md](API_Specification.md) |
 | **7. Презентация проекта** | Концепция питча, структура слайдов, распределение ролей в команде и регламент Git-flow | [Project_Presentation.md](Project_Presentation.md) |
+| **8. Требования в виде User Stories** | 12 User Stories, BDD-критерии (Given-When-Then), различия Web vs Mobile, матрица приоритетов | [User_Stories_and_BDD.md](User_Stories_and_BDD.md) |
+| **9. Спецификация UML (PlantUML & Mermaid)** | Комплекс из 29 диаграмм (Use Case, Activity, Classes, Sequence, Component, Package, Deployment, ERD) | [UML_Specification.md](UML_Specification.md) |
+| **10. AI-промпты системного аналитика** | Промпты для ИИ по методике SARD, демонстрация навыков аналитика и расширение историй | [AI_Engineering_Prompts.md](AI_Engineering_Prompts.md) |
+| **11. Моделирование EventStorming** | Нотация Альберто Брандолини на 3 уровнях: Big Picture, Process Modeling, Software Design | [EventStorming.md](EventStorming.md) |
+| **12. Моделирование Event Modeling** | Срезы Адама Димитрука (Command, View, Automation, Translation Patterns) | [Event_Modeling.md](Event_Modeling.md) |
+| **13. Архитектура C4 Model** | Моделирование по Саймону Брауну: C1 Context, C2 Container, C3 Component, C4 Code | [C4_Architecture.md](C4_Architecture.md) |
+| **14. Спецификация требований SRS** | Полное нормативное ТЗ по стандарту IEEE 830 / Карлу Вигерсу и матрица трассируемости | [Software_Requirements_Specification_SRS.md](Software_Requirements_Specification_SRS.md) |
+| **15. Академический отчет по Лаб. №3** | Итоговый комплексный отчет по Лабораторной работе №3 | [docs/reports/Lab3_report.md](../docs/reports/Lab3_report.md) |
+
 
 ---
 

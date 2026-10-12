@@ -1,0 +1,78 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+skinparam component {
+    BackgroundColor #F8FAFC
+    BorderColor #334155
+    ArrowColor #2563EB
+}
+
+title Диаграмма компонентов системы CampusMeet (Задание 4)
+
+package "Клиентский уровень (Frontend Layer)" {
+    [Next.js Web Client\n(Панель организатора)] as WebApp
+    [React Native Mobile App\n(Участник и Волонтер)] as MobileApp
+    [Mobile Secure Vault\n(AsyncStorage / SecureStore)] as SecureVault
+}
+
+package "Шлюз и Сервисный уровень (FastAPI Backend)" {
+    [API Gateway & Router\n(FastAPI / Uvicorn)] as APIGateway
+    [Auth & Security Module\n(JWT / OAuth2 / bcrypt)] as AuthMod
+    [Ticket & HMAC Engine\n(Криптографический генератор)] as TicketEngine
+    [Attendance Scanner Service\n(Онлайн/офлайн валидатор)] as ScannerService
+    [CFP & Schedule Service\n(Модерация докладов)] as CFPService
+    [Hackathon Matching Service\n(Биржа команд и резюме)] as HackService
+    [External Integration Adapter\n(OSM, Nager.Date)] as ExtAdapter
+    [Async Notification Dispatcher\n(Celery Task Producer)] as NotifDispatcher
+}
+
+package "Асинхронные воркеры и Очереди" {
+    [Celery Worker Cluster\n(Python Background Workers)] as CeleryWorkers
+    database "Redis Broker & Cache\n(Pub/Sub, Rate Limits)" as Redis
+}
+
+package "Хранилище данных (Persistence Layer)" {
+    database "PostgreSQL RDBMS\n(10 таблиц, транзакции ACID)" as PostgresDB
+}
+
+cloud "Внешние сервисы (External APIs)" {
+    [OpenStreetMap Nominatim API] as OSM
+    [Nager.Date Holidays API] as NagerAPI
+    [Apple APNs & Google FCM] as PushCloud
+}
+
+' Связи клиентов
+WebApp --> APIGateway : HTTPS / JSON REST
+MobileApp --> APIGateway : HTTPS / JSON REST
+MobileApp <--> SecureVault : Offline Sync
+
+' Внутренние связи шлюза
+APIGateway --> AuthMod
+APIGateway --> TicketEngine
+APIGateway --> ScannerService
+APIGateway --> CFPService
+APIGateway --> HackService
+APIGateway --> ExtAdapter
+APIGateway --> NotifDispatcher
+
+' Интеграции
+ExtAdapter --> OSM : HTTP GET
+ExtAdapter --> NagerAPI : HTTP GET
+
+' База данных и кеш
+AuthMod --> PostgresDB
+TicketEngine --> PostgresDB
+ScannerService --> PostgresDB
+CFPService --> PostgresDB
+HackService --> PostgresDB
+
+APIGateway --> Redis : Кеширование сессий
+NotifDispatcher --> Redis : Постановка push-задач
+Redis --> CeleryWorkers : Захват фоновых задач
+CeleryWorkers --> PushCloud : Отправка Push-уведомлений
+
+@enduml

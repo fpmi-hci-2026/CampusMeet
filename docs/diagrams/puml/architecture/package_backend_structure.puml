@@ -1,0 +1,87 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+skinparam package {
+    BackgroundColor #F8FAFC
+    BorderColor #334155
+    ArrowColor #2563EB
+}
+
+title Диаграмма пакетов модульной архитектуры бэкенда (Задание 4)
+
+package "app" {
+    package "api" {
+        package "v1" {
+            package "endpoints" {
+                class auth_router
+                class events_router
+                class tickets_router
+                class checkin_router
+                class cfp_router
+                class teams_router
+                class integrations_router
+            }
+            class api_router
+        }
+        class deps
+    }
+
+    package "core" {
+        class config
+        class security
+        class crypto_hmac
+        class exceptions
+    }
+
+    package "models" {
+        class user_model
+        class event_model
+        class ticket_model
+        class venue_model
+        class session_model
+        class team_model
+        class checkin_model
+    }
+
+    package "schemas" {
+        class user_schema
+        class event_schema
+        class ticket_schema
+        class checkin_schema
+        class cfp_schema
+    }
+
+    package "services" {
+        class event_service
+        class ticket_service
+        class checkin_service
+        class cfp_service
+        class matching_service
+        class notification_service
+    }
+
+    package "integrations" {
+        class osm_client
+        class nager_date_client
+        class fcm_pusher
+    }
+
+    package "db" {
+        class base
+        class session
+        class init_db
+    }
+}
+
+api ..> schemas : uses
+api ..> services : calls
+services ..> models : manipulates
+services ..> core : relies on
+services ..> integrations : delegates external calls
+db ..> models : maps to SQL
+
+@enduml

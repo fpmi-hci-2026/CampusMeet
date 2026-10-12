@@ -1,0 +1,117 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+skinparam class {
+    BackgroundColor #F8FAFC
+    BorderColor #334155
+    ArrowColor #2563EB
+    HeaderBackgroundColor #E2E8F0
+}
+
+title Диаграмма доменных классов ядра системы CampusMeet (Задание 4)
+
+enum EventType {
+    MEETUP
+    HACKATHON
+    WORKSHOP
+    LECTURE
+}
+
+enum RegistrationType {
+    DIRECT
+    WAITLIST
+    INVITE_ONLY
+}
+
+class User {
+    -id: UUID
+    -email: String
+    -password_hash: String
+    -full_name: String
+    -faculty: String
+    -study_year: Integer
+    -avatar_url: String
+    -is_verified: Boolean
+    +authenticate(password: String): Boolean
+    +updateProfile(dto: ProfileDTO): Void
+}
+
+class Event {
+    -id: UUID
+    -organizer_id: UUID
+    -venue_id: UUID
+    -title: String
+    -slug: String
+    -event_type: EventType
+    -banner_image_url: String
+    -start_at: DateTime
+    -end_at: DateTime
+    -hard_cap_quota: Integer
+    -enable_waitlist: Boolean
+    -secret_hmac_salt: String
+    +getOccupancyRate(): Float
+    +reserveSpot(user_id: UUID): Ticket
+    +cancelReservation(ticket_id: UUID): Void
+    +publish(): Void
+}
+
+class Venue {
+    -id: UUID
+    -title: String
+    -city: String
+    -street_address: String
+    -building_corpus: String
+    -floor: Integer
+    -auditorium_room: String
+    -geo_lat: Double
+    -geo_lon: Double
+    -fire_safety_capacity: Integer
+    +validateCapacitySafety(requested_cap: Integer): Boolean
+}
+
+class Ticket {
+    -id: UUID
+    -event_id: UUID
+    -user_id: UUID
+    -ticket_code: String
+    -security_hash: String
+    -status: String
+    -issued_at: DateTime
+    -expires_at: DateTime
+    +generateOfflinePayload(): Byte[]
+    +markCheckedIn(volunteer_id: UUID, device_id: String): CheckIn
+    +invalidate(): Void
+}
+
+class WaitlistEntry {
+    -id: UUID
+    -event_id: UUID
+    -user_id: UUID
+    -queue_position: Integer
+    -added_at: DateTime
+    -promoted_at: DateTime
+    +promoteToTicket(): Ticket
+}
+
+class CheckInRecord {
+    -id: UUID
+    -ticket_id: UUID
+    -volunteer_id: UUID
+    -timestamp: DateTime
+    -scan_mode: String
+    -is_duplicate_attempt: Boolean
+    -device_identifier: String
+}
+
+User "1" *-- "0..*" Ticket : holds
+Event "1" o-- "1" Venue : takes place at
+Event "1" *-- "0..*" Ticket : contains
+Event "1" *-- "0..*" WaitlistEntry : manages queue
+Ticket "1" <-- "0..1" CheckInRecord : validates
+User "1" -- "0..*" CheckInRecord : processed by volunteer
+
+@enduml

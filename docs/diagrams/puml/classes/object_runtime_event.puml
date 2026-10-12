@@ -1,0 +1,83 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+skinparam object {
+    BackgroundColor #FEF3C7
+    BorderColor #D97706
+    ArrowColor #2563EB
+}
+
+title Диаграмма объектов времени выполнения: Митап «FPMI AI Night 2026» (Задание 4)
+
+object "fpmi_event: Event" as ev {
+    id = "e102-4b2a-89f1"
+    title = "FPMI AI Night 2026"
+    event_type = MEETUP
+    start_at = "2026-10-25T18:00:00+03:00"
+    end_at = "2026-10-25T21:30:00+03:00"
+    hard_cap_quota = 120
+    secret_hmac_salt = "k89#fpmi_sec_2026"
+}
+
+object "auditorium_514: Venue" as ven {
+    id = "v901-77b3"
+    title = "Главный корпус БГУ"
+    city = "Минск"
+    street_address = "пр. Независимости, 4"
+    auditorium_room = "Ауд. 514 (Большая лекционная)"
+    geo_lat = 53.8938
+    geo_lon = 27.5471
+    fire_safety_capacity = 140
+}
+
+object "artem: User" as u1 {
+    id = "u01-kovalev"
+    full_name = "Артём Ковалёв"
+    email = "artem.kovalev@bsu.by"
+    faculty = "ФПМИ"
+    study_year = 3
+}
+
+object "daria: User" as u2 {
+    id = "u02-melnikova"
+    full_name = "Дарья Мельникова"
+    email = "daria.melnikova@bsu.by"
+    role = VOLUNTEER
+}
+
+object "artem_ticket: Ticket" as t1 {
+    id = "t-7789-artem"
+    ticket_code = "CMP-AI-042"
+    status = "CHECKED_IN"
+    issued_at = "2026-10-12T14:20:10"
+    security_hash = "hmac_sha256_e49b81f..."
+}
+
+object "artem_checkin: CheckInRecord" as chk {
+    id = "chk-552"
+    timestamp = "2026-10-25T17:48:15"
+    scan_mode = "OPTICAL_CAMERA"
+    is_duplicate_attempt = false
+    device_identifier = "iPhone15-Daria-Scanner"
+}
+
+object "ai_talk: SessionItem" as sess {
+    id = "sess-01"
+    title = "Оркестрация агентных систем на базе LLM"
+    start_time = "18:15"
+    end_time = "19:00"
+    presentation_url = "https://cdn.campusmeet.by/slides/ai_night.pdf"
+}
+
+ev -- ven : passes at
+ev -- t1 : issued for
+u1 -- t1 : owns
+t1 -- chk : validated by
+u2 -- chk : processed by
+ev -- sess : contains program
+
+@enduml

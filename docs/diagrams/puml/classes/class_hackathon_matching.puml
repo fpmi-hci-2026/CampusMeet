@@ -1,0 +1,92 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+skinparam class {
+    BackgroundColor #F8FAFC
+    BorderColor #334155
+    ArrowColor #2563EB
+    HeaderBackgroundColor #E2E8F0
+}
+
+title Диаграмма классов: Хакатон и биржа команд (Задание 4)
+
+enum SkillCategory {
+    FRONTEND
+    BACKEND
+    MOBILE
+    DATA_SCIENCE_ML
+    UI_UX_DESIGN
+    PROJECT_MANAGEMENT
+}
+
+enum ApplicationStatus {
+    PENDING
+    ACCEPTED
+    REJECTED
+    WITHDRAWN
+}
+
+class HackathonTeam {
+    -id: UUID
+    -event_id: UUID
+    -leader_id: UUID
+    -team_name: String
+    -project_title: String
+    -pitch_description: String
+    -max_members: Integer
+    -is_recruiting: Boolean
+    +addMember(user_id: UUID): Boolean
+    +removeMember(user_id: UUID): Void
+    +getAvailableSlots(): Integer
+}
+
+class TeamMember {
+    -id: UUID
+    -team_id: UUID
+    -user_id: UUID
+    -role_in_team: String
+    -joined_at: DateTime
+    -is_leader: Boolean
+}
+
+class VacantRole {
+    -id: UUID
+    -team_id: UUID
+    -category: SkillCategory
+    -required_skill_names: List<String>
+    -experience_level: String
+    -is_filled: Boolean
+}
+
+class UserSkill {
+    -id: UUID
+    -user_id: UUID
+    -skill_name: String
+    -category: SkillCategory
+    -years_experience: Integer
+    -github_repo_url: String
+}
+
+class TeamJoinRequest {
+    -id: UUID
+    -team_id: UUID
+    -applicant_id: UUID
+    -vacant_role_id: UUID
+    -cover_letter: String
+    -status: ApplicationStatus
+    -created_at: DateTime
+    +accept(): Void
+    +reject(): Void
+}
+
+HackathonTeam "1" *-- "1..*" TeamMember : includes
+HackathonTeam "1" *-- "0..*" VacantRole : publishes
+UserSkill "0..*" -- "1" TeamMember : belongs to
+TeamJoinRequest "0..*" --> "1" HackathonTeam : targets
+TeamJoinRequest "0..*" --> "1" VacantRole : applies for
+
+@enduml

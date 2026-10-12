@@ -1,0 +1,75 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+skinparam sequence {
+    ArrowColor #2563EB
+    ActorBorderColor #334155
+    LifeLineBorderColor #64748B
+    LifeLineBackgroundColor #F1F5F9
+    ParticipantBorderColor #334155
+    ParticipantBackgroundColor #EFF6FF
+}
+
+title Диаграмма последовательности: Мэтчинг участников хакатона и вступление в команду (Задание 4)
+
+actor "Студент-разработчик\n(Артём)" as Applicant
+participant "Mobile App\n(CampusMeet)" as Mobile
+participant "API Gateway\n(FastAPI)" as Gateway
+participant "Team Service\n& Matcher" as TeamService
+database "PostgreSQL\nDatabase" as DB
+actor "Капитан команды\n(Кирилл)" as Captain
+
+Applicant -> Mobile: Переход в раздел "Биржа команд хакатона"
+activate Mobile
+Mobile -> Gateway: GET /api/v1/hackathons/{id}/vacancies?role=ML_ENGINEER
+activate Gateway
+
+Gateway -> DB: SELECT * FROM vacant_roles WHERE category = 'DATA_SCIENCE_ML'
+activate DB
+DB --> Gateway: List<VacantRole>
+deactivate DB
+Gateway --> Mobile: Список открытых вакансий
+deactivate Gateway
+
+Mobile --> Applicant: Карточки команд (Команда "ByteBusters", стек: PyTorch, FastAPI)
+
+Applicant -> Mobile: Нажатие "Откликнуться" (Резюме: ссылка на GitHub, стек)
+Mobile -> Gateway: POST /api/v1/teams/{id}/join-requests
+activate Gateway
+
+Gateway -> TeamService: CreateApplication(team_id, applicant_id, message)
+activate TeamService
+TeamService -> DB: INSERT INTO team_join_requests (...)
+activate DB
+DB --> TeamService: ApplicationCreated (status = 'PENDING')
+deactivate DB
+
+TeamService -> Gateway: Запрос успешно сохранен
+deactivate TeamService
+Gateway --> Mobile: 201 Created ("Заявка отправлена капитану")
+deactivate Gateway
+Mobile --> Applicant: Экран подтверждения отправки
+
+Gateway -[#gray]> Captain: Push-уведомление капитану: "Новый отклик от Артёма (ML-инженер)"
+
+Captain -> Gateway: PATCH /api/v1/teams/{id}/join-requests/{req_id} { status: "ACCEPTED" }
+activate Gateway
+Gateway -> TeamService: AcceptMember(team_id, applicant_id)
+activate TeamService
+TeamService -> DB: UPDATE team_members, UPDATE vacant_roles SET is_filled=true
+activate DB
+DB --> TeamService: MemberAdded
+deactivate DB
+TeamService --> Gateway: OK
+deactivate TeamService
+Gateway --> Captain: "Участник успешно принят в состав команды!"
+deactivate Gateway
+
+Gateway -[#gray]> Applicant: Push-уведомление: "Поздравляем! Вы приняты в команду ByteBusters"
+deactivate Mobile
+
+@enduml
