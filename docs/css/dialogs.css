@@ -1,25 +1,27 @@
 /* ==========================================================================
-   CampusMeet / EventHub — Dialogs (Lightbox Zoom & Omnibox ⌘K)
+   CampusMeet / EventHub — Monochrome Dialogs
+   Diagram Lightbox Zoom & Omnibox Quick Search Modal (⌘K)
    ========================================================================== */
 
-/* Diagram Lightbox Dialog */
+/* --- DIAGRAM LIGHTBOX DIALOG --- */
 #lightbox-dialog {
     width: 95vw;
-    max-width: 1300px;
+    max-width: 1280px;
     height: 90vh;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border-subtle);
     border-radius: var(--radius-lg);
-    background: var(--bg-primary);
-    color: var(--text-main);
+    background: var(--surface-canvas);
+    color: var(--text-primary);
     padding: 0;
     margin: auto;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85);
+    box-shadow: var(--shadow-lg);
     overflow: hidden;
 }
 
 #lightbox-dialog::backdrop {
-    background: rgba(0, 0, 0, 0.8);
+    background: var(--overlay-scrim);
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .lightbox-header {
@@ -27,14 +29,14 @@
     align-items: center;
     justify-content: space-between;
     padding: 14px 20px;
-    background: var(--bg-secondary);
-    border-bottom: 1px solid var(--border-color);
+    background: var(--surface-primary);
+    border-bottom: 1px solid var(--border-subtle);
 }
 
 .lightbox-title {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     font-weight: 600;
-    color: #ffffff;
+    color: var(--text-primary);
     max-width: 70%;
     white-space: nowrap;
     overflow: hidden;
@@ -48,33 +50,35 @@
 }
 
 .lightbox-btn {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-color);
-    color: var(--text-main);
-    border-radius: 6px;
-    padding: 6px 10px;
+    background: var(--surface-secondary);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+    border-radius: var(--radius-sm);
+    padding: 6px 12px;
     font-size: 0.82rem;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    transition: var(--transition-fast);
+    text-decoration: none;
+    transition: background-color var(--duration-hover) var(--ease-snappy),
+                border-color var(--duration-hover) var(--ease-snappy);
 }
 
 .lightbox-btn:hover {
-    background: var(--accent);
-    color: #0b1120;
-    border-color: var(--accent);
+    background: var(--surface-tertiary);
+    border-color: var(--border-default);
+    color: var(--text-primary);
 }
 
 .lightbox-body {
     width: 100%;
-    height: calc(100% - 60px);
+    height: calc(100% - 56px);
     overflow: auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #080f1e;
+    background: var(--surface-canvas);
     padding: 24px;
     cursor: grab;
 }
@@ -88,110 +92,124 @@
     max-height: 100%;
     object-fit: contain;
     background: #ffffff;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     padding: 10px;
-    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: var(--shadow-md);
+    transition: transform var(--duration-base) var(--ease-snappy);
 }
 
 .lightbox-body img.dark-render {
-    background: #080f1e;
+    background: var(--surface-canvas);
+    border: 1px solid var(--border-subtle);
 }
 
-/* Omnibox Quick Search Modal (⌘K / Ctrl+K) */
+/* --- OMNIBOX QUICK SEARCH MODAL (⌘K) --- */
 #omnibox-dialog {
     width: 90vw;
-    max-width: 680px;
-    max-height: 80vh;
-    border: 1px solid var(--border-color);
+    max-width: 640px;
+    border: 1px solid var(--border-subtle);
     border-radius: var(--radius-lg);
-    background: var(--bg-secondary);
-    color: var(--text-main);
+    background: var(--surface-primary);
+    color: var(--text-primary);
     padding: 0;
-    margin: 10vh auto auto;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+    margin: 12vh auto auto;
+    box-shadow: var(--shadow-lg);
     overflow: hidden;
 }
 
 #omnibox-dialog::backdrop {
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(6px);
+    background: var(--overlay-scrim);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .omnibox-header {
     display: flex;
     align-items: center;
     padding: 16px 20px;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-subtle);
+    background: var(--surface-primary);
     gap: 12px;
 }
 
 .omnibox-icon {
-    font-size: 1.2rem;
-    color: var(--accent);
+    font-size: 1.1rem;
+    color: var(--text-secondary);
 }
 
 .omnibox-input {
     flex-grow: 1;
     background: transparent;
     border: none;
-    color: #ffffff;
-    font-size: 1.05rem;
-    font-family: inherit;
     outline: none;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    color: var(--text-primary);
 }
 
 .omnibox-input::placeholder {
-    color: var(--text-dim);
+    color: var(--text-tertiary);
 }
 
 .omnibox-close-btn {
     background: transparent;
-    border: none;
-    color: var(--text-muted);
-    font-size: 1.2rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xs);
+    color: var(--text-secondary);
+    padding: 2px 8px;
+    font-size: 0.78rem;
     cursor: pointer;
+    transition: color var(--duration-hover) var(--ease-snappy),
+                border-color var(--duration-hover) var(--ease-snappy);
+}
+
+.omnibox-close-btn:hover {
+    color: var(--text-primary);
+    border-color: var(--border-default);
 }
 
 .omnibox-results {
-    max-height: 55vh;
-    overflow-y: auto;
-    padding: 12px 10px;
     list-style: none;
+    max-height: 380px;
+    overflow-y: auto;
+    padding: 8px;
+    margin: 0;
 }
 
 .omnibox-item {
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 16px;
-    border-radius: var(--radius-sm);
-    color: #cbd5e1;
-    text-decoration: none;
     cursor: pointer;
-    transition: var(--transition-fast);
+    transition: background-color var(--duration-hover) var(--ease-snappy);
+    text-decoration: none;
+    color: var(--text-primary);
 }
 
 .omnibox-item:hover, .omnibox-item.selected {
-    background: var(--bg-surface);
-    color: #ffffff;
+    background-color: var(--surface-secondary);
 }
 
 .omnibox-item-title {
-    font-weight: 600;
-    font-size: 0.92rem;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-primary);
 }
 
 .omnibox-item-meta {
-    font-size: 0.76rem;
-    color: var(--accent);
-    background: var(--accent-subtle);
+    font-size: 0.74rem;
+    color: var(--text-secondary);
+    background: var(--surface-tertiary);
+    border: 1px solid var(--border-subtle);
     padding: 2px 8px;
-    border-radius: 4px;
+    border-radius: var(--radius-full);
 }
 
 .omnibox-empty {
-    padding: 32px 20px;
+    padding: 28px 16px;
     text-align: center;
-    color: var(--text-muted);
-    font-size: 0.92rem;
+    color: var(--text-tertiary);
+    font-size: 0.88rem;
 }

@@ -1,44 +1,193 @@
 /* ==========================================================================
-   CampusMeet / EventHub — Variables & Base Reset
+   CampusMeet / EventHub — Monochrome Design System Tokens
+   Based on Monochrome Minimalist Architecture (docs/DESIGN_SYSTEM.md)
+   Strict Neutral Greyscale, Swiss Precision, Zero-Color Aesthetics
    ========================================================================== */
 
 :root {
-    --bg-primary: #0b1120;
-    --bg-secondary: #131c31;
-    --bg-surface: #1e293b;
-    --bg-card: #182238;
-    --bg-card-hover: #1e2c47;
-    --border-color: #334155;
-    --border-light: rgba(255, 255, 255, 0.08);
-    --border-focus: #38bdf8;
-    
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-    --text-dim: #64748b;
-    
-    --accent: #38bdf8;
-    --accent-hover: #0284c7;
-    --accent-glow: rgba(56, 189, 248, 0.25);
-    --accent-subtle: rgba(56, 189, 248, 0.12);
-    
-    --success: #22c55e;
-    --success-subtle: rgba(34, 197, 94, 0.15);
-    --warning: #f59e0b;
-    --warning-subtle: rgba(245, 158, 11, 0.15);
-    --danger: #ef4444;
-    --danger-subtle: rgba(239, 68, 68, 0.15);
-    
-    --sidebar-width: 320px;
-    --topbar-height: 56px;
-    --transition-fast: 0.15s ease;
-    --transition-normal: 0.25s ease;
+    /* --- TYPOGRAPHY STACKS --- */
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    --font-serif: 'Newsreader', 'Signifier', 'Charter', 'Georgia', 'Times New Roman', serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Monaco, Consolas, monospace;
+
+    /* --- SPATIAL SCALE (4px / 8px Grid) --- */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --space-10: 40px;
+    --space-12: 48px;
+    --space-16: 64px;
+    --space-20: 80px;
+    --space-24: 96px;
+
+    /* --- GEOMETRY & RADII --- */
+    --radius-none: 0px;
+    --radius-xs: 4px;
     --radius-sm: 6px;
-    --radius-md: 10px;
-    --radius-lg: 14px;
-    --radius-xl: 18px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-full: 9999px;
+
+    /* --- MOTION TOKENS --- */
+    --ease-snappy: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --duration-instant: 100ms;
+    --duration-hover: 150ms;
+    --duration-base: 200ms;
+    --duration-modal: 250ms;
+
+    /* --- TRANSITIONS (COMPATIBILITY) --- */
+    --transition-fast: 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-normal: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* --- DIMENSIONS --- */
+    --sidebar-width: 310px;
+    --topbar-height: 56px;
+    --container-reading: 720px;
+    --container-base: 1080px;
+    --container-wide: 1280px;
+
+    /* --- MONOCHROME DARK PALETTE (DEFAULT) --- */
+    --surface-canvas: #0d0d0d;
+    --surface-primary: #171717;
+    --surface-secondary: #212121;
+    --surface-tertiary: #2a2a2a;
+    --surface-hover: #303030;
+    --surface-active: #3a3a3a;
+    --surface-translucent: rgba(13, 13, 13, 0.88);
+
+    --border-subtle: #262626;
+    --border-default: #383838;
+    --border-strong: #ffffff;
+    --border-focus: #ffffff;
+
+    --text-primary: #f4f4f4;
+    --text-secondary: #a1a1aa;
+    --text-tertiary: #71717a;
+    --text-disabled: #52525b;
+    --text-inverse: #0d0d0d;
+
+    /* Actions */
+    --action-primary-bg: #ffffff;
+    --action-primary-text: #0d0d0d;
+    --action-primary-hover: #e5e5e5;
+
+    --action-secondary-bg: transparent;
+    --action-secondary-border: #383838;
+    --action-secondary-text: #f4f4f4;
+    --action-secondary-hover: #212121;
+
+    /* Overlays & Shadows */
+    --overlay-scrim: rgba(0, 0, 0, 0.75);
+    --shadow-none: none;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 14px -2px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--border-subtle);
+    --shadow-lg: 0 16px 36px -4px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--border-subtle);
+
+    /* Scrollbars */
+    --scrollbar-thumb: #333333;
+    --scrollbar-thumb-hover: #52525b;
+
+    /* --- LEGACY ALIASES (STRICTLY MAPPED TO MONOCHROME) --- */
+    --bg-primary: var(--surface-canvas);
+    --bg-secondary: var(--surface-primary);
+    --bg-surface: var(--surface-secondary);
+    --bg-card: var(--surface-primary);
+    --bg-card-hover: var(--surface-secondary);
+    --border-color: var(--border-subtle);
+    --border-light: var(--border-subtle);
+    --text-main: var(--text-primary);
+    --text-muted: var(--text-secondary);
+    --text-dim: var(--text-tertiary);
+
+    /* Monochrome overrides for former color accents */
+    --accent: #f4f4f4;
+    --accent-hover: #ffffff;
+    --accent-glow: rgba(255, 255, 255, 0.08);
+    --accent-subtle: #212121;
+
+    --success: #f4f4f4;
+    --success-subtle: #212121;
+    --warning: #f4f4f4;
+    --warning-subtle: #212121;
+    --danger: #ffffff;
+    --danger-subtle: #2a2a2a;
 }
 
-* {
+/* --- MONOCHROME LIGHT PALETTE (NEWSPAPER & ARCHIVAL CANVAS) --- */
+:root[data-theme="light"] {
+    --surface-canvas: #ffffff;
+    --surface-primary: #ffffff;
+    --surface-secondary: #f9f9f9;
+    --surface-tertiary: #f4f4f4;
+    --surface-hover: #ececec;
+    --surface-active: #e3e3e3;
+    --surface-translucent: rgba(255, 255, 255, 0.88);
+
+    --border-subtle: #e5e5e5;
+    --border-default: #d4d4d4;
+    --border-strong: #0d0d0d;
+    --border-focus: #0d0d0d;
+
+    --text-primary: #0d0d0d;
+    --text-secondary: #5d5d5d;
+    --text-tertiary: #8c8c8c;
+    --text-disabled: #b4b4b4;
+    --text-inverse: #ffffff;
+
+    /* Actions */
+    --action-primary-bg: #0d0d0d;
+    --action-primary-text: #ffffff;
+    --action-primary-hover: #262626;
+
+    --action-secondary-bg: transparent;
+    --action-secondary-border: #d4d4d4;
+    --action-secondary-text: #0d0d0d;
+    --action-secondary-hover: #f4f4f4;
+
+    /* Overlays & Shadows */
+    --overlay-scrim: rgba(0, 0, 0, 0.45);
+    --shadow-none: none;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 14px -2px rgba(0, 0, 0, 0.08), 0 0 0 1px var(--border-subtle);
+    --shadow-lg: 0 16px 36px -4px rgba(0, 0, 0, 0.12), 0 0 0 1px var(--border-subtle);
+
+    /* Scrollbars */
+    --scrollbar-thumb: #d4d4d4;
+    --scrollbar-thumb-hover: #a3a3a3;
+
+    /* Legacy Aliases in Light Mode */
+    --bg-primary: var(--surface-canvas);
+    --bg-secondary: var(--surface-primary);
+    --bg-surface: var(--surface-secondary);
+    --bg-card: var(--surface-primary);
+    --bg-card-hover: var(--surface-secondary);
+    --border-color: var(--border-subtle);
+    --border-light: var(--border-subtle);
+    --text-main: var(--text-primary);
+    --text-muted: var(--text-secondary);
+    --text-dim: var(--text-tertiary);
+
+    --accent: #0d0d0d;
+    --accent-hover: #262626;
+    --accent-glow: rgba(0, 0, 0, 0.06);
+    --accent-subtle: #f4f4f4;
+
+    --success: #0d0d0d;
+    --success-subtle: #f4f4f4;
+    --warning: #0d0d0d;
+    --warning-subtle: #f4f4f4;
+    --danger: #000000;
+    --danger-subtle: #ebebeb;
+}
+
+/* Base Reset & Box Sizing */
+*, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -46,15 +195,41 @@
 
 html {
     scroll-behavior: smooth;
+    text-size-adjust: 100%;
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: var(--bg-primary);
-    color: var(--text-main);
+    font-family: var(--font-sans);
+    background-color: var(--surface-canvas);
+    color: var(--text-primary);
     line-height: 1.6;
     display: flex;
     height: 100vh;
     overflow: hidden;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Minimalist Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}
+
+::selection {
+    background-color: var(--text-primary);
+    color: var(--surface-canvas);
 }
