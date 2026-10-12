@@ -228,30 +228,30 @@
 
                 <!-- Global Project KPIs -->
                 <h2 id="portal-kpi" style="margin-top: 36px;">Сводные показатели экосистемы CampusMeet</h2>
-                <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+                <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-value">4 репозитория</div>
-                        <div class="stat-label">Docs, Server, Web, Mobile</div>
+                        <div class="stat-value">4</div>
+                        <div class="stat-label">Репозитория экосистемы (Docs, Server, Web, Mobile)</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">N = 68</div>
-                        <div class="stat-label">Респондентов опроса студентов</div>
+                        <div class="stat-value">68</div>
+                        <div class="stat-label">Респондентов опроса студентов (N = 68)</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">29 диаграмм</div>
-                        <div class="stat-label">PlantUML, EventStorming, C4</div>
+                        <div class="stat-value">29</div>
+                        <div class="stat-label">Векторных диаграмм (PlantUML, C4, Mermaid)</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">12 экранов</div>
-                        <div class="stat-label">Векторных Wireframes & Mockups</div>
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Векторных экранов Wireframes & UI Mockups</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">12 историй</div>
-                        <div class="stat-label">User Stories (BDD & MoSCoW)</div>
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">User Stories по Mike Cohn (BDD & MoSCoW)</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">7 персон</div>
-                        <div class="stat-label">Типология персонажей Алана Купера</div>
+                        <div class="stat-value">7</div>
+                        <div class="stat-label">Персонажей Алана Купера (CJM & Роли)</div>
                     </div>
                 </div>
 
@@ -465,14 +465,19 @@ flowchart TB
         <ul id="omnibox-results" class="omnibox-results"></ul>
     </dialog>
 
+    <!-- Vendor Libraries -->
+    <script src="js/vendor/marked.min.js"></script>
+
     <!-- Structured Data Modules -->
     <script src="js/data/search.js"></script>
+    <script src="js/data/reports.js"></script>
 
     <!-- Client Functional Modules -->
     <script src="js/modules/renderers.js"></script>
     <script src="js/modules/router.js"></script>
     <script src="js/modules/lightbox.js"></script>
     <script src="js/modules/omnibox.js"></script>
+    <script src="js/modules/report-viewer.js"></script>
     <script src="js/modules/ui.js"></script>
     <script src="js/main.js"></script>
 </body>

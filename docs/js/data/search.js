@@ -34,7 +34,12 @@ window.CampusMeetData.searchRegistry = [
     { id: 'wiki-db', url: 'pages/wiki.html#wiki-db', title: 'Wiki: Реляционная схема базы данных (10 таблиц)', category: 'База знаний', keywords: 'база данных sql erd postgresql sqlite schema' },
     { id: 'wiki-api', url: 'pages/wiki.html#wiki-api', title: 'Wiki: REST API, Nominatim OSM и Nager.Date', category: 'База знаний', keywords: 'rest api геокодирование openstreetmap nager date праздники' },
     { id: 'wiki-security', url: 'pages/wiki.html#wiki-security', title: 'Wiki: Безопасность и токен билета HMAC-SHA256', category: 'База знаний', keywords: 'безопасность hmac sha256 криптография токен оффлайн' },
-    { id: 'wiki-presentation', url: 'pages/wiki.html#wiki-presentation', title: 'Wiki: Концептуальная презентация и матрица RACI', category: 'База знаний', keywords: 'презентация raci регламент команда git-flow' }
+    { id: 'wiki-presentation', url: 'pages/wiki.html#wiki-presentation', title: 'Wiki: Концептуальная презентация и матрица RACI', category: 'База знаний', keywords: 'презентация raci регламент команда git-flow' },
+
+    // Academic Reports (Markdown Previews)
+    { id: 'report-lab1', url: 'pages/lab1.html#report-lab1', title: 'Отчет: Лабораторная работа №1 (Lab1_report.md)', category: 'Отчеты', keywords: 'отчет лаб 1 markdown lab1_report md исследование hcd опрос персоны' },
+    { id: 'report-lab2', url: 'pages/lab2.html#report-lab2', title: 'Отчет: Лабораторная работа №2 (Lab2_report.md)', category: 'Отчеты', keywords: 'отчет лаб 2 markdown lab2_report md инфо-архитектура cjm раскадровки макеты' },
+    { id: 'report-lab3', url: 'pages/lab3.html#report-lab3', title: 'Отчет: Лабораторная работа №3 (Lab3_report.md)', category: 'Отчеты', keywords: 'отчет лаб 3 markdown lab3_report md user stories uml c4 srs тз' }
 ];
 
 window.CampusMeetData.titleMap = {

@@ -82,6 +82,9 @@
         if (typeof window.enhanceDiagrams === 'function') {
             window.enhanceDiagrams(document);
         }
+        if (typeof window.initReportLinks === 'function') {
+            window.initReportLinks();
+        }
 
         // Mobile drawer toggles
         const hamburgerBtn = document.getElementById('mobile-hamburger');

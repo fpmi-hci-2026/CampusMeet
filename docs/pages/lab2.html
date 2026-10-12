@@ -151,7 +151,7 @@
         <div class="nav-section-title">Материалы и отчеты</div>
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="../reports/Lab2_report.md" class="nav-link" target="_blank" rel="noopener noreferrer">
+                <a href="../reports/Lab2_report.md" class="nav-link" id="report-lab2" target="_blank" rel="noopener noreferrer">
                     <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                     <span>Отчет Лаб. №2 (MD)</span>
                 </a>
@@ -202,22 +202,22 @@
                     </div>
                 </div>
 
-                <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 24px;">
+                <div class="stats-grid" style="margin-top: 24px;">
                     <div class="stat-card">
-                        <div class="stat-value">4 уровня</div>
-                        <div class="stat-label">Глубина карты сайта (Sitemap)</div>
+                        <div class="stat-value">4</div>
+                        <div class="stat-label">Уровня глубины карты сайта (Sitemap)</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">N = 15</div>
-                        <div class="stat-label">Респондентов OptimalSort</div>
+                        <div class="stat-value">15</div>
+                        <div class="stat-label">Респондентов сортировки (N = 15)</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">7 персонажей</div>
-                        <div class="stat-label">Навигационные модели, CJM & Storyboards</div>
+                        <div class="stat-value">7</div>
+                        <div class="stat-label">Персонажей (CJM, Навигация, Storyboards)</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">12 экранов</div>
-                        <div class="stat-label">Векторных Wireframes & UI Mockups (6 + 6)</div>
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Экранов Wireframes & UI Mockups (6 + 6)</div>
                     </div>
                 </div>
 
@@ -595,8 +595,12 @@ stateDiagram-v2
         <ul id="omnibox-results" class="omnibox-results"></ul>
     </dialog>
 
+    <!-- Vendor Libraries -->
+    <script src="../js/vendor/marked.min.js"></script>
+
     <!-- Structured Data Modules -->
     <script src="../js/data/search.js"></script>
+    <script src="../js/data/reports.js"></script>
     <script src="../js/data/lab2.js"></script>
 
     <!-- Client Functional Modules -->
@@ -604,6 +608,7 @@ stateDiagram-v2
     <script src="../js/modules/router.js"></script>
     <script src="../js/modules/lightbox.js"></script>
     <script src="../js/modules/omnibox.js"></script>
+    <script src="../js/modules/report-viewer.js"></script>
     <script src="../js/modules/ui.js"></script>
     <script src="../js/main.js"></script>
 </body>

@@ -143,6 +143,8 @@ p {
     border-radius: var(--radius-md);
     padding: 20px;
     text-align: left;
+    min-width: 0;
+    overflow: hidden;
     transition: border-color var(--duration-hover) var(--ease-snappy);
 }
 
@@ -154,11 +156,21 @@ p {
     font-family: var(--font-sans);
     font-size: 1.85rem;
     font-weight: 600;
-    line-height: 1.1;
+    line-height: 1.15;
     letter-spacing: -0.025em;
     color: var(--text-primary) !important;
     font-variant-numeric: tabular-nums;
     margin-bottom: 6px;
+    overflow-wrap: break-word;
+    word-break: normal;
+}
+
+.stat-unit {
+    font-size: 1.0rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    letter-spacing: normal;
+    margin-left: 6px;
 }
 
 .stat-label {

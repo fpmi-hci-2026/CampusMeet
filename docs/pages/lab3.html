@@ -137,7 +137,7 @@
         <div class="nav-section-title">Материалы и отчеты</div>
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="../reports/Lab3_report.md" class="nav-link" target="_blank" rel="noopener noreferrer">
+                <a href="../reports/Lab3_report.md" class="nav-link" id="report-lab3" target="_blank" rel="noopener noreferrer">
                     <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                     <span>Отчет Лаб. №3 (MD)</span>
                 </a>
@@ -175,16 +175,16 @@
 
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-value">12 историй</div>
+                        <div class="stat-value">12</div>
                         <div class="stat-label">User Stories по Mike Cohn & BDD</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">29 диаграмм</div>
+                        <div class="stat-value">29</div>
                         <div class="stat-label">Векторных диаграмм PlantUML & Mermaid</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">3 уровня</div>
-                        <div class="stat-label">EventStorming (Big Picture, Process, Design)</div>
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">Уровня EventStorming (Big Picture, Process, Design)</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value">C4 + SRS</div>
@@ -482,8 +482,12 @@
         <ul id="omnibox-results" class="omnibox-results"></ul>
     </dialog>
 
+    <!-- Vendor Libraries -->
+    <script src="../js/vendor/marked.min.js"></script>
+
     <!-- Structured Data Modules -->
     <script src="../js/data/search.js"></script>
+    <script src="../js/data/reports.js"></script>
     <script src="../js/data/lab3.js"></script>
 
     <!-- Client Functional Modules -->
@@ -491,6 +495,7 @@
     <script src="../js/modules/router.js"></script>
     <script src="../js/modules/lightbox.js"></script>
     <script src="../js/modules/omnibox.js"></script>
+    <script src="../js/modules/report-viewer.js"></script>
     <script src="../js/modules/ui.js"></script>
     <script src="../js/main.js"></script>
 </body>
