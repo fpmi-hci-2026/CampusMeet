@@ -6,6 +6,7 @@
 /* --- ACADEMIC MONOCHROME TABLES --- */
 .table-responsive {
     width: 100%;
+    max-width: 100%;
     overflow-x: auto;
     margin: 24px 0;
     border-radius: var(--radius-md);
@@ -13,9 +14,16 @@
     -webkit-overflow-scrolling: touch;
 }
 
-.tab-pane table {
+.table-responsive table {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+}
+
+.tab-pane table:not(.table-responsive table) {
     display: block;
     width: 100%;
+    max-width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     border-radius: var(--radius-md);
@@ -33,7 +41,7 @@ table {
 }
 
 th, td {
-    padding: 12px 18px;
+    padding: 10px 14px;
     border-bottom: 1px solid var(--border-subtle);
     vertical-align: top;
     font-variant-numeric: tabular-nums;
@@ -46,7 +54,7 @@ th {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    white-space: nowrap;
+    line-height: 1.35;
     border-bottom: 1px solid var(--border-default);
 }
 

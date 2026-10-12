@@ -2,6 +2,12 @@
    CampusMeet / EventHub — Responsive Breakpoints (Tablet & Mobile)
    ========================================================================== */
 
+@media (max-width: 1080px) {
+    .grid-2col {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 900px) {
     body {
         flex-direction: column;

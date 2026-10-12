@@ -108,6 +108,8 @@ p {
     border-radius: var(--radius-md);
     padding: 22px 24px;
     margin-bottom: 20px;
+    min-width: 0;
+    max-width: 100%;
     transition: border-color var(--duration-hover) var(--ease-snappy),
                 background-color var(--duration-hover) var(--ease-snappy);
 }
@@ -176,8 +178,15 @@ p {
 
 .grid-2col {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 16px;
+    width: 100%;
+    min-width: 0;
+}
+
+.grid-2col > * {
+    min-width: 0;
+    max-width: 100%;
 }
 
 /* --- PERSONAS GALLERY --- */

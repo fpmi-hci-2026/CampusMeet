@@ -278,7 +278,9 @@
 /* --- MAIN CONTENT AREA --- */
 #content {
     flex-grow: 1;
+    min-width: 0;
     overflow-y: auto;
+    overflow-x: hidden;
     padding: 40px 56px 64px;
     background-color: var(--surface-canvas);
 }
@@ -286,6 +288,8 @@
 .content-container {
     max-width: var(--container-base);
     margin: 0 auto;
+    width: 100%;
+    min-width: 0;
 }
 
 /* --- BREADCRUMBS --- */
