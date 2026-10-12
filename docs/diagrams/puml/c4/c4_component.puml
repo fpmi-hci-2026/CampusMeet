@@ -1,0 +1,41 @@
+@startuml
+!include <C4/C4_Component>
+
+LAYOUT_WITH_LEGEND()
+
+title C4 Model: Диаграмма компонентов уровня C3 (Component Diagram) — API Gateway & Core Service (Задание 7)
+
+Container(web_app, "Web Organizer Dashboard", "Next.js", "Клиент организатора")
+Container(mobile_app, "Mobile Client", "React Native", "Клиент участника / сканер")
+ContainerDb(db, "PostgreSQL Database", "PostgreSQL", "Хранилище данных")
+ContainerDb(redis, "Redis Broker", "Redis", "Очередь задач и кеш")
+
+Container_Boundary(api_boundary, "API Gateway & Core Service (FastAPI)") {
+    Component(auth_ctrl, "AuthController & Security", "FastAPI, PyJWT, passlib", "Аутентификация пользователей, выпуск access/refresh токенов, проверка прав RBAC.")
+    Component(event_ctrl, "EventManagementController", "FastAPI, Pydantic", "Управление карточками событий, квотами, статусами публикации и фильтрацией.")
+    Component(ticket_engine, "TicketCryptoEngine", "Python, hashlib, hmac", "Генерация динамических криптографических билетов с HMAC-SHA256 подписью и солью.")
+    Component(checkin_svc, "AttendanceCheckinService", "FastAPI Service", "Обработка запросов валидации билетов, обнаружение повторных проходов, регистрация волонтеров.")
+    Component(cfp_mgr, "CFP & ScheduleManager", "FastAPI Service", "Прием заявок докладчиков, загрузка презентаций, сборка расписания по трекам.")
+    Component(geo_adapter, "GeoCalendarAdapter", "Httpx Async Client", "Асинхронные HTTP-клиенты к OSM Nominatim и Nager.Date API с кешированием.")
+    Component(notif_disp, "NotificationDispatcher", "Celery Task Producer", "Формирование пакетов push-уведомлений и их отправка в очередь Redis.")
+}
+
+Rel(web_app, auth_ctrl, "POST /api/v1/auth/login", "JSON")
+Rel(web_app, event_ctrl, "CRUD /api/v1/events", "JSON")
+Rel(web_app, cfp_mgr, "GET/POST /api/v1/cfp", "JSON")
+Rel(mobile_app, auth_ctrl, "POST /api/v1/auth/login", "JSON")
+Rel(mobile_app, ticket_engine, "POST /api/v1/tickets/book", "JSON")
+Rel(mobile_app, checkin_svc, "POST /api/v1/checkin/scan", "JSON")
+
+Rel(event_ctrl, geo_adapter, "Геокодирует и проверяет даты")
+Rel(event_ctrl, db, "Сохраняет карточки событий")
+Rel(ticket_engine, db, "Записывает выданные билеты")
+Rel(checkin_svc, db, "Записывает лог чекинов")
+Rel(cfp_mgr, db, "Сохраняет заявки и программу")
+Rel(auth_ctrl, db, "Проверяет учетные записи")
+
+Rel(event_ctrl, notif_disp, "Триггерит экстренную рассылку")
+Rel(ticket_engine, notif_disp, "Инициирует подтверждение регистрации")
+Rel(notif_disp, redis, "LPUSH tasks в очередь")
+
+@enduml

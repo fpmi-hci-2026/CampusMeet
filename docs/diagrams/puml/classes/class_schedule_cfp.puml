@@ -1,0 +1,90 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+skinparam class {
+    BackgroundColor #F8FAFC
+    BorderColor #334155
+    ArrowColor #2563EB
+    HeaderBackgroundColor #E2E8F0
+}
+
+title Диаграмма классов: Программа мероприятий, сессии и CFP (Задание 4)
+
+enum ProposalStatus {
+    DRAFT
+    SUBMITTED
+    IN_REVIEW
+    ACCEPTED
+    REJECTED
+    CANCELLED
+}
+
+class Track {
+    -id: UUID
+    -event_id: UUID
+    -title: String
+    -description: String
+    -room: String
+    -display_color: String
+}
+
+class SessionItem {
+    -id: UUID
+    -track_id: UUID
+    -speaker_id: UUID
+    -title: String
+    -summary: String
+    -start_time: DateTime
+    -end_time: DateTime
+    -presentation_url: String
+    +getDurationMinutes(): Integer
+    +isOverlapping(other: SessionItem): Boolean
+}
+
+class SpeakerProfile {
+    -id: UUID
+    -user_id: UUID
+    -bio: String
+    -company: String
+    -job_title: String
+    -linkedin_url: String
+    -github_url: String
+    -rating: Float
+    +getAcceptedTalksCount(): Integer
+}
+
+class TalkProposal {
+    -id: UUID
+    -speaker_id: UUID
+    -event_id: UUID
+    -title: String
+    -abstract: String
+    -target_audience: String
+    -duration_minutes: Integer
+    -slides_attachment_url: String
+    -status: ProposalStatus
+    -review_notes: String
+    +submitForReview(): Void
+    +accept(track_id: UUID, slot: DateTime): SessionItem
+    +reject(reason: String): Void
+}
+
+class PersonalAgendaItem {
+    -id: UUID
+    -user_id: UUID
+    -session_id: UUID
+    -reminder_minutes_before: Integer
+    -is_notification_scheduled: Boolean
+}
+
+Track "1" *-- "0..*" SessionItem : schedules
+SpeakerProfile "1" -- "0..*" SessionItem : delivers
+SpeakerProfile "1" -- "0..*" TalkProposal : submits
+TalkProposal "0..1" --> "0..1" SessionItem : transitions into
+PersonalAgendaItem "0..*" --> "1" SessionItem : references
+
+@enduml

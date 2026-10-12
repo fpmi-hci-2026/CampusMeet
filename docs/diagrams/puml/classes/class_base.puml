@@ -1,0 +1,90 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+skinparam class {
+    BackgroundColor #F8FAFC
+    BorderColor #334155
+    ArrowColor #2563EB
+    HeaderBackgroundColor #E2E8F0
+}
+
+title Базовая диаграмма классов ядра CampusMeet (Задание 2)
+
+enum UserRole {
+    ATTENDEE
+    VOLUNTEER
+    ORGANIZER
+    SPEAKER
+    ADMIN
+}
+
+enum TicketStatus {
+    ISSUED
+    WAITLIST
+    CHECKED_IN
+    CANCELLED
+}
+
+class User {
+    +id: UUID
+    +email: String
+    +full_name: String
+    +university: String
+    +role: UserRole
+    +created_at: DateTime
+    +registerForEvent(event_id: UUID): Ticket
+    +viewOfflineTickets(): List<Ticket>
+}
+
+class Event {
+    +id: UUID
+    +title: String
+    +description: String
+    +start_time: DateTime
+    +end_time: DateTime
+    +capacity: Integer
+    +is_published: Boolean
+    +calculateAvailableSpots(): Integer
+    +isRegistrationOpen(): Boolean
+}
+
+class Venue {
+    +id: UUID
+    +name: String
+    +address: String
+    +latitude: Double
+    +longitude: Double
+    +room_number: String
+    +max_capacity: Integer
+}
+
+class Ticket {
+    +id: UUID
+    +user_id: UUID
+    +event_id: UUID
+    +qr_token: String
+    +status: TicketStatus
+    +issued_at: DateTime
+    +generateDynamicQR(): String
+}
+
+class CheckIn {
+    +id: UUID
+    +ticket_id: UUID
+    +volunteer_id: UUID
+    +scanned_at: DateTime
+    +device_id: String
+    +is_offline_sync: Boolean
+}
+
+User "1" -- "0..*" Ticket : acquires >
+Event "1" -- "0..*" Ticket : issues >
+Event "1" -- "1" Venue : located at >
+Ticket "1" -- "0..1" CheckIn : verified by >
+User "1" -- "0..*" CheckIn : processes (as volunteer) >
+
+@enduml

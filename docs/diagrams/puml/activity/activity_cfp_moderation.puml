@@ -1,0 +1,64 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+skinparam activity {
+    BackgroundColor #F0FDF4
+    BorderColor #16A34A
+    FontColor #0F172A
+    BarColor #15803D
+    DiamondBackgroundColor #FEF9C3
+    DiamondBorderColor #CA8A04
+}
+
+title Диаграмма деятельности: Подача и модерация заявок спикеров CFP (Задание 4)
+
+|Спикер (Speaker)|
+start
+:Авторизация в системе;
+:Выбор открытого мероприятия со статусом 'CFP Open';
+:Заполнение формы доклада: название, аннотация, теги, тайминг;
+:Прикрепление презентации (PDF/PPTX) и ссылок на GitHub;
+:Отправка заявки;
+
+|Бэкенд CampusMeet|
+:Валидация форматов и размера вложений (<50 MB);
+:Создание записи session_proposals со статусом 'SUBMITTED';
+:Отправка Push/Email уведомления организаторам;
+
+|Организатор (Web-кабинет)|
+:Переход в раздел "CFP Модерация";
+:Просмотр карточки доклада и скачивание презентации;
+:Оценка актуальности темы и соответствия формату;
+
+if (Заявка одобрена?) then (да)
+    :Выбор трека/зала и временного слота;
+    :Смена статуса на 'ACCEPTED';
+    |Бэкенд CampusMeet|
+    :Генерация элемента расписания schedule_items;
+    :Публикация в публичной программе митапа;
+    :Отправка подтверждения спикеру;
+    |Спикер (Speaker)|
+    :Уведомление "Ваш доклад утвержден!";
+else (требуется доработка)
+    if (Отклонить окончательно?) then (нет, доработка)
+        :Ввод комментария с рекомендациями;
+        :Смена статуса на 'REVISION_REQUESTED';
+        |Спикер (Speaker)|
+        :Получение обратной связи и редактирование тезисов;
+        stop
+    else (отклонить)
+        :Ввод причины отклонения;
+        :Смена статуса на 'REJECTED';
+        |Спикер (Speaker)|
+        :Уведомление об отклонении заявки;
+        stop
+    endif
+endif
+
+stop
+
+@enduml

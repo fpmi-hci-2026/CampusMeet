@@ -1,0 +1,117 @@
+@startuml
+skinparam handwritten false
+skinparam shadowing true
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+<style>
+.event {
+    BackgroundColor #FFA726
+    BorderColor #FB8C00
+    FontColor #000000
+    RoundCorner 0
+}
+.command {
+    BackgroundColor #42A5F5
+    BorderColor #1E88E5
+    FontColor #FFFFFF
+    RoundCorner 0
+}
+.policy {
+    BackgroundColor #AB47BC
+    BorderColor #8E24AA
+    FontColor #FFFFFF
+    RoundCorner 0
+}
+.role {
+    BackgroundColor #FFEE58
+    BorderColor #FDD835
+    FontColor #000000
+    RoundCorner 0
+}
+.aggregate {
+    BackgroundColor #FFF59D
+    BorderColor #FBC02D
+    FontColor #000000
+    RoundCorner 0
+}
+.readmodel {
+    BackgroundColor #66BB6A
+    BorderColor #43A047
+    FontColor #FFFFFF
+    RoundCorner 0
+}
+.external {
+    BackgroundColor #F06292
+    BorderColor #D81B60
+    FontColor #FFFFFF
+    RoundCorner 0
+}
+</style>
+
+title EventStorming: Уровень 2 — Моделирование процессов (Process Modeling) (Задание 5)
+
+legend top left
+|= Элемент |= Цвет |= Назначение |
+|<#FFEE58>| Желтый (мал.) | Актор / Роль пользователя |
+|<#42A5F5>| Голубой | Команда (Command, повелительное наклонение) |
+|<#FFF59D>| Желтый (бол.) | Агрегат (Aggregate) |
+|<#FFA726>| Оранжевый | Событие предметной области (Domain Event) |
+|<#AB47BC>| Фиолетовый | Автоматическое правило / Политика (Policy) |
+|<#66BB6A>| Зеленый | Модель чтения / Представление (Read Model) |
+|<#F06292>| Розовый | Внешняя система (External System) |
+endlegend
+
+package "Процесс 1: Регистрация и управление очередью ожидания" {
+    card "Слушатель" as R1 <<role>>
+    card "Зарегистрироваться\nна митап" as C1 <<command>>
+    card "Квота мест\nмероприятия" as A1 <<aggregate>>
+    card "Билет выпущен" as E1 <<event>>
+    card "Лимит мест\nисчерпан" as E2 <<event>>
+    card "Правило: Если лимит исчерпан,\nдобавить в лист ожидания" as P1 <<policy>>
+    card "Поставить в очередь\nWaitlist" as C2 <<command>>
+    card "Пользователь добавлен\nв лист ожидания" as E3 <<event>>
+
+    R1 --> C1
+    C1 --> A1
+    A1 --> E1
+    A1 --> E2
+    E2 --> P1
+    P1 --> C2
+    C2 --> A1
+    A1 --> E3
+}
+
+package "Процесс 2: Оптический чекин и детекция повторного прохода" {
+    card "Волонтер" as R2 <<role>>
+    card "Отсканировать\nQR-код" as C3 <<command>>
+    card "Валидатор билетов\n(Ticket)" as A2 <<aggregate>>
+    card "Билет успешно\nпогашен" as E4 <<event>>
+    card "Повторный проход\nобнаружен" as E5 <<event>>
+    card "Обновленная витрина\nявки участников" as RM1 <<readmodel>>
+
+    R2 --> C3
+    C3 --> A2
+    A2 --> E4
+    A2 --> E5
+    E4 --> RM1
+}
+
+package "Процесс 3: Внешняя валидация календаря и локации" {
+    card "Организатор" as R3 <<role>>
+    card "Создать карточку\nмитапа" as C4 <<command>>
+    card "Каталог событий\n(Event)" as A3 <<aggregate>>
+    card "Мероприятие\nсконфигурировано" as E6 <<event>>
+    card "Политика: Проверить праздники\nи нормализовать адрес" as P2 <<policy>>
+    card "OSM & Nager.Date" as Ext1 <<external>>
+    card "Адрес подтвержден,\nпраздник отмечен" as E7 <<event>>
+
+    R3 --> C4
+    C4 --> A3
+    A3 --> E6
+    E6 --> P2
+    P2 --> Ext1
+    Ext1 --> E7
+}
+
+@enduml

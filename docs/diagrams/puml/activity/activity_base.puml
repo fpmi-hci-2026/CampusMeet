@@ -1,0 +1,50 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+skinparam activity {
+    BackgroundColor #F0FDF4
+    BorderColor #16A34A
+    FontColor #0F172A
+    BarColor #15803D
+    DiamondBackgroundColor #FEF9C3
+    DiamondBorderColor #CA8A04
+}
+
+title Базовая диаграмма деятельности: Процесс участия в событии (Задание 2)
+
+start
+
+:Пользователь открывает ленту афиши;
+:Выбирает интересующее мероприятие;
+
+if (Есть свободные места?) then (да)
+    :Нажатие кнопки "Зарегистрироваться";
+    :Генерация билета с криптографическим токеном;
+    :Сохранение билета в локальное хранилище смартфона;
+else (нет)
+    :Добавление пользователя в лист ожидания (Waitlist);
+    stop
+endif
+
+:В день события: открытие экрана билета;
+:Отображение QR-кода на максимальной яркости;
+
+:Волонтер наводит камеру сканера на экран;
+:Распознавание QR-кода (<500 мс);
+
+if (Токен действителен и не использован?) then (да)
+    :Зеленая индикация + одинарный вибросигнал;
+    :Фиксация прохода в журнале;
+    :Допуск гостя в аудиторию;
+else (ошибка/дубликат)
+    :Красная/желтая индикация + двойная вибрация;
+    :Отказ в проходе или ручная проверка;
+endif
+
+stop
+
+@enduml

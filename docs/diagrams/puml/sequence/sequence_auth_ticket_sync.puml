@@ -1,0 +1,69 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+skinparam sequence {
+    ArrowColor #2563EB
+    ActorBorderColor #334155
+    LifeLineBorderColor #64748B
+    LifeLineBackgroundColor #F1F5F9
+    ParticipantBorderColor #334155
+    ParticipantBackgroundColor #EFF6FF
+}
+
+title Диаграмма последовательности: Авторизация и загрузка билета в защищенное хранилище (Задание 4)
+
+actor "Слушатель (Артём)" as User
+participant "Mobile Client\n(React Native)" as Mobile
+participant "Локальное хранилище\n(SecureStore)" as LocalStore
+participant "API Gateway\n(FastAPI)" as API
+participant "Auth & Ticket\nService" as CoreService
+database "PostgreSQL\nDatabase" as DB
+
+User -> Mobile: Запуск приложения / Вход (Email, Пароль)
+activate Mobile
+
+Mobile -> API: POST /api/v1/auth/login
+activate API
+API -> DB: SELECT * FROM users WHERE email = ?
+activate DB
+DB --> API: UserRecord + PasswordHash
+deactivate DB
+
+API -> API: Верификация bcrypt hash
+API --> Mobile: 200 OK + JWT Access/Refresh Tokens
+deactivate API
+
+Mobile -> LocalStore: Сохранение JWT токенов
+activate LocalStore
+LocalStore --> Mobile: OK
+deactivate LocalStore
+
+Mobile -> API: GET /api/v1/tickets/my-tickets\n(Authorization: Bearer JWT)
+activate API
+API -> CoreService: FetchActiveTickets(user_id)
+activate CoreService
+CoreService -> DB: SELECT * FROM tickets WHERE user_id = ? AND status = 'ISSUED'
+activate DB
+DB --> CoreService: List<TicketEntities>
+deactivate DB
+
+CoreService -> CoreService: Генерация HMAC подписей билетов
+CoreService --> API: List<TicketDTO>
+deactivate CoreService
+
+API --> Mobile: 200 OK [JSON с билетами и токенами]
+deactivate API
+
+Mobile -> LocalStore: Атомарная запись билетов в оффлайн-кеш
+activate LocalStore
+LocalStore --> Mobile: Кеш сохранен
+deactivate LocalStore
+
+Mobile --> User: Отображение билета с активным QR-кодом\n(Режим готовности к офлайн-проходу)
+deactivate Mobile
+
+@enduml

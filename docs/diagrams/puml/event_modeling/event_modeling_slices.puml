@@ -1,0 +1,104 @@
+@startuml
+skinparam handwritten false
+skinparam shadowing true
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+' Цвета Event Modeling (Adam Dymitruk)
+<style>
+.ui {
+    BackgroundColor #FFFFFF
+    BorderColor #374151
+    FontColor #111827
+    RoundCorner 6
+}
+.command {
+    BackgroundColor #3B82F6
+    BorderColor #1D4ED8
+    FontColor #FFFFFF
+    RoundCorner 0
+}
+.event {
+    BackgroundColor #F59E0B
+    BorderColor #D97706
+    FontColor #000000
+    RoundCorner 0
+}
+.view {
+    BackgroundColor #10B981
+    BorderColor #047857
+    FontColor #FFFFFF
+    RoundCorner 0
+}
+.automation {
+    BackgroundColor #8B5CF6
+    BorderColor #6D28D9
+    FontColor #FFFFFF
+    RoundCorner 0
+}
+</style>
+
+title Спецификация архитектуры методом Event Modeling (Adam Dymitruk Slices) (Задание 6)
+
+legend top left
+|= Шаблон |= Структура потока |= Пример в экосистеме CampusMeet |
+| **1. Command Pattern** | Trigger (UI) -> Command -> Event | Регистрация слушателя на событие |
+| **2. View Pattern** | Event -> Read Model (View) | Формирование витрины билета в смартфоне |
+| **3. Automation Pattern** | Event -> View -> Auto Trigger -> Command -> Event | Автоматический вызов из листа ожидания (Waitlist) |
+| **4. Translation Pattern** | Event -> View -> Translator -> Command -> External Event | Рассылка Push-уведомлений во внешний сервис APNs/FCM |
+endlegend
+
+rectangle "Хронологическая ось (Timeline слева направо)" {
+
+    ' --- СРЕЗ 1: COMMAND PATTERN ---
+    rectangle "Срез 1: Регистрация (Command Pattern)" as S1 {
+        card "Экран митапа:\nКнопка 'Зарегистрироваться'" as UI1 <<ui>>
+        card "POST /register\nCommand: RegisterAttendee" as CMD1 <<command>>
+        card "Event:\nTicketReserved" as EVT1 <<event>>
+
+        UI1 -down-> CMD1 : Нажатие кнопки
+        CMD1 -down-> EVT1 : Изменение состояния
+    }
+
+    ' --- СРЕЗ 2: VIEW PATTERN ---
+    rectangle "Срез 2: Витрина билета (View Pattern)" as S2 {
+        card "Event:\nTicketIssued" as EVT2 <<event>>
+        card "Экран 'Мой билет':\nQR-код + Данные гостя" as VIEW1 <<view>>
+
+        EVT2 -up-> VIEW1 : Проекция данных
+    }
+
+    ' --- СРЕЗ 3: AUTOMATION PATTERN ---
+    rectangle "Срез 3: Waitlist ротация (Automation Pattern)" as S3 {
+        card "Event:\nTicketCancelled" as EVT3 <<event>>
+        card "View:\nWaitlistQueueView" as VIEW2 <<view>>
+        card "Auto Trigger:\nQueueProcessorDaemon" as AUTO1 <<automation>>
+        card "Command:\nPromoteWaitlistGuest" as CMD2 <<command>>
+        card "Event:\nTicketGrantedFromWaitlist" as EVT4 <<event>>
+
+        EVT3 -up-> VIEW2 : Освобождение квоты
+        VIEW2 -right-> AUTO1 : Обнаружение кандидата
+        AUTO1 -down-> CMD2 : Инициация команды
+        CMD2 -down-> EVT4 : Выпуск билета
+    }
+
+    ' --- СРЕЗ 4: TRANSLATION PATTERN ---
+    rectangle "Срез 4: Push-адаптер (Translation Pattern)" as S4 {
+        card "Event:\nRoomChangedEvent" as EVT5 <<event>>
+        card "View:\nPendingPushBatchView" as VIEW3 <<view>>
+        card "Translator Adapter:\nFCM/APNs Gateway Worker" as TRANS1 <<automation>>
+        card "External Command:\nSendMulticastPayload" as CMD3 <<command>>
+        card "External Event:\nPushDeliveredToDevice" as EVT6 <<event>>
+
+        EVT5 -up-> VIEW3 : Фиксация переноса
+        VIEW3 -right-> TRANS1 : Чтение очереди
+        TRANS1 -down-> CMD3 : Вызов внешнего API
+        CMD3 -down-> EVT6 : Подтверждение доставки
+    }
+}
+
+S1 -[hidden]right-> S2
+S2 -[hidden]right-> S3
+S3 -[hidden]right-> S4
+
+@enduml

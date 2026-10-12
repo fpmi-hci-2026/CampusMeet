@@ -1,0 +1,85 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+skinparam node {
+    BackgroundColor #F8FAFC
+    BorderColor #334155
+}
+
+skinparam artifact {
+    BackgroundColor #EFF6FF
+    BorderColor #2563EB
+}
+
+title Диаграмма развертывания инфраструктуры CampusMeet (Задание 4)
+
+node "Пользовательские устройства (Client Tier)" {
+    node "Мобильное устройство (iOS / Android)" <<device>> {
+        artifact "CampusMeet Mobile App\n(React Native / Expo Bundle)" as MobileBundle
+        artifact "SecureStore\n(Защищенный офлайн-кеш)" as LocalStorage
+    }
+
+    node "Рабочая станция (ПК / Ноутбук)" <<device>> {
+        node "Современный веб-браузер\n(Chrome / Safari / Firefox)" {
+            artifact "CampusMeet Web SPA\n(Next.js Client Runtime)" as WebBundle
+        }
+    }
+}
+
+cloud "Глобальная сеть и Edge (CDN / Edge Tier)" {
+    node "Cloudflare Edge" {
+        artifact "SSL Termination & WAF" as EdgeWAF
+        artifact "Static Assets CDN" as CDN
+    }
+}
+
+node "Облачный сервер приложений (Docker Swarm / K8s Node)" <<server>> {
+    node "Reverse Proxy & Load Balancer" {
+        artifact "Nginx Container\n(Reverse Proxy / Rate Limit)" as Nginx
+    }
+
+    node "Backend Cluster" {
+        artifact "FastAPI Application Pod\n(Uvicorn ASGI Server)" as BackendPod
+        artifact "Celery Async Worker Pod\n(Python Background Tasks)" as WorkerPod
+    }
+
+    node "Stateful Data Services" {
+        database "PostgreSQL 16 Container\n(Persistent Volume)" as PostgresPod
+        database "Redis 7 Container\n(In-Memory Cache & Broker)" as RedisPod
+    }
+}
+
+cloud "Внешние провайдеры (External Cloud Services)" {
+    node "OpenStreetMap Servers" {
+        artifact "Nominatim API" as ExtOSM
+    }
+    node "Nager.Date Cloud" {
+        artifact "Holidays REST API" as ExtNager
+    }
+    node "Apple APNs / Google FCM" {
+        artifact "Mobile Push Gateway" as ExtPush
+    }
+}
+
+MobileBundle -- EdgeWAF : HTTPS (Port 443)
+WebBundle -- EdgeWAF : HTTPS (Port 443)
+MobileBundle <--> LocalStorage : Secure Internal IPC
+
+EdgeWAF --> CDN : Cache Hits
+EdgeWAF --> Nginx : Dynamic API Requests
+
+Nginx --> BackendPod : HTTP (Port 8000)
+BackendPod --> PostgresPod : TCP (Port 5432)
+BackendPod --> RedisPod : TCP (Port 6379)
+WorkerPod --> RedisPod : Poll Task Queue
+WorkerPod --> PostgresPod : Query Attendees
+
+BackendPod --> ExtOSM : HTTPS Outbound
+BackendPod --> ExtNager : HTTPS Outbound
+WorkerPod --> ExtPush : HTTPS Outbound Push Delivery
+
+@enduml

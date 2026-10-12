@@ -1,0 +1,93 @@
+@startuml
+skinparam handwritten false
+skinparam shadowing true
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+<style>
+.event {
+    BackgroundColor #FFA726
+    BorderColor #FB8C00
+    FontColor #000000
+    RoundCorner 0
+}
+.command {
+    BackgroundColor #42A5F5
+    BorderColor #1E88E5
+    FontColor #FFFFFF
+    RoundCorner 0
+}
+.policy {
+    BackgroundColor #AB47BC
+    BorderColor #8E24AA
+    FontColor #FFFFFF
+    RoundCorner 0
+}
+.aggregate {
+    BackgroundColor #FFF59D
+    BorderColor #FBC02D
+    FontColor #000000
+    RoundCorner 0
+}
+.context {
+    BackgroundColor #FAFAFA
+    BorderColor #455A64
+    RoundCorner 10
+}
+</style>
+
+title EventStorming: Уровень 3 — Проектирование и Ограниченные контексты (Software Design) (Задание 5)
+
+package "Контекст регистрации и квот (Ticketing & Quota Context)" as BC_Ticketing <<context>> {
+    card "Ticket Aggregate" as AGG_Ticket <<aggregate>>
+    card "IssueTicket" as CMD_Issue <<command>>
+    card "CancelReservation" as CMD_Cancel <<command>>
+    card "TicketIssued" as EVT_Issued <<event>>
+    card "TicketCancelled" as EVT_Cancelled <<event>>
+
+    CMD_Issue --> AGG_Ticket
+    CMD_Cancel --> AGG_Ticket
+    AGG_Ticket --> EVT_Issued
+    AGG_Ticket --> EVT_Cancelled
+}
+
+package "Контекст контроля входа и безопасности (Access Control Context)" as BC_Access <<context>> {
+    card "CheckIn Aggregate" as AGG_Checkin <<aggregate>>
+    card "ScanQRCode" as CMD_Scan <<command>>
+    card "CheckInRecorded" as EVT_CheckedIn <<event>>
+    card "DuplicateAttemptLogged" as EVT_Dup <<event>>
+
+    CMD_Scan --> AGG_Checkin
+    AGG_Checkin --> EVT_CheckedIn
+    AGG_Checkin --> EVT_Dup
+}
+
+package "Контекст программы и CFP (Schedule & CFP Context)" as BC_CFP <<context>> {
+    card "CFP Aggregate" as AGG_CFP <<aggregate>>
+    card "SubmitProposal" as CMD_Prop <<command>>
+    card "ApproveTalk" as CMD_Approve <<command>>
+    card "TalkAccepted" as EVT_TalkAcc <<event>>
+
+    CMD_Prop --> AGG_CFP
+    CMD_Approve --> AGG_CFP
+    AGG_CFP --> EVT_TalkAcc
+}
+
+package "Контекст экстренных рассылок (Notification Context)" as BC_Notif <<context>> {
+    card "Dispatcher Aggregate" as AGG_Notif <<aggregate>>
+    card "BroadcastAlert" as CMD_Alert <<command>>
+    card "AlertDelivered" as EVT_Delivered <<event>>
+
+    CMD_Alert --> AGG_Notif
+    AGG_Notif --> EVT_Delivered
+}
+
+card "Политика синхронизации:\nПри отмене билета повысить первый номер Waitlist" as POL_Waitlist <<policy>>
+EVT_Cancelled --> POL_Waitlist
+POL_Waitlist --> CMD_Issue : Автоматический вызов
+
+card "Политика оповещения:\nПри переносе доклада уведомить слушателей" as POL_Reschedule <<policy>>
+EVT_TalkAcc --> POL_Reschedule
+POL_Reschedule --> CMD_Alert : Триггер рассылки
+
+@enduml

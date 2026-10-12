@@ -1,0 +1,69 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+skinparam sequence {
+    ArrowColor #2563EB
+    ActorBorderColor #334155
+    LifeLineBorderColor #64748B
+    LifeLineBackgroundColor #F1F5F9
+    ParticipantBorderColor #334155
+    ParticipantBackgroundColor #EFF6FF
+}
+
+title Диаграмма последовательности: Оптическое сканирование и офлайн-валидация билета (Задание 4)
+
+actor "Слушатель (Артём)" as Attendee
+actor "Волонтер (Дарья)" as Volunteer
+participant "Мобильный сканер\n(Expo Camera)" as Scanner
+participant "HMAC Validator\n(CryptoJS / Libsodium)" as Validator
+participant "Локальный журнал\n(SQLite Mobile)" as LocalDB
+participant "Очередь синхронизации\n(Background Sync)" as SyncQueue
+participant "API Gateway\n(FastAPI Server)" as Server
+
+Attendee -> Scanner: Предъявление экрана смартфона с QR-кодом
+activate Scanner
+
+Scanner -> Scanner: Видеозахват кадра (60 fps) и парсинг QR (<100 мс)
+Scanner -> Validator: Проверка полезной нагрузки {ticket_id, salt, signature}
+activate Validator
+
+Validator -> Validator: Вычисление HMAC-SHA256(payload, event_public_salt)
+Validator -> Validator: Сравнение подписи с эталоном
+
+alt Подпись не совпадает (Спуфинг / Подделка)
+    Validator --> Scanner: Ошибка: INVALID_SIGNATURE
+    Scanner --> Volunteer: КРАСНЫЙ экран + двойная резкая вибрация
+else Подпись верна
+    Validator --> Scanner: OK: SIGNATURE_VALID
+    deactivate Validator
+
+    Scanner -> LocalDB: Проверка: SELECT * FROM local_scans WHERE ticket_id = ?
+    activate LocalDB
+
+    alt Билет уже был отсканирован ранее (Повторный проход)
+        LocalDB --> Scanner: Запись найдена (scanned_at = 18:02)
+        Scanner --> Volunteer: ЖЕЛТЫЙ экран + "Уже прошел в 18:02!"
+    else Первичный проход
+        LocalDB --> Scanner: Запись отсутствует
+        Scanner -> LocalDB: INSERT INTO local_scans (ticket_id, scanned_at, status='OK')
+        LocalDB --> Scanner: Сохранено локально
+        deactivate LocalDB
+
+        Scanner -> SyncQueue: Поставить запись чекина в очередь отправки
+        Scanner --> Volunteer: ЗЕЛЕНЫЙ экран + тактильный вибро-клик (<500 мс)\n"Артём Ковалёв (ФПМИ), Проход разрешен"
+        Volunteer --> Attendee: "Добро пожаловать на мероприятие!"
+    end
+end
+
+Scanner -[#gray]> Server: Фоновая отправка очереди чекинов при появлении Wi-Fi/LTE
+activate Server
+Server -[#gray]> Server: Запись в центральную СУБД PostgreSQL
+Server --[#gray]> Scanner: 200 OK (Sync Acknowledged)
+deactivate Server
+deactivate Scanner
+
+@enduml

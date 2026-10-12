@@ -1,0 +1,66 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+skinparam activity {
+    BackgroundColor #F0FDF4
+    BorderColor #16A34A
+    FontColor #0F172A
+    BarColor #15803D
+    DiamondBackgroundColor #FEF9C3
+    DiamondBorderColor #CA8A04
+}
+
+title Диаграмма деятельности: Регистрация, лимиты мест и лист ожидания (Задание 4)
+
+|Пользователь|
+start
+:Переход на страницу деталей митапа;
+:Запрос информации о доступности квоты;
+
+|Бэкенд CampusMeet|
+:Проверка активного бронирования пользователя;
+if (Уже зарегистрирован?) then (да)
+    |Пользователь|
+    :Отображение экрана "Билет уже получен";
+    stop
+else (нет)
+    |Бэкенд CampusMeet|
+    :Атомарный подсчет подтвержденных билетов;
+    if (Количество билетов < Hard Cap?) then (места есть)
+        :Резервирование слота в транзакции базы данных;
+        :Генерация SHA256 HMAC токена с солью мероприятия;
+        :Создание записи билета со статусом 'ISSUED';
+        |Пользователь|
+        :Получение цифрового билета;
+        :Кеширование в SecureStore мобильного приложения;
+        :Опция: экспорт в Apple Wallet / Google Wallet;
+        stop
+    else (квота исчерпана)
+        |Бэкенд CampusMeet|
+        :Проверка настройки листа ожидания;
+        if (Waitlist активен?) then (да)
+            |Пользователь|
+            :Вывод модального окна "Места закончились. Встать в лист ожидания?";
+            if (Пользователь подтвердил?) then (да)
+                |Бэкенд CampusMeet|
+                :Добавление в таблицу waitlist с меткой времени;
+                :Присвоение порядкового номера очереди;
+                |Пользователь|
+                :Уведомление "Вы №X в очереди ожидания";
+                stop
+            else (отмена)
+                stop
+            endif
+        else (нет)
+            |Пользователь|
+            :Сообщение "Регистрация закрыта";
+            stop
+        endif
+    endif
+endif
+
+@enduml

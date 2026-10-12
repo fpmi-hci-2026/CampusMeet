@@ -1,0 +1,149 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+skinparam entity {
+    BackgroundColor #F8FAFC
+    BorderColor #334155
+    ArrowColor #2563EB
+    HeaderBackgroundColor #E2E8F0
+}
+
+title Схема базы данных: Реляционная модель данных (ERD) (Задание 4)
+
+entity "users" as users {
+    * id : uuid <<PK>>
+    --
+    * email : varchar(255) <<UQ>>
+    * password_hash : varchar(255)
+    * full_name : varchar(120)
+    * role : varchar(32)
+    university : varchar(120)
+    faculty : varchar(120)
+    avatar_url : text
+    push_token : text
+    created_at : timestamptz
+}
+
+entity "venues" as venues {
+    * id : uuid <<PK>>
+    --
+    * name : varchar(120)
+    * address : text
+    auditorium : varchar(64)
+    latitude : numeric(9,6)
+    longitude : numeric(9,6)
+    max_capacity : integer
+    created_at : timestamptz
+}
+
+entity "events" as events {
+    * id : uuid <<PK>>
+    --
+    * organizer_id : uuid <<FK>>
+    * venue_id : uuid <<FK>>
+    * title : varchar(200)
+    slug : varchar(200) <<UQ>>
+    description : text
+    event_type : varchar(32)
+    start_time : timestamptz
+    end_time : timestamptz
+    hard_cap : integer
+    secret_salt : varchar(64)
+    is_published : boolean
+    created_at : timestamptz
+}
+
+entity "tickets" as tickets {
+    * id : uuid <<PK>>
+    --
+    * user_id : uuid <<FK>>
+    * event_id : uuid <<FK>>
+    * ticket_code : varchar(32) <<UQ>>
+    * hmac_signature : text
+    * status : varchar(32)
+    qr_payload : text
+    issued_at : timestamptz
+}
+
+entity "check_ins" as checkins {
+    * id : uuid <<PK>>
+    --
+    * ticket_id : uuid <<FK>>
+    * volunteer_id : uuid <<FK>>
+    * scanned_at : timestamptz
+    device_id : varchar(120)
+    scan_mode : varchar(32)
+    is_offline_sync : boolean
+}
+
+entity "waitlist" as waitlist {
+    * id : uuid <<PK>>
+    --
+    * user_id : uuid <<FK>>
+    * event_id : uuid <<FK>>
+    * queue_position : integer
+    added_at : timestamptz
+    promoted_at : timestamptz
+}
+
+entity "tracks" as tracks {
+    * id : uuid <<PK>>
+    --
+    * event_id : uuid <<FK>>
+    * name : varchar(120)
+    color_hex : varchar(7)
+}
+
+entity "sessions" as sessions {
+    * id : uuid <<PK>>
+    --
+    * track_id : uuid <<FK>>
+    speaker_id : uuid <<FK>>
+    * title : varchar(200)
+    abstract : text
+    start_time : timestamptz
+    end_time : timestamptz
+    slides_url : text
+}
+
+entity "hackathon_teams" as teams {
+    * id : uuid <<PK>>
+    --
+    * event_id : uuid <<FK>>
+    * leader_id : uuid <<FK>>
+    * name : varchar(120)
+    description : text
+    is_recruiting : boolean
+    created_at : timestamptz
+}
+
+entity "team_members" as members {
+    * id : uuid <<PK>>
+    --
+    * team_id : uuid <<FK>>
+    * user_id : uuid <<FK>>
+    role_in_team : varchar(64)
+    joined_at : timestamptz
+}
+
+users ||--o{ events : "organizes"
+venues ||--o{ events : "hosts"
+events ||--o{ tickets : "issues"
+users ||--o{ tickets : "owns"
+tickets ||--o| checkins : "redeems"
+users ||--o{ checkins : "verifies (as volunteer)"
+events ||--o{ waitlist : "queues"
+users ||--o{ waitlist : "waits"
+events ||--o{ tracks : "partitions"
+tracks ||--o{ sessions : "schedules"
+users ||--o{ sessions : "delivers (as speaker)"
+events ||--o{ teams : "competes in"
+users ||--o{ teams : "leads"
+teams ||--o{ members : "comprises"
+users ||--o{ members : "participates"
+
+@enduml

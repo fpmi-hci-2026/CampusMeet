@@ -1,0 +1,32 @@
+@startuml
+!include <C4/C4_Context>
+
+LAYOUT_WITH_LEGEND()
+
+title C4 Model: Контекстная диаграмма уровня C1 (System Context) экосистемы CampusMeet (Задание 7)
+
+Person(attendee, "Слушатель (Attendee)", "Студент или IT-специалист, регистрирующийся на митапы и проходящий по офлайн-билету.")
+Person(volunteer, "Волонтер (Volunteer)", "Контролер на стойке входа, валидирующий билеты мобильным оптическим сканером.")
+Person(organizer, "Организатор (Organizer)", "Лидер сообщества, создающий митапы, квоты, расписание и рассылающий Push-сообщения.")
+Person(speaker, "Спикер (Speaker)", "Докладчик, подающий заявки на выступления в CFP и загружающий презентации.")
+Person(patron, "Администратор площадки (Patron)", "Представитель деканата, согласующий занятость университетских аудиторий.")
+
+System(campusmeet, "Экосистема CampusMeet", "Кроссплатформенный комплекс (Web + Mobile + API) для организации локальных мероприятий и высокоскоростного офлайн-контроля билетов.")
+
+System_Ext(osm, "OpenStreetMap Nominatim", "Публичный сервис геокодирования адресов площадок и координат аудиторий.")
+System_Ext(nager, "Nager.Date API", "Публичный сервис производственного календаря и государственных праздников Беларуси.")
+System_Ext(push, "Apple APNs & Google FCM", "Облачные шлюзы доставки push-уведомлений на мобильные устройства.")
+System_Ext(tg, "Telegram Bot Gateway", "Шлюз дублирования экстренных алертов организаторам в Telegram.")
+
+Rel(attendee, campusmeet, "Ищет события, регистрируется, получает QR-билет, смотрит расписание", "HTTPS / JSON")
+Rel(volunteer, campusmeet, "Сканирует QR-билеты камерой смартфона (<500 мс)", "HTTPS / Offline Cache")
+Rel(organizer, campusmeet, "Управляет событиями, квотами, CFP и рассылает оповещения", "HTTPS / Web UI")
+Rel(speaker, campusmeet, "Подает заявки на доклады и материалы презентаций", "HTTPS / Web & Mobile")
+Rel(patron, campusmeet, "Согласует аудитории и выгружает аналитические отчеты", "HTTPS / Web UI")
+
+Rel(campusmeet, osm, "Геокодирует текстовый адрес в координаты", "HTTPS REST")
+Rel(campusmeet, nager, "Проверяет даты митапов на пересечение с праздниками", "HTTPS REST")
+Rel(campusmeet, push, "Отправляет приоритетные Push-сообщения", "HTTPS REST")
+Rel(campusmeet, tg, "Передает алерты в командный чат волонтеров", "HTTPS Webhook")
+
+@enduml

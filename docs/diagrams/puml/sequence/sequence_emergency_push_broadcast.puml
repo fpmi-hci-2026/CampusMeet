@@ -1,0 +1,58 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 11
+
+skinparam sequence {
+    ArrowColor #2563EB
+    ActorBorderColor #334155
+    LifeLineBorderColor #64748B
+    LifeLineBackgroundColor #F1F5F9
+    ParticipantBorderColor #334155
+    ParticipantBackgroundColor #EFF6FF
+}
+
+title Диаграмма последовательности: Экстренная Push-рассылка участникам (Задание 4)
+
+actor "Организатор (Максим)" as Organizer
+participant "Web-кабинет\n(Next.js UI)" as WebUI
+participant "API Gateway\n(FastAPI)" as Gateway
+participant "Message Broker\n(Redis Queue)" as Redis
+participant "Task Worker\n(Celery Pool)" as Celery
+participant "Push Gateway\n(Apple APNs / FCM)" as PushService
+actor "Участники митапа\n(Смартфоны)" as Attendees
+
+Organizer -> WebUI: Нажатие кнопки "Экстренное оповещение"\nТекст: "Смена аудитории: доклад перенесен в ауд. 514!"
+activate WebUI
+
+WebUI -> WebUI: Запрос подтверждения (Диалог безопасности)
+WebUI -> Gateway: POST /api/v1/events/{id}/broadcast-emergency\n(Header: Priority=High)
+activate Gateway
+
+Gateway -> Gateway: Валидация прав организатора (JWT RBAC)
+Gateway -> Redis: LPUSH emergency_notifications_queue {event_id, text, timestamp}
+activate Redis
+Redis --> Gateway: Task Enqueued (job_id: #8891)
+deactivate Redis
+
+Gateway --> WebUI: 202 Accepted (Рассылка поставлена в очередь)
+deactivate Gateway
+WebUI --> Organizer: "Оповещение отправлено в очередь доставки"
+
+Redis -> Celery: Захват задачи воркером
+activate Celery
+Celery -> Celery: Выборка push-токенов зарегистрированных участников (N = 120)
+Celery -> PushService: Batch POST /send-multicast (Tokens, Payload, Priority=HIGH)
+activate PushService
+PushService --> Celery: 200 OK (Delivered to Gateway)
+deactivate PushService
+
+PushService -> Attendees: Push-уведомление со звуковым сигналом тревоги (<2 сек)
+deactivate Celery
+
+Attendees --> Attendees: Отображение баннера: "Внимание: аудитория 514"
+deactivate WebUI
+
+@enduml
