@@ -726,3 +726,68 @@
   }
 }
 ```
+
+---
+
+## 11. Декларативный синтаксический сахар (Declarative Web Components & App Shell)
+
+Для устранения дублирования сотен строк разметки навигации, шапки, сайдбара и модальных окон в портале реализован легковесный **Zero-Build синтаксический сахар**.
+
+### 11.1. Быстрый старт новой страницы лабораторной работы
+
+Любая новая страница строится всего из ~35–45 строк чистого декларативного HTML без необходимости копировать сайдбар, хлебные крошки, оглавление и скрипты:
+
+```html
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лаб. №X: Название работы — CampusMeet</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/app-shell.js" defer></script>
+</head>
+<body data-page="labX">
+    <lab-hero 
+        lab="X" 
+        title="Лабораторная работа №X: Название"
+        subtitle="Краткое описание целей и артефактов"
+        status="done"
+        report="../reports/LabX_report.md">
+    </lab-hero>
+
+    <stat-grid>
+        <stat-card value="24" unit="чел" label="Респондентов"></stat-card>
+        <stat-card value="92%" label="Task Success Rate"></stat-card>
+    </stat-grid>
+
+    <doc-section id="sec-overview" title="1. Обзор исследования" badge="Цели">
+        <p>Содержание секции...</p>
+        <callout-card type="info" title="Примечание">
+            Текст монохромного примечания...
+        </callout-card>
+    </doc-section>
+</body>
+</html>
+```
+
+### 11.2. Реестр доступных декларативных компонентов
+
+| Компонент | Назначение | Ключевые атрибуты |
+| :--- | :--- | :--- |
+| `<lab-hero>` | Автоматическая шапка лабы с бейджами, метаданными и кнопкой перехода к отчету | `lab`, `title`, `subtitle`, `status`, `report`, `badge` |
+| `<stat-grid>` | Сетка KPI-метрик со строгим Swiss-выравниванием | — |
+| `<stat-card>` | Карточка показателя с защитой от горизонтального переполнения | `value`, `unit`, `label` |
+| `<doc-section>` | Стандартизированная секция страницы с заголовком и авто-индексацией в оглавление | `id`, `title`, `badge` |
+| `<callout-card>` | Монохромная рамка с иконкой для выделения важного контекста | `type` (`info`, `success`, `warning`, `danger`), `title` |
+| `<diagram-frame>` | Интерактивный фрейм диаграммы с зумом, панорамированием и сбросом 1:1 | `title`, `badge`, `src`, `type` (`mermaid`, `svg`, `image`) |
+| `<tab-group>` | Контейнер вкладок с автоматическим переключением | Содержит дочерние `<tab-pane label="..." active>` |
+| `<responsive-table>` | Контейнер таблицы с горизонтальным скроллом и изоляцией границ | Оборачивает `<table>` |
+
+### 11.3. CLI-генератор заготовок (`scripts/create-lab.js`)
+Для генерации готовой страницы за 1 секунду предусмотрен скрипт:
+```bash
+node scripts/create-lab.js <номер> "<название>" ["<подзаголовок>"]
+```
+

@@ -485,3 +485,24 @@ p {
 :root[data-theme="light"] .theme-toggle-btn .icon-moon {
     display: block;
 }
+
+/* --- DECLARATIVE CUSTOM ELEMENTS (SYNTACTIC SUGAR) --- */
+lab-hero,
+stat-grid,
+stat-card,
+doc-section,
+callout-card,
+diagram-frame,
+tab-group,
+tab-pane,
+responsive-table {
+    display: block;
+}
+
+stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 16px;
+    margin: 24px 0 32px;
+}
+
