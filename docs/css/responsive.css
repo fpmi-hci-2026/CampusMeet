@@ -1,0 +1,66 @@
+/* ==========================================================================
+   CampusMeet / EventHub — Responsive Breakpoints (Tablet & Mobile)
+   ========================================================================== */
+
+@media (max-width: 900px) {
+    body {
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+        padding-top: var(--topbar-height);
+    }
+    
+    .mobile-topbar {
+        display: flex;
+    }
+    
+    #sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 290px;
+        transform: translateX(-100%);
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+    }
+    
+    #sidebar.open {
+        transform: translateX(0);
+    }
+    
+    #content {
+        padding: 24px 16px;
+        overflow-y: visible;
+    }
+    
+    .grid-2col {
+        grid-template-columns: 1fr;
+    }
+    
+    h1 {
+        font-size: 1.65rem;
+    }
+    
+    h2 {
+        font-size: 1.3rem;
+    }
+    
+    .hero-card {
+        padding: 22px 18px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 540px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .btn, .btn-action, .btn-primary, .btn-secondary {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+}
