@@ -1,62 +1,62 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 375 812" width="375" height="812" font-family="'Inter', -apple-system, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 375 812" width="375" height="812" font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <!-- Phone Frame background -->
-  <rect width="375" height="812" rx="42" fill="#0b1120" stroke="#334155" stroke-width="4"/>
+  <rect width="375" height="812" rx="42" fill="#0d0d0d" stroke="#262626" stroke-width="3"/>
   <rect x="125" y="12" width="125" height="28" rx="14" fill="#000000"/>
 
   <!-- Camera Viewfinder simulation (Darkened room behind) -->
-  <rect x="8" y="48" width="359" height="716" rx="24" fill="#0f172a"/>
+  <rect x="8" y="48" width="359" height="716" rx="24" fill="#171717"/>
 
   <!-- Top Scanner Status Bar -->
   <g transform="translate(20, 65)">
-    <rect width="335" height="52" rx="12" fill="#1e293bcc" stroke="#334155" stroke-width="1"/>
+    <rect width="335" height="52" rx="12" fill="#000000" stroke="#2f2f2f" stroke-width="1" opacity="0.9"/>
     <text x="18" y="24" fill="#ffffff" font-size="13" font-weight="700">Вход: Главный корпус БГУ</text>
-    <text x="18" y="42" fill="#38bdf8" font-size="11">Волонтер: Даша М. • Режим: Offline</text>
-    <text x="315" y="34" fill="#22c55e" font-size="16" font-weight="800" text-anchor="end">88/100</text>
+    <text x="18" y="42" fill="#a1a1aa" font-size="11">Волонтер: Даша М. • Режим: Offline</text>
+    <text x="315" y="34" fill="#ffffff" font-size="16" font-weight="800" text-anchor="end">88/100</text>
   </g>
 
   <!-- Glowing Laser Viewfinder Reticle -->
   <g transform="translate(57, 180)">
-    <rect width="260" height="260" rx="16" fill="none" stroke="#334155" stroke-width="2"/>
+    <rect width="260" height="260" rx="16" fill="none" stroke="#383838" stroke-width="1.5"/>
     
-    <!-- Neon green brackets -->
-    <path d="M 0 32 L 0 0 L 32 0" fill="none" stroke="#22c55e" stroke-width="6"/>
-    <path d="M 228 0 L 260 0 L 260 32" fill="none" stroke="#22c55e" stroke-width="6"/>
-    <path d="M 0 228 L 0 260 L 32 260" fill="none" stroke="#22c55e" stroke-width="6"/>
-    <path d="M 228 260 L 260 260 L 260 228" fill="none" stroke="#22c55e" stroke-width="6"/>
+    <!-- High Contrast Corner Brackets -->
+    <path d="M 0 32 L 0 0 L 32 0" fill="none" stroke="#ffffff" stroke-width="4"/>
+    <path d="M 228 0 L 260 0 L 260 32" fill="none" stroke="#ffffff" stroke-width="4"/>
+    <path d="M 0 228 L 0 260 L 32 260" fill="none" stroke="#ffffff" stroke-width="4"/>
+    <path d="M 228 260 L 260 260 L 260 228" fill="none" stroke="#ffffff" stroke-width="4"/>
 
-    <!-- Animated Laser Line -->
-    <line x1="8" y1="130" x2="252" y2="130" stroke="#22c55e" stroke-width="3"/>
-    <rect x="40" y="118" width="180" height="24" rx="4" fill="#064e3b88"/>
-    <text x="130" y="134" fill="#a7f3d0" font-size="11" font-weight="bold" text-anchor="middle">СКАНИРОВАНИЕ &lt; 500 МС</text>
+    <!-- Laser Line -->
+    <line x1="8" y1="130" x2="252" y2="130" stroke="#ffffff" stroke-width="2"/>
+    <rect x="40" y="118" width="180" height="24" rx="4" fill="#212121"/>
+    <text x="130" y="134" fill="#ffffff" font-size="11" font-weight="bold" letter-spacing="0.5" text-anchor="middle">СКАНИРОВАНИЕ &lt; 500 МС</text>
   </g>
 
   <!-- Success Recognition Banner Overlay -->
   <g transform="translate(20, 480)">
-    <rect width="335" height="135" rx="14" fill="#064e3b" stroke="#22c55e" stroke-width="2"/>
+    <rect width="335" height="135" rx="14" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
     
-    <circle cx="45" cy="42" r="22" fill="#22c55e"/>
-    <text x="45" y="50" fill="#0f172a" font-size="22" font-weight="900" text-anchor="middle">✓</text>
+    <circle cx="45" cy="42" r="20" fill="#ffffff"/>
+    <text x="45" y="49" fill="#0d0d0d" font-size="20" font-weight="900" text-anchor="middle">✓</text>
 
-    <text x="82" y="34" fill="#a7f3d0" font-size="11" font-weight="800" letter-spacing="1">ВХОД РАЗРЕШЕН</text>
+    <text x="82" y="34" fill="#ffffff" font-size="11" font-weight="800" letter-spacing="1">ВХОД РАЗРЕШЕН</text>
     <text x="82" y="58" fill="#ffffff" font-size="19" font-weight="800">Артём Ковалёв</text>
-    <text x="82" y="78" fill="#cbd5e1" font-size="12">ФПМИ БГУ, 3 курс • Билет #8841-A</text>
+    <text x="82" y="78" fill="#a1a1aa" font-size="12">ФПМИ БГУ, 3 курс • Билет #8841-A</text>
 
-    <rect x="18" y="96" width="299" height="26" rx="6" fill="#047857"/>
+    <rect x="18" y="96" width="299" height="26" rx="6" fill="#212121"/>
     <text x="167" y="113" fill="#ffffff" font-size="11" text-anchor="middle">Чекин: 16:48:12 • Тактильный отклик: OK</text>
   </g>
 
   <!-- Manual search by name -->
   <g transform="translate(20, 635)">
-    <rect width="335" height="44" rx="10" fill="#1e293b" stroke="#475569" stroke-width="1"/>
-    <text x="20" y="27" fill="#94a3b8" font-size="12">⌨ Ручной ввод ФИО при разбитом экране...</text>
+    <rect width="335" height="44" rx="10" fill="#171717" stroke="#2f2f2f" stroke-width="1"/>
+    <text x="20" y="27" fill="#a1a1aa" font-size="12">Ручной ввод ФИО при поврежденном экране...</text>
   </g>
 
   <!-- Flashlight and Controls -->
   <g transform="translate(20, 695)">
-    <rect x="0" y="0" width="160" height="38" rx="8" fill="#334155"/>
-    <text x="80" y="24" fill="#ffffff" font-size="12" font-weight="600" text-anchor="middle">💡 Фонарик [ВКЛ]</text>
+    <rect x="0" y="0" width="160" height="38" rx="8" fill="#212121" stroke="#383838"/>
+    <text x="80" y="24" fill="#ffffff" font-size="12" font-weight="600" text-anchor="middle">[Фонарик: ВКЛ]</text>
 
-    <rect x="175" y="0" width="160" height="38" rx="8" fill="#334155"/>
-    <text x="255" y="24" fill="#22c55e" font-size="12" font-weight="600" text-anchor="middle">🔔 Звук / Вибро [ВКЛ]</text>
+    <rect x="175" y="0" width="160" height="38" rx="8" fill="#212121" stroke="#383838"/>
+    <text x="255" y="24" fill="#ffffff" font-size="12" font-weight="600" text-anchor="middle">[Звук / Вибро: ВКЛ]</text>
   </g>
 </svg>

@@ -1,265 +1,241 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 960" width="1440" height="960" font-family="'Inter', -apple-system, sans-serif">
-  <defs>
-    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0b1120"/>
-      <stop offset="100%" stop-color="#0f172a"/>
-    </linearGradient>
-    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#1e293b"/>
-      <stop offset="100%" stop-color="#0f172a"/>
-    </linearGradient>
-    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#38bdf8"/>
-      <stop offset="100%" stop-color="#0284c7"/>
-    </linearGradient>
-    <linearGradient id="glowHeader" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.2"/>
-      <stop offset="100%" stop-color="#818cf8" stop-opacity="0.2"/>
-    </linearGradient>
-  </defs>
-
-  <!-- Deep Slate Background -->
-  <rect width="1440" height="960" fill="url(#bgGrad)"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 960" width="1440" height="960" font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+  <!-- Deep Carbon Background -->
+  <rect width="1440" height="960" fill="#0d0d0d"/>
 
   <!-- Top Glassmorphic Navigation -->
-  <rect width="1440" height="72" fill="#0f172acc" stroke="#334155" stroke-width="1"/>
+  <rect width="1440" height="72" fill="#171717" stroke="#2f2f2f" stroke-width="1"/>
   
   <!-- Logo -->
   <g transform="translate(60, 20)">
-    <rect width="36" height="36" rx="8" fill="url(#accentGrad)"/>
-    <text x="18" y="24" fill="#0f172a" font-size="18" font-weight="900" text-anchor="middle">⚡</text>
-    <text x="46" y="25" fill="#ffffff" font-size="18" font-weight="800">Campus<tspan fill="#38bdf8">Meet</tspan></text>
+    <rect width="36" height="36" rx="6" fill="#ffffff"/>
+    <text x="18" y="24" fill="#0d0d0d" font-size="16" font-weight="900" text-anchor="middle">CM</text>
+    <text x="48" y="25" fill="#ffffff" font-size="18" font-weight="800" letter-spacing="-0.3">CampusMeet</text>
   </g>
 
   <!-- Navigation items -->
-  <g transform="translate(240, 36)">
-    <text x="0" y="0" fill="#38bdf8" font-size="14" font-weight="700">Афиша</text>
-    <line x1="0" y1="8" x2="45" y2="8" stroke="#38bdf8" stroke-width="2.5"/>
-    <text x="80" y="0" fill="#94a3b8" font-size="14" font-weight="500">Хакатоны</text>
-    <text x="185" y="0" fill="#94a3b8" font-size="14" font-weight="500">Биржа команд</text>
-    <text x="320" y="0" fill="#94a3b8" font-size="14" font-weight="500">Календарь</text>
-    <text x="430" y="0" fill="#94a3b8" font-size="14" font-weight="500">О проекте</text>
+  <g transform="translate(260, 36)">
+    <text x="0" y="0" fill="#ffffff" font-size="14" font-weight="700">Афиша</text>
+    <line x1="0" y1="8" x2="45" y2="8" stroke="#ffffff" stroke-width="2"/>
+    <text x="80" y="0" fill="#a1a1aa" font-size="14" font-weight="500">Хакатоны</text>
+    <text x="185" y="0" fill="#a1a1aa" font-size="14" font-weight="500">Биржа команд</text>
+    <text x="320" y="0" fill="#a1a1aa" font-size="14" font-weight="500">Календарь</text>
+    <text x="430" y="0" fill="#a1a1aa" font-size="14" font-weight="500">О проекте</text>
   </g>
 
   <!-- Search Bar with Suggestions -->
   <g transform="translate(730, 16)">
-    <rect width="340" height="40" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1"/>
-    <text x="20" y="25" fill="#64748b" font-size="13">🔍 Поиск событий, спикеров, Go, AI...</text>
-    <rect x="290" y="10" width="36" height="20" rx="4" fill="#334155"/>
-    <text x="308" y="24" fill="#94a3b8" font-size="11" text-anchor="middle">⌘K</text>
+    <rect width="340" height="40" rx="8" fill="#212121" stroke="#383838" stroke-width="1"/>
+    <circle cx="20" cy="20" r="6" fill="none" stroke="#71717a" stroke-width="1.5"/>
+    <line x1="24" y1="24" x2="30" y2="30" stroke="#71717a" stroke-width="1.5"/>
+    <text x="40" y="25" fill="#71717a" font-size="13">Поиск событий, спикеров, Go, AI...</text>
+    <rect x="290" y="10" width="36" height="20" rx="4" fill="#2a2a2a" stroke="#383838"/>
+    <text x="308" y="24" fill="#a1a1aa" font-size="11" text-anchor="middle">⌘K</text>
   </g>
 
-  <!-- Action CTA -->
+  <!-- Action CTA & Avatar -->
   <g transform="translate(1090, 16)">
-    <rect width="160" height="40" rx="8" fill="url(#accentGrad)"/>
-    <text x="80" y="25" fill="#0f172a" font-size="13" font-weight="700" text-anchor="middle">+ Создать ивент</text>
+    <rect width="160" height="40" rx="8" fill="#ffffff"/>
+    <text x="80" y="25" fill="#0d0d0d" font-size="13" font-weight="700" text-anchor="middle">+ Создать ивент</text>
 
     <!-- User Profile Avatar -->
-    <circle cx="200" cy="20" r="18" fill="#334155" stroke="#38bdf8" stroke-width="1.5"/>
+    <circle cx="200" cy="20" r="18" fill="#212121" stroke="#383838" stroke-width="1.5"/>
     <text x="200" y="25" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">АК</text>
   </g>
 
   <!-- Hero Header Ribbon -->
   <g transform="translate(60, 95)">
-    <rect width="1320" height="85" rx="12" fill="url(#glowHeader)" stroke="#38bdf844" stroke-width="1"/>
-    <text x="25" y="32" fill="#38bdf8" font-size="12" font-weight="700" letter-spacing="1">ЭКОСИСТЕМА СТУДЕНЧЕСКИХ МИТАПОВ И ХАКАТОНОВ</text>
-    <text x="25" y="62" fill="#ffffff" font-size="24" font-weight="800">Афиша предстоящих IT-мероприятий г. Минска</text>
+    <rect width="1320" height="85" rx="12" fill="#171717" stroke="#2f2f2f" stroke-width="1"/>
+    <text x="25" y="32" fill="#a1a1aa" font-size="11" font-weight="700" letter-spacing="1">ЭКОСИСТЕМА СТУДЕНЧЕСКИХ МИТАПОВ И ХАКАТОНОВ</text>
+    <text x="25" y="62" fill="#ffffff" font-size="24" font-weight="800" letter-spacing="-0.5">Афиша предстоящих IT-мероприятий г. Минска</text>
     
     <!-- Stat pills on right -->
-    <rect x="980" y="24" width="140" height="36" rx="18" fill="#0f172a88" stroke="#334155"/>
-    <text x="1050" y="47" fill="#f8fafc" font-size="12" text-anchor="middle">🎉 18 активных событий</text>
+    <rect x="980" y="24" width="140" height="36" rx="18" fill="#212121" stroke="#383838"/>
+    <text x="1050" y="47" fill="#f4f4f4" font-size="12" text-anchor="middle">18 активных событий</text>
 
-    <rect x="1135" y="24" width="160" height="36" rx="18" fill="#0f172a88" stroke="#334155"/>
-    <text x="1215" y="47" fill="#22c55e" font-size="12" text-anchor="middle">⚡ Zero-Latency чекин</text>
+    <rect x="1135" y="24" width="160" height="36" rx="18" fill="#212121" stroke="#383838"/>
+    <text x="1215" y="47" fill="#ffffff" font-size="12" font-weight="600" text-anchor="middle">Zero-Latency чекин</text>
   </g>
 
   <!-- Sidebar Filters -->
   <g transform="translate(60, 205)">
-    <rect width="280" height="715" rx="12" fill="url(#cardGrad)" stroke="#334155" stroke-width="1"/>
+    <rect width="280" height="715" rx="12" fill="#171717" stroke="#2f2f2f" stroke-width="1"/>
     <g transform="translate(24, 25)">
       <text x="0" y="0" fill="#ffffff" font-size="16" font-weight="700">Фильтры афиши</text>
       
       <!-- Date Filter -->
-      <text x="0" y="38" fill="#94a3b8" font-size="11" font-weight="700" letter-spacing="0.5">ВРЕМЯ ПРОВЕДЕНИЯ</text>
-      <rect x="0" y="48" width="112" height="32" rx="6" fill="#38bdf822" stroke="#38bdf8"/>
-      <text x="56" y="69" fill="#38bdf8" font-size="12" font-weight="600" text-anchor="middle">Ближайшие</text>
+      <text x="0" y="38" fill="#71717a" font-size="11" font-weight="700" letter-spacing="0.5">ВРЕМЯ ПРОВЕДЕНИЯ</text>
+      <rect x="0" y="48" width="112" height="32" rx="6" fill="#ffffff"/>
+      <text x="56" y="69" fill="#0d0d0d" font-size="12" font-weight="600" text-anchor="middle">Ближайшие</text>
 
-      <rect x="120" y="48" width="112" height="32" rx="6" fill="#1e293b" stroke="#334155"/>
-      <text x="176" y="69" fill="#94a3b8" font-size="12" text-anchor="middle">На неделе</text>
+      <rect x="120" y="48" width="112" height="32" rx="6" fill="#212121" stroke="#383838"/>
+      <text x="176" y="69" fill="#a1a1aa" font-size="12" text-anchor="middle">На неделе</text>
 
       <!-- Format Filter -->
-      <text x="0" y="115" fill="#94a3b8" font-size="11" font-weight="700" letter-spacing="0.5">ТИП МЕРОПРИЯТИЯ</text>
+      <text x="0" y="115" fill="#71717a" font-size="11" font-weight="700" letter-spacing="0.5">ТИП МЕРОПРИЯТИЯ</text>
       
-      <rect x="0" y="128" width="16" height="16" rx="4" fill="#38bdf8"/>
-      <text x="8" y="140" fill="#0f172a" font-size="11" text-anchor="middle">✓</text>
-      <text x="28" y="141" fill="#f8fafc" font-size="13">Офлайн-митапы (14)</text>
+      <rect x="0" y="128" width="16" height="16" rx="4" fill="#ffffff"/>
+      <text x="8" y="140" fill="#0d0d0d" font-size="11" font-weight="bold" text-anchor="middle">✓</text>
+      <text x="28" y="141" fill="#f4f4f4" font-size="13">Офлайн-митапы (14)</text>
 
-      <rect x="0" y="156" width="16" height="16" rx="4" fill="#1e293b" stroke="#475569"/>
-      <text x="28" y="169" fill="#94a3b8" font-size="13">Хакатоны (4)</text>
+      <rect x="0" y="156" width="16" height="16" rx="4" fill="#212121" stroke="#383838"/>
+      <text x="28" y="169" fill="#a1a1aa" font-size="13">Хакатоны (4)</text>
 
-      <rect x="0" y="184" width="16" height="16" rx="4" fill="#1e293b" stroke="#475569"/>
-      <text x="28" y="197" fill="#94a3b8" font-size="13">Воркшопы и лекции (6)</text>
+      <rect x="0" y="184" width="16" height="16" rx="4" fill="#212121" stroke="#383838"/>
+      <text x="28" y="197" fill="#a1a1aa" font-size="13">Воркшопы и лекции (6)</text>
 
       <!-- Tech stack -->
-      <text x="0" y="240" fill="#94a3b8" font-size="11" font-weight="700" letter-spacing="0.5">НАПРАВЛЕНИЯ &amp; ТЕХНОЛОГИИ</text>
+      <text x="0" y="240" fill="#71717a" font-size="11" font-weight="700" letter-spacing="0.5">НАПРАВЛЕНИЯ &amp; ТЕХНОЛОГИИ</text>
       
-      <rect x="0" y="253" width="16" height="16" rx="4" fill="#38bdf8"/>
-      <text x="8" y="265" fill="#0f172a" font-size="11" text-anchor="middle">✓</text>
-      <text x="28" y="266" fill="#f8fafc" font-size="13">Artificial Intelligence / ML</text>
+      <rect x="0" y="253" width="16" height="16" rx="4" fill="#ffffff"/>
+      <text x="8" y="265" fill="#0d0d0d" font-size="11" font-weight="bold" text-anchor="middle">✓</text>
+      <text x="28" y="266" fill="#f4f4f4" font-size="13">Artificial Intelligence / ML</text>
 
-      <rect x="0" y="281" width="16" height="16" rx="4" fill="#38bdf8"/>
-      <text x="8" y="293" fill="#0f172a" font-size="11" text-anchor="middle">✓</text>
-      <text x="28" y="294" fill="#f8fafc" font-size="13">Web / Frontend / React</text>
+      <rect x="0" y="281" width="16" height="16" rx="4" fill="#ffffff"/>
+      <text x="8" y="293" fill="#0d0d0d" font-size="11" font-weight="bold" text-anchor="middle">✓</text>
+      <text x="28" y="294" fill="#f4f4f4" font-size="13">Web / Frontend / React</text>
 
-      <rect x="0" y="309" width="16" height="16" rx="4" fill="#1e293b" stroke="#475569"/>
-      <text x="28" y="322" fill="#94a3b8" font-size="13">Backend / Highload / Go</text>
+      <rect x="0" y="309" width="16" height="16" rx="4" fill="#212121" stroke="#383838"/>
+      <text x="28" y="322" fill="#a1a1aa" font-size="13">Backend / Highload / Go</text>
 
-      <rect x="0" y="337" width="16" height="16" rx="4" fill="#1e293b" stroke="#475569"/>
-      <text x="28" y="350" fill="#94a3b8" font-size="13">Mobile &amp; Cross-Platform</text>
+      <rect x="0" y="337" width="16" height="16" rx="4" fill="#212121" stroke="#383838"/>
+      <text x="28" y="350" fill="#a1a1aa" font-size="13">Mobile &amp; Cross-Platform</text>
 
       <!-- University / Venue -->
-      <text x="0" y="395" fill="#94a3b8" font-size="11" font-weight="700" letter-spacing="0.5">УНИВЕРСИТЕТ И ЛОКАЦИЯ</text>
-      <rect x="0" y="408" width="232" height="34" rx="6" fill="#1e293b" stroke="#334155"/>
-      <text x="14" y="430" fill="#f8fafc" font-size="12">🏛 Главный корпус БГУ</text>
+      <text x="0" y="395" fill="#71717a" font-size="11" font-weight="700" letter-spacing="0.5">УНИВЕРСИТЕТ И ЛОКАЦИЯ</text>
+      <rect x="0" y="408" width="232" height="34" rx="6" fill="#212121" stroke="#383838"/>
+      <text x="14" y="430" fill="#f4f4f4" font-size="12">Главный корпус БГУ</text>
 
       <!-- Toggle Free spots -->
-      <text x="0" y="480" fill="#94a3b8" font-size="11" font-weight="700" letter-spacing="0.5">ДОСТУПНОСТЬ</text>
-      <rect x="0" y="492" width="40" height="22" rx="11" fill="#22c55e"/>
-      <circle cx="29" cy="503" r="8" fill="#ffffff"/>
-      <text x="50" y="508" fill="#f8fafc" font-size="13">Только со свободными местами</text>
+      <text x="0" y="480" fill="#71717a" font-size="11" font-weight="700" letter-spacing="0.5">ДОСТУПНОСТЬ</text>
+      <rect x="0" y="492" width="40" height="22" rx="11" fill="#ffffff"/>
+      <circle cx="29" cy="503" r="8" fill="#0d0d0d"/>
+      <text x="50" y="508" fill="#f4f4f4" font-size="13">Только со свободными местами</text>
 
       <!-- Reset CTA -->
-      <rect x="0" y="620" width="232" height="36" rx="6" fill="#1e293b" stroke="#334155"/>
-      <text x="116" y="643" fill="#94a3b8" font-size="12" text-anchor="middle">Сбросить все фильтры</text>
+      <rect x="0" y="620" width="232" height="36" rx="6" fill="#212121" stroke="#383838"/>
+      <text x="116" y="643" fill="#a1a1aa" font-size="12" text-anchor="middle">Сбросить все фильтры</text>
     </g>
   </g>
 
   <!-- Right Content: Event Grid -->
   <g transform="translate(365, 205)">
     <!-- Active filters bar -->
-    <rect width="1015" height="44" rx="8" fill="#1e293b" stroke="#334155"/>
-    <text x="20" y="27" fill="#94a3b8" font-size="13">Показано <tspan fill="#ffffff" font-weight="700">18 митапов</tspan> по запросу</text>
+    <rect width="1015" height="44" rx="8" fill="#171717" stroke="#2f2f2f"/>
+    <text x="20" y="27" fill="#a1a1aa" font-size="13">Показано <tspan fill="#ffffff" font-weight="700">18 митапов</tspan> по запросу</text>
     
-    <rect x="220" y="9" width="130" height="26" rx="13" fill="#38bdf822" stroke="#38bdf8"/>
-    <text x="285" y="26" fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle">AI &amp; ML ✕</text>
+    <rect x="220" y="9" width="130" height="26" rx="13" fill="#212121" stroke="#383838"/>
+    <text x="285" y="26" fill="#f4f4f4" font-size="11" font-weight="600" text-anchor="middle">AI &amp; ML ×</text>
 
-    <rect x="360" y="9" width="130" height="26" rx="13" fill="#38bdf822" stroke="#38bdf8"/>
-    <text x="425" y="26" fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle">Офлайн БГУ ✕</text>
+    <rect x="360" y="9" width="130" height="26" rx="13" fill="#212121" stroke="#383838"/>
+    <text x="425" y="26" fill="#f4f4f4" font-size="11" font-weight="600" text-anchor="middle">Офлайн БГУ ×</text>
 
     <!-- Sort dropdown -->
-    <rect x="800" y="7" width="195" height="30" rx="6" fill="#0f172a" stroke="#334155"/>
-    <text x="815" y="27" fill="#cbd5e1" font-size="12">Сортировка: Ближайшие ▼</text>
+    <rect x="800" y="7" width="195" height="30" rx="6" fill="#212121" stroke="#383838"/>
+    <text x="815" y="27" fill="#a1a1aa" font-size="12">Сортировка: Ближайшие ↓</text>
 
     <!-- Event Cards (Row 1) -->
     <!-- Card 1 (CampusMeet #4) -->
     <g transform="translate(0, 65)">
-      <rect width="325" height="400" rx="12" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5"/>
-      <!-- Event Image banner with gradient -->
-      <rect width="325" height="150" rx="12" fill="#1e3a8a"/>
-      <circle cx="280" cy="50" r="40" fill="#38bdf8" opacity="0.3"/>
-      <text x="25" y="45" fill="#38bdf8" font-size="11" font-weight="800" letter-spacing="1">БГУ • ФПМИ</text>
+      <rect width="325" height="400" rx="12" fill="#171717" stroke="#2f2f2f" stroke-width="1"/>
+      
+      <!-- Event Image banner -->
+      <rect width="325" height="150" rx="12" fill="#212121"/>
+      <circle cx="280" cy="50" r="40" fill="#2a2a2a"/>
+      <text x="25" y="45" fill="#a1a1aa" font-size="11" font-weight="800" letter-spacing="1">БГУ • ФПМИ</text>
       <text x="25" y="75" fill="#ffffff" font-size="18" font-weight="800">CampusMeet #4: GenAI</text>
-      <text x="25" y="95" fill="#93c5fd" font-size="13">Распределенные архитектуры</text>
+      <text x="25" y="95" fill="#a1a1aa" font-size="13">Распределенные архитектуры</text>
 
-      <rect x="20" y="115" width="75" height="22" rx="4" fill="#0f172acc"/>
-      <text x="57" y="130" fill="#38bdf8" font-size="10" font-weight="bold" text-anchor="middle">МИТАП</text>
+      <rect x="20" y="115" width="75" height="22" rx="4" fill="#ffffff"/>
+      <text x="57" y="130" fill="#0d0d0d" font-size="10" font-weight="bold" text-anchor="middle">МИТАП</text>
 
-      <rect x="105" y="115" width="85" height="22" rx="4" fill="#059669cc"/>
+      <rect x="105" y="115" width="85" height="22" rx="4" fill="#2a2a2a" stroke="#383838"/>
       <text x="147" y="130" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="middle">БЕСПЛАТНО</text>
 
       <!-- Card details -->
       <g transform="translate(20, 175)">
-        <text x="0" y="0" fill="#38bdf8" font-size="12" font-weight="600">15 октября 2026 • 17:00</text>
+        <text x="0" y="0" fill="#ffffff" font-size="12" font-weight="600">15 октября 2026 • 17:00</text>
         <text x="0" y="24" fill="#ffffff" font-size="16" font-weight="700">CampusMeet: AI &amp; Web</text>
-        <text x="0" y="48" fill="#94a3b8" font-size="12">🏛 Главный корпус БГУ, Ауд. 512</text>
-        <text x="0" y="70" fill="#cbd5e1" font-size="12">🎤 В. Громов (Lead Arch), Д. Мельников</text>
+        <text x="0" y="48" fill="#a1a1aa" font-size="12">Главный корпус БГУ, Ауд. 512</text>
+        <text x="0" y="70" fill="#a1a1aa" font-size="12">В. Громов (Lead Arch), Д. Мельников</text>
 
         <!-- Progress quota -->
-        <rect x="0" y="95" width="285" height="6" rx="3" fill="#334155"/>
-        <rect x="0" y="95" width="250" height="6" rx="3" fill="#22c55e"/>
-        <text x="0" y="118" fill="#94a3b8" font-size="11">Занято мест: 88 / 100</text>
-        <text x="285" y="118" fill="#22c55e" font-size="11" font-weight="bold" text-anchor="end">Осталось 12</text>
+        <rect x="0" y="95" width="285" height="6" rx="3" fill="#2a2a2a"/>
+        <rect x="0" y="95" width="250" height="6" rx="3" fill="#ffffff"/>
+        <text x="0" y="118" fill="#a1a1aa" font-size="11">Занято мест: 88 / 100</text>
+        <text x="285" y="118" fill="#ffffff" font-size="11" font-weight="700" text-anchor="end">Осталось 12</text>
 
-        <!-- CTA Button -->
-        <rect x="0" y="145" width="285" height="40" rx="8" fill="url(#accentGrad)"/>
-        <text x="142" y="170" fill="#0f172a" font-size="13" font-weight="700" text-anchor="middle">Зарегистрироваться (Free)</text>
+        <!-- Register button -->
+        <rect x="0" y="138" width="285" height="40" rx="8" fill="#ffffff"/>
+        <text x="142" y="163" fill="#0d0d0d" font-size="13" font-weight="700" text-anchor="middle">Зарегистрироваться</text>
       </g>
     </g>
 
-    <!-- Card 2 (FPMI Hack 2026) -->
+    <!-- Card 2 (FPMI Hackathon) -->
     <g transform="translate(345, 65)">
-      <rect width="325" height="400" rx="12" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5"/>
-      <rect width="325" height="150" rx="12" fill="#78350f"/>
-      <circle cx="280" cy="50" r="40" fill="#f59e0b" opacity="0.3"/>
-      <text x="25" y="45" fill="#fcd34d" font-size="11" font-weight="800" letter-spacing="1">ХАКАТОН • 24 ЧАСА</text>
+      <rect width="325" height="400" rx="12" fill="#171717" stroke="#2f2f2f" stroke-width="1"/>
+      <rect width="325" height="150" rx="12" fill="#212121"/>
+      <circle cx="280" cy="50" r="40" fill="#2a2a2a"/>
+      <text x="25" y="45" fill="#a1a1aa" font-size="11" font-weight="800" letter-spacing="1">ХАКАТОН 24 ЧАСА</text>
       <text x="25" y="75" fill="#ffffff" font-size="18" font-weight="800">FPMI Hack 2026</text>
-      <text x="25" y="95" fill="#fde68a" font-size="13">Призовой фонд 5000 BYN</text>
+      <text x="25" y="95" fill="#a1a1aa" font-size="13">AI Agents &amp; Web Services</text>
 
-      <rect x="20" y="115" width="85" height="22" rx="4" fill="#0f172acc"/>
-      <text x="62" y="130" fill="#f59e0b" font-size="10" font-weight="bold" text-anchor="middle">ХАКАТОН</text>
-
-      <rect x="115" y="115" width="95" height="22" rx="4" fill="#dc2626cc"/>
-      <text x="162" y="130" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="middle">WAITLIST (+14)</text>
+      <rect x="20" y="115" width="90" height="22" rx="4" fill="#0d0d0d" stroke="#ffffff"/>
+      <text x="65" y="130" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="middle">ХАКАТОН</text>
 
       <g transform="translate(20, 175)">
-        <text x="0" y="0" fill="#f59e0b" font-size="12" font-weight="600">24–25 октября 2026 • 10:00</text>
-        <text x="0" y="24" fill="#ffffff" font-size="16" font-weight="700">FPMI Hackathon: Web &amp; AI</text>
-        <text x="0" y="48" fill="#94a3b8" font-size="12">🏛 ФПМИ БГУ, 5 этаж коворкинг</text>
-        <text x="0" y="70" fill="#cbd5e1" font-size="12">👥 Команды 3–5 чел • Нужен дизайнер</text>
+        <text x="0" y="0" fill="#ffffff" font-size="12" font-weight="600">24-25 октября • 10:00</text>
+        <text x="0" y="24" fill="#ffffff" font-size="16" font-weight="700">FPMI Hackathon 24h</text>
+        <text x="0" y="48" fill="#a1a1aa" font-size="12">ФПМИ БГУ, Коворкинг 5 этаж</text>
+        <text x="0" y="70" fill="#a1a1aa" font-size="12">Призовой фонд: 3000 BYN</text>
 
-        <rect x="0" y="95" width="285" height="6" rx="3" fill="#334155"/>
-        <rect x="0" y="95" width="285" height="6" rx="3" fill="#ef4444"/>
-        <text x="0" y="118" fill="#ef4444" font-size="11" font-weight="bold">Лимит 100 мест исчерпан</text>
-        <text x="285" y="118" fill="#f59e0b" font-size="11" text-anchor="end">В очереди 14 чел.</text>
+        <!-- Progress quota (Full) -->
+        <rect x="0" y="95" width="285" height="6" rx="3" fill="#2a2a2a"/>
+        <rect x="0" y="95" width="285" height="6" rx="3" fill="#ffffff"/>
+        <text x="0" y="118" fill="#ffffff" font-size="11" font-weight="600">[!] Мест нет: Лист ожидания (+14)</text>
 
-        <rect x="0" y="145" width="285" height="40" rx="8" fill="#1e293b" stroke="#f59e0b"/>
-        <text x="142" y="170" fill="#fcd34d" font-size="13" font-weight="700" text-anchor="middle">Встать в лист ожидания</text>
+        <rect x="0" y="138" width="285" height="40" rx="8" fill="#212121" stroke="#383838"/>
+        <text x="142" y="163" fill="#ffffff" font-size="13" font-weight="700" text-anchor="middle">В лист ожидания</text>
       </g>
     </g>
 
     <!-- Card 3 (Highload Workshop) -->
     <g transform="translate(690, 65)">
-      <rect width="325" height="400" rx="12" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5"/>
-      <rect width="325" height="150" rx="12" fill="#312e81"/>
-      <circle cx="280" cy="50" r="40" fill="#818cf8" opacity="0.3"/>
-      <text x="25" y="45" fill="#a5b4fc" font-size="11" font-weight="800" letter-spacing="1">ВОРКШОП • ПРАКТИКА</text>
-      <text x="25" y="75" fill="#ffffff" font-size="18" font-weight="800">System Design &amp; Highload</text>
-      <text x="25" y="95" fill="#c7d2fe" font-size="13">Архитектура отказоустойчивости</text>
+      <rect width="325" height="400" rx="12" fill="#171717" stroke="#2f2f2f" stroke-width="1"/>
+      <rect width="325" height="150" rx="12" fill="#212121"/>
+      <circle cx="280" cy="50" r="40" fill="#2a2a2a"/>
+      <text x="25" y="45" fill="#a1a1aa" font-size="11" font-weight="800" letter-spacing="1">ПРАКТИКУМ</text>
+      <text x="25" y="75" fill="#ffffff" font-size="18" font-weight="800">System Design &amp; Go</text>
+      <text x="25" y="95" fill="#a1a1aa" font-size="13">Микросервисы на практике</text>
 
-      <rect x="20" y="115" width="90" height="22" rx="4" fill="#0f172acc"/>
-      <text x="65" y="130" fill="#818cf8" font-size="10" font-weight="bold" text-anchor="middle">ВОРКШОП</text>
-
-      <rect x="120" y="115" width="85" height="22" rx="4" fill="#059669cc"/>
-      <text x="162" y="130" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="middle">БЕСПЛАТНО</text>
+      <rect x="20" y="115" width="90" height="22" rx="4" fill="#2a2a2a" stroke="#383838"/>
+      <text x="65" y="130" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="middle">ВОРКШОП</text>
 
       <g transform="translate(20, 175)">
-        <text x="0" y="0" fill="#818cf8" font-size="12" font-weight="600">29 октября 2026 • 18:30</text>
-        <text x="0" y="24" fill="#ffffff" font-size="16" font-weight="700">System Design на практике</text>
-        <text x="0" y="48" fill="#94a3b8" font-size="12">🏛 ФФСН БГУ, Ауд. 302</text>
-        <text x="0" y="70" fill="#cbd5e1" font-size="12">🎤 Практический разбор микросервисов</text>
+        <text x="0" y="0" fill="#ffffff" font-size="12" font-weight="600">29 октября 2026 • 18:30</text>
+        <text x="0" y="24" fill="#ffffff" font-size="16" font-weight="700">Distributed &amp; Go</text>
+        <text x="0" y="48" fill="#a1a1aa" font-size="12">Корпус ФФСН, Ауд. 302</text>
+        <text x="0" y="70" fill="#a1a1aa" font-size="12">Практика с личными ноутбуками</text>
 
-        <rect x="0" y="95" width="285" height="6" rx="3" fill="#334155"/>
-        <rect x="0" y="95" width="125" height="6" rx="3" fill="#22c55e"/>
-        <text x="0" y="118" fill="#94a3b8" font-size="11">Занято мест: 35 / 80</text>
-        <text x="285" y="118" fill="#22c55e" font-size="11" font-weight="bold" text-anchor="end">Свободно 45 мест</text>
+        <!-- Progress quota -->
+        <rect x="0" y="95" width="285" height="6" rx="3" fill="#2a2a2a"/>
+        <rect x="0" y="95" width="130" height="6" rx="3" fill="#ffffff"/>
+        <text x="0" y="118" fill="#a1a1aa" font-size="11">Занято: 35 / 80</text>
+        <text x="285" y="118" fill="#ffffff" font-size="11" font-weight="700" text-anchor="end">Свободно 45</text>
 
-        <rect x="0" y="145" width="285" height="40" rx="8" fill="url(#accentGrad)"/>
-        <text x="142" y="170" fill="#0f172a" font-size="13" font-weight="700" text-anchor="middle">Зарегистрироваться (Free)</text>
+        <rect x="0" y="138" width="285" height="40" rx="8" fill="#ffffff"/>
+        <text x="142" y="163" fill="#0d0d0d" font-size="13" font-weight="700" text-anchor="middle">Зарегистрироваться</text>
       </g>
     </g>
 
     <!-- Pagination -->
-    <g transform="translate(350, 500)">
-      <rect x="0" y="0" width="38" height="38" rx="8" fill="url(#accentGrad)"/>
-      <text x="19" y="24" fill="#0f172a" font-size="14" font-weight="800" text-anchor="middle">1</text>
-      
-      <rect x="50" y="0" width="38" height="38" rx="8" fill="#1e293b" stroke="#334155"/>
-      <text x="69" y="24" fill="#cbd5e1" font-size="14" text-anchor="middle">2</text>
-
-      <rect x="100" y="0" width="38" height="38" rx="8" fill="#1e293b" stroke="#334155"/>
-      <text x="119" y="24" fill="#cbd5e1" font-size="14" text-anchor="middle">3</text>
-
-      <text x="160" y="24" fill="#94a3b8" font-size="14">Следующая →</text>
+    <g transform="translate(360, 485)">
+      <rect width="36" height="36" rx="6" fill="#ffffff"/>
+      <text x="18" y="23" fill="#0d0d0d" font-size="14" font-weight="bold" text-anchor="middle">1</text>
+      <rect x="46" width="36" height="36" rx="6" fill="#212121" stroke="#383838"/>
+      <text x="64" y="23" fill="#a1a1aa" font-size="14" text-anchor="middle">2</text>
+      <rect x="92" width="36" height="36" rx="6" fill="#212121" stroke="#383838"/>
+      <text x="110" y="23" fill="#a1a1aa" font-size="14" text-anchor="middle">3</text>
+      <text x="150" y="23" fill="#71717a" font-size="14">Следующая →</text>
     </g>
   </g>
 </svg>

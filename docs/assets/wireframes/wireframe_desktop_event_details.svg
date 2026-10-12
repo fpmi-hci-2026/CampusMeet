@@ -1,114 +1,118 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 1000" width="1440" height="1000" font-family="'Inter', -apple-system, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 1000" width="1440" height="1000" font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <!-- Background -->
-  <rect width="1440" height="1000" fill="#f8fafc"/>
+  <rect width="1440" height="1000" fill="#f9f9f9"/>
 
   <!-- Top Navigation Bar -->
-  <rect x="0" y="0" width="1440" height="70" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
-  <rect x="60" y="18" width="160" height="34" rx="6" fill="#0f172a"/>
-  <text x="140" y="40" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle">CampusMeet</text>
-  <text x="270" y="41" fill="#0f172a" font-size="14" font-weight="600">Афиша</text>
-  <text x="350" y="41" fill="#64748b" font-size="14">Хакатоны</text>
-  <text x="450" y="41" fill="#64748b" font-size="14">Биржа команд</text>
-  <circle cx="1350" cy="35" r="18" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
-  <text x="1350" y="40" fill="#475569" font-size="12" font-weight="bold" text-anchor="middle">АК</text>
+  <rect x="0" y="0" width="1440" height="70" fill="#ffffff" stroke="#e5e5e5" stroke-width="1"/>
+  
+  <rect x="60" y="18" width="150" height="34" rx="6" fill="#0d0d0d"/>
+  <text x="135" y="40" fill="#ffffff" font-size="15" font-weight="700" letter-spacing="0.3" text-anchor="middle">CampusMeet</text>
+  
+  <text x="250" y="41" fill="#0d0d0d" font-size="14" font-weight="600">Афиша</text>
+  <line x1="250" y1="48" x2="300" y2="48" stroke="#0d0d0d" stroke-width="2"/>
+  <text x="330" y="41" fill="#737373" font-size="14">Хакатоны</text>
+  <text x="430" y="41" fill="#737373" font-size="14">Биржа команд</text>
+  
+  <circle cx="1350" cy="35" r="18" fill="#f4f4f4" stroke="#d4d4d4" stroke-width="1"/>
+  <text x="1350" y="40" fill="#0d0d0d" font-size="12" font-weight="700" text-anchor="middle">АК</text>
 
   <!-- Hero Banner Area -->
   <g transform="translate(60, 90)">
-    <text x="0" y="15" fill="#64748b" font-size="12">Главная &gt; События &gt; CampusMeet: AI &amp; Modern Web 2026</text>
-    <rect x="0" y="30" width="1320" height="260" rx="12" fill="#e2e8f0" stroke="#94a3b8" stroke-dasharray="6,6"/>
-    <text x="660" y="130" fill="#64748b" font-size="18" text-anchor="middle">[Широкоформатный баннер митапа: 1320 x 260 px]</text>
+    <text x="0" y="15" fill="#737373" font-size="12">Главная / События / CampusMeet: AI &amp; Modern Web 2026</text>
+    <rect x="0" y="30" width="1320" height="260" rx="12" fill="#f4f4f4" stroke="#d4d4d4" stroke-dasharray="6,6"/>
+    <text x="660" y="130" fill="#737373" font-size="16" text-anchor="middle">[Широкоформатный баннер митапа: 1320 x 260 px]</text>
     
-    <rect x="30" y="170" width="80" height="26" rx="4" fill="#0f172a"/>
+    <rect x="30" y="170" width="80" height="26" rx="4" fill="#0d0d0d"/>
     <text x="70" y="187" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">МИТАП</text>
-    <text x="30" y="230" fill="#0f172a" font-size="28" font-weight="800">CampusMeet #4: Архитектура распределенных систем и GenAI</text>
+    <text x="30" y="230" fill="#0d0d0d" font-size="28" font-weight="800" letter-spacing="-0.5">CampusMeet #4: Архитектура распределенных систем и GenAI</text>
   </g>
 
   <!-- Main Grid: Two columns -->
   <g transform="translate(60, 380)">
     <!-- Left Column (Content & Schedule) -->
     <g transform="translate(0, 0)">
-      <rect width="860" height="580" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect width="860" height="580" rx="10" fill="#ffffff" stroke="#e5e5e5" stroke-width="1"/>
       
       <!-- Tabs inside event page -->
-      <line x1="0" y1="50" x2="860" y2="50" stroke="#cbd5e1"/>
-      <text x="30" y="32" fill="#0f172a" font-size="15" font-weight="bold">О мероприятии</text>
-      <line x1="30" y1="49" x2="140" y2="49" stroke="#0f172a" stroke-width="3"/>
-      <text x="180" y="32" fill="#64748b" font-size="15">Программа докладов</text>
-      <text x="360" y="32" fill="#64748b" font-size="15">Спикеры (3)</text>
-      <text x="480" y="32" fill="#64748b" font-size="15">Площадка &amp; Карта</text>
-      <text x="640" y="32" fill="#64748b" font-size="15">FAQ и правила</text>
+      <line x1="0" y1="50" x2="860" y2="50" stroke="#e5e5e5"/>
+      <text x="30" y="32" fill="#0d0d0d" font-size="15" font-weight="bold">О мероприятии</text>
+      <line x1="30" y1="49" x2="140" y2="49" stroke="#0d0d0d" stroke-width="3"/>
+      <text x="180" y="32" fill="#737373" font-size="15">Программа докладов</text>
+      <text x="360" y="32" fill="#737373" font-size="15">Спикеры (3)</text>
+      <text x="480" y="32" fill="#737373" font-size="15">Площадка &amp; Карта</text>
+      <text x="640" y="32" fill="#737373" font-size="15">FAQ и правила</text>
 
       <!-- Content text placeholders -->
       <g transform="translate(30, 75)">
-        <text x="0" y="20" fill="#0f172a" font-size="18" font-weight="bold">Описание митапа</text>
-        <rect x="0" y="35" width="800" height="12" rx="3" fill="#e2e8f0"/>
-        <rect x="0" y="55" width="760" height="12" rx="3" fill="#e2e8f0"/>
-        <rect x="0" y="75" width="710" height="12" rx="3" fill="#e2e8f0"/>
+        <text x="0" y="20" fill="#0d0d0d" font-size="18" font-weight="bold">Описание митапа</text>
+        <rect x="0" y="35" width="800" height="12" rx="3" fill="#f4f4f4"/>
+        <rect x="0" y="55" width="760" height="12" rx="3" fill="#f4f4f4"/>
+        <rect x="0" y="75" width="710" height="12" rx="3" fill="#f4f4f4"/>
 
         <!-- Interactive Schedule Preview -->
-        <text x="0" y="125" fill="#0f172a" font-size="18" font-weight="bold">Таймлайн программы (Tracks)</text>
+        <text x="0" y="125" fill="#0d0d0d" font-size="18" font-weight="bold">Таймлайн программы (Tracks)</text>
         
         <!-- Slot 1 -->
-        <rect x="0" y="145" width="800" height="70" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
-        <text x="20" y="175" fill="#3b82f6" font-size="14" font-weight="bold">17:00 - 17:15</text>
-        <text x="150" y="175" fill="#0f172a" font-size="15" font-weight="bold">Открытие митапа и вступительное слово</text>
-        <text x="150" y="195" fill="#64748b" font-size="12">Максим Романов (Председатель IT-клуба ФПМИ)</text>
+        <rect x="0" y="145" width="800" height="70" rx="8" fill="#f9f9f9" stroke="#e5e5e5"/>
+        <text x="20" y="175" fill="#0d0d0d" font-size="14" font-weight="700">17:00 - 17:15</text>
+        <text x="150" y="175" fill="#0d0d0d" font-size="15" font-weight="bold">Открытие митапа и вступительное слово</text>
+        <text x="150" y="195" fill="#737373" font-size="12">Максим Романов (Председатель IT-клуба ФПМИ)</text>
 
         <!-- Slot 2 -->
-        <rect x="0" y="225" width="800" height="85" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
-        <text x="20" y="255" fill="#3b82f6" font-size="14" font-weight="bold">17:15 - 18:00</text>
-        <text x="150" y="255" fill="#0f172a" font-size="15" font-weight="bold">Highload в реальном мире: Event-Driven сервисы на Go</text>
-        <text x="150" y="275" fill="#64748b" font-size="12">Виктор Громов (Senior Backend Architect) • 40 мин + Q&amp;A</text>
-        <rect x="710" y="245" width="70" height="26" rx="4" fill="#e2e8f0"/>
-        <text x="745" y="262" fill="#334155" font-size="11" text-anchor="middle">★ В мою</text>
+        <rect x="0" y="225" width="800" height="85" rx="8" fill="#f9f9f9" stroke="#e5e5e5"/>
+        <text x="20" y="255" fill="#0d0d0d" font-size="14" font-weight="700">17:15 - 18:00</text>
+        <text x="150" y="255" fill="#0d0d0d" font-size="15" font-weight="bold">Highload в реальном мире: Event-Driven сервисы на Go</text>
+        <text x="150" y="275" fill="#737373" font-size="12">Виктор Громов (Senior Backend Architect) • 40 мин + Q&amp;A</text>
+        <rect x="710" y="245" width="80" height="26" rx="4" fill="#f4f4f4" stroke="#d4d4d4"/>
+        <text x="750" y="262" fill="#0d0d0d" font-size="11" font-weight="600" text-anchor="middle">+ В программу</text>
 
         <!-- Slot 3: Break -->
-        <rect x="0" y="320" width="800" height="50" rx="8" fill="#ecfdf5" stroke="#a7f3d0"/>
-        <text x="20" y="350" fill="#059669" font-size="14" font-weight="bold">18:00 - 18:30</text>
-        <text x="150" y="350" fill="#065f46" font-size="14" font-weight="600">Кофе-брейк, пицца и нетворкинг у стендов</text>
+        <rect x="0" y="320" width="800" height="50" rx="8" fill="#f4f4f4" stroke="#d4d4d4"/>
+        <text x="20" y="350" fill="#0d0d0d" font-size="14" font-weight="700">18:00 - 18:30</text>
+        <text x="150" y="350" fill="#0d0d0d" font-size="14" font-weight="600">Кофе-брейк, пицца и нетворкинг у стендов</text>
 
         <!-- Slot 4 -->
-        <rect x="0" y="380" width="800" height="85" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
-        <text x="20" y="410" fill="#3b82f6" font-size="14" font-weight="bold">18:30 - 19:20</text>
-        <text x="150" y="410" fill="#0f172a" font-size="15" font-weight="bold">Автономные LLM-агенты в продакшене</text>
-        <text x="150" y="430" fill="#64748b" font-size="12">Александр Белов (AI Research Lead) • Презентация кейсов</text>
+        <rect x="0" y="380" width="800" height="85" rx="8" fill="#f9f9f9" stroke="#e5e5e5"/>
+        <text x="20" y="410" fill="#0d0d0d" font-size="14" font-weight="700">18:30 - 19:20</text>
+        <text x="150" y="410" fill="#0d0d0d" font-size="15" font-weight="bold">Автономные LLM-агенты в продакшене</text>
+        <text x="150" y="430" fill="#737373" font-size="12">Александр Белов (AI Research Lead) • Презентация кейсов</text>
       </g>
     </g>
 
     <!-- Right Column (Sticky Registration & Venue Card) -->
     <g transform="translate(890, 0)">
-      <rect width="430" height="580" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect width="430" height="580" rx="10" fill="#ffffff" stroke="#e5e5e5" stroke-width="1"/>
       <g transform="translate(30, 30)">
-        <text x="0" y="20" fill="#0f172a" font-size="20" font-weight="800">Регистрация на событие</text>
-        <text x="0" y="45" fill="#64748b" font-size="13">Бесплатный электронный билет с QR-кодом</text>
+        <text x="0" y="20" fill="#0d0d0d" font-size="20" font-weight="800" letter-spacing="-0.3">Регистрация на событие</text>
+        <text x="0" y="45" fill="#737373" font-size="13">Бесплатный электронный билет с QR-кодом</text>
 
         <!-- Progress bar -->
-        <rect x="0" y="65" width="370" height="10" rx="5" fill="#e2e8f0"/>
-        <rect x="0" y="65" width="325" height="10" rx="5" fill="#22c55e"/>
-        <text x="0" y="95" fill="#1e293b" font-size="12" font-weight="600">88 из 100 мест занято (88%)</text>
-        <text x="370" y="95" fill="#059669" font-size="12" font-weight="bold" text-anchor="end">Осталось 12 мест</text>
+        <rect x="0" y="65" width="370" height="10" rx="5" fill="#f4f4f4"/>
+        <rect x="0" y="65" width="325" height="10" rx="5" fill="#0d0d0d"/>
+        <text x="0" y="95" fill="#0d0d0d" font-size="12" font-weight="600">88 из 100 мест занято (88%)</text>
+        <text x="370" y="95" fill="#0d0d0d" font-size="12" font-weight="bold" text-anchor="end">Осталось 12 мест</text>
 
-        <!-- Main Action CTA -->
-        <rect x="0" y="115" width="370" height="48" rx="8" fill="#0f172a"/>
+        <!-- Main Action CTA (Primary Ink Button) -->
+        <rect x="0" y="115" width="370" height="48" rx="8" fill="#0d0d0d"/>
         <text x="185" y="145" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle">Зарегистрироваться (Free)</text>
-        <text x="185" y="180" fill="#64748b" font-size="11" text-anchor="middle">⚡ Билет сразу доступен в офлайн-режиме смартфона</text>
+        <text x="185" y="180" fill="#737373" font-size="11" text-anchor="middle">[OK] Билет сразу доступен в офлайн-режиме смартфона</text>
 
-        <line x1="0" y1="205" x2="370" y2="205" stroke="#e2e8f0"/>
+        <line x1="0" y1="205" x2="370" y2="205" stroke="#e5e5e5"/>
 
         <!-- Details block -->
-        <text x="0" y="235" fill="#0f172a" font-size="15" font-weight="bold">Дата и время</text>
-        <text x="0" y="258" fill="#334155" font-size="13">Четверг, 15 октября 2026</text>
-        <text x="0" y="278" fill="#64748b" font-size="12">17:00 – 20:30 (Сбор гостей с 16:30)</text>
+        <text x="0" y="235" fill="#0d0d0d" font-size="15" font-weight="bold">Дата и время</text>
+        <text x="0" y="258" fill="#0d0d0d" font-size="13">Четверг, 15 октября 2026</text>
+        <text x="0" y="278" fill="#737373" font-size="12">17:00 – 20:30 (Сбор гостей с 16:30)</text>
 
-        <text x="0" y="315" fill="#0f172a" font-size="15" font-weight="bold">Локация</text>
-        <text x="0" y="338" fill="#334155" font-size="13">Минск, пр-т Независимости 4</text>
-        <text x="0" y="358" fill="#64748b" font-size="12">Главный корпус БГУ, Аудитория 512 (5 этаж)</text>
+        <text x="0" y="315" fill="#0d0d0d" font-size="15" font-weight="bold">Локация</text>
+        <text x="0" y="338" fill="#0d0d0d" font-size="13">Минск, пр-т Независимости 4</text>
+        <text x="0" y="358" fill="#737373" font-size="12">Главный корпус БГУ, Аудитория 512 (5 этаж)</text>
 
         <!-- OpenStreetMap Widget wireframe -->
-        <rect x="0" y="380" width="370" height="120" rx="8" fill="#e2e8f0" stroke="#cbd5e1" stroke-dasharray="4,4"/>
-        <text x="185" y="445" fill="#64748b" font-size="13" text-anchor="middle">📍 [Интеграция OpenStreetMap / Координаты: 53.8938, 27.5471]</text>
+        <rect x="0" y="380" width="370" height="120" rx="8" fill="#f4f4f4" stroke="#d4d4d4" stroke-dasharray="4,4"/>
+        <text x="185" y="445" fill="#737373" font-size="13" text-anchor="middle">[Интеграция OpenStreetMap / 53.8938, 27.5471]</text>
 
-        <text x="0" y="525" fill="#3b82f6" font-size="12">⤓ Добавить в Google Calendar / Apple iCal</text>
+        <text x="0" y="525" fill="#0d0d0d" font-size="12" font-weight="600">↓ Добавить в Google Calendar / Apple iCal</text>
       </g>
     </g>
   </g>
