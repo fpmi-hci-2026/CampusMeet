@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusMeet / EventHub — База знаний и регламент проекта</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <!-- Mobile Topbar -->
+    <header class="mobile-topbar">
+        <a href="../index.html" class="mobile-brand">
+            <img src="../assets/favicon.svg" alt="CampusMeet Logo">
+            <span>CampusMeet</span>
+        </a>
+        <button id="mobile-hamburger" class="hamburger-btn" type="button" aria-label="Открыть навигацию">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+    </header>
+
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar">
+        <div class="sidebar-header">
+            <span class="brand-badge">ПЧМИ • ФПМИ БГУ</span>
+            <h1>CampusMeet</h1>
+            <p>Платформа студенческих митапов, хакатонов и офлайн-чекина</p>
+            <button class="omnibox-trigger-btn" type="button" aria-label="Быстрый поиск">
+                <span>🔍 Поиск по порталу...</span>
+                <span class="kbd-shortcut">⌘K</span>
+            </button>
+        </div>
+
+        <div class="nav-section-title">Навигация</div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="../index.html" class="nav-link">
+                    🏠 Портал проекта
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-section-title">Лабораторная работа №1</div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="lab1.html#lab1-overview" class="nav-link">
+                    Лаб. №1: Полный отчет
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab1.html#survey-data" class="nav-link">
+                    Опрос N=68 и статистика
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab1.html#personas-gallery" class="nav-link">
+                    Галерея 7 персонажей
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab1.html#as-is-processes" class="nav-link">
+                    Процессы As-Is
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-section-title">Лабораторная работа №2</div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="lab2.html#lab2-overview" class="nav-link">
+                    Лаб. №2: Обзор и концепция
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab2.html#lab2-ia" class="nav-link">
+                    Инфо-архитектура и Sitemap
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab2.html#lab2-nav-search" class="nav-link">
+                    Системы навигации и поиска
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab2.html#lab2-cjm-impact" class="nav-link">
+                    Impact Map и CJM пути
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab2.html#lab2-storyboards" class="nav-link">
+                    Раскадровки и Edge Cases
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab2.html#lab2-mockups" class="nav-link">
+                    Вайрфреймы и UI Макеты
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-section-title">Лабораторная работа №3</div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="lab3.html#lab3-overview" class="nav-link">
+                    Лаб. №3: Обзор и User Stories
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab3.html#lab3-uml" class="nav-link">
+                    Диаграммы UML (PlantUML)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab3.html#lab3-events" class="nav-link">
+                    EventStorming & Modeling
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab3.html#lab3-c4-srs" class="nav-link">
+                    C4 Model & ТЗ (SRS)
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-section-title">База знаний (GitHub Wiki)</div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#wiki-func" class="nav-link active" onclick="switchTab('wiki-func', this)">
+                    Функционал и Use Case
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#wiki-arch" class="nav-link" onclick="switchTab('wiki-arch', this)">
+                    Архитектура Web/Mobile
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#wiki-db" class="nav-link" onclick="switchTab('wiki-db', this)">
+                    Схема базы данных
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#wiki-api" class="nav-link" onclick="switchTab('wiki-api', this)">
+                    REST API и OpenStreetMap
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#wiki-security" class="nav-link" onclick="switchTab('wiki-security', this)">
+                    HMAC токен и безопасность
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#wiki-presentation" class="nav-link" onclick="switchTab('wiki-presentation', this)">
+                    Презентация и регламент
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-section-title">Внешние ресурсы</div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="../reports/Lab3_report.md" class="nav-link" target="_blank" style="color: #38bdf8; font-weight: bold;">
+                    📄 Отчет Лаб. №3 (Markdown)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="../reports/Lab2_report.md" class="nav-link" target="_blank" style="color: #38bdf8; font-weight: bold;">
+                    📄 Отчет Лаб. №2 (Markdown)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="../reports/Lab1_report.md" class="nav-link" target="_blank">
+                    📄 Отчет Лаб. №1 (Markdown)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="https://github.com/fpmi-hci-2026/CampusMeet" class="nav-link" target="_blank">
+                    GitHub: CampusMeet
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="https://github.com/fpmi-hci-2026/CampusMeet-Server" class="nav-link" target="_blank">
+                    GitHub: Server
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="https://github.com/fpmi-hci-2026/CampusMeet-Web" class="nav-link" target="_blank">
+                    GitHub: Web
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="https://github.com/fpmi-hci-2026/CampusMeet-Mobile" class="nav-link" target="_blank">
+                    GitHub: Mobile
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main id="content">
+        <div class="content-container">
+
+            <!-- TAB: Wiki Functional -->
+            <section id="wiki-func" class="tab-pane active">
+                <h1>Функциональные требования и Use Case</h1>
+                <p>Полный перечень требований зафиксирован в wiki-странице <code>Functional_Requirements.md</code>.</p>
+                <div class="mermaid">
+flowchart LR
+    A[Слушатель] --> UC1([Поиск событий])
+    A --> UC2([Офлайн QR-билет])
+    A --> UC3([Моя программа])
+    V[Волонтер] --> UC4([Камера-сканер &lt;500мс])
+    V --> UC5([Аудит прохода])
+    O[Организатор] --> UC6([Квоты и Waitlist])
+    O --> UC7([CFP Доклады])
+    O --> UC8([Экстренный Push])
+                </div>
+            </section>
+
+            <!-- TAB: Wiki Architecture -->
+            <section id="wiki-arch" class="tab-pane">
+                <h1>Архитектура экосистемы (4 репозитория: подгруппы 12а и 12б)</h1>
+                <p>Разделение на репозиторий документации, серверное приложение и API, веб-клиент организатора и мобильный клиент участника/волонтера.</p>
+                <pre><code>CampusMeet/                     # 1. Основной репозиторий для документации
+├── docs/                       # Документация и отчеты по курсу
+│   ├── README.md               # Навигационный реестр отчетов
+│   ├── index.html              # Интерактивный портал GitHub Pages
+│   ├── pages/                  # Модульные страницы разделов курса
+│   │   ├── lab1.html           # Лабораторная работа №1 (HCD, опрос N=68, персоны, As-Is)
+│   │   ├── lab2.html           # Лабораторная работа №2 (ИА, CJM, вайрфреймы, макеты)
+│   │   ├── lab3.html           # Лабораторная работа №3 (29 схем UML, C4, SRS)
+│   │   └── wiki.html           # База знаний, DDL БД, API, HMAC токен, презентация
+│   ├── css/style.css           # Модульная дизайн-система портала
+│   ├── js/main.js              # Модульная архитектура JS (модули, данные, события)
+│   ├── reports/                # Академические отчеты по лабораторным работам
+│   │   ├── Lab1_report.md      # Отчет по Лаб. №1 (16 разделов, HCD, персоны)
+│   │   ├── Lab2_report.md      # Отчет по Лаб. №2 (1466 строк, ИА, CJM, макеты)
+│   │   └── Lab3_report.md      # Отчет по Лаб. №3 (User Stories, BDD, UML, C4, SRS)
+│   ├── diagrams/puml/          # 29 векторных диаграмм PlantUML & SVG
+│   ├── survey/                 # Материалы социологического опроса (N=68)
+│   │   ├── CampusMeet-Ответы_на_форму.csv
+│   │   ├── survey_analysis.md
+│   │   └── survey_analysis_data.json
+│   └── assets/                 # Персоны, 6 Wireframes SVG, 6 Mockups SVG
+└── wiki/                       # Проектная база знаний GitHub Wiki (14 страниц)
+
+Связанные репозитории экосистемы (подгруппы 12а и 12б):
+├── CampusMeet-Server/          # 2. Серверное приложение и API (FastAPI / database/schema.sql)
+├── CampusMeet-Web/             # 3. Веб-клиент организатора (Next.js 14 / Tailwind)
+└── CampusMeet-Mobile/          # 4. Мобильный клиент (React Native / Expo / Camera Scanner)</code></pre>
+            </section>
+
+            <!-- TAB: Wiki Database -->
+            <section id="wiki-db" class="tab-pane">
+                <h1>Реляционная схема базы данных</h1>
+                <p>DDL-скрипт размещен в репозитории сервера: <code>CampusMeet-Server/database/schema.sql</code>. Модель включает 10 таблиц: <code>users</code>, <code>venues</code>, <code>events</code>, <code>schedule_items</code>, <code>tickets</code>, <code>check_in_logs</code>, <code>speaker_proposals</code>, <code>team_matches</code>, <code>team_members</code>, <code>emergency_announcements</code>.</p>
+                <div class="mermaid">
+erDiagram
+    USERS ||--o{ EVENTS : organizes
+    USERS ||--o{ TICKETS : owns
+    VENUES ||--o{ EVENTS : hosts
+    EVENTS ||--o{ SCHEDULE_ITEMS : contains
+    EVENTS ||--o{ TICKETS : issues
+    TICKETS ||--o{ CHECK_IN_LOGS : verified_by
+                </div>
+            </section>
+
+            <!-- TAB: Wiki API -->
+            <section id="wiki-api" class="tab-pane">
+                <h1>Спецификация REST API и OpenStreetMap</h1>
+                <p>Экосистема интегрируется с двумя открытыми сервисами:</p>
+                <div class="grid-cards">
+                    <div class="card">
+                        <h4>Nominatim OpenStreetMap API</h4>
+                        <p>Прямое геокодирование адресов площадок (лофты, корпуса, лектории) и расчет координат для интерактивной карты в мобильном клиенте.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Nager.Date Public Holidays API</h4>
+                        <p>Валидация производственного календаря Республики Беларусь при назначении дат мероприятий в панели организатора для исключения накладок.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB: Wiki Security -->
+            <section id="wiki-security" class="tab-pane">
+                <h1>Безопасность и динамический HMAC токен</h1>
+                <p>Для предотвращения подделок и пересылки скриншотов чужих билетов QR-код подписывается криптографическим алгоритмом HMAC-SHA256.</p>
+                <pre><code>Payload = Base64URL(Header) . Base64URL(Claims) . HMAC-SHA256(Header.Claims, Secret)</code></pre>
+                <p>Сканер волонтера сохраняет симметричный ключ проверки события в защищенном хранилище и проводит валидацию подписи билета автономно даже при полном отсутствии интернета на площадке.</p>
+            </section>
+
+            <!-- TAB: Wiki Presentation & Regulations -->
+            <section id="wiki-presentation" class="tab-pane">
+                <h1>Концептуальная презентация и регламент команды</h1>
+                <p>В рамках Лабораторной работы №1 сформирована структура концептуальной презентации результатов предпроектного исследования, матрица ответственности команды (RACI) и регламент версионирования Git-flow.</p>
+
+                <div class="card" style="margin-bottom: 24px; border-left: 4px solid var(--accent);">
+                    <h4>Электронные слайды презентации</h4>
+                    <p style="margin-bottom: 0;"><em>Размещение слайдов презентации на Google Slides / PDF будет добавлено перед защитой лабораторной работы.</em></p>
+                </div>
+
+                <h2>Структура концептуальной презентации (10 слайдов)</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 80px; text-align: center;">№</th>
+                            <th>Тема слайда</th>
+                            <th>Содержание и материалы Лабораторной работы №1</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td style="text-align: center;"><strong>1</strong></td><td><strong>Титульный слайд</strong></td><td>CampusMeet — экосистема студенческих митапов и офлайн-чекина. Команда, группа, кафедра ТП ФПМИ БГУ.</td></tr>
+                        <tr><td style="text-align: center;"><strong>2</strong></td><td><strong>Проблема As-Is</strong></td><td>Очереди у аудиторий, потеря регистраций в Google-формах, падение сети в подвальных лекториях.</td></tr>
+                        <tr><td style="text-align: center;"><strong>3</strong></td><td><strong>Исследование N=68</strong></td><td>35% сбои сети, 34% очереди на входе, баланс ОС: iOS (53%) vs Android (47%).</td></tr>
+                        <tr><td style="text-align: center;"><strong>4</strong></td><td><strong>Целевые аудитории</strong></td><td>Слушатель, Организатор/Модератор, Волонтер стойки регистрации, Спикер-докладчик.</td></tr>
+                        <tr><td style="text-align: center;"><strong>5</strong></td><td><strong>Персонажи</strong></td><td>Артём Ковалёв (первичный), Дарья Мельникова (вторичный), Максим (организатор), анти-персонаж Влад.</td></tr>
+                        <tr><td style="text-align: center;"><strong>6</strong></td><td><strong>Процессы As-Is и To-Be</strong></td><td>Устранение задержек ручной сверки списков, ускорение прохода участников на площадку.</td></tr>
+                        <tr><td style="text-align: center;"><strong>7</strong></td><td><strong>Архитектура 4 репозиториев</strong></td><td>Main Docs, Server (FastAPI + DDL), Web (Next.js), Mobile (React Native / Expo).</td></tr>
+                        <tr><td style="text-align: center;"><strong>8</strong></td><td><strong>Модель данных (10 сущностей)</strong></td><td>Реляционная схема БД: билеты, чекины, расписание, доклады, лист ожидания.</td></tr>
+                        <tr><td style="text-align: center;"><strong>9</strong></td><td><strong>Внешние интеграции и безопасность</strong></td><td>Nominatim OpenStreetMap, Nager.Date API, офлайн HMAC-SHA256 подпись билета.</td></tr>
+                        <tr><td style="text-align: center;"><strong>10</strong></td><td><strong>Дорожная карта (Roadmap)</strong></td><td>План проектирования и разработки интерфейсов на семестр (Лабораторные работы №2–8).</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>Матрица ответственности команды (RACI Matrix)</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Задача / Артефакт</th>
+                            <th style="text-align: center;">Тимлид (UI/UX)</th>
+                            <th style="text-align: center;">Web Dev</th>
+                            <th style="text-align: center;">Mobile Dev</th>
+                            <th style="text-align: center;">Backend Dev</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Исследование аудитории и анкетирование ($N=68$)</td><td style="text-align: center;"><strong>A / R</strong></td><td style="text-align: center;">I</td><td style="text-align: center;">I</td><td style="text-align: center;">C</td></tr>
+                        <tr><td>Синтез персонажей и контекстные сценарии</td><td style="text-align: center;"><strong>A / R</strong></td><td style="text-align: center;">C</td><td style="text-align: center;">C</td><td style="text-align: center;">I</td></tr>
+                        <tr><td>Моделирование бизнес-процессов As-Is</td><td style="text-align: center;"><strong>A / R</strong></td><td style="text-align: center;">C</td><td style="text-align: center;">I</td><td style="text-align: center;">C</td></tr>
+                        <tr><td>Проектирование схемы БД (<code>schema.sql</code>)</td><td style="text-align: center;">C</td><td style="text-align: center;">C</td><td style="text-align: center;">C</td><td style="text-align: center;"><strong>A / R</strong></td></tr>
+                        <tr><td>Спецификация REST API и сервисов</td><td style="text-align: center;">C</td><td style="text-align: center;"><strong>R</strong></td><td style="text-align: center;"><strong>R</strong></td><td style="text-align: center;"><strong>A / R</strong></td></tr>
+                        <tr><td>Веб-панель организатора (<code>CampusMeet-Web</code>)</td><td style="text-align: center;">I</td><td style="text-align: center;"><strong>A / R</strong></td><td style="text-align: center;">I</td><td style="text-align: center;">C</td></tr>
+                        <tr><td>Мобильный билет и сканер (<code>CampusMeet-Mobile</code>)</td><td style="text-align: center;">C</td><td style="text-align: center;">I</td><td style="text-align: center;"><strong>A / R</strong></td><td style="text-align: center;">C</td></tr>
+                        <tr><td>Итоговый сводный отчет (<code>docs/reports/Lab1_report.md</code>)</td><td style="text-align: center;"><strong>A / R</strong></td><td style="text-align: center;">C</td><td style="text-align: center;">C</td><td style="text-align: center;">C</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>Регламент ветвления Git-flow и правила Pull Request</h2>
+                <ul>
+                    <li style="margin-bottom: 8px;"><strong>main:</strong> Защищенная ветка (Protected Branch), содержит только релизные версии после сдачи лабораторных работ преподавателю. Прямые коммиты запрещены.</li>
+                    <li style="margin-bottom: 8px;"><strong>develop:</strong> Ветка интеграции текущего семестра.</li>
+                    <li style="margin-bottom: 8px;"><strong>feature/* и docs/*:</strong> Тематические ветки для выполнения отдельных задач с обязательным Code Review перед слиянием.</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <!-- Diagram Lightbox Dialog -->
+    <dialog id="lightbox-dialog" aria-labelledby="lightbox-title">
+        <div class="lightbox-header">
+            <div class="lightbox-title" id="lightbox-title">Просмотр схемы</div>
+            <div class="lightbox-controls">
+                <button class="lightbox-btn" id="lightbox-zoom-out" type="button" title="Уменьшить">-</button>
+                <button class="lightbox-btn" id="lightbox-zoom-reset" type="button" title="Исходный масштаб">1:1</button>
+                <button class="lightbox-btn" id="lightbox-zoom-in" type="button" title="Увеличить">+</button>
+                <a class="lightbox-btn" id="lightbox-open-link" href="#" target="_blank" rel="noopener noreferrer" title="Открыть в новой вкладке">↗ В новой вкладке</a>
+                <button class="lightbox-btn" id="lightbox-close" type="button" title="Закрыть (Esc)">✕</button>
+            </div>
+        </div>
+        <div class="lightbox-body">
+            <img id="lightbox-img" src="" alt="Схема">
+        </div>
+    </dialog>
+
+    <!-- Omnibox Search Dialog (⌘K) -->
+    <dialog id="omnibox-dialog" aria-label="Быстрый поиск">
+        <div class="omnibox-header">
+            <span class="omnibox-icon">🔍</span>
+            <input type="text" id="omnibox-input" class="omnibox-input" placeholder="Поиск по разделам, диаграммам, User Stories...">
+            <button type="button" class="omnibox-close-btn" onclick="document.getElementById('omnibox-dialog').close()" aria-label="Закрыть">✕</button>
+        </div>
+        <ul id="omnibox-results" class="omnibox-results"></ul>
+    </dialog>
+
+    <!-- Structured Data Modules -->
+    <script src="../js/data/search.js"></script>
+
+    <!-- Client Functional Modules -->
+    <script src="../js/modules/renderers.js"></script>
+    <script src="../js/modules/router.js"></script>
+    <script src="../js/modules/lightbox.js"></script>
+    <script src="../js/modules/omnibox.js"></script>
+    <script src="../js/modules/ui.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusMeet / EventHub — Лабораторная работа №3: Требования и моделирование</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <!-- Mobile Topbar -->
+    <header class="mobile-topbar">
+        <a href="../index.html" class="mobile-brand">
+            <img src="../assets/favicon.svg" alt="CampusMeet Logo">
+            <span>CampusMeet</span>
+        </a>
+        <button id="mobile-hamburger" class="hamburger-btn" type="button" aria-label="Открыть навигацию">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+    </header>
+
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar">
+        <div class="sidebar-header">
+            <span class="brand-badge">ПЧМИ • ФПМИ БГУ</span>
+            <h1>CampusMeet</h1>
+            <p>Платформа студенческих митапов, хакатонов и офлайн-чекина</p>
+            <button class="omnibox-trigger-btn" type="button" aria-label="Быстрый поиск">
+                <span>🔍 Поиск по порталу...</span>
+                <span class="kbd-shortcut">⌘K</span>
+            </button>
+        </div>
+
+        <div class="nav-section-title">Навигация</div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="../index.html" class="nav-link">
+                    🏠 Портал проекта
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-section-title">Лабораторная работа №1</div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="lab1.html#lab1-overview" class="nav-link">
+                    Лаб. №1: Полный отчет
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab1.html#survey-data" class="nav-link">
+                    Опрос N=68 и статистика
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab1.html#personas-gallery" class="nav-link">
+                    Галерея 7 персонажей
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab1.html#as-is-processes" class="nav-link">
+                    Процессы As-Is
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-section-title">Лабораторная работа №2</div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="lab2.html#lab2-overview" class="nav-link">
+                    Лаб. №2: Обзор и концепция
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab2.html#lab2-ia" class="nav-link">
+                    Инфо-архитектура и Sitemap
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab2.html#lab2-nav-search" class="nav-link">
+                    Системы навигации и поиска
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab2.html#lab2-cjm-impact" class="nav-link">
+                    Impact Map и CJM пути
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab2.html#lab2-storyboards" class="nav-link">
+                    Раскадровки и Edge Cases
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab2.html#lab2-mockups" class="nav-link">
+                    Вайрфреймы и UI Макеты
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-section-title">Лабораторная работа №3</div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#lab3-overview" class="nav-link active" onclick="switchTab('lab3-overview', this)">
+                    Лаб. №3: Обзор и User Stories
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#lab3-uml" class="nav-link" onclick="switchTab('lab3-uml', this)">
+                    Диаграммы UML (PlantUML)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#lab3-events" class="nav-link" onclick="switchTab('lab3-events', this)">
+                    EventStorming & Modeling
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#lab3-c4-srs" class="nav-link" onclick="switchTab('lab3-c4-srs', this)">
+                    C4 Model & ТЗ (SRS)
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-section-title">База знаний (GitHub Wiki)</div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="wiki.html#wiki-func" class="nav-link">
+                    Функционал и Use Case
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="wiki.html#wiki-arch" class="nav-link">
+                    Архитектура Web/Mobile
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="wiki.html#wiki-db" class="nav-link">
+                    Схема базы данных
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="wiki.html#wiki-api" class="nav-link">
+                    REST API и OpenStreetMap
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="wiki.html#wiki-security" class="nav-link">
+                    HMAC токен и безопасность
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="wiki.html#wiki-presentation" class="nav-link">
+                    Презентация и регламент
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-section-title">Внешние ресурсы</div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="../reports/Lab3_report.md" class="nav-link" target="_blank" style="color: #38bdf8; font-weight: bold;">
+                    📄 Отчет Лаб. №3 (Markdown)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="../reports/Lab2_report.md" class="nav-link" target="_blank" style="color: #38bdf8; font-weight: bold;">
+                    📄 Отчет Лаб. №2 (Markdown)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="../reports/Lab1_report.md" class="nav-link" target="_blank">
+                    📄 Отчет Лаб. №1 (Markdown)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="https://github.com/fpmi-hci-2026/CampusMeet" class="nav-link" target="_blank">
+                    GitHub: CampusMeet
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="https://github.com/fpmi-hci-2026/CampusMeet-Server" class="nav-link" target="_blank">
+                    GitHub: Server
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="https://github.com/fpmi-hci-2026/CampusMeet-Web" class="nav-link" target="_blank">
+                    GitHub: Web
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="https://github.com/fpmi-hci-2026/CampusMeet-Mobile" class="nav-link" target="_blank">
+                    GitHub: Mobile
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main id="content">
+        <div class="content-container">
+
+            <!-- TAB: Lab 3 Overview & User Stories -->
+            <section id="lab3-overview" class="tab-pane active">
+                <div class="section-header">
+                    <h2>Лабораторная работа №3: Разработка требований к программной системе</h2>
+                    <p>Пользовательские истории (User Stories), критерии приёмки BDD (Given-When-Then), платформенные различия (Mobile vs Web) и матрица приоритетов MoSCoW</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" style="color: var(--accent);">12 историй</div>
+                        <div class="stat-label">User Stories по Mike Cohn & BDD</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" style="color: var(--success);">29 диаграмм</div>
+                        <div class="stat-label">Векторных диаграмм PlantUML & Mermaid</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" style="color: var(--warning);">3 уровня</div>
+                        <div class="stat-label">EventStorming (Big Picture, Process, Design)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" style="color: #c084fc;">C4 + SRS</div>
+                        <div class="stat-label">C4 Model (C1-C4) и ТЗ по Карлу Вигерсу</div>
+                    </div>
+                </div>
+
+                <div class="profile-card" style="margin-top: 24px;">
+                    <h3>Паспорт Лабораторной работы №3</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;">
+                        В рамках лабораторной работы реализован полный цикл системного анализа и формализации требований к кроссплатформенной экосистеме <strong>CampusMeet / EventHub</strong>. Требования сформулированы на основе результатов опроса $N=68$ (Лаб. 1) и информационной архитектуры/CJM 7 персонажей (Лаб. 2).
+                    </p>
+                    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                        <a href="../reports/Lab3_report.md" class="btn btn-primary" target="_blank">📄 Открыть академический отчет Lab3_report.md</a>
+                        <a href="https://github.com/fpmi-hci-2026/CampusMeet/blob/main/wiki/Home.md" class="btn btn-secondary" target="_blank">📚 База знаний GitHub Wiki</a>
+                    </div>
+                </div>
+
+                <h3 id="user-stories" style="margin-top: 36px; margin-bottom: 16px;">Матрица ключевых User Stories экосистемы CampusMeet</h3>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Код</th>
+                                <th>Роль (Актор)</th>
+                                <th>Пользовательская история (User Story)</th>
+                                <th>Приоритет</th>
+                                <th>Платформа</th>
+                            </tr>
+                        </thead>
+                        <tbody id="user-stories-body"></tbody>
+                    </table>
+                </div>
+
+                <div class="profile-card" style="margin-top: 24px;">
+                    <h3>Сравнительные особенности платформ (Mobile vs Web)</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 12px;">
+                        <div style="background: rgba(15, 23, 42, 0.6); padding: 16px; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <h4 style="color: var(--accent); margin-bottom: 8px;">📱 Мобильный клиент (React Native / Expo)</h4>
+                            <ul style="color: #cbd5e1; font-size: 0.85rem; line-height: 1.6; padding-left: 20px;">
+                                <li><strong>Offline-First:</strong> Билет и крипто-ключи кешируются в <code>SecureStore</code>;</li>
+                                <li><strong>Аппаратные датчики:</strong> Камера 60 fps, Haptic вибромотор, авто-яркость 100%;</li>
+                                <li><strong>Эргономика:</strong> Зона досягаемости большого пальца (Thumb Zone), жесты Pull-to-Refresh;</li>
+                                <li><strong>Уведомления:</strong> Системные push-оповещения (APNs/FCM) и локальные таймеры.</li>
+                            </ul>
+                        </div>
+                        <div style="background: rgba(15, 23, 42, 0.6); padding: 16px; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <h4 style="color: var(--success); margin-bottom: 8px;">💻 Десктопный Web-кабинет (Next.js 14)</h4>
+                            <ul style="color: #cbd5e1; font-size: 0.85rem; line-height: 1.6; padding-left: 20px;">
+                                <li><strong>Широкоформатный UI:</strong> 12-колоночная адаптивная сетка (1366px — 4K);</li>
+                                <li><strong>Управление манипуляторами:</strong> Мышь, Drag-and-Drop конструктор сетки, Hover-состояния;</li>
+                                <li><strong>Клавиатурная акселерация:</strong> Сквозной поиск Omnibox <code>⌘K/Ctrl+K</code>, выход <code>Esc</code>;</li>
+                                <li><strong>Доступность:</strong> Полное соответствие стандартам WCAG 2.1 AA (контраст $\ge 4.5:1$, Tab-фокус).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB: Lab 3 UML Diagrams (PlantUML) -->
+            <section id="lab3-uml" class="tab-pane">
+                <div class="section-header">
+                    <h2>Спецификация системы на языках PlantUML и Mermaid</h2>
+                    <p>Полный комплекс из 29 векторных диаграмм: прецеденты, деятельность, доменные классы, рантайм-объекты, последовательности, компоненты и физическое развертывание</p>
+                </div>
+
+                <div class="profile-card">
+                    <h3>1. Диаграмма вариантов использования (Use Case Model)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">
+                        Расширенная системная модель прецедентов экосистемы CampusMeet: декомпозиция акторов (Слушатель, Волонтер, Организатор, Спикер, Капитан хакатона, Куратор деканата) и связей со стереотипами &lt;&lt;include&gt;&gt; и &lt;&lt;extend&gt;&gt;.
+                    </p>
+                    <img src="../diagrams/puml/use_cases/use_case_full.svg" alt="Use Case Full Diagram" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #ffffff; padding: 10px; margin-top: 8px;"/>
+                </div>
+
+                <div class="profile-card" style="margin-top: 24px;">
+                    <h3>2. Диаграммы деятельности ключевых процессов (Activity Diagrams)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">
+                        Моделирование критических алгоритмов: квотирование и автоматический переход в лист ожидания Waitlist (слева), оптический чекин волонтером со звуковым/вибро-откликом (справа).
+                    </p>
+                    <div class="grid-2col">
+                        <div>
+                            <h4 style="font-size: 0.85rem; color: var(--accent); margin-bottom: 6px;">Регистрация и Waitlist</h4>
+                            <img src="../diagrams/puml/activity/activity_registration_waitlist.svg" alt="Activity Registration" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #ffffff; padding: 8px;"/>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 0.85rem; color: var(--success); margin-bottom: 6px;">Оптический чекин и детекция дубликатов</h4>
+                            <img src="../diagrams/puml/activity/activity_checkin_validation.svg" alt="Activity Checkin" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #ffffff; padding: 8px;"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-card" style="margin-top: 24px;">
+                    <h3>3. Доменная модель классов и рантайм-объекты (Class & Object Diagrams)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">
+                        Слева: полная объектная модель ядра экосистемы (User, Event, Venue, Ticket, WaitlistEntry, CheckInRecord). Справа: снимок рантайм-объектов во время митапа «FPMI AI Night 2026».
+                    </p>
+                    <div class="grid-2col">
+                        <div>
+                            <h4 style="font-size: 0.85rem; color: var(--accent); margin-bottom: 6px;">Доменные классы ядра</h4>
+                            <img src="../diagrams/puml/classes/class_core_domain.svg" alt="Class Core Domain" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #ffffff; padding: 8px;"/>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 0.85rem; color: var(--warning); margin-bottom: 6px;">Рантайм-объекты (FPMI AI Night)</h4>
+                            <img src="../diagrams/puml/classes/object_runtime_event.svg" alt="Object Runtime Event" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #ffffff; padding: 8px;"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-card" style="margin-top: 24px;">
+                    <h3>4. Диаграммы последовательности взаимодействий (Sequence Diagrams)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">
+                        Слева: автономное оптическое сканирование камерой и математическая верификация HMAC. Справа: создание карточки события с вызовами OSM Nominatim API и Nager.Date API.
+                    </p>
+                    <div class="grid-2col">
+                        <div>
+                            <h4 style="font-size: 0.85rem; color: var(--accent); margin-bottom: 6px;">Офлайн-чекин со сканером (&lt;500 мс)</h4>
+                            <img src="../diagrams/puml/sequence/sequence_scanner_offline_validation.svg" alt="Sequence Scanner" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #ffffff; padding: 8px;"/>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 0.85rem; color: var(--success); margin-bottom: 6px;">Геокодинг OSM и праздники Nager.Date</h4>
+                            <img src="../diagrams/puml/sequence/sequence_event_creation_external_api.svg" alt="Sequence External API" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #ffffff; padding: 8px;"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-card" style="margin-top: 24px;">
+                    <h3>5. Архитектурные диаграммы: Компоненты, Развертывание и База данных</h3>
+                    <div class="grid-2col">
+                        <div>
+                            <h4 style="font-size: 0.85rem; color: var(--accent); margin-bottom: 6px;">Диаграмма компонентов (FastAPI + Clients)</h4>
+                            <img src="../diagrams/puml/architecture/component_architecture.svg" alt="Component Architecture" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #ffffff; padding: 8px;"/>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 0.85rem; color: #c084fc; margin-bottom: 6px;">Топология физического развертывания</h4>
+                            <img src="../diagrams/puml/architecture/deployment_infrastructure.svg" alt="Deployment Topology" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #ffffff; padding: 8px;"/>
+                        </div>
+                    </div>
+                    <div style="margin-top: 16px;">
+                        <h4 style="font-size: 0.85rem; color: var(--warning); margin-bottom: 6px;">Реляционная модель базы данных (ERD, 10 таблиц)</h4>
+                        <img src="../diagrams/puml/architecture/erd_database_model.svg" alt="Database ERD" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #ffffff; padding: 8px;"/>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB: Lab 3 EventStorming & Modeling -->
+            <section id="lab3-events" class="tab-pane">
+                <div class="section-header">
+                    <h2>Проектирование методами EventStorming и Event Modeling</h2>
+                    <p>Предметно-ориентированное исследование (Domain-Driven Design), выявление рисков (Hotspots), декомпозиция на Bounded Contexts и информационные срезы Адама Димитрука</p>
+                </div>
+
+                <div class="profile-card">
+                    <h3>EventStorming: Уровень 1 — Крупномасштабное исследование (Big Picture)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">
+                        Сквозная хронология жизненного цикла митапа: от инициации анонса до закрытия и выгрузки отчета. Оранжевые стикеры — события предметной области (Domain Events), малиновые стикеры — критические конфликты (Hotspots), включая <strong>Hotspot H3: полное отсутствие сотовой связи в цокольной аудитории</strong>.
+                    </p>
+                    <img src="../diagrams/puml/event_storming/event_storming_big_picture.svg" alt="EventStorming Big Picture" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #ffffff; padding: 10px; margin-top: 8px;"/>
+                </div>
+
+                <div class="profile-card" style="margin-top: 24px;">
+                    <h3>EventStorming: Уровень 2 и 3 — Процессы и Ограниченные контексты</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">
+                        Слева: процессные цепочки с командами (голубой), агрегатами (желтый) и автоматическими политиками (фиолетовый). Справа: декомпозиция на 4 ограниченных контекста (Bounded Contexts) по канонам DDD.
+                    </p>
+                    <div class="grid-2col">
+                        <div>
+                            <h4 style="font-size: 0.85rem; color: var(--accent); margin-bottom: 6px;">Process Modeling (Команды и Политики)</h4>
+                            <img src="../diagrams/puml/event_storming/event_storming_process.svg" alt="EventStorming Process" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #ffffff; padding: 8px;"/>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 0.85rem; color: var(--success); margin-bottom: 6px;">Software Design (Bounded Contexts)</h4>
+                            <img src="../diagrams/puml/event_storming/event_storming_design.svg" alt="EventStorming Design" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #ffffff; padding: 8px;"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-card" style="margin-top: 24px;">
+                    <h3>Event Modeling (Adam Dymitruk): Спецификация 4 фундаментальных шаблонов (Slices)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">
+                        Сквозное информационное моделирование от UI-экранов через синие команды и оранжевые неизменяемые события в зеленые модели чтения. Представлены 4 среза: <strong>Command Pattern</strong> (Регистрация), <strong>View Pattern</strong> (Витрина билета), <strong>Automation Pattern</strong> (Ротация Waitlist), <strong>Translation Pattern</strong> (Push во внешний шлюз FCM).
+                    </p>
+                    <img src="../diagrams/puml/event_modeling/event_modeling_slices.svg" alt="Event Modeling Slices" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #ffffff; padding: 10px; margin-top: 8px;"/>
+                </div>
+            </section>
+
+            <!-- TAB: Lab 3 C4 Model & SRS (ТЗ) -->
+            <section id="lab3-c4-srs" class="tab-pane">
+                <div class="section-header">
+                    <h2>Архитектура C4 Model и Техническое задание (SRS)</h2>
+                    <p>Иерархическая декомпозиция архитектуры Саймона Брауна (C1 Context, C2 Container, C3 Component, C4 Code) и нормативное ТЗ по стандарту IEEE 830 / Карлу Вигерсу</p>
+                </div>
+
+                <div class="profile-card">
+                    <h3>C4 Model: Уровни C1 (Context) и C2 (Container)</h3>
+                    <div class="grid-2col">
+                        <div>
+                            <h4 style="font-size: 0.85rem; color: var(--accent); margin-bottom: 6px;">C1: Системный контекст (System Context)</h4>
+                            <img src="../diagrams/puml/c4/c4_context.svg" alt="C4 Context" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #ffffff; padding: 8px;"/>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 0.85rem; color: var(--success); margin-bottom: 6px;">C2: Контейнеры экосистемы (Containers)</h4>
+                            <img src="../diagrams/puml/c4/c4_container.svg" alt="C4 Container" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #ffffff; padding: 8px;"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-card" style="margin-top: 24px;">
+                    <h3>C4 Model: Уровни C3 (Component) и C4 (Code)</h3>
+                    <div class="grid-2col">
+                        <div>
+                            <h4 style="font-size: 0.85rem; color: var(--warning); margin-bottom: 6px;">C3: Компоненты API Gateway (FastAPI)</h4>
+                            <img src="../diagrams/puml/c4/c4_component.svg" alt="C4 Component" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #ffffff; padding: 8px;"/>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 0.85rem; color: #c084fc; margin-bottom: 6px;">C4: Код крипто-движка (TicketCryptoEngine)</h4>
+                            <img src="../diagrams/puml/c4/c4_code.svg" alt="C4 Code" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #ffffff; padding: 8px;"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-card" style="margin-top: 24px;">
+                    <h3>Техническое задание (SRS по стандарту IEEE 830 / Карлу Вигерсу)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">
+                        Нормативная спецификация требований, формализованная в соответствии со стандартами IEEE Std 830-1998 и ISO/IEC/IEEE 29148. Включает 10 функциональных блоков требований, модель данных, внешние интерфейсы (UI, REST API, аппаратная камера и вибромотор) и атрибуты качества.
+                    </p>
+                    <div style="margin-bottom: 16px;">
+                        <a href="https://github.com/fpmi-hci-2026/CampusMeet/blob/main/wiki/Software_Requirements_Specification_SRS.md" class="btn btn-primary" target="_blank">📋 Открыть полную спецификацию SRS (Wiki)</a>
+                    </div>
+                    <h4 style="font-size: 0.95rem; margin-top: 20px; margin-bottom: 10px;">Матрица трассируемости требований (Traceability Matrix)</h4>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Идентификатор ТЗ</th>
+                                    <th>User Story</th>
+                                    <th>Use Case</th>
+                                    <th>Компонент системы</th>
+                                    <th>Тестовый сценарий проверки</th>
+                                </tr>
+                            </thead>
+                            <tbody id="traceability-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Diagram Lightbox Dialog -->
+    <dialog id="lightbox-dialog" aria-labelledby="lightbox-title">
+        <div class="lightbox-header">
+            <div class="lightbox-title" id="lightbox-title">Просмотр схемы</div>
+            <div class="lightbox-controls">
+                <button class="lightbox-btn" id="lightbox-zoom-out" type="button" title="Уменьшить">-</button>
+                <button class="lightbox-btn" id="lightbox-zoom-reset" type="button" title="Исходный масштаб">1:1</button>
+                <button class="lightbox-btn" id="lightbox-zoom-in" type="button" title="Увеличить">+</button>
+                <a class="lightbox-btn" id="lightbox-open-link" href="#" target="_blank" rel="noopener noreferrer" title="Открыть в новой вкладке">↗ В новой вкладке</a>
+                <button class="lightbox-btn" id="lightbox-close" type="button" title="Закрыть (Esc)">✕</button>
+            </div>
+        </div>
+        <div class="lightbox-body">
+            <img id="lightbox-img" src="" alt="Схема">
+        </div>
+    </dialog>
+
+    <!-- Omnibox Search Dialog (⌘K) -->
+    <dialog id="omnibox-dialog" aria-label="Быстрый поиск">
+        <div class="omnibox-header">
+            <span class="omnibox-icon">🔍</span>
+            <input type="text" id="omnibox-input" class="omnibox-input" placeholder="Поиск по разделам, диаграммам, User Stories...">
+            <button type="button" class="omnibox-close-btn" onclick="document.getElementById('omnibox-dialog').close()" aria-label="Закрыть">✕</button>
+        </div>
+        <ul id="omnibox-results" class="omnibox-results"></ul>
+    </dialog>
+
+    <!-- Structured Data Modules -->
+    <script src="../js/data/search.js"></script>
+    <script src="../js/data/lab3.js"></script>
+
+    <!-- Client Functional Modules -->
+    <script src="../js/modules/renderers.js"></script>
+    <script src="../js/modules/router.js"></script>
+    <script src="../js/modules/lightbox.js"></script>
+    <script src="../js/modules/omnibox.js"></script>
+    <script src="../js/modules/ui.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>
