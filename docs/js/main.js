@@ -8,6 +8,7 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         // Safe mermaid initialization with strict monochrome theme
+        // Safe mermaid initialization with strict monochrome theme
         if (typeof mermaid !== 'undefined') {
             const isLight = document.documentElement.getAttribute('data-theme') === 'light';
             mermaid.initialize({
@@ -15,20 +16,24 @@
                 theme: 'base',
                 themeVariables: isLight ? {
                     darkMode: false,
-                    background: '#f4f4f4',
+                    background: '#ffffff',
                     mainBkg: '#ffffff',
                     nodeBorder: '#d4d4d4',
                     nodeTextColor: '#0d0d0d',
                     primaryColor: '#ffffff',
                     primaryTextColor: '#0d0d0d',
                     primaryBorderColor: '#0d0d0d',
-                    lineColor: '#595959',
+                    lineColor: '#525252',
+                    arrowheadColor: '#525252',
+                    edgeLabelBackground: '#ffffff',
                     secondaryColor: '#f4f4f4',
                     secondaryTextColor: '#0d0d0d',
                     secondaryBorderColor: '#d4d4d4',
                     tertiaryColor: '#ffffff',
                     tertiaryTextColor: '#0d0d0d',
                     tertiaryBorderColor: '#d4d4d4',
+                    clusterBkg: '#f9f9f9',
+                    clusterBorder: '#d4d4d4',
                     fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
                 } : {
                     darkMode: true,
@@ -39,13 +44,17 @@
                     primaryColor: '#212121',
                     primaryTextColor: '#f4f4f4',
                     primaryBorderColor: '#383838',
-                    lineColor: '#8c8c8c',
+                    lineColor: '#a1a1aa',
+                    arrowheadColor: '#a1a1aa',
+                    edgeLabelBackground: '#171717',
                     secondaryColor: '#262626',
                     secondaryTextColor: '#f4f4f4',
                     secondaryBorderColor: '#383838',
                     tertiaryColor: '#171717',
                     tertiaryTextColor: '#f4f4f4',
                     tertiaryBorderColor: '#383838',
+                    clusterBkg: '#212121',
+                    clusterBorder: '#383838',
                     fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
                 }
             });
@@ -69,6 +78,9 @@
         }
         if (typeof window.initRouter === 'function') {
             window.initRouter();
+        }
+        if (typeof window.enhanceDiagrams === 'function') {
+            window.enhanceDiagrams(document);
         }
 
         // Mobile drawer toggles

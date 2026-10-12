@@ -63,6 +63,59 @@
                 btn.setAttribute('aria-label', isDark ? 'Переключить на светлую тему' : 'Переключить на темную тему');
                 btn.setAttribute('title', isDark ? 'Светлая тема' : 'Темная тема');
             });
+
+            if (typeof mermaid !== 'undefined') {
+                const isLight = theme === 'light';
+                try {
+                    mermaid.initialize({
+                        startOnLoad: false,
+                        theme: 'base',
+                        themeVariables: isLight ? {
+                            darkMode: false,
+                            background: '#ffffff',
+                            mainBkg: '#ffffff',
+                            nodeBorder: '#d4d4d4',
+                            nodeTextColor: '#0d0d0d',
+                            primaryColor: '#ffffff',
+                            primaryTextColor: '#0d0d0d',
+                            primaryBorderColor: '#0d0d0d',
+                            lineColor: '#525252',
+                            arrowheadColor: '#525252',
+                            edgeLabelBackground: '#ffffff',
+                            secondaryColor: '#f4f4f4',
+                            secondaryTextColor: '#0d0d0d',
+                            secondaryBorderColor: '#d4d4d4',
+                            tertiaryColor: '#ffffff',
+                            tertiaryTextColor: '#0d0d0d',
+                            tertiaryBorderColor: '#d4d4d4',
+                            clusterBkg: '#f9f9f9',
+                            clusterBorder: '#d4d4d4',
+                            fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                        } : {
+                            darkMode: true,
+                            background: '#171717',
+                            mainBkg: '#212121',
+                            nodeBorder: '#383838',
+                            nodeTextColor: '#f4f4f4',
+                            primaryColor: '#212121',
+                            primaryTextColor: '#f4f4f4',
+                            primaryBorderColor: '#383838',
+                            lineColor: '#a1a1aa',
+                            arrowheadColor: '#a1a1aa',
+                            edgeLabelBackground: '#171717',
+                            secondaryColor: '#262626',
+                            secondaryTextColor: '#f4f4f4',
+                            secondaryBorderColor: '#383838',
+                            tertiaryColor: '#171717',
+                            tertiaryTextColor: '#f4f4f4',
+                            tertiaryBorderColor: '#383838',
+                            clusterBkg: '#212121',
+                            clusterBorder: '#383838',
+                            fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                        }
+                    });
+                } catch (e) {}
+            }
         }
 
         // Attach event listeners to all theme toggle buttons (desktop sidebar, mobile topbar, etc.)

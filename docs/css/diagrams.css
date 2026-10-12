@@ -1,75 +1,508 @@
 /* ==========================================================================
    CampusMeet / EventHub — Monochrome Diagrams & Visuals
-   Diagram Containers, Zoom Overlays, Mermaid Wrappers
+   Interactive Diagram Viewers, Pan-Zoom Frames, and Viewports
+   Strictly adheres to docs/DESIGN_SYSTEM.md monochrome guidelines
    ========================================================================== */
 
-.diagram-container {
+/* --- INTERACTIVE DIAGRAM CARD FRAME --- */
+.diagram-card {
     position: relative;
-    margin-top: 12px;
+    margin: 24px 0;
     border-radius: var(--radius-md);
-    overflow: hidden;
     border: 1px solid var(--border-subtle);
-    background: #ffffff;
-    transition: border-color var(--duration-hover) var(--ease-snappy);
-}
-
-.diagram-container.dark-bg {
     background: var(--surface-primary);
+    overflow: hidden;
+    flex: 1 1 0;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    box-shadow: var(--shadow-sm);
+    transition: border-color var(--duration-hover) var(--ease-snappy),
+                box-shadow var(--duration-hover) var(--ease-snappy);
 }
 
-.diagram-container:hover {
+.diagram-card:hover {
+    border-color: var(--border-default);
+    box-shadow: var(--shadow-md);
+}
+
+/* --- DIAGRAM CARD HEADER BAR --- */
+.diagram-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 14px;
+    background: var(--surface-secondary);
+    border-bottom: 1px solid var(--border-subtle);
+    gap: 8px;
+    flex-wrap: wrap;
+    user-select: none;
+    min-width: 0;
+}
+
+.diagram-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.diagram-card-icon {
+    width: 15px;
+    height: 15px;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.diagram-card-title {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 380px;
+}
+
+.diagram-card-badge {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    background: var(--surface-tertiary);
+    border: 1px solid var(--border-subtle);
+    padding: 2px 7px;
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.diagram-card-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.diagram-btn {
+    background: var(--surface-primary);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    border-radius: var(--radius-xs);
+    padding: 4px 7px;
+    font-size: 0.74rem;
+    font-family: var(--font-sans);
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color var(--duration-hover) var(--ease-snappy),
+                background-color var(--duration-hover) var(--ease-snappy),
+                border-color var(--duration-hover) var(--ease-snappy);
+    user-select: none;
+}
+
+.diagram-btn:hover {
+    color: var(--text-primary);
+    background: var(--surface-tertiary);
     border-color: var(--border-default);
 }
 
-.diagram-img, .profile-card img:not(.persona-avatar) {
+.diagram-btn.active {
+    color: var(--text-primary);
+    background: var(--surface-secondary);
+    border-color: var(--border-default);
+}
+
+.diagram-btn svg {
+    width: 13px;
+    height: 13px;
+}
+
+.diagram-zoom-badge {
+    font-size: 0.72rem;
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+    min-width: 38px;
+    text-align: center;
+    user-select: none;
+}
+
+/* --- DIAGRAM VIEWPORT & CANVAS (DEFAULT: EXPANDED / NATURAL) --- */
+.diagram-viewport {
+    position: relative;
+    height: auto;
+    max-height: none;
+    overflow: auto;
+    background: var(--surface-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    cursor: grab;
+    min-width: 0;
+    max-width: 100%;
     width: 100%;
+    box-sizing: border-box;
+    transition: max-height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                padding 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color var(--duration-base) var(--ease-snappy);
+}
+
+.diagram-viewport.is-grabbing {
+    cursor: grabbing !important;
+    user-select: none;
+}
+
+.diagram-canvas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-origin: center center;
+    transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+    max-width: 100%;
+    width: 100%;
+    min-width: 0;
+}
+
+.diagram-viewport.is-grabbing .diagram-canvas {
+    transition: none !important;
+}
+
+.diagram-canvas img {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
     display: block;
-    cursor: zoom-in;
-    transition: opacity var(--duration-hover) var(--ease-snappy);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+    pointer-events: none;
+    margin: 0 !important;
 }
 
-.diagram-img:hover, .profile-card img:not(.persona-avatar):hover {
-    opacity: 0.95;
+/* PlantUML diagrams on dark/light themes */
+.diagram-canvas img:not(.dark-render) {
+    background: #ffffff;
+    padding: 12px;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    transition: filter var(--duration-base) var(--ease-snappy);
 }
 
-.diagram-overlay-hint {
+:root:not([data-theme="light"]) .diagram-canvas img:not(.dark-render) {
+    filter: invert(0.92) hue-rotate(180deg) contrast(1.05);
+}
+
+/* Wireframes and mockups */
+.diagram-canvas img.dark-render {
+    background: var(--surface-canvas) !important;
+    border: 1px solid var(--border-subtle);
+    padding: 0;
+}
+
+/* --- COLLAPSED STATE (DELIBERATE COMPACT MINI-BAR) --- */
+.diagram-card.is-collapsed .diagram-viewport {
+    max-height: 44px !important;
+    min-height: 44px !important;
+    overflow: hidden !important;
+    padding: 0 16px !important;
+    background: var(--surface-secondary) !important;
+    cursor: pointer !important;
+    border-top: 1px solid var(--border-subtle);
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.diagram-card.is-collapsed .diagram-canvas {
+    display: none !important;
+}
+
+.diagram-card.is-collapsed .diagram-hint-overlay {
+    display: none !important;
+}
+
+.diagram-collapsed-banner {
+    display: none;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: transparent;
+    font-size: 0.78rem;
+    font-weight: 500;
+    font-family: var(--font-sans);
+    color: var(--text-secondary);
+    cursor: pointer;
+    user-select: none;
+    transition: color var(--duration-hover) var(--ease-snappy);
+}
+
+.diagram-card.is-collapsed .diagram-collapsed-banner {
+    display: flex;
+}
+
+.diagram-card.is-collapsed:hover .diagram-collapsed-banner {
+    color: var(--text-primary);
+}
+
+.diagram-collapsed-banner svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* --- MERMAID DIAGRAMS COMPLETE THEMING & HIGH-CONTRAST EDGES --- */
+.mermaid {
+    width: 100%;
+    margin: 0;
+    padding: 16px;
+    background: transparent !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: auto;
+}
+
+.mermaid svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    background: transparent !important;
+}
+
+/* 1. Connector lines / Edge paths: Razor-sharp high contrast in both themes */
+.mermaid svg g.edgePaths path,
+.mermaid svg g.edgePath path,
+.mermaid svg .edgePath path,
+.mermaid svg .edgePath .path,
+.mermaid svg .flowchart-link,
+.mermaid svg path.path,
+.mermaid svg .edge-thickness-normal,
+.mermaid svg [class*="edge-thickness"],
+.mermaid svg [class*="flowchart-link"],
+.mermaid svg path[id^="L-"],
+.mermaid svg .relation,
+.mermaid svg .transition,
+.mermaid svg .messageLine0,
+.mermaid svg .messageLine1,
+.lightbox-body svg g.edgePaths path,
+.lightbox-body svg g.edgePath path,
+.lightbox-body svg [class*="flowchart-link"],
+.lightbox-body svg path.path,
+.lightbox-body svg path[id^="L-"],
+.lightbox-body svg .relation,
+.lightbox-body svg .transition,
+.lightbox-body svg .messageLine0,
+.lightbox-body svg .messageLine1 {
+    stroke: var(--text-secondary) !important;
+    stroke-width: 2px !important;
+    stroke-opacity: 1 !important;
+    fill: none !important;
+}
+
+/* 2. Arrowheads & Markers */
+.mermaid svg marker path,
+.mermaid svg marker polygon,
+.mermaid svg .marker,
+.mermaid svg .arrowMarkerPath,
+.mermaid svg [id*="pointEnd"],
+.mermaid svg [id*="pointStart"],
+.mermaid svg [id*="arrow"] path,
+.mermaid svg [id*="flowchart"] path,
+.mermaid svg [id*="pointEnd"] path,
+.mermaid svg [id*="pointStart"] path,
+.mermaid svg [id*="crosshead"] path,
+.mermaid svg #arrowhead path,
+.lightbox-body svg marker path,
+.lightbox-body svg marker polygon,
+.lightbox-body svg .marker,
+.lightbox-body svg .arrowMarkerPath,
+.lightbox-body svg [id*="pointEnd"],
+.lightbox-body svg [id*="pointStart"],
+.lightbox-body svg [id*="arrow"] path,
+.lightbox-body svg [id*="flowchart"] path,
+.lightbox-body svg [id*="pointEnd"] path,
+.lightbox-body svg [id*="pointStart"] path,
+.lightbox-body svg [id*="crosshead"] path,
+.lightbox-body svg #arrowhead path {
+    fill: var(--text-secondary) !important;
+    stroke: var(--text-secondary) !important;
+    stroke-width: 1px !important;
+}
+
+/* 3. Flowchart Nodes */
+.mermaid svg .node rect,
+.mermaid svg .node circle,
+.mermaid svg .node ellipse,
+.mermaid svg .node polygon,
+.mermaid svg .node path:not(.path):not(.arrowMarkerPath),
+.lightbox-body svg .node rect,
+.lightbox-body svg .node circle,
+.lightbox-body svg .node ellipse,
+.lightbox-body svg .node polygon,
+.lightbox-body svg .node path:not(.path):not(.arrowMarkerPath) {
+    fill: var(--surface-secondary) !important;
+    stroke: var(--border-default) !important;
+    stroke-width: 1.5px !important;
+}
+
+/* 4. Text & Labels */
+.mermaid svg foreignObject,
+.lightbox-body svg foreignObject,
+.mermaid svg .node div,
+.lightbox-body svg .node div {
+    overflow: visible !important;
+}
+
+.mermaid svg .node .label,
+.mermaid svg .node text,
+.mermaid svg text.actor,
+.mermaid svg .actor,
+.mermaid svg .node tspan,
+.mermaid svg .nodeLabel,
+.mermaid svg .node span,
+.mermaid svg .node p,
+.mermaid svg .node div,
+.lightbox-body svg .node .label,
+.lightbox-body svg .node text,
+.lightbox-body svg text.actor,
+.lightbox-body svg .actor,
+.lightbox-body svg .node tspan,
+.lightbox-body svg .nodeLabel,
+.lightbox-body svg .node span,
+.lightbox-body svg .node p,
+.lightbox-body svg .node div {
+    fill: var(--text-primary) !important;
+    color: var(--text-primary) !important;
+    font-family: var(--font-sans) !important;
+    font-weight: 500 !important;
+}
+
+/* 5. Edge text labels (e.g. "Да, форма открыта") */
+.mermaid svg .edgeLabel,
+.mermaid svg .edgeLabel span,
+.mermaid svg .edgeLabel p,
+.mermaid svg .edgeLabel div,
+.mermaid svg .edgeLabel text,
+.mermaid svg .edgeLabel tspan,
+.lightbox-body svg .edgeLabel,
+.lightbox-body svg .edgeLabel span,
+.lightbox-body svg .edgeLabel p,
+.lightbox-body svg .edgeLabel div,
+.lightbox-body svg .edgeLabel text,
+.lightbox-body svg .edgeLabel tspan {
+    background-color: var(--surface-primary) !important;
+    fill: var(--text-primary) !important;
+    color: var(--text-primary) !important;
+    font-family: var(--font-sans) !important;
+    font-size: 0.8rem !important;
+    font-weight: 500 !important;
+}
+
+.mermaid svg .edgeLabel rect,
+.mermaid svg .label-container,
+.lightbox-body svg .edgeLabel rect,
+.lightbox-body svg .label-container {
+    fill: var(--surface-primary) !important;
+    stroke: var(--border-subtle) !important;
+    stroke-width: 1px !important;
+}
+
+/* 6. Sequence diagrams participants & messages */
+.mermaid svg rect.actor {
+    fill: var(--surface-secondary) !important;
+    stroke: var(--border-default) !important;
+}
+
+.mermaid svg .messageLine0,
+.mermaid svg .messageLine1 {
+    stroke: var(--text-secondary) !important;
+    stroke-width: 2px !important;
+}
+
+.mermaid svg .messageText {
+    fill: var(--text-primary) !important;
+    font-family: var(--font-sans) !important;
+    stroke: none !important;
+}
+
+.mermaid svg .actor-line {
+    stroke: var(--border-default) !important;
+    stroke-width: 1.5px !important;
+}
+
+.mermaid svg .note {
+    fill: var(--surface-tertiary) !important;
+    stroke: var(--border-default) !important;
+}
+
+.mermaid svg .noteText,
+.mermaid svg .note text {
+    fill: var(--text-primary) !important;
+    font-family: var(--font-sans) !important;
+}
+
+/* 7. Subgraphs & Clusters */
+.mermaid svg .cluster rect {
+    fill: var(--surface-secondary) !important;
+    stroke: var(--border-subtle) !important;
+    stroke-width: 1px !important;
+}
+
+.mermaid svg .cluster text {
+    fill: var(--text-primary) !important;
+    font-family: var(--font-sans) !important;
+    font-weight: 600 !important;
+}
+
+/* Floating Bottom Hint Overlay */
+.diagram-hint-overlay {
     position: absolute;
     bottom: 10px;
-    right: 10px;
+    left: 50%;
+    transform: translateX(-50%);
     background: var(--surface-translucent);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-full);
-    padding: 4px 12px;
-    font-size: 0.74rem;
-    font-weight: 500;
-    color: var(--text-primary);
+    padding: 4px 14px;
+    font-size: 0.7rem;
+    font-family: var(--font-sans);
+    color: var(--text-tertiary);
     pointer-events: none;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    opacity: 0.85;
+    white-space: nowrap;
+    opacity: 0;
     transition: opacity var(--duration-hover) var(--ease-snappy);
+    z-index: 2;
 }
 
-.diagram-container:hover .diagram-overlay-hint {
-    opacity: 1;
+.diagram-card:not(.is-collapsed):hover .diagram-hint-overlay {
+    opacity: 0.85;
 }
 
-/* --- MERMAID DIAGRAMS WRAPPER --- */
-.mermaid {
-    overflow-x: auto;
-    margin: 24px 0;
-    padding: 20px;
-    background: var(--surface-primary);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-subtle);
-    display: flex;
-    justify-content: center;
-}
-
-.mermaid svg {
-    max-width: 100% !important;
-    height: auto !important;
+/* Mobile responsive adjustments */
+@media (max-width: 680px) {
+    .diagram-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .diagram-card-toolbar {
+        width: 100%;
+        justify-content: flex-end;
+    }
+    
+    .diagram-card-title {
+        max-width: 240px;
+    }
 }

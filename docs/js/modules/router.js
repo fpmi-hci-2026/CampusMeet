@@ -18,9 +18,28 @@
         const unrendered = pane.querySelectorAll('.mermaid:not([data-processed="true"])');
         if (unrendered.length > 0) {
             try {
-                mermaid.run({ nodes: Array.from(unrendered) });
+                const res = mermaid.run({ nodes: Array.from(unrendered) });
+                if (res && typeof res.then === 'function') {
+                    res.then(function () {
+                        if (typeof window.enhanceDiagrams === 'function') {
+                            window.enhanceDiagrams(pane);
+                        }
+                    }).catch(function () {
+                        if (typeof window.enhanceDiagrams === 'function') {
+                            window.enhanceDiagrams(pane);
+                        }
+                    });
+                } else {
+                    if (typeof window.enhanceDiagrams === 'function') {
+                        window.enhanceDiagrams(pane);
+                    }
+                }
             } catch (err) {
                 console.warn('Mermaid rendering notice:', err);
+            }
+        } else {
+            if (typeof window.enhanceDiagrams === 'function') {
+                window.enhanceDiagrams(pane);
             }
         }
     };
@@ -116,6 +135,11 @@
 
         // Render Mermaid on-demand for this pane
         window.renderTabMermaid(targetPane);
+
+        // Enhance diagram viewers inside active pane
+        if (typeof window.enhanceDiagrams === 'function') {
+            window.enhanceDiagrams(targetPane);
+        }
     };
 
     /**

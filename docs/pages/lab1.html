@@ -353,17 +353,25 @@ flowchart TD
     <!-- Diagram Lightbox Dialog -->
     <dialog id="lightbox-dialog" aria-labelledby="lightbox-title">
         <div class="lightbox-header">
-            <div class="lightbox-title" id="lightbox-title">Просмотр схемы</div>
+            <div class="lightbox-meta">
+                <div class="lightbox-title" id="lightbox-title">Просмотр схемы</div>
+                <span class="lightbox-badge" id="lightbox-badge">SVG</span>
+            </div>
             <div class="lightbox-controls">
-                <button class="lightbox-btn" id="lightbox-zoom-out" type="button" title="Уменьшить">-</button>
-                <button class="lightbox-btn" id="lightbox-zoom-reset" type="button" title="Исходный масштаб">1:1</button>
-                <button class="lightbox-btn" id="lightbox-zoom-in" type="button" title="Увеличить">+</button>
-                <a class="lightbox-btn" id="lightbox-open-link" href="#" target="_blank" rel="noopener noreferrer" title="Открыть в новой вкладке">↗ В новой вкладке</a>
-                <button class="lightbox-btn" id="lightbox-close" type="button" title="Закрыть (Esc)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                <button class="lightbox-btn" id="lightbox-zoom-out" type="button" title="Уменьшить (−)">−</button>
+                <span class="lightbox-zoom-badge" id="lightbox-zoom-badge">100%</span>
+                <button class="lightbox-btn" id="lightbox-zoom-in" type="button" title="Увеличить (+)">+</button>
+                <button class="lightbox-btn" id="lightbox-zoom-reset" type="button" title="Сбросить (1:1)">1:1</button>
+                <button class="lightbox-btn" id="lightbox-fit-btn" type="button" title="Вписать в экран">Вписать</button>
+                <a class="lightbox-btn" id="lightbox-open-link" href="#" target="_blank" rel="noopener noreferrer" title="В новой вкладке">↗</a>
+                <button class="lightbox-btn" id="lightbox-close" type="button" title="Закрыть (Esc)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
             </div>
         </div>
         <div class="lightbox-body">
             <img id="lightbox-img" src="" alt="Схема">
+            <div class="lightbox-footer-hints">
+                <span>Колесо: Zoom</span> • <span>Перетаскивание: Pan</span> • <span>Двойной клик: 100%/200%</span> • <span>Esc: Закрыть</span>
+            </div>
         </div>
     </dialog>
 

@@ -6,8 +6,8 @@
 /* --- DIAGRAM LIGHTBOX DIALOG --- */
 #lightbox-dialog {
     width: 95vw;
-    max-width: 1280px;
-    height: 90vh;
+    max-width: 1440px;
+    height: 92vh;
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-lg);
     background: var(--surface-canvas);
@@ -28,41 +28,70 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 20px;
+    padding: 10px 18px;
     background: var(--surface-primary);
     border-bottom: 1px solid var(--border-subtle);
+    gap: 16px;
+    user-select: none;
+}
+
+.lightbox-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    max-width: 55%;
 }
 
 .lightbox-title {
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: var(--text-primary);
-    max-width: 70%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
+.lightbox-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    background: var(--surface-secondary);
+    border: 1px solid var(--border-subtle);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
 .lightbox-controls {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+    flex-wrap: nowrap;
 }
 
 .lightbox-btn {
     background: var(--surface-secondary);
     border: 1px solid var(--border-subtle);
-    color: var(--text-primary);
-    border-radius: var(--radius-sm);
-    padding: 6px 12px;
-    font-size: 0.82rem;
+    color: var(--text-secondary);
+    border-radius: var(--radius-xs);
+    padding: 5px 9px;
+    font-size: 0.78rem;
+    font-family: var(--font-sans);
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    justify-content: center;
+    gap: 5px;
     text-decoration: none;
+    line-height: 1;
     transition: background-color var(--duration-hover) var(--ease-snappy),
-                border-color var(--duration-hover) var(--ease-snappy);
+                border-color var(--duration-hover) var(--ease-snappy),
+                color var(--duration-hover) var(--ease-snappy);
+    user-select: none;
 }
 
 .lightbox-btn:hover {
@@ -71,36 +100,104 @@
     color: var(--text-primary);
 }
 
+.lightbox-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+.lightbox-zoom-badge {
+    font-size: 0.74rem;
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+    min-width: 42px;
+    text-align: center;
+    user-select: none;
+}
+
 .lightbox-body {
+    position: relative;
     width: 100%;
-    height: calc(100% - 56px);
-    overflow: auto;
+    height: calc(100% - 50px);
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--surface-canvas);
     padding: 24px;
     cursor: grab;
+    user-select: none;
 }
 
 .lightbox-body.grabbing {
-    cursor: grabbing;
+    cursor: grabbing !important;
 }
 
-.lightbox-body img {
-    max-width: 100%;
-    max-height: 100%;
+.lightbox-body #lightbox-img {
+    max-width: 95%;
+    max-height: 95%;
     object-fit: contain;
     background: #ffffff;
     border-radius: var(--radius-sm);
-    padding: 10px;
+    padding: 14px;
     box-shadow: var(--shadow-md);
-    transition: transform var(--duration-base) var(--ease-snappy);
+    transform-origin: center center;
+    transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), filter var(--duration-base) var(--ease-snappy);
+    pointer-events: none;
+    border: 1px solid var(--border-subtle);
 }
 
-.lightbox-body img.dark-render {
-    background: var(--surface-canvas);
+:root:not([data-theme="light"]) .lightbox-body #lightbox-img:not(.dark-render) {
+    filter: invert(0.92) hue-rotate(180deg) contrast(1.05);
+}
+
+.lightbox-body #lightbox-img.dark-render {
+    background: var(--surface-canvas) !important;
     border: 1px solid var(--border-subtle);
+    padding: 0;
+    filter: none !important;
+}
+
+.lightbox-body #lightbox-svg,
+.lightbox-body .mermaid-lightbox-wrap svg {
+    max-width: 95%;
+    max-height: 95%;
+    object-fit: contain;
+    background: transparent !important;
+    border-radius: var(--radius-sm);
+    padding: 0;
+    box-shadow: none;
+    transform-origin: center center;
+    transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    border: none;
+}
+
+.lightbox-body.grabbing #lightbox-img,
+.lightbox-body.grabbing #lightbox-svg,
+.lightbox-body.grabbing .mermaid-lightbox-wrap svg {
+    transition: none !important;
+}
+
+.lightbox-footer-hints {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--surface-translucent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-full);
+    padding: 4px 16px;
+    font-size: 0.7rem;
+    font-family: var(--font-sans);
+    color: var(--text-tertiary);
+    pointer-events: none;
+    white-space: nowrap;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    z-index: 2;
 }
 
 /* --- OMNIBOX QUICK SEARCH MODAL (⌘K) --- */
