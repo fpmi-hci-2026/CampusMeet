@@ -6,10 +6,20 @@
     <title>CampusMeet / EventHub — Портал проектной документации ПЧМИ</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <link rel="stylesheet" href="css/style.css">
+    <script>
+        (function() {
+            var t = null;
+            try { t = localStorage.getItem('cm_theme'); } catch(e) {}
+            if (!t) {
+                t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+            }
+            document.documentElement.setAttribute('data-theme', t);
+        })();
+    </script>
 </head>
 <body>
 
@@ -19,13 +29,19 @@
             <img src="assets/favicon.svg" alt="CampusMeet Logo">
             <span>CampusMeet</span>
         </a>
-        <button id="mobile-hamburger" class="hamburger-btn" type="button" aria-label="Открыть навигацию">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
-        </button>
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <button class="theme-toggle-btn" type="button" aria-label="Переключить тему оформления" title="Светлая / Темная тема">
+                <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+            <button id="mobile-hamburger" class="hamburger-btn" type="button" aria-label="Открыть навигацию">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
     </header>
 
     <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
@@ -33,11 +49,20 @@
     <!-- Sidebar Navigation -->
     <aside id="sidebar">
         <div class="sidebar-header">
-            <span class="brand-badge">ПЧМИ • ФПМИ БГУ</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span class="brand-badge" style="margin-bottom: 0;">ПЧМИ • ФПМИ БГУ</span>
+                <button class="theme-toggle-btn" type="button" aria-label="Переключить тему оформления" title="Светлая / Темная тема">
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
             <h1>CampusMeet</h1>
             <p>Платформа студенческих митапов, хакатонов и офлайн-чекина</p>
             <button class="omnibox-trigger-btn" type="button" aria-label="Быстрый поиск">
-                <span>🔍 Поиск по порталу...</span>
+                <span class="omnibox-trigger-label">
+                    <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    Поиск по порталу...
+                </span>
                 <span class="kbd-shortcut">⌘K</span>
             </button>
         </div>
@@ -46,7 +71,8 @@
         <ul class="nav-menu">
             <li class="nav-item">
                 <a href="index.html" class="nav-link active">
-                    🏠 Портал проекта
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    Портал проекта
                 </a>
             </li>
         </ul>
@@ -170,18 +196,21 @@
         <div class="nav-section-title">Внешние ресурсы</div>
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="./reports/Lab3_report.md" class="nav-link" target="_blank" style="color: #38bdf8; font-weight: bold;">
-                    📄 Отчет Лаб. №3 (Markdown)
+                <a href="./reports/Lab3_report.md" class="nav-link" target="_blank" style="font-weight: 500;">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Отчет Лаб. №3 (Markdown)
                 </a>
             </li>
             <li class="nav-item">
-                <a href="./reports/Lab2_report.md" class="nav-link" target="_blank" style="color: #38bdf8; font-weight: bold;">
-                    📄 Отчет Лаб. №2 (Markdown)
+                <a href="./reports/Lab2_report.md" class="nav-link" target="_blank" style="font-weight: 500;">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Отчет Лаб. №2 (Markdown)
                 </a>
             </li>
             <li class="nav-item">
                 <a href="./reports/Lab1_report.md" class="nav-link" target="_blank">
-                    📄 Отчет Лаб. №1 (Markdown)
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Отчет Лаб. №1 (Markdown)
                 </a>
             </li>
             <li class="nav-item">
@@ -213,44 +242,59 @@
 
             <!-- PORTAL MAIN OVERVIEW -->
             <section id="portal-overview" class="tab-pane active">
-                <div class="hero-card" style="border-left: 4px solid var(--accent);">
+                <div class="hero-card">
                     <span class="brand-badge">ПЧМИ • ФПМИ БГУ • 4 КУРС</span>
                     <h1>CampusMeet / EventHub</h1>
                     <p>Единый интерактивный портал проектной документации по дисциплине «Проектирование человеко-машинных интерфейсов». Кроссплатформенная цифровая экосистема студенческих митапов, хакатонов, биржи команд и защищенного высокоскоростного офлайн-чекина. Кафедра технологии программирования, преподаватель: Давидовская М.И.</p>
                     <div style="display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap;">
-                        <a href="pages/lab1.html" class="btn btn-primary">🔬 Лабораторная №1</a>
-                        <a href="pages/lab2.html" class="btn btn-primary">🧭 Лабораторная №2</a>
-                        <a href="pages/lab3.html" class="btn btn-primary">📐 Лабораторная №3</a>
-                        <a href="pages/wiki.html" class="btn btn-secondary">📚 База знаний Wiki</a>
-                        <a href="https://github.com/fpmi-hci-2026/CampusMeet" class="btn btn-secondary" target="_blank">🐙 GitHub Организации</a>
+                        <a href="pages/lab1.html" class="btn btn-primary">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M10 2v7.31L4.69 17.5a2 2 0 0 0 1.62 3h11.38a2 2 0 0 0 1.62-3L14 9.31V2"></path><line x1="8.5" y1="2" x2="15.5" y2="2"></line><line x1="7" y1="14" x2="17" y2="14"></line></svg>
+                            Лабораторная №1
+                        </a>
+                        <a href="pages/lab2.html" class="btn btn-primary">
+                            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+                            Лабораторная №2
+                        </a>
+                        <a href="pages/lab3.html" class="btn btn-primary">
+                            <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                            Лабораторная №3
+                        </a>
+                        <a href="pages/wiki.html" class="btn btn-secondary">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                            База знаний Wiki
+                        </a>
+                        <a href="https://github.com/fpmi-hci-2026/CampusMeet" class="btn btn-secondary" target="_blank">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                            GitHub Организации
+                        </a>
                     </div>
                 </div>
 
                 <!-- Global Project KPIs -->
-                <h2 style="margin-top: 32px;">Сводные показатели экосистемы CampusMeet</h2>
+                <h2 style="margin-top: 36px;">Сводные показатели экосистемы CampusMeet</h2>
                 <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
                     <div class="stat-card">
-                        <div class="stat-value" style="color: var(--accent);">4 репозитория</div>
+                        <div class="stat-value">4 репозитория</div>
                         <div class="stat-label">Docs, Server, Web, Mobile</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value" style="color: var(--success);">N = 68</div>
+                        <div class="stat-value">N = 68</div>
                         <div class="stat-label">Респондентов опроса студентов</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value" style="color: #c084fc;">29 диаграмм</div>
+                        <div class="stat-value">29 диаграмм</div>
                         <div class="stat-label">PlantUML, EventStorming, C4</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value" style="color: var(--warning);">12 экранов</div>
+                        <div class="stat-value">12 экранов</div>
                         <div class="stat-label">Векторных Wireframes & Mockups</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value" style="color: #38bdf8;">12 историй</div>
+                        <div class="stat-value">12 историй</div>
                         <div class="stat-label">User Stories (BDD & MoSCoW)</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value" style="color: #f43f5e;">7 персон</div>
+                        <div class="stat-value">7 персон</div>
                         <div class="stat-label">Типология персонажей Алана Купера</div>
                     </div>
                 </div>
@@ -260,74 +304,74 @@
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin-top: 16px;">
                     
                     <!-- Lab 1 Card -->
-                    <div class="profile-card" style="border-top: 3px solid var(--accent);">
+                    <div class="profile-card">
                         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
                             <span class="persona-tag tag-primary">Лабораторная 1</span>
-                            <span style="font-size: 0.8rem; color: var(--success); font-weight: 600;">Сдана</span>
+                            <span class="persona-tag tag-key" style="margin-bottom: 0;">Сдана</span>
                         </div>
                         <h3>Исследование пользователей и предметной области</h3>
                         <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.5; margin-bottom: 16px;">
                             Эмпирическое социологическое анкетирование ($N=68$), приоритизация по Кано-модели, карта болевых точек (Pain Points), синтез 7 детализированных персонажей и BPMN-моделирование проблемных процессов As-Is.
                         </p>
                         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                            <a href="pages/lab1.html#lab1-overview" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 12px;">Обзор лаб. №1</a>
-                            <a href="pages/lab1.html#survey-data" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 12px;">Опрос N=68</a>
-                            <a href="pages/lab1.html#personas-gallery" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 12px;">7 Персонажей</a>
-                            <a href="pages/lab1.html#as-is-processes" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 12px;">Процессы As-Is</a>
+                            <a href="pages/lab1.html#lab1-overview" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 14px;">Обзор лаб. №1</a>
+                            <a href="pages/lab1.html#survey-data" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 14px;">Опрос N=68</a>
+                            <a href="pages/lab1.html#personas-gallery" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 14px;">7 Персонажей</a>
+                            <a href="pages/lab1.html#as-is-processes" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 14px;">Процессы As-Is</a>
                         </div>
                     </div>
 
                     <!-- Lab 2 Card -->
-                    <div class="profile-card" style="border-top: 3px solid var(--success);">
+                    <div class="profile-card">
                         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
                             <span class="persona-tag tag-secondary">Лабораторная 2</span>
-                            <span style="font-size: 0.8rem; color: var(--success); font-weight: 600;">Сдана</span>
+                            <span class="persona-tag tag-key" style="margin-bottom: 0;">Сдана</span>
                         </div>
                         <h3>Информационная архитектура и взаимодействие</h3>
                         <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.5; margin-bottom: 16px;">
                             Древовидный Sitemap (>3 уровней), открытая карточная сортировка OptimalSort ($N=15$), Impact Mapping, CJM пути 7 персон, раскадровки форс-мажоров и галерея 12 векторных экранов (6 Wireframes + 6 Mockups).
                         </p>
                         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                            <a href="pages/lab2.html#lab2-overview" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 12px;">Обзор лаб. №2</a>
-                            <a href="pages/lab2.html#lab2-ia" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 12px;">Sitemap & Контент</a>
-                            <a href="pages/lab2.html#lab2-cjm-impact" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 12px;">CJM & Impact</a>
-                            <a href="pages/lab2.html#lab2-mockups" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 12px;">12 UI Макетов</a>
+                            <a href="pages/lab2.html#lab2-overview" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 14px;">Обзор лаб. №2</a>
+                            <a href="pages/lab2.html#lab2-ia" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 14px;">Sitemap & Контент</a>
+                            <a href="pages/lab2.html#lab2-cjm-impact" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 14px;">CJM & Impact</a>
+                            <a href="pages/lab2.html#lab2-mockups" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 14px;">12 UI Макетов</a>
                         </div>
                     </div>
 
                     <!-- Lab 3 Card -->
-                    <div class="profile-card" style="border-top: 3px solid #c084fc;">
+                    <div class="profile-card">
                         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
-                            <span class="persona-tag" style="background: rgba(192, 132, 252, 0.15); color: #c084fc;">Лабораторная 3</span>
-                            <span style="font-size: 0.8rem; color: var(--success); font-weight: 600;">Сдана</span>
+                            <span class="persona-tag tag-primary">Лабораторная 3</span>
+                            <span class="persona-tag tag-key" style="margin-bottom: 0;">Сдана</span>
                         </div>
                         <h3>Разработка требований к системе и UML-моделирование</h3>
                         <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.5; margin-bottom: 16px;">
                             12 историй User Stories по Mike Cohn с критериями BDD, комплекс из 29 векторных схем PlantUML, 3 уровня EventStorming, Event Modeling срезы, архитектура C4 Model (C1-C4) и нормативное ТЗ (SRS по IEEE 830).
                         </p>
                         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                            <a href="pages/lab3.html#lab3-overview" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 12px;">Обзор лаб. №3</a>
-                            <a href="pages/lab3.html#user-stories" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 12px;">User Stories</a>
-                            <a href="pages/lab3.html#lab3-uml" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 12px;">29 Схем UML</a>
-                            <a href="pages/lab3.html#lab3-c4-srs" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 12px;">C4 Model & SRS</a>
+                            <a href="pages/lab3.html#lab3-overview" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 14px;">Обзор лаб. №3</a>
+                            <a href="pages/lab3.html#user-stories" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 14px;">User Stories</a>
+                            <a href="pages/lab3.html#lab3-uml" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 14px;">29 Схем UML</a>
+                            <a href="pages/lab3.html#lab3-c4-srs" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 14px;">C4 Model & SRS</a>
                         </div>
                     </div>
 
                     <!-- Wiki Card -->
-                    <div class="profile-card" style="border-top: 3px solid var(--warning);">
+                    <div class="profile-card">
                         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
                             <span class="persona-tag tag-tertiary">База знаний</span>
-                            <span style="font-size: 0.8rem; color: var(--accent); font-weight: 600;">Wiki</span>
+                            <span class="persona-tag tag-supp" style="margin-bottom: 0;">Wiki</span>
                         </div>
                         <h3>Архитектура экосистемы, БД и безопасность</h3>
                         <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.5; margin-bottom: 16px;">
                             Декомпозиция 4 репозиториев, реляционная схема базы данных (10 таблиц в PostgreSQL/SQLite), интеграция Nominatim OSM и Nager.Date, криптографическая офлайн-подпись HMAC-SHA256, матрица RACI и Git-flow.
                         </p>
                         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                            <a href="pages/wiki.html#wiki-func" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 12px;">Прецеденты</a>
-                            <a href="pages/wiki.html#wiki-arch" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 12px;">Архитектура</a>
-                            <a href="pages/wiki.html#wiki-db" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 12px;">Схема БД</a>
-                            <a href="pages/wiki.html#wiki-security" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 12px;">HMAC Защита</a>
+                            <a href="pages/wiki.html#wiki-func" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 14px;">Прецеденты</a>
+                            <a href="pages/wiki.html#wiki-arch" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 14px;">Архитектура</a>
+                            <a href="pages/wiki.html#wiki-db" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 14px;">Схема БД</a>
+                            <a href="pages/wiki.html#wiki-security" class="btn btn-secondary" style="font-size: 0.8rem; padding: 6px 14px;">HMAC Защита</a>
                         </div>
                     </div>
 
@@ -406,7 +450,7 @@ flowchart TB
                             <td style="text-align: center;"><strong>Лаб. №3</strong></td>
                             <td><strong>Разработка требований к системе и системное моделирование</strong></td>
                             <td>12 User Stories (BDD), 29 схем PlantUML, EventStorming, Event Modeling, C4, ТЗ по IEEE 830</td>
-                            <td style="text-align: center;"><span class="persona-tag" style="background: rgba(192, 132, 252, 0.15); color: #c084fc;">Готово</span></td>
+                            <td style="text-align: center;"><span class="persona-tag tag-primary">Готово</span></td>
                         </tr>
                         <tr>
                             <td style="text-align: center;"><strong>Лаб. №4</strong></td>
@@ -429,7 +473,7 @@ flowchart TB
                 <button class="lightbox-btn" id="lightbox-zoom-reset" type="button" title="Исходный масштаб">1:1</button>
                 <button class="lightbox-btn" id="lightbox-zoom-in" type="button" title="Увеличить">+</button>
                 <a class="lightbox-btn" id="lightbox-open-link" href="#" target="_blank" rel="noopener noreferrer" title="Открыть в новой вкладке">↗ В новой вкладке</a>
-                <button class="lightbox-btn" id="lightbox-close" type="button" title="Закрыть (Esc)">✕</button>
+                <button class="lightbox-btn" id="lightbox-close" type="button" title="Закрыть (Esc)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
             </div>
         </div>
         <div class="lightbox-body">
@@ -440,9 +484,9 @@ flowchart TB
     <!-- Omnibox Search Dialog (⌘K) -->
     <dialog id="omnibox-dialog" aria-label="Быстрый поиск">
         <div class="omnibox-header">
-            <span class="omnibox-icon">🔍</span>
+            <span class="omnibox-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
             <input type="text" id="omnibox-input" class="omnibox-input" placeholder="Поиск по разделам, диаграммам, User Stories...">
-            <button type="button" class="omnibox-close-btn" onclick="document.getElementById('omnibox-dialog').close()" aria-label="Закрыть">✕</button>
+            <button type="button" class="omnibox-close-btn" onclick="document.getElementById('omnibox-dialog').close()" aria-label="Закрыть"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
         </div>
         <ul id="omnibox-results" class="omnibox-results"></ul>
     </dialog>

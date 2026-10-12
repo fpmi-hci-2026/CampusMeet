@@ -6,10 +6,17 @@
     <title>CampusMeet / EventHub — База знаний и регламент проекта</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
     <link rel="stylesheet" href="../css/style.css">
+    <script>
+        (function() {
+            var savedTheme = localStorage.getItem('cm_theme');
+            var prefTheme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme || prefTheme);
+        })();
+    </script>
 </head>
 <body>
 
@@ -19,13 +26,19 @@
             <img src="../assets/favicon.svg" alt="CampusMeet Logo">
             <span>CampusMeet</span>
         </a>
-        <button id="mobile-hamburger" class="hamburger-btn" type="button" aria-label="Открыть навигацию">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
-        </button>
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <button class="theme-toggle-btn" type="button" aria-label="Переключить тему оформления" title="Сменить тему">
+                <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+            <button id="mobile-hamburger" class="hamburger-btn" type="button" aria-label="Открыть навигацию">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
     </header>
 
     <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
@@ -33,11 +46,20 @@
     <!-- Sidebar Navigation -->
     <aside id="sidebar">
         <div class="sidebar-header">
-            <span class="brand-badge">ПЧМИ • ФПМИ БГУ</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span class="brand-badge" style="margin-bottom: 0;">ПЧМИ • ФПМИ БГУ</span>
+                <button class="theme-toggle-btn" type="button" aria-label="Переключить тему оформления" title="Сменить тему">
+                    <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
             <h1>CampusMeet</h1>
             <p>Платформа студенческих митапов, хакатонов и офлайн-чекина</p>
             <button class="omnibox-trigger-btn" type="button" aria-label="Быстрый поиск">
-                <span>🔍 Поиск по порталу...</span>
+                <span style="display: flex; align-items: center; gap: 8px;">
+                    <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    Поиск по порталу...
+                </span>
                 <span class="kbd-shortcut">⌘K</span>
             </button>
         </div>
@@ -46,7 +68,7 @@
         <ul class="nav-menu">
             <li class="nav-item">
                 <a href="../index.html" class="nav-link">
-                    🏠 Портал проекта
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> Портал проекта
                 </a>
             </li>
         </ul>
@@ -170,18 +192,18 @@
         <div class="nav-section-title">Внешние ресурсы</div>
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="../reports/Lab3_report.md" class="nav-link" target="_blank" style="color: #38bdf8; font-weight: bold;">
-                    📄 Отчет Лаб. №3 (Markdown)
+                <a href="../reports/Lab3_report.md" class="nav-link" target="_blank" style="font-weight: 500;">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> Отчет Лаб. №3 (Markdown)
                 </a>
             </li>
             <li class="nav-item">
-                <a href="../reports/Lab2_report.md" class="nav-link" target="_blank" style="color: #38bdf8; font-weight: bold;">
-                    📄 Отчет Лаб. №2 (Markdown)
+                <a href="../reports/Lab2_report.md" class="nav-link" target="_blank" style="font-weight: 500;">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> Отчет Лаб. №2 (Markdown)
                 </a>
             </li>
             <li class="nav-item">
                 <a href="../reports/Lab1_report.md" class="nav-link" target="_blank">
-                    📄 Отчет Лаб. №1 (Markdown)
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> Отчет Лаб. №1 (Markdown)
                 </a>
             </li>
             <li class="nav-item">
@@ -305,7 +327,7 @@ erDiagram
                 <h1>Концептуальная презентация и регламент команды</h1>
                 <p>В рамках Лабораторной работы №1 сформирована структура концептуальной презентации результатов предпроектного исследования, матрица ответственности команды (RACI) и регламент версионирования Git-flow.</p>
 
-                <div class="card" style="margin-bottom: 24px; border-left: 4px solid var(--accent);">
+                <div class="card" style="margin-bottom: 24px;">
                     <h4>Электронные слайды презентации</h4>
                     <p style="margin-bottom: 0;"><em>Размещение слайдов презентации на Google Slides / PDF будет добавлено перед защитой лабораторной работы.</em></p>
                 </div>
@@ -375,7 +397,7 @@ erDiagram
                 <button class="lightbox-btn" id="lightbox-zoom-reset" type="button" title="Исходный масштаб">1:1</button>
                 <button class="lightbox-btn" id="lightbox-zoom-in" type="button" title="Увеличить">+</button>
                 <a class="lightbox-btn" id="lightbox-open-link" href="#" target="_blank" rel="noopener noreferrer" title="Открыть в новой вкладке">↗ В новой вкладке</a>
-                <button class="lightbox-btn" id="lightbox-close" type="button" title="Закрыть (Esc)">✕</button>
+                <button class="lightbox-btn" id="lightbox-close" type="button" title="Закрыть (Esc)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
             </div>
         </div>
         <div class="lightbox-body">
@@ -386,9 +408,9 @@ erDiagram
     <!-- Omnibox Search Dialog (⌘K) -->
     <dialog id="omnibox-dialog" aria-label="Быстрый поиск">
         <div class="omnibox-header">
-            <span class="omnibox-icon">🔍</span>
+            <span class="omnibox-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
             <input type="text" id="omnibox-input" class="omnibox-input" placeholder="Поиск по разделам, диаграммам, User Stories...">
-            <button type="button" class="omnibox-close-btn" onclick="document.getElementById('omnibox-dialog').close()" aria-label="Закрыть">✕</button>
+            <button type="button" class="omnibox-close-btn" onclick="document.getElementById('omnibox-dialog').close()" aria-label="Закрыть"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
         </div>
         <ul id="omnibox-results" class="omnibox-results"></ul>
     </dialog>

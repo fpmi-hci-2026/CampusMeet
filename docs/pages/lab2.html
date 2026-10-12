@@ -6,10 +6,20 @@
     <title>CampusMeet / EventHub — Лабораторная работа №2: Информационная архитектура</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
     <link rel="stylesheet" href="../css/style.css">
+    <script>
+        (function() {
+            var t = null;
+            try { t = localStorage.getItem('cm_theme'); } catch(e) {}
+            if (!t) {
+                t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+            }
+            document.documentElement.setAttribute('data-theme', t);
+        })();
+    </script>
 </head>
 <body>
 
@@ -19,13 +29,19 @@
             <img src="../assets/favicon.svg" alt="CampusMeet Logo">
             <span>CampusMeet</span>
         </a>
-        <button id="mobile-hamburger" class="hamburger-btn" type="button" aria-label="Открыть навигацию">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
-        </button>
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <button class="theme-toggle-btn" type="button" aria-label="Переключить тему оформления" title="Светлая / Темная тема">
+                <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+            <button id="mobile-hamburger" class="hamburger-btn" type="button" aria-label="Открыть навигацию">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
     </header>
 
     <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
@@ -33,11 +49,20 @@
     <!-- Sidebar Navigation -->
     <aside id="sidebar">
         <div class="sidebar-header">
-            <span class="brand-badge">ПЧМИ • ФПМИ БГУ</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span class="brand-badge" style="margin-bottom: 0;">ПЧМИ • ФПМИ БГУ</span>
+                <button class="theme-toggle-btn" type="button" aria-label="Переключить тему оформления" title="Светлая / Темная тема">
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
             <h1>CampusMeet</h1>
             <p>Платформа студенческих митапов, хакатонов и офлайн-чекина</p>
             <button class="omnibox-trigger-btn" type="button" aria-label="Быстрый поиск">
-                <span>🔍 Поиск по порталу...</span>
+                <span class="omnibox-trigger-label">
+                    <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    Поиск по порталу...
+                </span>
                 <span class="kbd-shortcut">⌘K</span>
             </button>
         </div>
@@ -46,7 +71,8 @@
         <ul class="nav-menu">
             <li class="nav-item">
                 <a href="../index.html" class="nav-link">
-                    🏠 Портал проекта
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    Портал проекта
                 </a>
             </li>
         </ul>
@@ -170,18 +196,21 @@
         <div class="nav-section-title">Внешние ресурсы</div>
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="../reports/Lab3_report.md" class="nav-link" target="_blank" style="color: #38bdf8; font-weight: bold;">
-                    📄 Отчет Лаб. №3 (Markdown)
+                <a href="../reports/Lab3_report.md" class="nav-link" target="_blank" style="font-weight: 500;">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Отчет Лаб. №3 (Markdown)
                 </a>
             </li>
             <li class="nav-item">
-                <a href="../reports/Lab2_report.md" class="nav-link" target="_blank" style="color: #38bdf8; font-weight: bold;">
-                    📄 Отчет Лаб. №2 (Markdown)
+                <a href="../reports/Lab2_report.md" class="nav-link" target="_blank" style="font-weight: 500;">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Отчет Лаб. №2 (Markdown)
                 </a>
             </li>
             <li class="nav-item">
                 <a href="../reports/Lab1_report.md" class="nav-link" target="_blank">
-                    📄 Отчет Лаб. №1 (Markdown)
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Отчет Лаб. №1 (Markdown)
                 </a>
             </li>
             <li class="nav-item">
@@ -213,32 +242,41 @@
 
             <!-- TAB: Lab 2 Overview -->
             <section id="lab2-overview" class="tab-pane active">
-                <div class="hero-card" style="border-left: 4px solid var(--accent);">
+                <div class="hero-card">
                     <span class="brand-badge">Лабораторная работа №2</span>
                     <h1>Проектирование информационной архитектуры и взаимодействия с пользователем</h1>
                     <p>Концептуальное проектирование кроссплатформенной экосистемы CampusMeet / EventHub: дуальная модель Web & Mobile, структуры систем организации, именования, навигации и поиска, эмпирическая карточная сортировка OptimalSort, карты путей клиентов (CJM) и Impact Mapping.</p>
                     <div style="display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap;">
-                        <a href="../reports/Lab2_report.md" class="btn btn-primary" target="_blank">📄 Открыть полный отчет Lab2_report.md (1466 строк)</a>
-                        <button class="btn btn-secondary" onclick="switchTab('lab2-mockups')">🎨 Перейти к дизайн-макетам</button>
-                        <button class="btn btn-secondary" onclick="switchTab('lab2-cjm-impact')">🧭 CJM и Impact Map</button>
+                        <a href="../reports/Lab2_report.md" class="btn btn-primary" target="_blank">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            Открыть полный отчет Lab2_report.md (1466 строк)
+                        </a>
+                        <button class="btn btn-secondary" onclick="switchTab('lab2-mockups')">
+                            <svg class="icon" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"></path></svg>
+                            Перейти к дизайн-макетам
+                        </button>
+                        <button class="btn btn-secondary" onclick="switchTab('lab2-cjm-impact')">
+                            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+                            CJM и Impact Map
+                        </button>
                     </div>
                 </div>
 
                 <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 24px;">
                     <div class="stat-card">
-                        <div class="stat-value" style="color: var(--accent);">4 уровня</div>
+                        <div class="stat-value">4 уровня</div>
                         <div class="stat-label">Глубина карты сайта (Sitemap)</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value" style="color: var(--success);">N = 15</div>
+                        <div class="stat-value">N = 15</div>
                         <div class="stat-label">Респондентов OptimalSort</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value" style="color: var(--warning);">7 персонажей</div>
+                        <div class="stat-value">7 персонажей</div>
                         <div class="stat-label">Навигационные модели, CJM & Storyboards</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value" style="color: #818cf8;">12 экранов</div>
+                        <div class="stat-value">12 экранов</div>
                         <div class="stat-label">Векторных Wireframes & UI Mockups (6 + 6)</div>
                     </div>
                 </div>
@@ -386,7 +424,7 @@ stateDiagram-v2
                     <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">
                         Векторный каркас интерфейса быстрого поиска и фасетной фильтрации: поисковая строка с автодополнением и нечетким поиском ($D \le 2$), чипы активных фильтров, мгновенная выдача с категоризацией (События, Спикеры, Теги), подсказки навигации по стрелкам клавиатуры.
                     </p>
-                    <img src="../assets/wireframes/wireframe_desktop_search_modal.svg" alt="Wireframe Desktop Search Modal" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #0b1120; margin-top: 8px;"/>
+                    <img src="../assets/wireframes/wireframe_desktop_search_modal.svg" alt="Wireframe Desktop Search Modal" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); background: var(--surface-canvas); margin-top: 8px;"/>
                 </div>
             </section>
 
@@ -496,19 +534,19 @@ stateDiagram-v2
                 <div class="profile-card" style="margin-bottom: 24px;">
                     <h3>Десктоп: Каталог событий и митапов (1440 × 960 px)</h3>
                     <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">Полноэкранный темный интерфейс с фасетной фильтрацией, поиском Omnibox ⌘K, карточками событий и индикаторами квот.</p>
-                    <img src="../assets/mockups/mockup_desktop_catalog.svg" alt="Mockup Desktop Catalog" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #0b1120;"/>
+                    <img src="../assets/mockups/mockup_desktop_catalog.svg" alt="Mockup Desktop Catalog" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); background: var(--surface-canvas);"/>
                 </div>
 
                 <div class="profile-card" style="margin-bottom: 24px;">
                     <h3>Десктоп: Страница события с интерактивным таймлайном и картой OSM (1440 × 1100 px)</h3>
                     <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">Двухколоночная верстка: сетка докладов спикеров, Sticky-виджет регистрации со статусом Hard Cap и векторная схема проезда.</p>
-                    <img src="../assets/mockups/mockup_desktop_event_details.svg" alt="Mockup Desktop Event Details" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #0b1120;"/>
+                    <img src="../assets/mockups/mockup_desktop_event_details.svg" alt="Mockup Desktop Event Details" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); background: var(--surface-canvas);"/>
                 </div>
 
                 <div class="profile-card" style="margin-bottom: 24px;">
                     <h3>Десктоп: Кабинет организатора и Live Check-in мониторинг (1440 × 960 px)</h3>
                     <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">4 аналитические карточки KPI, журнал потоковой верификации с выявлением попытки прохода по дубликату и кнопка экстренного пуша.</p>
-                    <img src="../assets/mockups/mockup_desktop_dashboard.svg" alt="Mockup Desktop Dashboard" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: #0b1120;"/>
+                    <img src="../assets/mockups/mockup_desktop_dashboard.svg" alt="Mockup Desktop Dashboard" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); background: var(--surface-canvas);"/>
                 </div>
 
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-bottom: 32px;">
@@ -516,7 +554,7 @@ stateDiagram-v2
                         <h3>Мобайл: Афиша событий (375 × 812 px)</h3>
                         <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">Карусель категорий, карточки с регистрацией в 1 тап и эргономичный таб-бар.</p>
                         <div style="text-align: center;">
-                            <img src="../assets/mockups/mockup_mobile_catalog.svg" alt="Mockup Mobile Catalog" style="width: 100%; max-width: 320px; border-radius: 20px; border: 1px solid var(--border-color);"/>
+                            <img src="../assets/mockups/mockup_mobile_catalog.svg" alt="Mockup Mobile Catalog" style="width: 100%; max-width: 320px; border-radius: 20px; border: 1px solid var(--border-subtle); background: var(--surface-canvas);"/>
                         </div>
                     </div>
 
@@ -524,7 +562,7 @@ stateDiagram-v2
                         <h3>Мобайл: Офлайн-билет с QR (375 × 812 px)</h3>
                         <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">Высококонтрастный матричный QR-код, таймер HMAC, 100% авто-яркость и Apple Wallet.</p>
                         <div style="text-align: center;">
-                            <img src="../assets/mockups/mockup_mobile_ticket.svg" alt="Mockup Mobile Ticket" style="width: 100%; max-width: 320px; border-radius: 20px; border: 1px solid var(--border-color);"/>
+                            <img src="../assets/mockups/mockup_mobile_ticket.svg" alt="Mockup Mobile Ticket" style="width: 100%; max-width: 320px; border-radius: 20px; border: 1px solid var(--border-subtle); background: var(--surface-canvas);"/>
                         </div>
                     </div>
 
@@ -532,7 +570,7 @@ stateDiagram-v2
                         <h3>Мобайл: Сканер волонтера (375 × 812 px)</h3>
                         <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">Видоискатель камеры с прицелом, зеленый HUD верификации, счетчик смены и ручной поиск.</p>
                         <div style="text-align: center;">
-                            <img src="../assets/mockups/mockup_mobile_scanner.svg" alt="Mockup Mobile Scanner" style="width: 100%; max-width: 320px; border-radius: 20px; border: 1px solid var(--border-color);"/>
+                            <img src="../assets/mockups/mockup_mobile_scanner.svg" alt="Mockup Mobile Scanner" style="width: 100%; max-width: 320px; border-radius: 20px; border: 1px solid var(--border-subtle); background: var(--surface-canvas);"/>
                         </div>
                     </div>
                 </div>
@@ -542,25 +580,25 @@ stateDiagram-v2
                     <div class="profile-card">
                         <h3>Wireframe: Модальное окно поиска Omnibox ⌘K</h3>
                         <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 8px;">Быстрый поиск, фасетные чипы, категоризированные результаты и горячие клавиши.</p>
-                        <img src="../assets/wireframes/wireframe_desktop_search_modal.svg" alt="Wireframe Search Modal" style="width: 100%; border-radius: 6px; border: 1px solid var(--border-color);"/>
+                        <img src="../assets/wireframes/wireframe_desktop_search_modal.svg" alt="Wireframe Search Modal" style="width: 100%; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: var(--surface-canvas);"/>
                     </div>
                     <div class="profile-card">
                         <h3>Wireframe: Десктопный каталог</h3>
-                        <img src="../assets/wireframes/wireframe_desktop_catalog.svg" alt="Wireframe Catalog" style="width: 100%; border-radius: 6px; border: 1px solid var(--border-color);"/>
+                        <img src="../assets/wireframes/wireframe_desktop_catalog.svg" alt="Wireframe Catalog" style="width: 100%; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: var(--surface-canvas);"/>
                     </div>
                     <div class="profile-card">
                         <h3>Wireframe: Детали события и регистрация</h3>
-                        <img src="../assets/wireframes/wireframe_desktop_event_details.svg" alt="Wireframe Details" style="width: 100%; border-radius: 6px; border: 1px solid var(--border-color);"/>
+                        <img src="../assets/wireframes/wireframe_desktop_event_details.svg" alt="Wireframe Details" style="width: 100%; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: var(--surface-canvas);"/>
                     </div>
                     <div class="profile-card">
                         <h3>Wireframe: Панель организатора</h3>
-                        <img src="../assets/wireframes/wireframe_desktop_dashboard.svg" alt="Wireframe Dashboard" style="width: 100%; border-radius: 6px; border: 1px solid var(--border-color);"/>
+                        <img src="../assets/wireframes/wireframe_desktop_dashboard.svg" alt="Wireframe Dashboard" style="width: 100%; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: var(--surface-canvas);"/>
                     </div>
                     <div class="profile-card">
                         <h3>Wireframe: Мобильный билет и Сканер</h3>
                         <div style="display: flex; gap: 12px; justify-content: center;">
-                            <img src="../assets/wireframes/wireframe_mobile_ticket.svg" alt="Wireframe Ticket" style="width: 48%; border-radius: 12px; border: 1px solid var(--border-color);"/>
-                            <img src="../assets/wireframes/wireframe_mobile_scanner.svg" alt="Wireframe Scanner" style="width: 48%; border-radius: 12px; border: 1px solid var(--border-color);"/>
+                            <img src="../assets/wireframes/wireframe_mobile_ticket.svg" alt="Wireframe Ticket" style="width: 48%; border-radius: 12px; border: 1px solid var(--border-subtle); background: var(--surface-canvas);"/>
+                            <img src="../assets/wireframes/wireframe_mobile_scanner.svg" alt="Wireframe Scanner" style="width: 48%; border-radius: 12px; border: 1px solid var(--border-subtle); background: var(--surface-canvas);"/>
                         </div>
                     </div>
                 </div>
@@ -577,7 +615,7 @@ stateDiagram-v2
                 <button class="lightbox-btn" id="lightbox-zoom-reset" type="button" title="Исходный масштаб">1:1</button>
                 <button class="lightbox-btn" id="lightbox-zoom-in" type="button" title="Увеличить">+</button>
                 <a class="lightbox-btn" id="lightbox-open-link" href="#" target="_blank" rel="noopener noreferrer" title="Открыть в новой вкладке">↗ В новой вкладке</a>
-                <button class="lightbox-btn" id="lightbox-close" type="button" title="Закрыть (Esc)">✕</button>
+                <button class="lightbox-btn" id="lightbox-close" type="button" title="Закрыть (Esc)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
             </div>
         </div>
         <div class="lightbox-body">
@@ -588,9 +626,9 @@ stateDiagram-v2
     <!-- Omnibox Search Dialog (⌘K) -->
     <dialog id="omnibox-dialog" aria-label="Быстрый поиск">
         <div class="omnibox-header">
-            <span class="omnibox-icon">🔍</span>
+            <span class="omnibox-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
             <input type="text" id="omnibox-input" class="omnibox-input" placeholder="Поиск по разделам, диаграммам, User Stories...">
-            <button type="button" class="omnibox-close-btn" onclick="document.getElementById('omnibox-dialog').close()" aria-label="Закрыть">✕</button>
+            <button type="button" class="omnibox-close-btn" onclick="document.getElementById('omnibox-dialog').close()" aria-label="Закрыть"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
         </div>
         <ul id="omnibox-results" class="omnibox-results"></ul>
     </dialog>

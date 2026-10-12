@@ -13,14 +13,17 @@
         const tbody = document.getElementById('pain-points-body');
         const data = getAppData();
         if (!tbody || !data.painPoints) return;
-        tbody.innerHTML = data.painPoints.map(item => `
+        tbody.innerHTML = data.painPoints.map(item => {
+            const tagClass = item.severity === 'Критический' ? 'tag-anti' : (item.severity === 'Высокий' ? 'tag-key' : 'tag-supp');
+            return `
             <tr>
                 <td><strong>${item.issue}</strong></td>
                 <td>${item.n}</td>
                 <td>${item.pct}</td>
-                <td><span style="color: ${item.severityColor}; font-weight: 700;">${item.severity}</span></td>
+                <td><span class="persona-tag ${tagClass}">${item.severity}</span></td>
             </tr>
-        `).join('');
+        `;
+        }).join('');
     }
 
     function resolveAssetPath(relPath) {
@@ -69,7 +72,7 @@
         const data = getAppData();
         if (!container || !data.cjmBreakdowns) return;
         container.innerHTML = data.cjmBreakdowns.map(p => {
-            const borderStyle = p.dangerBorder ? ' style="border-left: 3px solid var(--danger);"' : '';
+            const borderStyle = p.dangerBorder ? ' style="border-left: 2px solid var(--border-strong);"' : '';
             const body = p.goal
                 ? `<strong>Ключевая цель:</strong> ${p.goal}<br/>
                    <strong>Эмоциональный трек:</strong> ${p.emotion}<br/>
@@ -93,7 +96,7 @@
         const data = getAppData();
         if (!container || !data.storyboards) return;
         container.innerHTML = data.storyboards.map(s => {
-            const borderStyle = s.dangerBorder ? ' style="border-left: 3px solid var(--danger);"' : '';
+            const borderStyle = s.dangerBorder ? ' style="border-left: 2px solid var(--border-strong);"' : '';
             const frames = s.frames.map((fr, idx) => `<li><strong>Кадр ${idx + 1}:</strong> ${fr}</li>`).join('');
             return `
                 <div class="profile-card"${borderStyle}>
