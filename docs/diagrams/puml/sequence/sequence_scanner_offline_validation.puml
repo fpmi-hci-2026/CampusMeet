@@ -1,9 +1,8 @@
 @startuml
-skinparam handwritten false
 skinparam monochrome false
 skinparam shadowing false
 skinparam defaultFontName "Helvetica, Arial, sans-serif"
-skinparam defaultFontSize 11
+skinparam defaultFontSize 16
 
 skinparam sequence {
     ArrowColor #2563EB

@@ -1,0 +1,4625 @@
+{
+  "architecture/component_architecture.svg": {
+    "title": "Диаграмма компонентов системы CampusMeet (Задание 4)",
+    "nodes": [
+      [
+        "ent0003",
+        "Next.js Web Client\n(Панель организатора)\nКонтекст: Клиентский уровень (Frontend Layer)"
+      ],
+      [
+        "ent0004",
+        "React Native Mobile App\n(Участник и Волонтер)\nКонтекст: Клиентский уровень (Frontend Layer)"
+      ],
+      [
+        "ent0005",
+        "Mobile Secure Vault\n(AsyncStorage / SecureStore)\nКонтекст: Клиентский уровень (Frontend Layer)"
+      ],
+      [
+        "ent0007",
+        "API Gateway & Router\n(FastAPI / Uvicorn)\nКонтекст: Шлюз и Сервисный уровень (FastAPI Backend)"
+      ],
+      [
+        "ent0008",
+        "Auth & Security Module\n(JWT / OAuth2 / bcrypt)\nКонтекст: Шлюз и Сервисный уровень (FastAPI Backend)"
+      ],
+      [
+        "ent0009",
+        "Ticket & HMAC Engine\n(Криптографический генератор)\nКонтекст: Шлюз и Сервисный уровень (FastAPI Backend)"
+      ],
+      [
+        "ent0010",
+        "Attendance Scanner Service\n(Онлайн/офлайн валидатор)\nКонтекст: Шлюз и Сервисный уровень (FastAPI Backend)"
+      ],
+      [
+        "ent0011",
+        "CFP & Schedule Service\n(Модерация докладов)\nКонтекст: Шлюз и Сервисный уровень (FastAPI Backend)"
+      ],
+      [
+        "ent0012",
+        "Hackathon Matching Service\n(Биржа команд и резюме)\nКонтекст: Шлюз и Сервисный уровень (FastAPI Backend)"
+      ],
+      [
+        "ent0013",
+        "External Integration Adapter\n(OSM, Nager.Date)\nКонтекст: Шлюз и Сервисный уровень (FastAPI Backend)"
+      ],
+      [
+        "ent0014",
+        "Async Notification Dispatcher\n(Celery Task Producer)\nКонтекст: Шлюз и Сервисный уровень (FastAPI Backend)"
+      ],
+      [
+        "ent0016",
+        "Celery Worker Cluster\n(Python Background Workers)\nКонтекст: Асинхронные воркеры и Очереди"
+      ],
+      [
+        "ent0017",
+        "Redis Broker & Cache\n(Pub/Sub, Rate Limits)\nКонтекст: Асинхронные воркеры и Очереди"
+      ],
+      [
+        "ent0019",
+        "PostgreSQL RDBMS\n(10 таблиц, транзакции ACID)\nКонтекст: Хранилище данных (Persistence Layer)"
+      ],
+      [
+        "ent0021",
+        "OpenStreetMap Nominatim API\nКонтекст: Внешние сервисы (External APIs)"
+      ],
+      [
+        "ent0022",
+        "Nager.Date Holidays API\nКонтекст: Внешние сервисы (External APIs)"
+      ],
+      [
+        "ent0023",
+        "Apple APNs & Google FCM\nКонтекст: Внешние сервисы (External APIs)"
+      ]
+    ],
+    "edges": [
+      [
+        "ent0003",
+        "ent0007",
+        "Зависимость\nHTTPS / JSON REST"
+      ],
+      [
+        "ent0004",
+        "ent0007",
+        "Зависимость\nHTTPS / JSON REST"
+      ],
+      [
+        "ent0004",
+        "ent0005",
+        "Зависимость\nOffline Sync"
+      ],
+      [
+        "ent0007",
+        "ent0008",
+        "Зависимость"
+      ],
+      [
+        "ent0007",
+        "ent0009",
+        "Зависимость"
+      ],
+      [
+        "ent0007",
+        "ent0010",
+        "Зависимость"
+      ],
+      [
+        "ent0007",
+        "ent0011",
+        "Зависимость"
+      ],
+      [
+        "ent0007",
+        "ent0012",
+        "Зависимость"
+      ],
+      [
+        "ent0007",
+        "ent0013",
+        "Зависимость"
+      ],
+      [
+        "ent0007",
+        "ent0014",
+        "Зависимость"
+      ],
+      [
+        "ent0013",
+        "ent0021",
+        "Зависимость\nHTTP GET"
+      ],
+      [
+        "ent0013",
+        "ent0022",
+        "Зависимость\nHTTP GET"
+      ],
+      [
+        "ent0008",
+        "ent0019",
+        "Зависимость"
+      ],
+      [
+        "ent0009",
+        "ent0019",
+        "Зависимость"
+      ],
+      [
+        "ent0010",
+        "ent0019",
+        "Зависимость"
+      ],
+      [
+        "ent0011",
+        "ent0019",
+        "Зависимость"
+      ],
+      [
+        "ent0012",
+        "ent0019",
+        "Зависимость"
+      ],
+      [
+        "ent0007",
+        "ent0017",
+        "Зависимость\nКеширование сессий"
+      ],
+      [
+        "ent0014",
+        "ent0017",
+        "Зависимость\nПостановка push-задач"
+      ],
+      [
+        "ent0017",
+        "ent0016",
+        "Зависимость\nЗахват фоновых задач"
+      ],
+      [
+        "ent0016",
+        "ent0023",
+        "Зависимость\nОтправка Push-уведомлений"
+      ]
+    ],
+    "source": "docs/diagrams/puml/architecture/component_architecture.puml",
+    "source_sha256": "e29123150f48a2680b1efd4dfc77515b3b509832296bd83f626eabe601be5aa3",
+    "colors": {
+      "ent0003": "#F8FAFC",
+      "ent0004": "#F8FAFC",
+      "ent0005": "#F8FAFC",
+      "ent0007": "#F8FAFC",
+      "ent0008": "#F8FAFC",
+      "ent0009": "#F8FAFC",
+      "ent0010": "#F8FAFC",
+      "ent0011": "#F8FAFC",
+      "ent0012": "#F8FAFC",
+      "ent0013": "#F8FAFC",
+      "ent0014": "#F8FAFC",
+      "ent0016": "#F8FAFC",
+      "ent0017": "#F1F1F1",
+      "ent0019": "#F1F1F1",
+      "ent0021": "#F8FAFC",
+      "ent0022": "#F8FAFC",
+      "ent0023": "#F8FAFC"
+    },
+    "edge_styles": [
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "source"
+          },
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      }
+    ]
+  },
+  "architecture/deployment_infrastructure.svg": {
+    "title": "Диаграмма развертывания инфраструктуры CampusMeet (Задание 4)",
+    "nodes": [
+      [
+        "ent0004",
+        "CampusMeet Mobile App\n(React Native / Expo Bundle)\nКонтекст: «device» / Мобильное устройство (iOS / Android)"
+      ],
+      [
+        "ent0005",
+        "SecureStore\n(Защищенный офлайн-кеш)\nКонтекст: «device» / Мобильное устройство (iOS / Android)"
+      ],
+      [
+        "ent0008",
+        "CampusMeet Web SPA\n(Next.js Client Runtime)\nКонтекст: Современный веб-браузер / (Chrome / Safari / Firefox)"
+      ],
+      [
+        "ent0011",
+        "SSL Termination & WAF\nКонтекст: Cloudflare Edge"
+      ],
+      [
+        "ent0012",
+        "Static Assets CDN\nКонтекст: Cloudflare Edge"
+      ],
+      [
+        "ent0015",
+        "Nginx Container\n(Reverse Proxy / Rate Limit)\nКонтекст: Reverse Proxy & Load Balancer"
+      ],
+      [
+        "ent0017",
+        "FastAPI Application Pod\n(Uvicorn ASGI Server)\nКонтекст: Backend Cluster"
+      ],
+      [
+        "ent0018",
+        "Celery Async Worker Pod\n(Python Background Tasks)\nКонтекст: Backend Cluster"
+      ],
+      [
+        "ent0020",
+        "PostgreSQL 16 Container\n(Persistent Volume)\nКонтекст: Stateful Data Services"
+      ],
+      [
+        "ent0021",
+        "Redis 7 Container\n(In-Memory Cache & Broker)\nКонтекст: Stateful Data Services"
+      ],
+      [
+        "ent0024",
+        "Nominatim API\nКонтекст: OpenStreetMap Servers"
+      ],
+      [
+        "ent0026",
+        "Holidays REST API\nКонтекст: Nager.Date Cloud"
+      ],
+      [
+        "ent0028",
+        "Mobile Push Gateway\nКонтекст: Apple APNs / Google FCM"
+      ]
+    ],
+    "edges": [
+      [
+        "ent0004",
+        "ent0011",
+        "Ассоциация\nHTTPS (Port 443)"
+      ],
+      [
+        "ent0008",
+        "ent0011",
+        "Ассоциация\nHTTPS (Port 443)"
+      ],
+      [
+        "ent0004",
+        "ent0005",
+        "Зависимость\nSecure Internal IPC"
+      ],
+      [
+        "ent0011",
+        "ent0012",
+        "Зависимость\nCache Hits"
+      ],
+      [
+        "ent0011",
+        "ent0015",
+        "Зависимость\nDynamic API Requests"
+      ],
+      [
+        "ent0015",
+        "ent0017",
+        "Зависимость\nHTTP (Port 8000)"
+      ],
+      [
+        "ent0017",
+        "ent0020",
+        "Зависимость\nTCP (Port 5432)"
+      ],
+      [
+        "ent0017",
+        "ent0021",
+        "Зависимость\nTCP (Port 6379)"
+      ],
+      [
+        "ent0018",
+        "ent0021",
+        "Зависимость\nPoll Task Queue"
+      ],
+      [
+        "ent0018",
+        "ent0020",
+        "Зависимость\nQuery Attendees"
+      ],
+      [
+        "ent0017",
+        "ent0024",
+        "Зависимость\nHTTPS Outbound"
+      ],
+      [
+        "ent0017",
+        "ent0026",
+        "Зависимость\nHTTPS Outbound"
+      ],
+      [
+        "ent0018",
+        "ent0028",
+        "Зависимость\nHTTPS Outbound Push Delivery"
+      ]
+    ],
+    "source": "docs/diagrams/puml/architecture/deployment_infrastructure.puml",
+    "source_sha256": "77ab1e23d1ee2b63053a55d8b6f92603a5206045d7e91f7c2d1fd5f7216a9107",
+    "colors": {
+      "ent0004": "#EFF6FF",
+      "ent0005": "#EFF6FF",
+      "ent0008": "#EFF6FF",
+      "ent0011": "#EFF6FF",
+      "ent0012": "#EFF6FF",
+      "ent0015": "#EFF6FF",
+      "ent0017": "#EFF6FF",
+      "ent0018": "#EFF6FF",
+      "ent0020": "#F1F1F1",
+      "ent0021": "#F1F1F1",
+      "ent0024": "#EFF6FF",
+      "ent0026": "#EFF6FF",
+      "ent0028": "#EFF6FF"
+    },
+    "edge_styles": [
+      {
+        "kind": "association",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "association",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "source"
+          },
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      }
+    ]
+  },
+  "architecture/erd_database_model.svg": {
+    "title": "Схема базы данных: Реляционная модель данных (ERD) (Задание 4)",
+    "nodes": [
+      [
+        "ent0002",
+        "users\nid : uuid «PK»\nemail : varchar(255) «UQ»\npassword_hash : varchar(255)\nfull_name : varchar(120)\nrole : varchar(32)\nuniversity : varchar(120)\nfaculty : varchar(120)\navatar_url : text\npush_token : text\ncreated_at : timestamptz"
+      ],
+      [
+        "ent0003",
+        "venues\nid : uuid «PK»\nname : varchar(120)\naddress : text\nauditorium : varchar(64)\nlatitude : numeric(9,6)\nlongitude : numeric(9,6)\nmax_capacity : integer\ncreated_at : timestamptz"
+      ],
+      [
+        "ent0004",
+        "events\nid : uuid «PK»\norganizer_id : uuid «FK»\nvenue_id : uuid «FK»\ntitle : varchar(200)\nslug : varchar(200) «UQ»\ndescription : text\nevent_type : varchar(32)\nstart_time : timestamptz\nend_time : timestamptz\nhard_cap : integer\nsecret_salt : varchar(64)\nis_published : boolean\ncreated_at : timestamptz"
+      ],
+      [
+        "ent0005",
+        "tickets\nid : uuid «PK»\nuser_id : uuid «FK»\nevent_id : uuid «FK»\nticket_code : varchar(32) «UQ»\nhmac_signature : text\nstatus : varchar(32)\nqr_payload : text\nissued_at : timestamptz"
+      ],
+      [
+        "ent0006",
+        "check_ins\nid : uuid «PK»\nticket_id : uuid «FK»\nvolunteer_id : uuid «FK»\nscanned_at : timestamptz\ndevice_id : varchar(120)\nscan_mode : varchar(32)\nis_offline_sync : boolean"
+      ],
+      [
+        "ent0007",
+        "waitlist\nid : uuid «PK»\nuser_id : uuid «FK»\nevent_id : uuid «FK»\nqueue_position : integer\nadded_at : timestamptz\npromoted_at : timestamptz"
+      ],
+      [
+        "ent0008",
+        "tracks\nid : uuid «PK»\nevent_id : uuid «FK»\nname : varchar(120)\ncolor_hex : varchar(7)"
+      ],
+      [
+        "ent0009",
+        "sessions\nid : uuid «PK»\ntrack_id : uuid «FK»\nspeaker_id : uuid «FK»\ntitle : varchar(200)\nabstract : text\nstart_time : timestamptz\nend_time : timestamptz\nslides_url : text"
+      ],
+      [
+        "ent0010",
+        "hackathon_teams\nid : uuid «PK»\nevent_id : uuid «FK»\nleader_id : uuid «FK»\nname : varchar(120)\ndescription : text\nis_recruiting : boolean\ncreated_at : timestamptz"
+      ],
+      [
+        "ent0011",
+        "team_members\nid : uuid «PK»\nteam_id : uuid «FK»\nuser_id : uuid «FK»\nrole_in_team : varchar(64)\njoined_at : timestamptz"
+      ]
+    ],
+    "edges": [
+      [
+        "ent0002",
+        "ent0004",
+        "Связь\norganizes"
+      ],
+      [
+        "ent0003",
+        "ent0004",
+        "Связь\nhosts"
+      ],
+      [
+        "ent0004",
+        "ent0005",
+        "Связь\nissues"
+      ],
+      [
+        "ent0002",
+        "ent0005",
+        "Связь\nowns"
+      ],
+      [
+        "ent0005",
+        "ent0006",
+        "Ассоциация\nredeems"
+      ],
+      [
+        "ent0002",
+        "ent0006",
+        "Связь\nverifies (as volunteer)"
+      ],
+      [
+        "ent0004",
+        "ent0007",
+        "Связь\nqueues"
+      ],
+      [
+        "ent0002",
+        "ent0007",
+        "Связь\nwaits"
+      ],
+      [
+        "ent0004",
+        "ent0008",
+        "Связь\npartitions"
+      ],
+      [
+        "ent0008",
+        "ent0009",
+        "Связь\nschedules"
+      ],
+      [
+        "ent0002",
+        "ent0009",
+        "Связь\ndelivers (as speaker)"
+      ],
+      [
+        "ent0004",
+        "ent0010",
+        "Связь\ncompetes in"
+      ],
+      [
+        "ent0002",
+        "ent0010",
+        "Связь\nleads"
+      ],
+      [
+        "ent0010",
+        "ent0011",
+        "Связь\ncomprises"
+      ],
+      [
+        "ent0002",
+        "ent0011",
+        "Связь\nparticipates"
+      ]
+    ],
+    "source": "docs/diagrams/puml/architecture/erd_database_model.puml",
+    "source_sha256": "20dbd7547a64cfc85af61828cc5bbe83c8796ba2bd33998819f37072abf6966c",
+    "colors": {
+      "ent0002": "#F1F1F1",
+      "ent0003": "#F1F1F1",
+      "ent0004": "#F1F1F1",
+      "ent0005": "#F1F1F1",
+      "ent0006": "#F1F1F1",
+      "ent0007": "#F1F1F1",
+      "ent0008": "#F1F1F1",
+      "ent0009": "#F1F1F1",
+      "ent0010": "#F1F1F1",
+      "ent0011": "#F1F1F1"
+    },
+    "edge_styles": [
+      {
+        "kind": "crowfoot",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "crowfoot",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "crowfoot",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "crowfoot",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "association",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "crowfoot",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "crowfoot",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "crowfoot",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "crowfoot",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "crowfoot",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "crowfoot",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "crowfoot",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "crowfoot",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "crowfoot",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "crowfoot",
+        "markers": [],
+        "dashed": false
+      }
+    ]
+  },
+  "architecture/package_backend_structure.svg": {
+    "title": "Диаграмма пакетов модульной архитектуры бэкенда (Задание 4)",
+    "nodes": [
+      [
+        "ent0014",
+        "deps\nКонтекст: api"
+      ],
+      [
+        "ent0013",
+        "api_router\nКонтекст: v1"
+      ],
+      [
+        "ent0006",
+        "auth_router\nКонтекст: endpoints"
+      ],
+      [
+        "ent0007",
+        "events_router\nКонтекст: endpoints"
+      ],
+      [
+        "ent0008",
+        "tickets_router\nКонтекст: endpoints"
+      ],
+      [
+        "ent0009",
+        "checkin_router\nКонтекст: endpoints"
+      ],
+      [
+        "ent0010",
+        "cfp_router\nКонтекст: endpoints"
+      ],
+      [
+        "ent0011",
+        "teams_router\nКонтекст: endpoints"
+      ],
+      [
+        "ent0012",
+        "integrations_router\nКонтекст: endpoints"
+      ],
+      [
+        "ent0016",
+        "config\nКонтекст: core"
+      ],
+      [
+        "ent0017",
+        "security\nКонтекст: core"
+      ],
+      [
+        "ent0018",
+        "crypto_hmac\nКонтекст: core"
+      ],
+      [
+        "ent0019",
+        "exceptions\nКонтекст: core"
+      ],
+      [
+        "ent0021",
+        "user_model\nКонтекст: models"
+      ],
+      [
+        "ent0022",
+        "event_model\nКонтекст: models"
+      ],
+      [
+        "ent0023",
+        "ticket_model\nКонтекст: models"
+      ],
+      [
+        "ent0024",
+        "venue_model\nКонтекст: models"
+      ],
+      [
+        "ent0025",
+        "session_model\nКонтекст: models"
+      ],
+      [
+        "ent0026",
+        "team_model\nКонтекст: models"
+      ],
+      [
+        "ent0027",
+        "checkin_model\nКонтекст: models"
+      ],
+      [
+        "ent0029",
+        "user_schema\nКонтекст: schemas"
+      ],
+      [
+        "ent0030",
+        "event_schema\nКонтекст: schemas"
+      ],
+      [
+        "ent0031",
+        "ticket_schema\nКонтекст: schemas"
+      ],
+      [
+        "ent0032",
+        "checkin_schema\nКонтекст: schemas"
+      ],
+      [
+        "ent0033",
+        "cfp_schema\nКонтекст: schemas"
+      ],
+      [
+        "ent0035",
+        "event_service\nКонтекст: services"
+      ],
+      [
+        "ent0036",
+        "ticket_service\nКонтекст: services"
+      ],
+      [
+        "ent0037",
+        "checkin_service\nКонтекст: services"
+      ],
+      [
+        "ent0038",
+        "cfp_service\nКонтекст: services"
+      ],
+      [
+        "ent0039",
+        "matching_service\nКонтекст: services"
+      ],
+      [
+        "ent0040",
+        "notification_service\nКонтекст: services"
+      ],
+      [
+        "ent0042",
+        "osm_client\nКонтекст: integrations"
+      ],
+      [
+        "ent0043",
+        "nager_date_client\nКонтекст: integrations"
+      ],
+      [
+        "ent0044",
+        "fcm_pusher\nКонтекст: integrations"
+      ],
+      [
+        "ent0046",
+        "base\nКонтекст: db"
+      ],
+      [
+        "ent0047",
+        "session\nКонтекст: db"
+      ],
+      [
+        "ent0048",
+        "init_db\nКонтекст: db"
+      ],
+      [
+        "ent0003",
+        "api\ndeps\napi_router\nauth_router\nevents_router\ntickets_router\ncheckin_router\ncfp_router\nteams_router\nintegrations_router"
+      ],
+      [
+        "ent0015",
+        "core\nconfig\nsecurity\ncrypto_hmac\nexceptions"
+      ],
+      [
+        "ent0020",
+        "models\nuser_model\nevent_model\nticket_model\nvenue_model\nsession_model\nteam_model\ncheckin_model"
+      ],
+      [
+        "ent0028",
+        "schemas\nuser_schema\nevent_schema\nticket_schema\ncheckin_schema\ncfp_schema"
+      ],
+      [
+        "ent0034",
+        "services\nevent_service\nticket_service\ncheckin_service\ncfp_service\nmatching_service\nnotification_service"
+      ],
+      [
+        "ent0041",
+        "integrations\nosm_client\nnager_date_client\nfcm_pusher"
+      ],
+      [
+        "ent0045",
+        "db\nbase\nsession\ninit_db"
+      ]
+    ],
+    "edges": [
+      [
+        "ent0003",
+        "ent0028",
+        "Зависимость\nuses"
+      ],
+      [
+        "ent0003",
+        "ent0034",
+        "Зависимость\ncalls"
+      ],
+      [
+        "ent0034",
+        "ent0020",
+        "Зависимость\nmanipulates"
+      ],
+      [
+        "ent0034",
+        "ent0015",
+        "Зависимость\nrelies on"
+      ],
+      [
+        "ent0034",
+        "ent0041",
+        "Зависимость\ndelegates external calls"
+      ],
+      [
+        "ent0045",
+        "ent0020",
+        "Зависимость\nmaps to SQL"
+      ]
+    ],
+    "source": "docs/diagrams/puml/architecture/package_backend_structure.puml",
+    "source_sha256": "45be612afb553b9bc54118df38bfb4ff4314a44459bd4990bb4a6a7d333eb695",
+    "colors": {
+      "ent0014": "#F1F1F1",
+      "ent0013": "#F1F1F1",
+      "ent0006": "#F1F1F1",
+      "ent0007": "#F1F1F1",
+      "ent0008": "#F1F1F1",
+      "ent0009": "#F1F1F1",
+      "ent0010": "#F1F1F1",
+      "ent0011": "#F1F1F1",
+      "ent0012": "#F1F1F1",
+      "ent0016": "#F1F1F1",
+      "ent0017": "#F1F1F1",
+      "ent0018": "#F1F1F1",
+      "ent0019": "#F1F1F1",
+      "ent0021": "#F1F1F1",
+      "ent0022": "#F1F1F1",
+      "ent0023": "#F1F1F1",
+      "ent0024": "#F1F1F1",
+      "ent0025": "#F1F1F1",
+      "ent0026": "#F1F1F1",
+      "ent0027": "#F1F1F1",
+      "ent0029": "#F1F1F1",
+      "ent0030": "#F1F1F1",
+      "ent0031": "#F1F1F1",
+      "ent0032": "#F1F1F1",
+      "ent0033": "#F1F1F1",
+      "ent0035": "#F1F1F1",
+      "ent0036": "#F1F1F1",
+      "ent0037": "#F1F1F1",
+      "ent0038": "#F1F1F1",
+      "ent0039": "#F1F1F1",
+      "ent0040": "#F1F1F1",
+      "ent0042": "#F1F1F1",
+      "ent0043": "#F1F1F1",
+      "ent0044": "#F1F1F1",
+      "ent0046": "#F1F1F1",
+      "ent0047": "#F1F1F1",
+      "ent0048": "#F1F1F1"
+    },
+    "edge_styles": [
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": true
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": true
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": true
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": true
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": true
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "source"
+          }
+        ],
+        "dashed": true
+      }
+    ]
+  },
+  "c4/c4_code.svg": {
+    "title": "C4 Model: Диаграмма уровня C4 (Code Level) — Криптографический движок TicketCryptoEngine (Задание 7)",
+    "nodes": [
+      [
+        "ent0002",
+        "ITicketSigner\n+ sign_ticket_payload(payload: Dict, secret_salt: str) -> str\n+ verify_ticket_signature(payload: Dict, signature: str, secret_salt: str) -> bool"
+      ],
+      [
+        "ent0003",
+        "IOfflineCacheStorage\n+ get_event_public_key(event_id: str) -> str\n+ has_scanned_hash(hash_code: str) -> bool\n+ mark_hash_scanned(hash_code: str, volunteer_id: str) -> None"
+      ],
+      [
+        "ent0004",
+        "HMACSHA256TicketEngine\n- algorithm_name: str = \"SHA256\"\n- time_step_window_sec: int = 30\n+ sign_ticket_payload(payload: Dict, secret_salt: str) -> str\n+ verify_ticket_signature(payload: Dict, signature: str, secret_salt: str) -> bool\n+ build_dynamic_qr_payload(ticket_id: str, user_id: str, event_id: str) -> str\n- compute_hmac(raw_bytes: bytes, salt: bytes) -> str"
+      ],
+      [
+        "ent0006",
+        "OfflineValidationScanner\n- local_sqlite_connection: Connection\n- cached_public_keys: Dict[str, str]\n+ validate_qr_offline(raw_qr_string: str) -> CheckInDecision\n+ record_offline_entry(ticket_id: str, timestamp: datetime) -> bool\n+ sync_offline_batch_to_cloud(api_endpoint: str) -> SyncReport"
+      ],
+      [
+        "ent0008",
+        "CheckInDecision\n+ is_allowed: bool\n+ status_code: str\n+ attendee_name: str\n+ badge_category: str\n+ rejection_reason: Optional[str]\n+ first_scanned_timestamp: Optional[datetime]"
+      ]
+    ],
+    "edges": [
+      [
+        "ent0002",
+        "ent0004",
+        "Наследование"
+      ],
+      [
+        "ent0003",
+        "ent0006",
+        "Наследование"
+      ],
+      [
+        "ent0004",
+        "ent0008",
+        "Зависимость\ngenerates status"
+      ],
+      [
+        "ent0006",
+        "ent0002",
+        "Агрегация\ndelegates verification"
+      ],
+      [
+        "ent0006",
+        "ent0008",
+        "Зависимость\nreturns evaluation"
+      ]
+    ],
+    "source": "docs/diagrams/puml/c4/c4_code.puml",
+    "source_sha256": "a87ef84c482c8be217872db2a0c9be9b736c3b1e6accba816c70774f918fe5bd",
+    "colors": {
+      "ent0002": "#F8FAFC",
+      "ent0003": "#F8FAFC",
+      "ent0004": "#F8FAFC",
+      "ent0006": "#F8FAFC",
+      "ent0008": "#F8FAFC"
+    },
+    "edge_styles": [
+      {
+        "kind": "extension",
+        "markers": [
+          {
+            "kind": "triangle",
+            "side": "source"
+          }
+        ],
+        "dashed": true
+      },
+      {
+        "kind": "extension",
+        "markers": [
+          {
+            "kind": "triangle",
+            "side": "source"
+          }
+        ],
+        "dashed": true
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": true
+      },
+      {
+        "kind": "aggregation",
+        "markers": [
+          {
+            "kind": "aggregation",
+            "side": "source"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": true
+      }
+    ]
+  },
+  "c4/c4_component.svg": {
+    "title": "C4 Model: Диаграмма компонентов уровня C3 (Component Diagram) — API Gateway & Core Service (Задание 7)",
+    "nodes": [
+      [
+        "ent0007",
+        "AuthController & Security\n[FastAPI, PyJWT, passlib]\nАутентификация\nпользователей, выпуск\naccess/refresh токенов,\nпроверка прав RBAC.\nКонтекст: API Gateway & Core Service (FastAPI) / [container]"
+      ],
+      [
+        "ent0008",
+        "EventManagementController\n[FastAPI, Pydantic]\nУправление карточками\nсобытий, квотами, статусами\nпубликации и фильтрацией.\nКонтекст: API Gateway & Core Service (FastAPI) / [container]"
+      ],
+      [
+        "ent0009",
+        "TicketCryptoEngine\n[Python, hashlib, hmac]\nГенерация динамических\nкриптографических билетов\nс HMAC-SHA256 подписью и\nсолью.\nКонтекст: API Gateway & Core Service (FastAPI) / [container]"
+      ],
+      [
+        "ent0010",
+        "AttendanceCheckinService\n[FastAPI Service]\nОбработка запросов\nвалидации билетов,\nобнаружение повторных\nпроходов, регистрация\nволонтеров.\nКонтекст: API Gateway & Core Service (FastAPI) / [container]"
+      ],
+      [
+        "ent0011",
+        "CFP & ScheduleManager\n[FastAPI Service]\nПрием заявок докладчиков,\nзагрузка презентаций,\nсборка расписания по\nтрекам.\nКонтекст: API Gateway & Core Service (FastAPI) / [container]"
+      ],
+      [
+        "ent0012",
+        "GeoCalendarAdapter\n[Httpx Async Client]\nАсинхронные HTTP-клиенты\nк OSM Nominatim и\nNager.Date API с\nкешированием.\nКонтекст: API Gateway & Core Service (FastAPI) / [container]"
+      ],
+      [
+        "ent0013",
+        "NotificationDispatcher\n[Celery Task Producer]\nФормирование пакетов\npush-уведомлений и их\nотправка в очередь Redis.\nКонтекст: API Gateway & Core Service (FastAPI) / [container]"
+      ],
+      [
+        "ent0002",
+        "Web Organizer Dashboard\n[Next.js]\nКлиент организатора"
+      ],
+      [
+        "ent0003",
+        "Mobile Client\n[React Native]\nКлиент участника / сканер"
+      ],
+      [
+        "ent0004",
+        "PostgreSQL Database\n[PostgreSQL]\nХранилище данных"
+      ],
+      [
+        "ent0005",
+        "Redis Broker\n[Redis]\nОчередь задач и кеш"
+      ]
+    ],
+    "edges": [
+      [
+        "ent0002",
+        "ent0007",
+        "Зависимость\nPOST /api/v1/auth/login\n[JSON]"
+      ],
+      [
+        "ent0002",
+        "ent0008",
+        "Зависимость\nCRUD /api/v1/events\n[JSON]"
+      ],
+      [
+        "ent0002",
+        "ent0011",
+        "Зависимость\nGET/POST /api/v1/cfp\n[JSON]"
+      ],
+      [
+        "ent0003",
+        "ent0007",
+        "Зависимость\nPOST /api/v1/auth/login\n[JSON]"
+      ],
+      [
+        "ent0003",
+        "ent0009",
+        "Зависимость\nPOST\n/api/v1/tickets/book\n[JSON]"
+      ],
+      [
+        "ent0003",
+        "ent0010",
+        "Зависимость\nPOST\n/api/v1/checkin/scan\n[JSON]"
+      ],
+      [
+        "ent0008",
+        "ent0012",
+        "Зависимость\nГеокодирует и\nпроверяет даты"
+      ],
+      [
+        "ent0008",
+        "ent0004",
+        "Зависимость\nСохраняет карточки\nсобытий"
+      ],
+      [
+        "ent0009",
+        "ent0004",
+        "Зависимость\nЗаписывает выданные\nбилеты"
+      ],
+      [
+        "ent0010",
+        "ent0004",
+        "Зависимость\nЗаписывает лог\nчекинов"
+      ],
+      [
+        "ent0011",
+        "ent0004",
+        "Зависимость\nСохраняет заявки и\nпрограмму"
+      ],
+      [
+        "ent0007",
+        "ent0004",
+        "Зависимость\nПроверяет учетные\nзаписи"
+      ],
+      [
+        "ent0008",
+        "ent0013",
+        "Зависимость\nТриггерит экстренную\nрассылку"
+      ],
+      [
+        "ent0009",
+        "ent0013",
+        "Зависимость\nИнициирует\nподтверждение\nрегистрации"
+      ],
+      [
+        "ent0013",
+        "ent0005",
+        "Зависимость\nLPUSH tasks в очередь"
+      ]
+    ],
+    "source": "docs/diagrams/puml/c4/c4_component.puml",
+    "source_sha256": "53699227377534b6e24df165973f4154eb5e3d9b11ee3cb6789fd7e58ddf670e",
+    "colors": {
+      "ent0007": "#85BBF0",
+      "ent0008": "#85BBF0",
+      "ent0009": "#85BBF0",
+      "ent0010": "#85BBF0",
+      "ent0011": "#85BBF0",
+      "ent0012": "#85BBF0",
+      "ent0013": "#85BBF0",
+      "ent0002": "#438DD5",
+      "ent0003": "#438DD5",
+      "ent0004": "#438DD5",
+      "ent0005": "#438DD5"
+    },
+    "edge_styles": [
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      }
+    ]
+  },
+  "c4/c4_container.svg": {
+    "title": "C4 Model: Диаграмма контейнеров уровня C2 (Container Diagram) (Задание 7)",
+    "nodes": [
+      [
+        "ent0006",
+        "Web Organizer Dashboard\n[Next.js 14, React, Tailwind CSS]\nДесктопный веб-кабинет для\nуправления карточками\nмитапов, квотами, CFP и\nсквозного поиска Omnibox\n⌘K.\nКонтекст: Экосистема CampusMeet / [system]"
+      ],
+      [
+        "ent0007",
+        "Mobile Client & Scanner\n[React Native, Expo, TypeScript]\nКроссплатформенное\nприложение участника\n(Offline-First билет) и\nоптический сканер\nволонтера (<500 мс).\nКонтекст: Экосистема CampusMeet / [system]"
+      ],
+      [
+        "ent0008",
+        "Mobile Secure Vault\n[SecureStore & SQLite Cache]\nЛокальное шифрованное\nхранилище билетов и\nоткрытых ключей\nмероприятий на смартфоне.\nКонтекст: Экосистема CampusMeet / [system]"
+      ],
+      [
+        "ent0009",
+        "API Gateway & Core Service\n[Python, FastAPI, Uvicorn, Pydantic]\nЦентральный REST API\nшлюз, аутентификация JWT,\nгенерация HMAC-SHA256,\nбизнес-логика регистрации.\nКонтекст: Экосистема CampusMeet / [system]"
+      ],
+      [
+        "ent0010",
+        "Async Task Worker\n[Celery, Python]\nФоновый асинхронный\nобработчик очередей:\nмассовая отправка\nPush-уведомлений, экспорт\nCSV/Excel отчетов.\nКонтекст: Экосистема CampusMeet / [system]"
+      ],
+      [
+        "ent0011",
+        "Message Broker & Cache\n[Redis 7]\nБрокер сообщений для\nCelery, хранилище сессий,\nrate limiter и блокировки\nраспределенных\nтранзакций.\nКонтекст: Экосистема CampusMeet / [system]"
+      ],
+      [
+        "ent0012",
+        "Relational Database\n[PostgreSQL 16]\nХранилище реляционных\nданных: пользователи,\nмероприятия, площадки,\nбилеты, логи чекинов,\nзаявки CFP.\nКонтекст: Экосистема CampusMeet / [system]"
+      ],
+      [
+        "ent0002",
+        "Слушатель\nПосетитель мероприятий"
+      ],
+      [
+        "ent0003",
+        "Волонтер\nКонтролер на входе"
+      ],
+      [
+        "ent0004",
+        "Организатор\nАдминистратор митапа"
+      ],
+      [
+        "ent0013",
+        "OpenStreetMap Nominatim\nГеокодирование"
+      ],
+      [
+        "ent0014",
+        "Nager.Date\nПраздники Беларуси"
+      ],
+      [
+        "ent0015",
+        "Apple APNs & Google FCM\nPush-шлюзы"
+      ]
+    ],
+    "edges": [
+      [
+        "ent0004",
+        "ent0006",
+        "Зависимость\nАдминистрирует\nсобытия и расписание\n[HTTPS / Desktop Browser]"
+      ],
+      [
+        "ent0002",
+        "ent0007",
+        "Зависимость\nРегистрируется и\nоткрывает билет\n[Touch UI]"
+      ],
+      [
+        "ent0003",
+        "ent0007",
+        "Зависимость\nСканирует QR-билеты\nкамерой\n[Touch / Camera]"
+      ],
+      [
+        "ent0007",
+        "ent0008",
+        "Зависимость\nКеширует билеты и\nпроверяет HMAC\nофлайн\n[Local IPC / C++ JSI]"
+      ],
+      [
+        "ent0006",
+        "ent0009",
+        "Зависимость\nВызывает REST API\n[HTTPS / JSON]"
+      ],
+      [
+        "ent0007",
+        "ent0009",
+        "Зависимость\nСинхронизирует\nданные и отправляет\nчекины\n[HTTPS / JSON]"
+      ],
+      [
+        "ent0009",
+        "ent0012",
+        "Зависимость\nВыполняет\nCRUD-операции и\nтранзакции\n[TCP / PostgreSQL Wire\n(5432)]"
+      ],
+      [
+        "ent0009",
+        "ent0011",
+        "Зависимость\nКеширует запросы и\nставит задачи\n[TCP / Redis Protocol (6379)]"
+      ],
+      [
+        "ent0009",
+        "ent0013",
+        "Зависимость\nГеокодирует адреса\n[HTTPS REST]"
+      ],
+      [
+        "ent0009",
+        "ent0014",
+        "Зависимость\nПроверяет календарь\n[HTTPS REST]"
+      ],
+      [
+        "ent0010",
+        "ent0011",
+        "Зависимость\nСчитывает задачи из\nочереди\n[TCP / Redis (6379)]"
+      ],
+      [
+        "ent0010",
+        "ent0012",
+        "Зависимость\nВыбирает адресатов\nрассылки\n[TCP (5432)]"
+      ],
+      [
+        "ent0010",
+        "ent0015",
+        "Зависимость\nОтправляет\npush-пакеты\n[HTTPS REST]"
+      ]
+    ],
+    "source": "docs/diagrams/puml/c4/c4_container.puml",
+    "source_sha256": "8b826873d230dcde2ce8401214a8713f4e4369f754fbf26c3b9a494c8d054805",
+    "colors": {
+      "ent0006": "#438DD5",
+      "ent0007": "#438DD5",
+      "ent0008": "#438DD5",
+      "ent0009": "#438DD5",
+      "ent0010": "#438DD5",
+      "ent0011": "#438DD5",
+      "ent0012": "#438DD5",
+      "ent0002": "#08427B",
+      "ent0003": "#08427B",
+      "ent0004": "#08427B",
+      "ent0013": "#999999",
+      "ent0014": "#999999",
+      "ent0015": "#999999"
+    },
+    "edge_styles": [
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      }
+    ]
+  },
+  "c4/c4_context.svg": {
+    "title": "C4 Model: Контекстная диаграмма уровня C1 (System Context) экосистемы CampusMeet (Задание 7)",
+    "nodes": [
+      [
+        "ent0002",
+        "Слушатель (Attendee)\nСтудент или IT-специалист,\nрегистрирующийся на\nмитапы и проходящий по\nофлайн-билету."
+      ],
+      [
+        "ent0003",
+        "Волонтер (Volunteer)\nКонтролер на стойке входа,\nвалидирующий билеты\nмобильным оптическим\nсканером."
+      ],
+      [
+        "ent0004",
+        "Организатор (Organizer)\nЛидер сообщества,\nсоздающий митапы, квоты,\nрасписание и рассылающий\nPush-сообщения."
+      ],
+      [
+        "ent0005",
+        "Спикер (Speaker)\nДокладчик, подающий\nзаявки на выступления в CFP\nи загружающий\nпрезентации."
+      ],
+      [
+        "ent0006",
+        "Администратор площадки (Patron)\nПредставитель деканата,\nсогласующий занятость\nуниверситетских аудиторий."
+      ],
+      [
+        "ent0007",
+        "Экосистема CampusMeet\nКроссплатформенный\nкомплекс (Web + Mobile +\nAPI) для организации\nлокальных мероприятий и\nвысокоскоростного\nофлайн-контроля билетов."
+      ],
+      [
+        "ent0008",
+        "OpenStreetMap Nominatim\nПубличный сервис\nгеокодирования адресов\nплощадок и координат\nаудиторий."
+      ],
+      [
+        "ent0009",
+        "Nager.Date API\nПубличный сервис\nпроизводственного\nкалендаря и\nгосударственных\nпраздников Беларуси."
+      ],
+      [
+        "ent0010",
+        "Apple APNs & Google FCM\nОблачные шлюзы доставки\npush-уведомлений на\nмобильные устройства."
+      ],
+      [
+        "ent0011",
+        "Telegram Bot Gateway\nШлюз дублирования\nэкстренных алертов\nорганизаторам в Telegram."
+      ]
+    ],
+    "edges": [
+      [
+        "ent0002",
+        "ent0007",
+        "Зависимость\nИщет события,\nрегистрируется,\nполучает QR-билет,\nсмотрит расписание\n[HTTPS / JSON]"
+      ],
+      [
+        "ent0003",
+        "ent0007",
+        "Зависимость\nСканирует QR-билеты\nкамерой смартфона\n(<500 мс)\n[HTTPS / Offline Cache]"
+      ],
+      [
+        "ent0004",
+        "ent0007",
+        "Зависимость\nУправляет событиями,\nквотами, CFP и\nрассылает оповещения\n[HTTPS / Web UI]"
+      ],
+      [
+        "ent0005",
+        "ent0007",
+        "Зависимость\nПодает заявки на\nдоклады и материалы\nпрезентаций\n[HTTPS / Web & Mobile]"
+      ],
+      [
+        "ent0006",
+        "ent0007",
+        "Зависимость\nСогласует аудитории и\nвыгружает\nаналитические отчеты\n[HTTPS / Web UI]"
+      ],
+      [
+        "ent0007",
+        "ent0008",
+        "Зависимость\nГеокодирует текстовый\nадрес в координаты\n[HTTPS REST]"
+      ],
+      [
+        "ent0007",
+        "ent0009",
+        "Зависимость\nПроверяет даты\nмитапов на\nпересечение с\nпраздниками\n[HTTPS REST]"
+      ],
+      [
+        "ent0007",
+        "ent0010",
+        "Зависимость\nОтправляет\nприоритетные\nPush-сообщения\n[HTTPS REST]"
+      ],
+      [
+        "ent0007",
+        "ent0011",
+        "Зависимость\nПередает алерты в\nкомандный чат\nволонтеров\n[HTTPS Webhook]"
+      ]
+    ],
+    "source": "docs/diagrams/puml/c4/c4_context.puml",
+    "source_sha256": "8beabc3c08a16cc4878253108748abd01371d36a772f8e78e970d6a72ba9e751",
+    "colors": {
+      "ent0002": "#08427B",
+      "ent0003": "#08427B",
+      "ent0004": "#08427B",
+      "ent0005": "#08427B",
+      "ent0006": "#08427B",
+      "ent0007": "#1168BD",
+      "ent0008": "#999999",
+      "ent0009": "#999999",
+      "ent0010": "#999999",
+      "ent0011": "#999999"
+    },
+    "edge_styles": [
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      }
+    ]
+  },
+  "classes/class_base.svg": {
+    "title": "Базовая диаграмма классов ядра CampusMeet (Задание 2)",
+    "nodes": [
+      [
+        "ent0002",
+        "UserRole\nATTENDEE\nVOLUNTEER\nORGANIZER\nSPEAKER\nADMIN"
+      ],
+      [
+        "ent0003",
+        "TicketStatus\nISSUED\nWAITLIST\nCHECKED_IN\nCANCELLED"
+      ],
+      [
+        "ent0004",
+        "User\n+ id: UUID\n+ email: String\n+ full_name: String\n+ university: String\n+ role: UserRole\n+ created_at: DateTime\n+ registerForEvent(event_id: UUID): Ticket\n+ viewOfflineTickets(): List<Ticket>"
+      ],
+      [
+        "ent0005",
+        "Event\n+ id: UUID\n+ title: String\n+ description: String\n+ start_time: DateTime\n+ end_time: DateTime\n+ capacity: Integer\n+ is_published: Boolean\n+ calculateAvailableSpots(): Integer\n+ isRegistrationOpen(): Boolean"
+      ],
+      [
+        "ent0006",
+        "Venue\n+ id: UUID\n+ name: String\n+ address: String\n+ latitude: Double\n+ longitude: Double\n+ room_number: String\n+ max_capacity: Integer"
+      ],
+      [
+        "ent0007",
+        "Ticket\n+ id: UUID\n+ user_id: UUID\n+ event_id: UUID\n+ qr_token: String\n+ status: TicketStatus\n+ issued_at: DateTime\n+ generateDynamicQR(): String"
+      ],
+      [
+        "ent0008",
+        "CheckIn\n+ id: UUID\n+ ticket_id: UUID\n+ volunteer_id: UUID\n+ scanned_at: DateTime\n+ device_id: String\n+ is_offline_sync: Boolean"
+      ]
+    ],
+    "edges": [
+      [
+        "ent0004",
+        "ent0007",
+        "Ассоциация\n1\nacquires\n0..*"
+      ],
+      [
+        "ent0005",
+        "ent0007",
+        "Ассоциация\n1\nissues\n0..*"
+      ],
+      [
+        "ent0005",
+        "ent0006",
+        "Ассоциация\n1\nlocated at\n1"
+      ],
+      [
+        "ent0007",
+        "ent0008",
+        "Ассоциация\n1\nverified by\n0..1"
+      ],
+      [
+        "ent0004",
+        "ent0008",
+        "Ассоциация\n1\nprocesses (as volunteer)\n0..*"
+      ]
+    ],
+    "source": "docs/diagrams/puml/classes/class_base.puml",
+    "source_sha256": "9b4659cfc0c320228c28f4682369ac692fa26836e63b1e2ce564183481951fee",
+    "colors": {
+      "ent0002": "#F8FAFC",
+      "ent0003": "#F8FAFC",
+      "ent0004": "#F8FAFC",
+      "ent0005": "#F8FAFC",
+      "ent0006": "#F8FAFC",
+      "ent0007": "#F8FAFC",
+      "ent0008": "#F8FAFC"
+    },
+    "edge_styles": [
+      {
+        "kind": "association",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "association",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "association",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "association",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "source"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "association",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      }
+    ]
+  },
+  "classes/class_core_domain.svg": {
+    "title": "Диаграмма доменных классов ядра системы CampusMeet (Задание 4)",
+    "nodes": [
+      [
+        "ent0002",
+        "EventType\nMEETUP\nHACKATHON\nWORKSHOP\nLECTURE"
+      ],
+      [
+        "ent0003",
+        "RegistrationType\nDIRECT\nWAITLIST\nINVITE_ONLY"
+      ],
+      [
+        "ent0004",
+        "User\n- id: UUID\n- email: String\n- password_hash: String\n- full_name: String\n- faculty: String\n- study_year: Integer\n- avatar_url: String\n- is_verified: Boolean\n+ authenticate(password: String): Boolean\n+ updateProfile(dto: ProfileDTO): Void"
+      ],
+      [
+        "ent0005",
+        "Event\n- id: UUID\n- organizer_id: UUID\n- venue_id: UUID\n- title: String\n- slug: String\n- event_type: EventType\n- banner_image_url: String\n- start_at: DateTime\n- end_at: DateTime\n- hard_cap_quota: Integer\n- enable_waitlist: Boolean\n- secret_hmac_salt: String\n+ getOccupancyRate(): Float\n+ reserveSpot(user_id: UUID): Ticket\n+ cancelReservation(ticket_id: UUID): Void\n+ publish(): Void"
+      ],
+      [
+        "ent0006",
+        "Venue\n- id: UUID\n- title: String\n- city: String\n- street_address: String\n- building_corpus: String\n- floor: Integer\n- auditorium_room: String\n- geo_lat: Double\n- geo_lon: Double\n- fire_safety_capacity: Integer\n+ validateCapacitySafety(requested_cap: Integer): Boolean"
+      ],
+      [
+        "ent0007",
+        "Ticket\n- id: UUID\n- event_id: UUID\n- user_id: UUID\n- ticket_code: String\n- security_hash: String\n- status: String\n- issued_at: DateTime\n- expires_at: DateTime\n+ generateOfflinePayload(): Byte[]\n+ markCheckedIn(volunteer_id: UUID, device_id: String): CheckIn\n+ invalidate(): Void"
+      ],
+      [
+        "ent0008",
+        "WaitlistEntry\n- id: UUID\n- event_id: UUID\n- user_id: UUID\n- queue_position: Integer\n- added_at: DateTime\n- promoted_at: DateTime\n+ promoteToTicket(): Ticket"
+      ],
+      [
+        "ent0009",
+        "CheckInRecord\n- id: UUID\n- ticket_id: UUID\n- volunteer_id: UUID\n- timestamp: DateTime\n- scan_mode: String\n- is_duplicate_attempt: Boolean\n- device_identifier: String"
+      ]
+    ],
+    "edges": [
+      [
+        "ent0004",
+        "ent0007",
+        "Композиция\n1\nholds\n0..*"
+      ],
+      [
+        "ent0005",
+        "ent0006",
+        "Агрегация\n1\ntakes place at\n1"
+      ],
+      [
+        "ent0005",
+        "ent0007",
+        "Композиция\n1\ncontains\n0..*"
+      ],
+      [
+        "ent0005",
+        "ent0008",
+        "Композиция\n1\nmanages queue\n0..*"
+      ],
+      [
+        "ent0007",
+        "ent0009",
+        "Зависимость\n1\nvalidates\n0..1"
+      ],
+      [
+        "ent0004",
+        "ent0009",
+        "Ассоциация\n1\nprocessed by volunteer\n0..*"
+      ]
+    ],
+    "source": "docs/diagrams/puml/classes/class_core_domain.puml",
+    "source_sha256": "9c922493edfa7467b96b88b27873664ccd8403600ff881f2830251ef961226ac",
+    "colors": {
+      "ent0002": "#F8FAFC",
+      "ent0003": "#F8FAFC",
+      "ent0004": "#F8FAFC",
+      "ent0005": "#F8FAFC",
+      "ent0006": "#F8FAFC",
+      "ent0007": "#F8FAFC",
+      "ent0008": "#F8FAFC",
+      "ent0009": "#F8FAFC"
+    },
+    "edge_styles": [
+      {
+        "kind": "composition",
+        "markers": [
+          {
+            "kind": "composition",
+            "side": "source"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "aggregation",
+        "markers": [
+          {
+            "kind": "aggregation",
+            "side": "source"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "composition",
+        "markers": [
+          {
+            "kind": "composition",
+            "side": "source"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "composition",
+        "markers": [
+          {
+            "kind": "composition",
+            "side": "source"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "source"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "association",
+        "markers": [],
+        "dashed": false
+      }
+    ]
+  },
+  "classes/class_crypto_offline.svg": {
+    "title": "Диаграмма классов: Криптографическая защита и офлайн-валидация билета (Задание 4)",
+    "nodes": [
+      [
+        "ent0002",
+        "TicketPayload\n+ ticket_id: UUID\n- event_id: UUID\n+ user_id: UUID\n+ issued_timestamp: Long\n+ expires_timestamp: Long\n+ toCanonicalString(): String"
+      ],
+      [
+        "ent0003",
+        "HMACSigner\n- algorithm: String = \"HmacSHA256\"\n+ sign(data: String, secretKey: Byte[]): String\n+ verify(data: String, signature: String, secretKey: Byte[]): Boolean"
+      ],
+      [
+        "ent0004",
+        "DynamicTokenGenerator\n- time_step_seconds: Integer = 30\n+ computeTimeBasedHash(ticket: TicketPayload, masterSecret: Byte[]): String\n+ generateQRCodeData(ticket: TicketPayload, signature: String): String"
+      ],
+      [
+        "ent0005",
+        "MobileOfflineStorage\n- storage_backend: String = \"SecureStore\"\n+ saveCachedTicket(ticket: TicketPayload, signature: String): Void\n+ loadCachedTicket(ticket_id: UUID): TicketPayload\n+ getOfflineManifest(event_id: UUID): Byte[]"
+      ],
+      [
+        "ent0006",
+        "VolunteerOfflineCache\n- event_id: UUID\n- event_public_key: String\n- scanned_hash_registry: Set<String>\n- pending_sync_queue: List<CheckInDTO>\n+ isHashAlreadyUsed(hash: String): Boolean\n+ recordLocalCheckIn(ticket_id: UUID, hash: String): Boolean\n+ drainSyncQueueToServer(): List<CheckInDTO>"
+      ],
+      [
+        "ent0007",
+        "OpticalScannerEngine\n- camera_fps: Integer = 60\n- timeout_ms: Integer = 500\n+ decodeFrame(image_buffer: Byte[]): String\n+ validatePassLocally(qr_string: String, cache: VolunteerOfflineCache): ValidationResult"
+      ]
+    ],
+    "edges": [
+      [
+        "ent0002",
+        "ent0003",
+        "Зависимость\nuses"
+      ],
+      [
+        "ent0004",
+        "ent0002",
+        "Зависимость\nencodes"
+      ],
+      [
+        "ent0005",
+        "ent0002",
+        "Агрегация\ncaches"
+      ],
+      [
+        "ent0006",
+        "ent0007",
+        "Зависимость\n1\nqueries\n1"
+      ]
+    ],
+    "source": "docs/diagrams/puml/classes/class_crypto_offline.puml",
+    "source_sha256": "0aa028acd008ca6ca28c6677f78c6f7947b5871c789f056ecca156421ab8c62f",
+    "colors": {
+      "ent0002": "#F8FAFC",
+      "ent0003": "#F8FAFC",
+      "ent0004": "#F8FAFC",
+      "ent0005": "#F8FAFC",
+      "ent0006": "#F8FAFC",
+      "ent0007": "#F8FAFC"
+    },
+    "edge_styles": [
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": true
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": true
+      },
+      {
+        "kind": "aggregation",
+        "markers": [
+          {
+            "kind": "aggregation",
+            "side": "source"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "source"
+          }
+        ],
+        "dashed": true
+      }
+    ]
+  },
+  "classes/class_hackathon_matching.svg": {
+    "title": "Диаграмма классов: Хакатон и биржа команд (Задание 4)",
+    "nodes": [
+      [
+        "ent0002",
+        "SkillCategory\nFRONTEND\nBACKEND\nMOBILE\nDATA_SCIENCE_ML\nUI_UX_DESIGN\nPROJECT_MANAGEMENT"
+      ],
+      [
+        "ent0003",
+        "ApplicationStatus\nPENDING\nACCEPTED\nREJECTED\nWITHDRAWN"
+      ],
+      [
+        "ent0004",
+        "HackathonTeam\n- id: UUID\n- event_id: UUID\n- leader_id: UUID\n- team_name: String\n- project_title: String\n- pitch_description: String\n- max_members: Integer\n- is_recruiting: Boolean\n+ addMember(user_id: UUID): Boolean\n+ removeMember(user_id: UUID): Void\n+ getAvailableSlots(): Integer"
+      ],
+      [
+        "ent0005",
+        "TeamMember\n- id: UUID\n- team_id: UUID\n- user_id: UUID\n- role_in_team: String\n- joined_at: DateTime\n- is_leader: Boolean"
+      ],
+      [
+        "ent0006",
+        "VacantRole\n- id: UUID\n- team_id: UUID\n- category: SkillCategory\n- required_skill_names: List<String>\n- experience_level: String\n- is_filled: Boolean"
+      ],
+      [
+        "ent0007",
+        "UserSkill\n- id: UUID\n- user_id: UUID\n- skill_name: String\n- category: SkillCategory\n- years_experience: Integer\n- github_repo_url: String"
+      ],
+      [
+        "ent0008",
+        "TeamJoinRequest\n- id: UUID\n- team_id: UUID\n- applicant_id: UUID\n- vacant_role_id: UUID\n- cover_letter: String\n- status: ApplicationStatus\n- created_at: DateTime\n+ accept(): Void\n+ reject(): Void"
+      ]
+    ],
+    "edges": [
+      [
+        "ent0004",
+        "ent0005",
+        "Композиция\n1\nincludes\n1..*"
+      ],
+      [
+        "ent0004",
+        "ent0006",
+        "Композиция\n1\npublishes\n0..*"
+      ],
+      [
+        "ent0007",
+        "ent0005",
+        "Ассоциация\n0..*\nbelongs to\n1"
+      ],
+      [
+        "ent0008",
+        "ent0004",
+        "Зависимость\n0..*\ntargets\n1"
+      ],
+      [
+        "ent0008",
+        "ent0006",
+        "Зависимость\n0..*\napplies for\n1"
+      ]
+    ],
+    "source": "docs/diagrams/puml/classes/class_hackathon_matching.puml",
+    "source_sha256": "4d3e132acd4aef3c692f12e2a400a86054d11ed470c5950d08fa28923fec0725",
+    "colors": {
+      "ent0002": "#F8FAFC",
+      "ent0003": "#F8FAFC",
+      "ent0004": "#F8FAFC",
+      "ent0005": "#F8FAFC",
+      "ent0006": "#F8FAFC",
+      "ent0007": "#F8FAFC",
+      "ent0008": "#F8FAFC"
+    },
+    "edge_styles": [
+      {
+        "kind": "composition",
+        "markers": [
+          {
+            "kind": "composition",
+            "side": "source"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "composition",
+        "markers": [
+          {
+            "kind": "composition",
+            "side": "source"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "association",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      }
+    ]
+  },
+  "classes/class_schedule_cfp.svg": {
+    "title": "Диаграмма классов: Программа мероприятий, сессии и CFP (Задание 4)",
+    "nodes": [
+      [
+        "ent0002",
+        "ProposalStatus\nDRAFT\nSUBMITTED\nIN_REVIEW\nACCEPTED\nREJECTED\nCANCELLED"
+      ],
+      [
+        "ent0003",
+        "Track\n- id: UUID\n- event_id: UUID\n- title: String\n- description: String\n- room: String\n- display_color: String"
+      ],
+      [
+        "ent0004",
+        "SessionItem\n- id: UUID\n- track_id: UUID\n- speaker_id: UUID\n- title: String\n- summary: String\n- start_time: DateTime\n- end_time: DateTime\n- presentation_url: String\n+ getDurationMinutes(): Integer\n+ isOverlapping(other: SessionItem): Boolean"
+      ],
+      [
+        "ent0005",
+        "SpeakerProfile\n- id: UUID\n- user_id: UUID\n- bio: String\n- company: String\n- job_title: String\n- linkedin_url: String\n- github_url: String\n- rating: Float\n+ getAcceptedTalksCount(): Integer"
+      ],
+      [
+        "ent0006",
+        "TalkProposal\n- id: UUID\n- speaker_id: UUID\n- event_id: UUID\n- title: String\n- abstract: String\n- target_audience: String\n- duration_minutes: Integer\n- slides_attachment_url: String\n- status: ProposalStatus\n- review_notes: String\n+ submitForReview(): Void\n+ accept(track_id: UUID, slot: DateTime): SessionItem\n+ reject(reason: String): Void"
+      ],
+      [
+        "ent0007",
+        "PersonalAgendaItem\n- id: UUID\n- user_id: UUID\n- session_id: UUID\n- reminder_minutes_before: Integer\n- is_notification_scheduled: Boolean"
+      ]
+    ],
+    "edges": [
+      [
+        "ent0003",
+        "ent0004",
+        "Композиция\n1\nschedules\n0..*"
+      ],
+      [
+        "ent0005",
+        "ent0004",
+        "Ассоциация\n1\ndelivers\n0..*"
+      ],
+      [
+        "ent0005",
+        "ent0006",
+        "Ассоциация\n1\nsubmits\n0..*"
+      ],
+      [
+        "ent0006",
+        "ent0004",
+        "Зависимость\n0..1\ntransitions into\n0..1"
+      ],
+      [
+        "ent0007",
+        "ent0004",
+        "Зависимость\n0..*\nreferences\n1"
+      ]
+    ],
+    "source": "docs/diagrams/puml/classes/class_schedule_cfp.puml",
+    "source_sha256": "c32e7af8ca56528c7b2b7ed216d76f51d174283d0f6d147292eaa811d98b5024",
+    "colors": {
+      "ent0002": "#F8FAFC",
+      "ent0003": "#F8FAFC",
+      "ent0004": "#F8FAFC",
+      "ent0005": "#F8FAFC",
+      "ent0006": "#F8FAFC",
+      "ent0007": "#F8FAFC"
+    },
+    "edge_styles": [
+      {
+        "kind": "composition",
+        "markers": [
+          {
+            "kind": "composition",
+            "side": "source"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "association",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "association",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      }
+    ]
+  },
+  "classes/object_runtime_event.svg": {
+    "title": "Диаграмма объектов времени выполнения: Митап «FPMI AI Night 2026» (Задание 4)",
+    "nodes": [
+      [
+        "ent0002",
+        "fpmi_event: Event\nid = \"e102-4b2a-89f1\"\ntitle = \"FPMI AI Night 2026\"\nevent_type = MEETUP\nstart_at = \"2026-10-25T18:00:00+03:00\"\nend_at = \"2026-10-25T21:30:00+03:00\"\nhard_cap_quota = 120\nsecret_hmac_salt = \"k89#fpmi_sec_2026\""
+      ],
+      [
+        "ent0003",
+        "auditorium_514: Venue\nid = \"v901-77b3\"\ntitle = \"Главный корпус БГУ\"\ncity = \"Минск\"\nstreet_address = \"пр. Независимости, 4\"\nauditorium_room = \"Ауд. 514 (Большая лекционная)\"\ngeo_lat = 53.8938\ngeo_lon = 27.5471\nfire_safety_capacity = 140"
+      ],
+      [
+        "ent0004",
+        "artem: User\nid = \"u01-kovalev\"\nfull_name = \"Артём Ковалёв\"\nemail = \"artem.kovalev@bsu.by\"\nfaculty = \"ФПМИ\"\nstudy_year = 3"
+      ],
+      [
+        "ent0005",
+        "daria: User\nid = \"u02-melnikova\"\nfull_name = \"Дарья Мельникова\"\nemail = \"daria.melnikova@bsu.by\"\nrole = VOLUNTEER"
+      ],
+      [
+        "ent0006",
+        "artem_ticket: Ticket\nid = \"t-7789-artem\"\nticket_code = \"CMP-AI-042\"\nstatus = \"CHECKED_IN\"\nissued_at = \"2026-10-12T14:20:10\"\nsecurity_hash = \"hmac_sha256_e49b81f...\""
+      ],
+      [
+        "ent0007",
+        "artem_checkin: CheckInRecord\nid = \"chk-552\"\ntimestamp = \"2026-10-25T17:48:15\"\nscan_mode = \"OPTICAL_CAMERA\"\nis_duplicate_attempt = false\ndevice_identifier = \"iPhone15-Daria-Scanner\""
+      ],
+      [
+        "ent0008",
+        "ai_talk: SessionItem\nid = \"sess-01\"\ntitle = \"Оркестрация агентных систем на базе LLM\"\nstart_time = \"18:15\"\nend_time = \"19:00\"\npresentation_url = \"https://cdn.campusmeet.by/slides/ai_night.pdf\""
+      ]
+    ],
+    "edges": [
+      [
+        "ent0002",
+        "ent0003",
+        "Ассоциация\npasses at"
+      ],
+      [
+        "ent0002",
+        "ent0006",
+        "Ассоциация\nissued for"
+      ],
+      [
+        "ent0004",
+        "ent0006",
+        "Ассоциация\nowns"
+      ],
+      [
+        "ent0006",
+        "ent0007",
+        "Ассоциация\nvalidated by"
+      ],
+      [
+        "ent0005",
+        "ent0007",
+        "Ассоциация\nprocessed by"
+      ],
+      [
+        "ent0002",
+        "ent0008",
+        "Ассоциация\ncontains program"
+      ]
+    ],
+    "source": "docs/diagrams/puml/classes/object_runtime_event.puml",
+    "source_sha256": "dee78a9a0694ee02b86e52d2810bb8430198f5ab1e51aebe20ffff7b12763d65",
+    "colors": {
+      "ent0002": "#FEF3C7",
+      "ent0003": "#FEF3C7",
+      "ent0004": "#FEF3C7",
+      "ent0005": "#FEF3C7",
+      "ent0006": "#FEF3C7",
+      "ent0007": "#FEF3C7",
+      "ent0008": "#FEF3C7"
+    },
+    "edge_styles": [
+      {
+        "kind": "association",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "association",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "association",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "association",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "association",
+        "markers": [],
+        "dashed": false
+      },
+      {
+        "kind": "association",
+        "markers": [],
+        "dashed": false
+      }
+    ]
+  },
+  "event_modeling/event_modeling_slices.svg": {
+    "title": "Спецификация архитектуры методом Event Modeling (Adam Dymitruk Slices) (Задание 6)",
+    "nodes": [
+      [
+        "ent0004",
+        "Экран митапа: Кнопка 'Зарегистрироваться'\n«ui»\nКонтекст: Срез 1: Регистрация (Command Pattern)"
+      ],
+      [
+        "ent0005",
+        "POST /register Command: RegisterAttendee\n«command»\nКонтекст: Срез 1: Регистрация (Command Pattern)"
+      ],
+      [
+        "ent0006",
+        "Event: TicketReserved\n«event»\nКонтекст: Срез 1: Регистрация (Command Pattern)"
+      ],
+      [
+        "ent0010",
+        "Event: TicketIssued\n«event»\nКонтекст: Срез 2: Витрина билета (View Pattern)"
+      ],
+      [
+        "ent0011",
+        "Экран 'Мой билет': QR-код + Данные гостя\n«view»\nКонтекст: Срез 2: Витрина билета (View Pattern)"
+      ],
+      [
+        "ent0015",
+        "Event: TicketCancelled\n«event»\nКонтекст: Срез 3: Waitlist ротация (Automation Pattern)"
+      ],
+      [
+        "ent0016",
+        "View: WaitlistQueueView\n«view»\nКонтекст: Срез 3: Waitlist ротация (Automation Pattern)"
+      ],
+      [
+        "ent0017",
+        "Auto Trigger: QueueProcessorDaemon\n«automation»\nКонтекст: Срез 3: Waitlist ротация (Automation Pattern)"
+      ],
+      [
+        "ent0018",
+        "Command: PromoteWaitlistGuest\n«command»\nКонтекст: Срез 3: Waitlist ротация (Automation Pattern)"
+      ],
+      [
+        "ent0019",
+        "Event: TicketGrantedFromWaitlist\n«event»\nКонтекст: Срез 3: Waitlist ротация (Automation Pattern)"
+      ],
+      [
+        "ent0026",
+        "Event: RoomChangedEvent\n«event»\nКонтекст: Срез 4: Push-адаптер (Translation Pattern)"
+      ],
+      [
+        "ent0027",
+        "View: PendingPushBatchView\n«view»\nКонтекст: Срез 4: Push-адаптер (Translation Pattern)"
+      ],
+      [
+        "ent0028",
+        "Translator Adapter: FCM/APNs Gateway Worker\n«automation»\nКонтекст: Срез 4: Push-адаптер (Translation Pattern)"
+      ],
+      [
+        "ent0029",
+        "External Command: SendMulticastPayload\n«command»\nКонтекст: Срез 4: Push-адаптер (Translation Pattern)"
+      ],
+      [
+        "ent0030",
+        "External Event: PushDeliveredToDevice\n«event»\nКонтекст: Срез 4: Push-адаптер (Translation Pattern)"
+      ]
+    ],
+    "edges": [
+      [
+        "ent0004",
+        "ent0005",
+        "Зависимость\nНажатие кнопки"
+      ],
+      [
+        "ent0005",
+        "ent0006",
+        "Зависимость\nИзменение состояния"
+      ],
+      [
+        "ent0011",
+        "ent0010",
+        "Зависимость\nПроекция данных"
+      ],
+      [
+        "ent0016",
+        "ent0015",
+        "Зависимость\nОсвобождение квоты"
+      ],
+      [
+        "ent0016",
+        "ent0017",
+        "Зависимость\nОбнаружение кандидата"
+      ],
+      [
+        "ent0017",
+        "ent0018",
+        "Зависимость\nИнициация команды"
+      ],
+      [
+        "ent0018",
+        "ent0019",
+        "Зависимость\nВыпуск билета"
+      ],
+      [
+        "ent0027",
+        "ent0026",
+        "Зависимость\nФиксация переноса"
+      ],
+      [
+        "ent0027",
+        "ent0028",
+        "Зависимость\nЧтение очереди"
+      ],
+      [
+        "ent0028",
+        "ent0029",
+        "Зависимость\nВызов внешнего API"
+      ],
+      [
+        "ent0029",
+        "ent0030",
+        "Зависимость\nПодтверждение доставки"
+      ]
+    ],
+    "source": "docs/diagrams/puml/event_modeling/event_modeling_slices.puml",
+    "source_sha256": "ee6c6986da4c3b09029ab8eaf409e886057dda8ce63a7de5756f5b5a0c510ce2",
+    "colors": {
+      "ent0005": "#3B82F6",
+      "ent0006": "#F59E0B",
+      "ent0010": "#F59E0B",
+      "ent0011": "#10B981",
+      "ent0015": "#F59E0B",
+      "ent0016": "#10B981",
+      "ent0017": "#8B5CF6",
+      "ent0018": "#3B82F6",
+      "ent0019": "#F59E0B",
+      "ent0026": "#F59E0B",
+      "ent0027": "#10B981",
+      "ent0028": "#8B5CF6",
+      "ent0029": "#3B82F6",
+      "ent0030": "#F59E0B"
+    },
+    "edge_styles": [
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "source"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "source"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "source"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      }
+    ]
+  },
+  "event_storming/event_storming_big_picture.svg": {
+    "title": "EventStorming: Уровень 1 — Крупномасштабное исследование (Big Picture) (Задание 5)",
+    "nodes": [
+      [
+        "ent0004",
+        "Событие анонсировано\n«event»\nКонтекст: Инициация митапа"
+      ],
+      [
+        "ent0005",
+        "Лимит квоты установлен\n«event»\nКонтекст: Инициация митапа"
+      ],
+      [
+        "ent0006",
+        "Аудитория забронирована\n«event»\nКонтекст: Инициация митапа"
+      ],
+      [
+        "ent0007",
+        "Конфликт бронирования аудиторий деканата\n«hotspot»\nКонтекст: Инициация митапа"
+      ],
+      [
+        "ent0012",
+        "Регистрация участников открыта\n«event»\nКонтекст: Прием заявок и регистрация"
+      ],
+      [
+        "ent0013",
+        "Билет забронирован гостем\n«event»\nКонтекст: Прием заявок и регистрация"
+      ],
+      [
+        "ent0014",
+        "Лимит мест исчерпан\n«event»\nКонтекст: Прием заявок и регистрация"
+      ],
+      [
+        "ent0015",
+        "Слушатель добавлен в лист ожидания\n«event»\nКонтекст: Прием заявок и регистрация"
+      ],
+      [
+        "ent0016",
+        "Проблема: Овербукинг и неявка (No-Show до 35%)\n«hotspot»\nКонтекст: Прием заявок и регистрация"
+      ],
+      [
+        "ent0022",
+        "Тема доклада подана спикером\n«event»\nКонтекст: Формирование программы"
+      ],
+      [
+        "ent0023",
+        "Доклад утвержден программным комитетом\n«event»\nКонтекст: Формирование программы"
+      ],
+      [
+        "ent0024",
+        "Сетка расписания опубликована\n«event»\nКонтекст: Формирование программы"
+      ],
+      [
+        "ent0028",
+        "QR-билет открыт участником офлайн\n«event»\nКонтекст: День мероприятия: Входной контроль"
+      ],
+      [
+        "ent0029",
+        "QR-код считан камерой волонтера\n«event»\nКонтекст: День мероприятия: Входной контроль"
+      ],
+      [
+        "ent0030",
+        "Проход в аудиторию разрешен\n«event»\nКонтекст: День мероприятия: Входной контроль"
+      ],
+      [
+        "ent0031",
+        "Попытка повторного прохода заблокирована\n«event»\nКонтекст: День мероприятия: Входной контроль"
+      ],
+      [
+        "ent0032",
+        "Критический риск: В цоколе корпуса полностью отсутствует интернет!\n«hotspot»\nКонтекст: День мероприятия: Входной контроль"
+      ],
+      [
+        "ent0038",
+        "Экстренное Push-оповещение разослано\n«event»\nКонтекст: Проведение и завершение"
+      ],
+      [
+        "ent0039",
+        "Митап успешно завершен\n«event»\nКонтекст: Проведение и завершение"
+      ],
+      [
+        "ent0040",
+        "Аналитика явки экспортирована в отчет\n«event»\nКонтекст: Проведение и завершение"
+      ]
+    ],
+    "edges": [
+      [
+        "ent0006",
+        "ent0012",
+        "Зависимость"
+      ],
+      [
+        "ent0015",
+        "ent0022",
+        "Зависимость"
+      ],
+      [
+        "ent0024",
+        "ent0028",
+        "Зависимость"
+      ],
+      [
+        "ent0031",
+        "ent0038",
+        "Зависимость"
+      ]
+    ],
+    "source": "docs/diagrams/puml/event_storming/event_storming_big_picture.puml",
+    "source_sha256": "fe2bd07fd4de836d023c9a935f2a097c4a226da8bdc623a72037543bd5b3fb7a",
+    "colors": {
+      "ent0004": "#FFA726",
+      "ent0005": "#FFA726",
+      "ent0006": "#FFA726",
+      "ent0007": "#E91E63",
+      "ent0012": "#FFA726",
+      "ent0013": "#FFA726",
+      "ent0014": "#FFA726",
+      "ent0015": "#FFA726",
+      "ent0016": "#E91E63",
+      "ent0022": "#FFA726",
+      "ent0023": "#FFA726",
+      "ent0024": "#FFA726",
+      "ent0028": "#FFA726",
+      "ent0029": "#FFA726",
+      "ent0030": "#FFA726",
+      "ent0031": "#FFA726",
+      "ent0032": "#E91E63",
+      "ent0038": "#FFA726",
+      "ent0039": "#FFA726",
+      "ent0040": "#FFA726"
+    },
+    "edge_styles": [
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      }
+    ]
+  },
+  "event_storming/event_storming_design.svg": {
+    "title": "EventStorming: Уровень 3 — Проектирование и Ограниченные контексты (Software Design) (Задание 5)",
+    "nodes": [
+      [
+        "ent0003",
+        "Ticket Aggregate\n«aggregate»\nКонтекст: Контекст регистрации и квот (Ticketing & Quota Context) / «context»"
+      ],
+      [
+        "ent0004",
+        "IssueTicket\n«command»\nКонтекст: Контекст регистрации и квот (Ticketing & Quota Context) / «context»"
+      ],
+      [
+        "ent0005",
+        "CancelReservation\n«command»\nКонтекст: Контекст регистрации и квот (Ticketing & Quota Context) / «context»"
+      ],
+      [
+        "ent0006",
+        "TicketIssued\n«event»\nКонтекст: Контекст регистрации и квот (Ticketing & Quota Context) / «context»"
+      ],
+      [
+        "ent0007",
+        "TicketCancelled\n«event»\nКонтекст: Контекст регистрации и квот (Ticketing & Quota Context) / «context»"
+      ],
+      [
+        "ent0013",
+        "CheckIn Aggregate\n«aggregate»\nКонтекст: Контекст контроля входа и безопасности (Access Control Context) / «context»"
+      ],
+      [
+        "ent0014",
+        "ScanQRCode\n«command»\nКонтекст: Контекст контроля входа и безопасности (Access Control Context) / «context»"
+      ],
+      [
+        "ent0015",
+        "CheckInRecorded\n«event»\nКонтекст: Контекст контроля входа и безопасности (Access Control Context) / «context»"
+      ],
+      [
+        "ent0016",
+        "DuplicateAttemptLogged\n«event»\nКонтекст: Контекст контроля входа и безопасности (Access Control Context) / «context»"
+      ],
+      [
+        "ent0021",
+        "CFP Aggregate\n«aggregate»\nКонтекст: Контекст программы и CFP (Schedule & CFP Context) / «context»"
+      ],
+      [
+        "ent0022",
+        "SubmitProposal\n«command»\nКонтекст: Контекст программы и CFP (Schedule & CFP Context) / «context»"
+      ],
+      [
+        "ent0023",
+        "ApproveTalk\n«command»\nКонтекст: Контекст программы и CFP (Schedule & CFP Context) / «context»"
+      ],
+      [
+        "ent0024",
+        "TalkAccepted\n«event»\nКонтекст: Контекст программы и CFP (Schedule & CFP Context) / «context»"
+      ],
+      [
+        "ent0029",
+        "Dispatcher Aggregate\n«aggregate»\nКонтекст: Контекст экстренных рассылок (Notification Context) / «context»"
+      ],
+      [
+        "ent0030",
+        "BroadcastAlert\n«command»\nКонтекст: Контекст экстренных рассылок (Notification Context) / «context»"
+      ],
+      [
+        "ent0031",
+        "AlertDelivered\n«event»\nКонтекст: Контекст экстренных рассылок (Notification Context) / «context»"
+      ],
+      [
+        "ent0034",
+        "Политика синхронизации: При отмене билета повысить первый номер Waitlist\n«policy»"
+      ],
+      [
+        "ent0037",
+        "Политика оповещения: При переносе доклада уведомить слушателей\n«policy»"
+      ]
+    ],
+    "edges": [
+      [
+        "ent0004",
+        "ent0003",
+        "Зависимость"
+      ],
+      [
+        "ent0005",
+        "ent0003",
+        "Зависимость"
+      ],
+      [
+        "ent0003",
+        "ent0006",
+        "Зависимость"
+      ],
+      [
+        "ent0003",
+        "ent0007",
+        "Зависимость"
+      ],
+      [
+        "ent0014",
+        "ent0013",
+        "Зависимость"
+      ],
+      [
+        "ent0013",
+        "ent0015",
+        "Зависимость"
+      ],
+      [
+        "ent0013",
+        "ent0016",
+        "Зависимость"
+      ],
+      [
+        "ent0022",
+        "ent0021",
+        "Зависимость"
+      ],
+      [
+        "ent0023",
+        "ent0021",
+        "Зависимость"
+      ],
+      [
+        "ent0021",
+        "ent0024",
+        "Зависимость"
+      ],
+      [
+        "ent0030",
+        "ent0029",
+        "Зависимость"
+      ],
+      [
+        "ent0029",
+        "ent0031",
+        "Зависимость"
+      ],
+      [
+        "ent0007",
+        "ent0034",
+        "Зависимость"
+      ],
+      [
+        "ent0034",
+        "ent0004",
+        "Зависимость\nАвтоматический вызов"
+      ],
+      [
+        "ent0024",
+        "ent0037",
+        "Зависимость"
+      ],
+      [
+        "ent0037",
+        "ent0030",
+        "Зависимость\nТриггер рассылки"
+      ]
+    ],
+    "source": "docs/diagrams/puml/event_storming/event_storming_design.puml",
+    "source_sha256": "ba1d29de04a3abe7aad97edefd1be4f6a996ffba08e74fe844848bd066d1dcaf",
+    "colors": {
+      "ent0003": "#FFF59D",
+      "ent0004": "#42A5F5",
+      "ent0005": "#42A5F5",
+      "ent0006": "#FFA726",
+      "ent0007": "#FFA726",
+      "ent0013": "#FFF59D",
+      "ent0014": "#42A5F5",
+      "ent0015": "#FFA726",
+      "ent0016": "#FFA726",
+      "ent0021": "#FFF59D",
+      "ent0022": "#42A5F5",
+      "ent0023": "#42A5F5",
+      "ent0024": "#FFA726",
+      "ent0029": "#FFF59D",
+      "ent0030": "#42A5F5",
+      "ent0031": "#FFA726",
+      "ent0034": "#AB47BC",
+      "ent0037": "#AB47BC"
+    },
+    "edge_styles": [
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      }
+    ]
+  },
+  "event_storming/event_storming_process.svg": {
+    "title": "EventStorming: Уровень 2 — Моделирование процессов (Process Modeling) (Задание 5)",
+    "nodes": [
+      [
+        "ent0003",
+        "Слушатель\n«role»\nКонтекст: Процесс 1: Регистрация и управление очередью ожидания"
+      ],
+      [
+        "ent0004",
+        "Зарегистрироваться на митап\n«command»\nКонтекст: Процесс 1: Регистрация и управление очередью ожидания"
+      ],
+      [
+        "ent0005",
+        "Квота мест мероприятия\n«aggregate»\nКонтекст: Процесс 1: Регистрация и управление очередью ожидания"
+      ],
+      [
+        "ent0006",
+        "Билет выпущен\n«event»\nКонтекст: Процесс 1: Регистрация и управление очередью ожидания"
+      ],
+      [
+        "ent0007",
+        "Лимит мест исчерпан\n«event»\nКонтекст: Процесс 1: Регистрация и управление очередью ожидания"
+      ],
+      [
+        "ent0008",
+        "Правило: Если лимит исчерпан, добавить в лист ожидания\n«policy»\nКонтекст: Процесс 1: Регистрация и управление очередью ожидания"
+      ],
+      [
+        "ent0009",
+        "Поставить в очередь Waitlist\n«command»\nКонтекст: Процесс 1: Регистрация и управление очередью ожидания"
+      ],
+      [
+        "ent0010",
+        "Пользователь добавлен в лист ожидания\n«event»\nКонтекст: Процесс 1: Регистрация и управление очередью ожидания"
+      ],
+      [
+        "ent0020",
+        "Волонтер\n«role»\nКонтекст: Процесс 2: Оптический чекин и детекция повторного прохода"
+      ],
+      [
+        "ent0021",
+        "Отсканировать QR-код\n«command»\nКонтекст: Процесс 2: Оптический чекин и детекция повторного прохода"
+      ],
+      [
+        "ent0022",
+        "Валидатор билетов (Ticket)\n«aggregate»\nКонтекст: Процесс 2: Оптический чекин и детекция повторного прохода"
+      ],
+      [
+        "ent0023",
+        "Билет успешно погашен\n«event»\nКонтекст: Процесс 2: Оптический чекин и детекция повторного прохода"
+      ],
+      [
+        "ent0024",
+        "Повторный проход обнаружен\n«event»\nКонтекст: Процесс 2: Оптический чекин и детекция повторного прохода"
+      ],
+      [
+        "ent0025",
+        "Обновленная витрина явки участников\n«readmodel»\nКонтекст: Процесс 2: Оптический чекин и детекция повторного прохода"
+      ],
+      [
+        "ent0032",
+        "Организатор\n«role»\nКонтекст: Процесс 3: Внешняя валидация календаря и локации"
+      ],
+      [
+        "ent0033",
+        "Создать карточку митапа\n«command»\nКонтекст: Процесс 3: Внешняя валидация календаря и локации"
+      ],
+      [
+        "ent0034",
+        "Каталог событий (Event)\n«aggregate»\nКонтекст: Процесс 3: Внешняя валидация календаря и локации"
+      ],
+      [
+        "ent0035",
+        "Мероприятие сконфигурировано\n«event»\nКонтекст: Процесс 3: Внешняя валидация календаря и локации"
+      ],
+      [
+        "ent0036",
+        "Политика: Проверить праздники и нормализовать адрес\n«policy»\nКонтекст: Процесс 3: Внешняя валидация календаря и локации"
+      ],
+      [
+        "ent0037",
+        "OSM & Nager.Date\n«external»\nКонтекст: Процесс 3: Внешняя валидация календаря и локации"
+      ],
+      [
+        "ent0038",
+        "Адрес подтвержден, праздник отмечен\n«event»\nКонтекст: Процесс 3: Внешняя валидация календаря и локации"
+      ]
+    ],
+    "edges": [
+      [
+        "ent0003",
+        "ent0004",
+        "Зависимость"
+      ],
+      [
+        "ent0004",
+        "ent0005",
+        "Зависимость"
+      ],
+      [
+        "ent0005",
+        "ent0006",
+        "Зависимость"
+      ],
+      [
+        "ent0005",
+        "ent0007",
+        "Зависимость"
+      ],
+      [
+        "ent0007",
+        "ent0008",
+        "Зависимость"
+      ],
+      [
+        "ent0008",
+        "ent0009",
+        "Зависимость"
+      ],
+      [
+        "ent0009",
+        "ent0005",
+        "Зависимость"
+      ],
+      [
+        "ent0005",
+        "ent0010",
+        "Зависимость"
+      ],
+      [
+        "ent0020",
+        "ent0021",
+        "Зависимость"
+      ],
+      [
+        "ent0021",
+        "ent0022",
+        "Зависимость"
+      ],
+      [
+        "ent0022",
+        "ent0023",
+        "Зависимость"
+      ],
+      [
+        "ent0022",
+        "ent0024",
+        "Зависимость"
+      ],
+      [
+        "ent0023",
+        "ent0025",
+        "Зависимость"
+      ],
+      [
+        "ent0032",
+        "ent0033",
+        "Зависимость"
+      ],
+      [
+        "ent0033",
+        "ent0034",
+        "Зависимость"
+      ],
+      [
+        "ent0034",
+        "ent0035",
+        "Зависимость"
+      ],
+      [
+        "ent0035",
+        "ent0036",
+        "Зависимость"
+      ],
+      [
+        "ent0036",
+        "ent0037",
+        "Зависимость"
+      ],
+      [
+        "ent0037",
+        "ent0038",
+        "Зависимость"
+      ]
+    ],
+    "source": "docs/diagrams/puml/event_storming/event_storming_process.puml",
+    "source_sha256": "45dc3207130eefb7f7afd5bfd4a26caed6dec81f7f972485fe8f8352921669b5",
+    "colors": {
+      "ent0003": "#FFEE58",
+      "ent0004": "#42A5F5",
+      "ent0005": "#FFF59D",
+      "ent0006": "#FFA726",
+      "ent0007": "#FFA726",
+      "ent0008": "#AB47BC",
+      "ent0009": "#42A5F5",
+      "ent0010": "#FFA726",
+      "ent0020": "#FFEE58",
+      "ent0021": "#42A5F5",
+      "ent0022": "#FFF59D",
+      "ent0023": "#FFA726",
+      "ent0024": "#FFA726",
+      "ent0025": "#66BB6A",
+      "ent0032": "#FFEE58",
+      "ent0033": "#42A5F5",
+      "ent0034": "#FFF59D",
+      "ent0035": "#FFA726",
+      "ent0036": "#AB47BC",
+      "ent0037": "#F06292",
+      "ent0038": "#FFA726"
+    },
+    "edge_styles": [
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      }
+    ]
+  },
+  "use_cases/use_case_base.svg": {
+    "title": "Базовая Use Case диаграмма экосистемы CampusMeet (Задание 2)",
+    "nodes": [
+      [
+        "ent0007",
+        "UC-B1: Просмотр каталога\nи поиск митапов\nКонтекст: Экосистема CampusMeet"
+      ],
+      [
+        "ent0008",
+        "UC-B2: Регистрация на событие\nи получение билета\nКонтекст: Экосистема CampusMeet"
+      ],
+      [
+        "ent0009",
+        "UC-B3: Просмотр билета\nв офлайн-режиме\nКонтекст: Экосистема CampusMeet"
+      ],
+      [
+        "ent0010",
+        "UC-B4: Оптическое сканирование\nQR-билета камерой\nКонтекст: Экосистема CampusMeet"
+      ],
+      [
+        "ent0011",
+        "UC-B5: Создание митапа и\nуправление квотами\nКонтекст: Экосистема CampusMeet"
+      ],
+      [
+        "ent0012",
+        "UC-B6: Модерация заявок\nдокладчиков (CFP)\nКонтекст: Экосистема CampusMeet"
+      ],
+      [
+        "ent0013",
+        "UC-B7: Подача заявки на доклад\nКонтекст: Экосистема CampusMeet"
+      ],
+      [
+        "ent0014",
+        "UC-B8: Отправка экстренного\nPush-оповещения\nКонтекст: Экосистема CampusMeet"
+      ],
+      [
+        "ent0002",
+        "Слушатель (Attendee)"
+      ],
+      [
+        "ent0003",
+        "Волонтер (Volunteer)"
+      ],
+      [
+        "ent0004",
+        "Организатор (Organizer)"
+      ],
+      [
+        "ent0005",
+        "Спикер (Speaker)"
+      ]
+    ],
+    "edges": [
+      [
+        "ent0002",
+        "ent0007",
+        "Зависимость"
+      ],
+      [
+        "ent0002",
+        "ent0008",
+        "Зависимость"
+      ],
+      [
+        "ent0002",
+        "ent0009",
+        "Зависимость"
+      ],
+      [
+        "ent0003",
+        "ent0010",
+        "Зависимость"
+      ],
+      [
+        "ent0004",
+        "ent0011",
+        "Зависимость"
+      ],
+      [
+        "ent0004",
+        "ent0012",
+        "Зависимость"
+      ],
+      [
+        "ent0004",
+        "ent0014",
+        "Зависимость"
+      ],
+      [
+        "ent0005",
+        "ent0013",
+        "Зависимость"
+      ]
+    ],
+    "source": "docs/diagrams/puml/use_cases/use_case_base.puml",
+    "source_sha256": "25f7e37c34e4d980cb15d916e859bdfd40373e6d2328a3904560be42fcdafb8d",
+    "colors": {},
+    "edge_styles": [
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      }
+    ]
+  },
+  "use_cases/use_case_full.svg": {
+    "title": "Расширенная Use Case диаграмма экосистемы CampusMeet (Задание 4)",
+    "nodes": [
+      [
+        "ent0011",
+        "UC-01: Поиск и фильтрация событий\nКонтекст: Каталог и Регистрация"
+      ],
+      [
+        "ent0012",
+        "UC-02: Регистрация на событие\nКонтекст: Каталог и Регистрация"
+      ],
+      [
+        "ent0013",
+        "UC-03: Добавление в лист ожидания (Waitlist)\nКонтекст: Каталог и Регистрация"
+      ],
+      [
+        "ent0014",
+        "UC-04: Выпуск динамического QR-билета\nКонтекст: Каталог и Регистрация"
+      ],
+      [
+        "ent0015",
+        "UC-05: Кеширование билета (Offline-First)\nКонтекст: Каталог и Регистрация"
+      ],
+      [
+        "ent0017",
+        "UC-06: Сканирование QR-билета\nКонтекст: Контроль входа и Безопасность"
+      ],
+      [
+        "ent0018",
+        "UC-07: Автономная HMAC-валидация\nКонтекст: Контроль входа и Безопасность"
+      ],
+      [
+        "ent0019",
+        "UC-08: Резервный ручной поиск гостя\nКонтекст: Контроль входа и Безопасность"
+      ],
+      [
+        "ent0020",
+        "UC-09: Фиксация повторного прохода\nКонтекст: Контроль входа и Безопасность"
+      ],
+      [
+        "ent0022",
+        "UC-10: Создание события и квот\nКонтекст: Администрирование и Программа"
+      ],
+      [
+        "ent0023",
+        "UC-11: Геокодирование адреса (OSM)\nКонтекст: Администрирование и Программа"
+      ],
+      [
+        "ent0024",
+        "UC-12: Проверка календаря праздников\nКонтекст: Администрирование и Программа"
+      ],
+      [
+        "ent0025",
+        "UC-13: Конструктор расписания\nКонтекст: Администрирование и Программа"
+      ],
+      [
+        "ent0026",
+        "UC-14: Модерация заявок спикеров (CFP)\nКонтекст: Администрирование и Программа"
+      ],
+      [
+        "ent0027",
+        "UC-15: Экстренная Push-рассылка\nКонтекст: Администрирование и Программа"
+      ],
+      [
+        "ent0028",
+        "UC-16: Выгрузка аналитики явки (XLSX)\nКонтекст: Администрирование и Программа"
+      ],
+      [
+        "ent0030",
+        "UC-17: Создание профиля команды\nКонтекст: Хакатон и Команды"
+      ],
+      [
+        "ent0031",
+        "UC-18: Поиск участников по навыкам\nКонтекст: Хакатон и Команды"
+      ],
+      [
+        "ent0032",
+        "UC-19: Подача заявки на вступление\nКонтекст: Хакатон и Команды"
+      ],
+      [
+        "ent0034",
+        "UC-20: Подача темы и тезисов CFP\nКонтекст: Докладчики и Площадка"
+      ],
+      [
+        "ent0035",
+        "UC-21: Загрузка файлов презентации\nКонтекст: Докладчики и Площадка"
+      ],
+      [
+        "ent0036",
+        "UC-22: Аудит пожарной безопасности зала\nКонтекст: Докладчики и Площадка"
+      ],
+      [
+        "ent0002",
+        "Слушатель (Attendee)"
+      ],
+      [
+        "ent0003",
+        "Капитан команды (Hacker Lead)"
+      ],
+      [
+        "ent0004",
+        "Волонтер (Volunteer)"
+      ],
+      [
+        "ent0005",
+        "Организатор (Organizer)"
+      ],
+      [
+        "ent0006",
+        "Спикер (Speaker)"
+      ],
+      [
+        "ent0007",
+        "Администратор площадки (Patron)"
+      ]
+    ],
+    "edges": [
+      [
+        "ent0002",
+        "ent0003",
+        "Наследование"
+      ],
+      [
+        "ent0002",
+        "ent0011",
+        "Зависимость"
+      ],
+      [
+        "ent0002",
+        "ent0012",
+        "Зависимость"
+      ],
+      [
+        "ent0012",
+        "ent0014",
+        "Зависимость\n«include»"
+      ],
+      [
+        "ent0014",
+        "ent0015",
+        "Зависимость\n«include»"
+      ],
+      [
+        "ent0012",
+        "ent0013",
+        "Зависимость\n«extend»\n(при исчерпании квоты)"
+      ],
+      [
+        "ent0003",
+        "ent0030",
+        "Зависимость"
+      ],
+      [
+        "ent0003",
+        "ent0031",
+        "Зависимость"
+      ],
+      [
+        "ent0002",
+        "ent0032",
+        "Зависимость"
+      ],
+      [
+        "ent0004",
+        "ent0017",
+        "Зависимость"
+      ],
+      [
+        "ent0004",
+        "ent0019",
+        "Зависимость"
+      ],
+      [
+        "ent0017",
+        "ent0018",
+        "Зависимость\n«include»"
+      ],
+      [
+        "ent0017",
+        "ent0020",
+        "Зависимость\n«extend»\n(при повторном сканировании)"
+      ],
+      [
+        "ent0005",
+        "ent0022",
+        "Зависимость"
+      ],
+      [
+        "ent0022",
+        "ent0023",
+        "Зависимость\n«include»"
+      ],
+      [
+        "ent0022",
+        "ent0024",
+        "Зависимость\n«include»"
+      ],
+      [
+        "ent0005",
+        "ent0025",
+        "Зависимость"
+      ],
+      [
+        "ent0005",
+        "ent0026",
+        "Зависимость"
+      ],
+      [
+        "ent0005",
+        "ent0027",
+        "Зависимость"
+      ],
+      [
+        "ent0005",
+        "ent0028",
+        "Зависимость"
+      ],
+      [
+        "ent0006",
+        "ent0034",
+        "Зависимость"
+      ],
+      [
+        "ent0034",
+        "ent0035",
+        "Зависимость\n«include»"
+      ],
+      [
+        "ent0007",
+        "ent0036",
+        "Зависимость"
+      ],
+      [
+        "ent0007",
+        "ent0028",
+        "Зависимость"
+      ]
+    ],
+    "source": "docs/diagrams/puml/use_cases/use_case_full.puml",
+    "source_sha256": "b30b7b43f86e26d5015f54564f677abce6582b981d26eb0567550b87066226f7",
+    "colors": {},
+    "edge_styles": [
+      {
+        "kind": "extension",
+        "markers": [
+          {
+            "kind": "triangle",
+            "side": "source"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": true
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": true
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": true
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": true
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": true
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": true
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": true
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": true
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      },
+      {
+        "kind": "dependency",
+        "markers": [
+          {
+            "kind": "arrow",
+            "side": "target"
+          }
+        ],
+        "dashed": false
+      }
+    ]
+  }
+}

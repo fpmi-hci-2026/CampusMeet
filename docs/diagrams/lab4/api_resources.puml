@@ -1,0 +1,92 @@
+@startuml
+skinparam monochrome false
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 13
+skinparam roundcorner 6
+skinparam linetype ortho
+skinparam nodesep 30
+skinparam ranksep 40
+
+skinparam component {
+    BackgroundColor #EFF6FF
+    BorderColor #2563EB
+    FontColor #0F172A
+    ArrowColor #2563EB
+}
+
+skinparam package {
+    BackgroundColor #F8FAFC
+    BorderColor #94A3B8
+    FontColor #0F172A
+}
+
+title Архитектура ресурсов и маршрутов REST API CampusMeet (/api/v1) (Задание 3)
+
+package "Клиентский уровень (Clients)" {
+    [Web SPA Client\n(Next.js 14 / TypeScript)] as WebClient
+    [Mobile App Client\n(React Native / Expo)] as MobileClient
+    [LLM AI-Assistant\n(Claude / Cursor MCP)] as MCPAssistant
+    [API Test Clients\n(Swagger UI, Bruno, Postman)] as TestClients
+}
+
+package "Шлюз и Контроль доступа (Gateway & Security)" {
+    [FastAPI Application Gateway\n(/api/v1)] as Gateway
+    [AuthGuard\n(Bearer JWT / Session Demo)] as AuthGuard
+    [Idempotency Middleware\n(Idempotency-Key & SHA-256)] as IdemGuard
+}
+
+WebClient --> Gateway : HTTPS / JSON
+MobileClient --> Gateway : HTTPS / JSON
+MCPAssistant --> Gateway : Stdio / REST
+TestClients --> Gateway : HTTP / JSON
+
+Gateway ..> AuthGuard
+Gateway ..> IdemGuard
+
+package "Маршрутизаторы ресурсов REST API (/api/v1)" {
+
+    package "1. Аутентификация и Профиль" as pkg_auth {
+        component "<b>/auth & /me</b>\n---\n• POST /auth/token (demoLogin)\n• GET /me (getProfile)\n• PUT /me/schedule (replacePersonalSchedule)" as router_auth
+    }
+
+    package "2. Каталог и Мероприятия" as pkg_events {
+        component "<b>/events & /search</b>\n---\n• GET /events (listEvents)\n• POST /events (createEvent)\n• GET /events/{id} (getEvent)\n• PUT /events/{id} (replaceEvent, ETag)\n• DELETE /events/{id} (deleteDraft)\n• GET /search (searchEvents)" as router_events
+    }
+
+    package "3. Регистрация и Билеты" as pkg_tickets {
+        component "<b>/registrations & /tickets</b>\n---\n• POST /events/{id}/registrations (registerAttendee)\n• GET /me/tickets (listMyTickets)\n• GET /tickets/{id} (getTicket)\n• DELETE /tickets/{id} (cancelTicket)\n• GET /tickets/{id}/wallet-pass (getWalletPass)" as router_tickets
+    }
+
+    package "4. Контроль входа (Check-in)" as pkg_checkin {
+        component "<b>/check-ins & /attendance</b>\n---\n• GET /events/{id}/check-ins (listCheckIns)\n• POST /events/{id}/check-ins (checkIn)\n• POST /events/{id}/check-in-batches (syncCheckIns)\n• POST /events/{id}/attendance-exports (exportAttendance)" as router_checkin
+    }
+
+    package "5. Программа и Доклады (CFP)" as pkg_program {
+        component "<b>/schedule & /proposals</b>\n---\n• GET /events/{id}/schedule (getSchedule)\n• PUT /events/{id}/schedule (replaceSchedule)\n• GET /events/{id}/proposals (listProposals)\n• POST /events/{id}/proposals (submitProposal)\n• PATCH /proposals/{id} (reviewProposal)" as router_program
+    }
+
+    package "6. Хакатон и Команды" as pkg_teams {
+        component "<b>/teams & /team-invitations</b>\n---\n• GET /events/{id}/teams (listTeams)\n• POST /events/{id}/teams (createTeam)\n• POST /teams/{id}/invitations (inviteMember)\n• PATCH /team-invitations/{id} (answerInvitation)" as router_teams
+    }
+
+    package "7. Оповещения и Асинхронные задачи" as pkg_announce {
+        component "<b>/announcements & /jobs</b>\n---\n• POST /events/{id}/announcements (broadcast)\n• GET /jobs/{id} (getJobStatus)" as router_announce
+    }
+
+    package "8. Площадки и Внешние сервисы" as pkg_integrations {
+        component "<b>/venues & /integrations</b>\n---\n• GET /venues (listVenues)\n• GET /integrations/geocoding (geocodeOSM)\n• GET /integrations/holidays (checkHolidays)\n• GET /health (healthCheck)" as router_integrations
+    }
+}
+
+Gateway --> router_auth
+Gateway --> router_events
+Gateway --> router_tickets
+Gateway --> router_checkin
+Gateway --> router_program
+Gateway --> router_teams
+Gateway --> router_announce
+Gateway --> router_integrations
+
+@enduml

@@ -1,0 +1,113 @@
+@startuml
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 14
+autonumber
+
+skinparam sequence {
+    ArrowColor #2563EB
+    ActorBorderColor #334155
+    LifeLineBorderColor #64748B
+    LifeLineBackgroundColor #F1F5F9
+    ParticipantBorderColor #334155
+    ParticipantBackgroundColor #EFF6FF
+    FontColor #0F172A
+    MessageAlign center
+    ParticipantPadding 12
+    BoxPadding 10
+}
+skinparam responseMessageBelowArrow true
+
+title Диаграмма последовательности: Сценарии REST API и Mock-сервера (Задание 4)
+
+actor "Слушатель\n(Артём)" as Attendee
+actor "Волонтер\n(Дарья)" as Volunteer
+participant "Web / Mobile Client\n(Next.js / Expo)" as Client
+participant "FastAPI Gateway\n(Mock API :8000)" as Gateway
+participant "Idempotency &\nAuth Guard" as Middleware
+participant "Domain Store &\nTransactions" as Store
+database "SQLite Database\n(mock_data.db)" as DB
+
+== Сценарий 1: Регистрация с Idempotency-Key и защита от овербукинга ==
+
+Attendee -> Client: Нажатие «Зарегистрироваться на митап»
+activate Client
+Client -> Gateway: POST /api/v1/events/{id}/registrations\nHeader: Idempotency-Key: "idem-key-001"\nHeader: Authorization: Bearer demo-artem\nBody: { "join_waitlist": true }
+activate Gateway
+
+Gateway -> Middleware: Проверка токена и ключа идемпотентности
+activate Middleware
+Middleware -> DB: SELECT * FROM idempotency_keys WHERE key = 'idem-key-001'
+DB --> Middleware: null (первый запрос)
+Middleware --> Gateway: OK (ключ свободен, пользователь валиден)
+deactivate Middleware
+
+Gateway -> Store: register_attendee(event_id, user_id, join_waitlist)
+activate Store
+Store -> DB: BEGIN IMMEDIATE (блокировка транзакции)
+Store -> DB: SELECT capacity_limit, (SELECT count(*) FROM tickets WHERE status='REGISTERED')
+DB --> Store: capacity_limit=50, registered_count=49 (1 свободное место)
+Store -> DB: INSERT INTO tickets (id, ticket_code, status='REGISTERED', ...)
+Store -> DB: INSERT INTO idempotency_keys (actor_id, key, status=201, body=...)
+Store -> DB: COMMIT
+Store --> Gateway: TicketDTO { ticket_code: 'DEMO-ARTEM-01', status: 'REGISTERED' }
+deactivate Store
+
+Gateway --> Client: HTTP 201 Created\nLocation: /api/v1/tickets/t-001\nBody: { "ticket_code": "DEMO-ARTEM-01", "status": "REGISTERED" }
+Client --> Attendee: Отображение подтвержденного билета и QR-кода
+deactivate Client
+
+== Сценарий 2: Повторный запрос с тем же Idempotency-Key (Защита от дублей) ==
+
+Attendee -> Client: Случайный повторный клик / сетевой повтор
+activate Client
+Client -> Gateway: POST /api/v1/events/{id}/registrations\nHeader: Idempotency-Key: "idem-key-001"
+activate Gateway
+Gateway -> Middleware: Проверка ключа идемпотентности
+activate Middleware
+Middleware -> DB: SELECT * FROM idempotency_keys WHERE key = 'idem-key-001'
+DB --> Middleware: Cached Record: status=201, body={...}
+Middleware --> Gateway: Return Cached Response (без изменения БД)
+deactivate Middleware
+Gateway --> Client: HTTP 201 Created (Cached Idempotent Response)
+Client --> Attendee: Отображение того же билета без дублирования квоты
+deactivate Gateway
+deactivate Client
+
+== Сценарий 3: Валидация прохода и отсечение повторного чекина ==
+
+Volunteer -> Client: Сканирование QR-кода билета Артёма
+activate Client
+Client -> Gateway: POST /api/v1/events/{id}/check-ins\nBody: { "ticket_id": "t-001", "client_scan_id": "scan-uuid-101" }
+activate Gateway
+Gateway -> Store: process_check_in(event_id, ticket_id, scan_id, volunteer_id)
+activate Store
+Store -> DB: SELECT status FROM tickets WHERE id = 't-001'
+DB --> Store: status = 'REGISTERED'
+Store -> DB: INSERT INTO check_in_logs (verdict='GRANTED', ...)
+Store -> DB: UPDATE tickets SET status = 'CHECKED_IN' WHERE id = 't-001'
+Store --> Gateway: CheckInResult { verdict: 'GRANTED', attendee_name: 'Артём' }
+Gateway --> Client: HTTP 200 OK { "verdict": "GRANTED" }
+Client --> Volunteer: ЗЕЛЕНЫЙ экран (Доступ разрешен)
+deactivate Store
+deactivate Gateway
+
+note over Volunteer, Gateway: Попытка повторного входа по тому же билету
+
+Volunteer -> Client: Сканирование того же билета вторым волонтером
+Client -> Gateway: POST /api/v1/events/{id}/check-ins\nBody: { "ticket_id": "t-001", "client_scan_id": "scan-uuid-102" }
+activate Gateway
+Gateway -> Store: process_check_in(event_id, ticket_id, scan_id, volunteer_id)
+activate Store
+Store -> DB: SELECT status FROM tickets WHERE id = 't-001'
+DB --> Store: status = 'CHECKED_IN' (Билет уже использован!)
+Store -> DB: INSERT INTO check_in_logs (verdict='DENIED_DUPLICATE', ...)
+Store --> Gateway: ConflictError: "Ticket already checked in"
+deactivate Store
+Gateway --> Client: HTTP 409 Conflict\nBody: { "code": "ALREADY_CHECKED_IN", "detail": "Билет уже погашен" }
+deactivate Gateway
+Client --> Volunteer: КРАСНЫЙ экран + Предупреждение о повторном проходе!
+deactivate Client
+
+@enduml
