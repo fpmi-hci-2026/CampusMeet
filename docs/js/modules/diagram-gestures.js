@@ -29,33 +29,36 @@
         // Pointer down: initiate drag-to-pan for mouse left-click
         surface.addEventListener('pointerdown', function (event) {
             // Ignore if clicking on interactive controls (buttons, links, inputs)
-            if (event.target.closest('button, a, select, input, textarea, .diagram-btn, .lightbox-btn')) {
+            if (event && event.target && event.target.closest && event.target.closest('button, a, select, input, textarea, .diagram-btn, .lightbox-btn')) {
                 return;
             }
 
-            // Left mouse button or pen
-            if (event.pointerType === 'mouse' && event.button !== 0) return;
-
             moved = false;
-            isDragging = true;
-            dragStartX = event.clientX;
-            dragStartY = event.clientY;
-            startScrollLeft = surface.scrollLeft;
-            startScrollTop = surface.scrollTop;
 
-            surface.classList.add('is-panning');
+            // Left mouse button or pen
+            if (event && event.pointerType === 'mouse' && event.button !== 0) return;
+
+            isDragging = true;
+            dragStartX = event ? (event.clientX || 0) : 0;
+            dragStartY = event ? (event.clientY || 0) : 0;
+            startScrollLeft = surface.scrollLeft || 0;
+            startScrollTop = surface.scrollTop || 0;
+
+            if (surface.classList) surface.classList.add('is-panning');
             try {
-                surface.setPointerCapture(event.pointerId);
+                if (surface.setPointerCapture && event && event.pointerId) {
+                    surface.setPointerCapture(event.pointerId);
+                }
             } catch (err) {
                 // Ignore if pointer capture is not supported
             }
         });
 
         surface.addEventListener('pointermove', function (event) {
-            if (!isDragging) return;
+            if (!isDragging || !event) return;
 
-            const dx = event.clientX - dragStartX;
-            const dy = event.clientY - dragStartY;
+            const dx = (event.clientX || 0) - dragStartX;
+            const dy = (event.clientY || 0) - dragStartY;
 
             if (Math.hypot(dx, dy) > 5) {
                 moved = true;
@@ -63,15 +66,17 @@
 
             surface.scrollLeft = startScrollLeft - dx;
             surface.scrollTop = startScrollTop - dy;
-            event.preventDefault();
+            if (typeof event.preventDefault === 'function') {
+                event.preventDefault();
+            }
         });
 
         function endDrag(event) {
             if (!isDragging) return;
             isDragging = false;
-            surface.classList.remove('is-panning');
+            if (surface.classList) surface.classList.remove('is-panning');
             try {
-                if (event && event.pointerId && surface.hasPointerCapture(event.pointerId)) {
+                if (event && event.pointerId && surface.hasPointerCapture && surface.hasPointerCapture(event.pointerId)) {
                     surface.releasePointerCapture(event.pointerId);
                 }
             } catch (err) {}
@@ -80,14 +85,14 @@
         surface.addEventListener('pointerup', endDrag);
         surface.addEventListener('pointercancel', endDrag);
 
-        // Native scroll events also mark moved
+        // Native scroll events mark moved so accidental clicks are suppressed
         surface.addEventListener('scroll', function () {
-            // do not mark moved if not user-initiated
+            moved = true;
         }, { passive: true });
 
         // Ctrl + Wheel (or trackpad pinch) zooms the diagram
         surface.addEventListener('wheel', function (event) {
-            if (!event.ctrlKey && !event.metaKey) return;
+            if (!event || !event.ctrlKey) return;
             event.preventDefault();
             moved = true;
             const delta = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? surface.clientHeight : 1);
