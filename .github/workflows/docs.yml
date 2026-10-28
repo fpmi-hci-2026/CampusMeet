@@ -1,0 +1,32 @@
+name: Documentation consistency
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout linked server repository
+        uses: actions/checkout@v4
+        continue-on-error: true
+        with:
+          repository: fpmi-hci-2026/CampusMeet-Server
+          path: linked-server
+          ref: ${{ github.head_ref || github.ref_name }}
+          token: ${{ secrets.CAMPUSMEET_READ_TOKEN || github.token }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check documentation and server contract together
+        run: |
+          if [ -d linked-server ]; then
+            rm -rf ../CampusMeet-Server
+            mv linked-server ../CampusMeet-Server
+          fi
+          python scripts/check-lab4.py
+          python scripts/check-diagrams.py
+          node --test tests/diagram-gestures.test.cjs

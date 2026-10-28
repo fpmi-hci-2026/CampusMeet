@@ -1,0 +1,119 @@
+@startuml
+skinparam monochrome false
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 13
+skinparam roundcorner 8
+skinparam linetype ortho
+skinparam nodesep 35
+skinparam ranksep 40
+
+left to right direction
+
+skinparam actor {
+    BackgroundColor #F8FAFC
+    BorderColor #334155
+    FontColor #0F172A
+}
+
+skinparam usecase {
+    BackgroundColor #EFF6FF
+    BorderColor #2563EB
+    FontColor #1E293B
+    ArrowColor #2563EB
+}
+
+skinparam package {
+    BackgroundColor #F8FAFC
+    BorderColor #94A3B8
+    FontColor #0F172A
+}
+
+title Модель требований и вариантов использования REST API экосистемы CampusMeet (Задание 1)
+
+' --- Левая колонка: Пользовательские и операционные акторы ---
+actor "Слушатель\n(Attendee)" as Attendee #EFF6FF
+actor "Капитан команды\n(Hacker Lead)" as Captain #EFF6FF
+actor "Волонтер входа\n(Volunteer)" as Volunteer #EFF6FF
+
+Attendee <|-- Captain
+
+' --- Центральный блок: Подсистемы CampusMeet REST API ---
+rectangle "CampusMeet REST API Core Platform" {
+
+    package "1. Каталог и Профиль" as pkg_catalog {
+        usecase "UC-06: Поиск и просмотр\nкаталога событий" as UC_Search
+        usecase "UC-14: Получение профиля\nтекущего пользователя" as UC_Profile
+        usecase "UC-15: Ведение личной\nпрограммы докладов" as UC_PersonalSchedule
+    }
+
+    package "2. Регистрация и Билеты" as pkg_tickets {
+        usecase "UC-01: Регистрация на событие\n(Идемпотентность, квота)" as UC_Register
+        usecase "UC-07: Доступ к билету\nи SecureStore-кешу" as UC_ViewTicket
+        usecase "UC-08: Отмена регистрации\nи продвижение очереди" as UC_CancelTicket
+        usecase "UC-11: Экспорт пропуска\nв нативный Wallet" as UC_Wallet
+    }
+
+    package "3. Контроль входа (Check-in)" as pkg_checkin {
+        usecase "UC-02: Оптический чекин билета\nи проверка журнала проходов" as UC_CheckIn
+        usecase "UC-02b: Пакетная синхронизация\nофлайн-сканов волонтера" as UC_SyncBatches
+    }
+
+    package "4. Хакатон и Команды" as pkg_teams {
+        usecase "UC-05: Создание команды и\nуправление приглашениями" as UC_Team
+    }
+
+    package "5. Управление событиями и Программа" as pkg_admin {
+        usecase "UC-03: Создание, изменение\nи удаление событий (ETag)" as UC_ManageEvent
+        usecase "UC-04: Модерация заявок\nдокладчиков (CFP)" as UC_ManageCFP
+        usecase "UC-09: Редактирование сетки\nрасписания митапа" as UC_Schedule
+        usecase "UC-10: Экстренное Push-оповещение\nучастников события" as UC_Announce
+        usecase "UC-12: Аналитическая выгрузка\nявки в формате XLSX" as UC_ExportAttendance
+        usecase "UC-13: Выбор площадки, геокодинг\nи проверка даты (OSM, Nager)" as UC_VenueDate
+    }
+
+    package "6. Интеллектуальный интерфейс (MCP)" as pkg_mcp {
+        usecase "UC-15mcp: Управление через\nMCP Tools и Resources" as UC_MCP
+    }
+}
+
+' --- Правая колонка: Организационные, экспертные и программные акторы ---
+actor "Организатор\n(Organizer)" as Organizer #F1F5F9
+actor "Спикер\n(Speaker)" as Speaker #F1F5F9
+actor "Администратор\n(Patron/Admin)" as Admin #F1F5F9
+actor "AI-ассистент\n(MCP Agent)" as MCPAgent #EFF6FF
+
+' --- Связи левых акторов ---
+Attendee --> UC_Search
+Attendee --> UC_Profile
+Attendee --> UC_Register
+
+Captain --> UC_Team
+
+Volunteer --> UC_CheckIn
+Volunteer --> UC_SyncBatches
+
+' --- Внутренние связи Use Cases (<<include>> / <<extend>>) ---
+UC_Profile ..> UC_PersonalSchedule : <<include>>
+UC_Register ..> UC_ViewTicket : <<include>>
+UC_Register ..> UC_CancelTicket : <<extend>>
+UC_ViewTicket ..> UC_Wallet : <<extend>>
+UC_CheckIn ..> UC_ViewTicket : <<include>>
+
+' --- Связи правых акторов ---
+Organizer --> UC_ManageEvent
+Organizer --> UC_ManageCFP
+Organizer --> UC_Schedule
+Organizer --> UC_Announce
+
+Speaker --> UC_ManageCFP
+
+Admin --> UC_VenueDate
+Admin --> UC_ExportAttendance
+
+MCPAgent --> UC_MCP
+UC_MCP ..> UC_Register : <<invokes>>
+UC_MCP ..> UC_Search : <<reads>>
+
+@enduml

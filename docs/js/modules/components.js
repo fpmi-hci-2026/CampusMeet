@@ -50,7 +50,7 @@
                 <h1 style="font-size: 2.2rem; font-weight: 700; letter-spacing: -0.03em; margin: 0 0 12px 0; color: var(--text-primary); line-height: 1.2;">${title}</h1>
                 ${subtitle ? `<p class="lead" style="font-size: 1.1rem; color: var(--text-secondary); max-width: 880px; line-height: 1.6; margin-bottom: 20px;">${subtitle}</p>` : ''}
                 <div class="header-meta" style="display: flex; gap: 24px; align-items: center; flex-wrap: wrap; padding-top: 12px; border-top: 1px solid var(--border-subtle);">
-                    <div style="font-size: 0.85rem; color: var(--text-secondary);"><strong style="color: var(--text-primary);">Курс:</strong> 2025–2026 (6 семестр)</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary);"><strong style="color: var(--text-primary);">Курс:</strong> 2026–2027 (7 семестр)</div>
                     <div style="font-size: 0.85rem; color: var(--text-secondary);"><strong style="color: var(--text-primary);">Команда:</strong> Минчук С., Иванова В., Шварцман Д.</div>
                     ${reportHref ? `
                     <div style="margin-left: auto;">
@@ -197,9 +197,16 @@
             if (type === 'mermaid') {
                 contentHtml = `<div class="mermaid">${innerCode}</div>`;
             } else if (resolvedSrc) {
-                contentHtml = `<img src="${resolvedSrc}" alt="${title}" style="max-width: 100%; display: block; margin: 0 auto;">`;
+                contentHtml = `<img src="${resolvedSrc}" alt="${title}" style="display: block; margin: 0;">`;
             } else {
                 contentHtml = innerCode;
+            }
+
+            // The shared lightbox enhancer supplies working zoom/fullscreen
+            // controls for images. Avoid a second, inactive toolbar around it.
+            if (resolvedSrc && type !== 'mermaid') {
+                this.innerHTML = contentHtml;
+                return;
             }
 
             this.innerHTML = `
@@ -210,9 +217,7 @@
                             <span class="persona-tag tag-key" style="font-size: 0.7rem;">${badge}</span>
                         </div>
                         <div class="diagram-pan-controls" style="display: flex; gap: 6px; align-items: center;">
-                            <button type="button" class="pan-ctrl-btn" data-action="zoom-out" title="Уменьшить" style="padding: 2px 8px; border: 1px solid var(--border-subtle); background: var(--surface-primary); border-radius: var(--radius-xs); cursor: pointer;">−</button>
                             <span class="pan-zoom-badge" style="font-size: 0.75rem; color: var(--text-secondary); min-width: 44px; text-align: center;">100%</span>
-                            <button type="button" class="pan-ctrl-btn" data-action="zoom-in" title="Увеличить" style="padding: 2px 8px; border: 1px solid var(--border-subtle); background: var(--surface-primary); border-radius: var(--radius-xs); cursor: pointer;">+</button>
                             <button type="button" class="pan-ctrl-btn" data-action="zoom-reset" title="Сбросить (1:1)" style="padding: 2px 8px; border: 1px solid var(--border-subtle); background: var(--surface-primary); border-radius: var(--radius-xs); cursor: pointer;">1:1</button>
                         </div>
                     </div>

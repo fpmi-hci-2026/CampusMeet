@@ -12,9 +12,6 @@
     let lbZoom = 1;
     let lbPanX = 0;
     let lbPanY = 0;
-    let lbDragging = false;
-    let lbStartX = 0;
-    let lbStartY = 0;
 
     function getActiveLightboxElement() {
         const img = document.getElementById('lightbox-img');
@@ -34,7 +31,7 @@
 
     /**
      * Pan-Zoom Engine for viewports
-     * Supports mouse drag, mouse wheel, double click, and programmatic zoom
+     * Pinch / Ctrl+wheel zoom with native scrolling and no canvas dragging
      */
     function makePanZoomable(viewport, canvas, zoomBadge, options) {
         options = options || {};
@@ -43,10 +40,6 @@
         let zoom = 1;
         let panX = 0;
         let panY = 0;
-        let isDragging = false;
-        let startX = 0;
-        let startY = 0;
-        let hasMoved = false;
 
         function applyTransform() {
             canvas.style.transform = `translate(${panX}px, ${panY}px) scale(${zoom})`;
@@ -62,89 +55,20 @@
             zoom = 1;
             panX = 0;
             panY = 0;
+            viewport.scrollTop = viewport.scrollLeft = 0;
             applyTransform();
         }
 
-        // Mouse Drag to Pan
-        viewport.addEventListener('mousedown', function (e) {
-            if (e.button !== 0) return; // Only primary mouse button
-            isDragging = true;
-            hasMoved = false;
-            startX = e.clientX - panX;
-            startY = e.clientY - panY;
-            viewport.classList.add('is-grabbing');
-            canvas.style.transition = 'none';
-        });
-
-        window.addEventListener('mousemove', function (e) {
-            if (!isDragging) return;
-            const currentPanX = e.clientX - startX;
-            const currentPanY = e.clientY - startY;
-            if (Math.abs(currentPanX - panX) > 4 || Math.abs(currentPanY - panY) > 4) {
-                hasMoved = true;
-            }
-            panX = currentPanX;
-            panY = currentPanY;
-            applyTransform();
-        });
-
-        window.addEventListener('mouseup', function () {
-            if (!isDragging) return;
-            isDragging = false;
-            viewport.classList.remove('is-grabbing');
-            canvas.style.transition = 'transform 0.15s cubic-bezier(0.16, 1, 0.3, 1)';
-        });
-
-        // Touch Drag for Mobile / Tablets
-        viewport.addEventListener('touchstart', function (e) {
-            if (e.touches.length === 1) {
-                isDragging = true;
-                hasMoved = false;
-                startX = e.touches[0].clientX - panX;
-                startY = e.touches[0].clientY - panY;
-                viewport.classList.add('is-grabbing');
-                canvas.style.transition = 'none';
-            }
-        }, { passive: true });
-
-        window.addEventListener('touchmove', function (e) {
-            if (!isDragging || e.touches.length !== 1) return;
-            hasMoved = true;
-            panX = e.touches[0].clientX - startX;
-            panY = e.touches[0].clientY - startY;
-            applyTransform();
-        }, { passive: true });
-
-        window.addEventListener('touchend', function () {
-            if (!isDragging) return;
-            isDragging = false;
-            viewport.classList.remove('is-grabbing');
-            canvas.style.transition = 'transform 0.15s cubic-bezier(0.16, 1, 0.3, 1)';
-        });
-
-        // Mouse Wheel Zoom
-        viewport.addEventListener('wheel', function (e) {
-            // Smooth zoom if hovering or holding Ctrl
-            e.preventDefault();
-            const delta = e.deltaY < 0 ? 0.15 : -0.15;
-            setZoom(zoom + delta);
-        }, { passive: false });
-
-        // Double Click to Toggle Zoom (100% <-> 175%)
-        viewport.addEventListener('dblclick', function (e) {
-            e.preventDefault();
-            if (zoom === 1) {
-                setZoom(1.75);
-            } else {
-                reset();
-            }
+        const gestures = window.CampusMeetDiagramGestures.bind(viewport, {
+            getZoom: function () { return zoom; },
+            setZoom: setZoom
         });
 
         return {
             setZoom: setZoom,
             reset: reset,
             getZoom: function () { return zoom; },
-            hasMoved: function () { return hasMoved; }
+            hasMoved: gestures.hasMoved
         };
     }
 
@@ -222,6 +146,7 @@
         lbZoom = 1;
         lbPanX = 0;
         lbPanY = 0;
+        body.scrollTop = body.scrollLeft = 0;
 
         // Set Title & Badge
         if (titleEl) titleEl.textContent = title || 'Просмотр схемы';
@@ -322,9 +247,9 @@
                     <span class="diagram-card-badge">${badge}</span>
                 </div>
                 <div class="diagram-card-toolbar">
-                    <button type="button" class="diagram-btn" data-action="zoom-out" title="Уменьшить (−)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
+                    <button type="button" class="diagram-btn" data-action="zoom-out" title="Уменьшить (−)">−</button>
                     <span class="diagram-zoom-badge">100%</span>
-                    <button type="button" class="diagram-btn" data-action="zoom-in" title="Увеличить (+)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
+                    <button type="button" class="diagram-btn" data-action="zoom-in" title="Увеличить (+)">+</button>
                     <button type="button" class="diagram-btn" data-action="zoom-reset" title="Сбросить (1:1)">1:1</button>
                     <button type="button" class="diagram-btn" data-action="toggle-collapse" title="Свернуть диаграмму"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 14 10 14 10 20"></polyline><polyline points="20 10 14 10 14 4"></polyline><line x1="14" y1="10" x2="21" y2="3"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg></button>
                     <button type="button" class="diagram-btn" data-action="fullscreen" title="Во весь экран"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg></button>
@@ -335,6 +260,8 @@
             // Viewport & Canvas
             const viewport = document.createElement('div');
             viewport.className = 'diagram-viewport';
+            viewport.tabIndex = 0;
+            viewport.setAttribute('aria-label', 'Диаграмма: ' + title);
 
             const canvas = document.createElement('div');
             canvas.className = 'diagram-canvas';
@@ -347,7 +274,7 @@
             // Floating Hint
             const hint = document.createElement('div');
             hint.className = 'diagram-hint-overlay';
-            hint.textContent = 'Перетаскивание: навигация • Двойной клик: 100%/175% • Клик: во весь экран';
+            hint.textContent = 'Перетаскивание мышью: панорамирование • + / − или Ctrl + колесо: масштаб • Клик: во весь экран';
 
             // Insert Card into DOM
             img.parentNode.insertBefore(card, img);
@@ -357,10 +284,59 @@
             viewport.appendChild(banner);
             viewport.appendChild(hint);
             canvas.appendChild(img);
+            img.style.maxWidth = 'none';
+            img.style.width = 'auto';
 
             // Hook Pan-Zoom Engine
             const zoomBadge = header.querySelector('.diagram-zoom-badge');
             const pz = makePanZoomable(viewport, canvas, zoomBadge, { minZoom: 0.5, maxZoom: 3.0 });
+
+            // Hook Toolbar Actions safely
+            function bindBtn(sel, handler) {
+                const btn = header.querySelector(sel);
+                if (btn) btn.addEventListener('click', handler);
+            }
+            bindBtn('[data-action="zoom-in"]', () => pz.setZoom(pz.getZoom() * 1.25));
+            bindBtn('[data-action="zoom-out"]', () => pz.setZoom(pz.getZoom() / 1.25));
+            bindBtn('[data-action="zoom-reset"]', () => pz.reset());
+            bindBtn('[data-action="fullscreen"]', () => window.openLightbox(img, title, badge, 'image'));
+
+            const key = src.split('diagrams/')[1]?.split(/[?#]/)[0];
+            const pages = key && window.CampusMeetDiagramPages?.[key];
+            if (pages && pages.length > 1) {
+                const originalUrl = img.src;
+                const pager = document.createElement('nav');
+                pager.className = 'diagram-pages';
+                pager.setAttribute('aria-label', 'Фрагменты диаграммы');
+                const previous = document.createElement('button');
+                const next = document.createElement('button');
+                const select = document.createElement('select');
+                previous.type = next.type = 'button';
+                previous.textContent = '←';
+                next.textContent = '→';
+                previous.setAttribute('aria-label', 'Предыдущий фрагмент');
+                next.setAttribute('aria-label', 'Следующий фрагмент');
+                select.setAttribute('aria-label', 'Выбрать фрагмент');
+                pages.forEach((page, index) => select.add(new Option(page.label, String(index))));
+                const hint = document.createElement('span');
+                hint.textContent = 'Масштаб 1:1 · прокрутка внутри схемы';
+                let active = 0;
+                function showPage(index) {
+                    active = Math.max(0, Math.min(index, pages.length - 1));
+                    img.src = new URL(pages[active].file, originalUrl).href;
+                    select.value = String(active);
+                    previous.disabled = active === 0;
+                    next.disabled = active === pages.length - 1;
+                    viewport.scrollTop = viewport.scrollLeft = 0;
+                    pz.reset();
+                }
+                previous.addEventListener('click', () => showPage(active - 1));
+                next.addEventListener('click', () => showPage(active + 1));
+                select.addEventListener('change', () => showPage(Number(select.value)));
+                pager.append(previous, select, next, hint);
+                card.insertBefore(pager, viewport);
+                showPage(0);
+            }
 
             // Hook Collapse Toggle
             const btnCollapse = header.querySelector('[data-action="toggle-collapse"]');
@@ -376,16 +352,6 @@
             if (btnCollapse) btnCollapse.addEventListener('click', toggleCardCollapse);
             banner.addEventListener('click', toggleCardCollapse);
 
-            // Hook Toolbar Actions safely
-            function bindBtn(sel, handler) {
-                const btn = header.querySelector(sel);
-                if (btn) btn.addEventListener('click', handler);
-            }
-            bindBtn('[data-action="zoom-in"]', () => pz.setZoom(pz.getZoom() + 0.25));
-            bindBtn('[data-action="zoom-out"]', () => pz.setZoom(pz.getZoom() - 0.25));
-            bindBtn('[data-action="zoom-reset"]', () => pz.reset());
-            bindBtn('[data-action="fullscreen"]', () => window.openLightbox(img, title, badge, 'image'));
-
             // Viewport Click Opens Lightbox (only if not dragged and not collapsed)
             viewport.addEventListener('click', function (e) {
                 if (card.classList.contains('is-collapsed')) return;
@@ -399,6 +365,13 @@
         // 2. Target Mermaid Diagram Blocks
         const mermaids = container.querySelectorAll('.mermaid');
         mermaids.forEach(function (m) {
+            const renderedSvg = m.querySelector('svg');
+            if (renderedSvg && renderedSvg.viewBox && renderedSvg.viewBox.baseVal.width) {
+                const bounds = renderedSvg.viewBox.baseVal;
+                renderedSvg.style.maxWidth = 'none';
+                renderedSvg.style.width = bounds.width + 'px';
+                renderedSvg.style.height = bounds.height + 'px';
+            }
             if (m.closest('.diagram-card')) return;
 
             const title = extractTitle(m);
@@ -417,9 +390,9 @@
                     <span class="diagram-card-badge">${badge}</span>
                 </div>
                 <div class="diagram-card-toolbar">
-                    <button type="button" class="diagram-btn" data-action="zoom-out" title="Уменьшить (−)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
+                    <button type="button" class="diagram-btn" data-action="zoom-out" title="Уменьшить (−)">−</button>
                     <span class="diagram-zoom-badge">100%</span>
-                    <button type="button" class="diagram-btn" data-action="zoom-in" title="Увеличить (+)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
+                    <button type="button" class="diagram-btn" data-action="zoom-in" title="Увеличить (+)">+</button>
                     <button type="button" class="diagram-btn" data-action="zoom-reset" title="Сбросить (1:1)">1:1</button>
                     <button type="button" class="diagram-btn" data-action="toggle-collapse" title="Свернуть диаграмму"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 14 10 14 10 20"></polyline><polyline points="20 10 14 10 14 4"></polyline><line x1="14" y1="10" x2="21" y2="3"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg></button>
                     <button type="button" class="diagram-btn" data-action="fullscreen" title="Во весь экран"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg></button>
@@ -438,7 +411,7 @@
 
             const hint = document.createElement('div');
             hint.className = 'diagram-hint-overlay';
-            hint.textContent = 'Перетаскивание: навигация • Двойной клик: 100%/175% • Клик: во весь экран';
+            hint.textContent = 'Перетаскивание мышью: панорамирование • + / − или Ctrl + колесо: масштаб • Клик: во весь экран';
 
             m.parentNode.insertBefore(card, m);
             card.appendChild(header);
@@ -451,25 +424,12 @@
             const zoomBadge = header.querySelector('.diagram-zoom-badge');
             const pz = makePanZoomable(viewport, canvas, zoomBadge, { minZoom: 0.5, maxZoom: 3.0 });
 
-            const btnCollapse = header.querySelector('[data-action="toggle-collapse"]');
-            function toggleMermaidCollapse() {
-                card.classList.toggle('is-collapsed');
-                const isCol = card.classList.contains('is-collapsed');
-                if (btnCollapse) {
-                    btnCollapse.setAttribute('title', isCol ? 'Развернуть диаграмму' : 'Свернуть диаграмму');
-                    btnCollapse.classList.toggle('active', isCol);
-                }
-            }
-
-            if (btnCollapse) btnCollapse.addEventListener('click', toggleMermaidCollapse);
-            banner.addEventListener('click', toggleMermaidCollapse);
-
             function bindMermaidBtn(sel, handler) {
                 const btn = header.querySelector(sel);
                 if (btn) btn.addEventListener('click', handler);
             }
-            bindMermaidBtn('[data-action="zoom-in"]', () => pz.setZoom(pz.getZoom() + 0.25));
-            bindMermaidBtn('[data-action="zoom-out"]', () => pz.setZoom(pz.getZoom() - 0.25));
+            bindMermaidBtn('[data-action="zoom-in"]', () => pz.setZoom(pz.getZoom() * 1.25));
+            bindMermaidBtn('[data-action="zoom-out"]', () => pz.setZoom(pz.getZoom() / 1.25));
             bindMermaidBtn('[data-action="zoom-reset"]', () => pz.reset());
             bindMermaidBtn('[data-action="fullscreen"]', () => window.openLightbox(m, title, badge, 'mermaid'));
 
@@ -500,14 +460,14 @@
 
         if (zoomInBtn) {
             zoomInBtn.addEventListener('click', () => {
-                lbZoom = Math.min(lbZoom + 0.25, 4.0);
+                lbZoom = Math.min(lbZoom * 1.25, 4.5);
                 updateLightboxTransform();
             });
         }
 
         if (zoomOutBtn) {
             zoomOutBtn.addEventListener('click', () => {
-                lbZoom = Math.max(lbZoom - 0.25, 0.3);
+                lbZoom = Math.max(lbZoom / 1.25, 0.3);
                 updateLightboxTransform();
             });
         }
@@ -517,15 +477,18 @@
                 lbZoom = 1;
                 lbPanX = 0;
                 lbPanY = 0;
+                body.scrollTop = body.scrollLeft = 0;
                 updateLightboxTransform();
             });
         }
 
         if (fitBtn) {
             fitBtn.addEventListener('click', () => {
-                lbZoom = 1;
+                const target = getActiveLightboxElement();
+                lbZoom = target ? Math.min(1, (body.clientWidth-48)/target.clientWidth, (body.clientHeight-48)/target.clientHeight) : 1;
                 lbPanX = 0;
                 lbPanY = 0;
+                body.scrollTop = body.scrollLeft = 0;
                 updateLightboxTransform();
             });
         }
@@ -539,48 +502,12 @@
             if (e.target === dialog) dialog.close();
         });
 
-        // Mouse Drag to Pan inside Lightbox
-        body.addEventListener('mousedown', function (e) {
-            if (e.button !== 0) return;
-            if (e.target.closest('.lightbox-controls') || e.target.closest('.lightbox-btn')) return;
-            lbDragging = true;
-            lbStartX = e.clientX - lbPanX;
-            lbStartY = e.clientY - lbPanY;
-            body.classList.add('grabbing');
-        });
-
-        window.addEventListener('mousemove', function (e) {
-            if (!lbDragging) return;
-            lbPanX = e.clientX - lbStartX;
-            lbPanY = e.clientY - lbStartY;
-            updateLightboxTransform();
-        });
-
-        window.addEventListener('mouseup', function () {
-            if (!lbDragging) return;
-            lbDragging = false;
-            body.classList.remove('grabbing');
-        });
-
-        // Wheel Zoom in Lightbox
-        body.addEventListener('wheel', function (e) {
-            e.preventDefault();
-            const delta = e.deltaY < 0 ? 0.15 : -0.15;
-            lbZoom = Math.min(Math.max(lbZoom + delta, 0.3), 4.5);
-            updateLightboxTransform();
-        }, { passive: false });
-
-        // Double Click in Lightbox to Toggle Zoom
-        body.addEventListener('dblclick', function (e) {
-            if (e.target.closest('.lightbox-controls')) return;
-            if (lbZoom === 1) {
-                lbZoom = 2;
-            } else {
-                lbZoom = 1;
-                lbPanX = 0;
-                lbPanY = 0;
+        window.CampusMeetDiagramGestures.bind(body, {
+            getZoom: function () { return lbZoom; },
+            setZoom: function (value) {
+                lbZoom = Math.min(Math.max(value, 0.3), 4.5);
+                updateLightboxTransform();
             }
-            updateLightboxTransform();
         });
 
         // Keyboard Shortcuts
@@ -588,28 +515,10 @@
             if (!dialog.open) return;
             if (e.key === 'Escape') {
                 dialog.close();
-            } else if (e.key === '+' || e.key === '=') {
-                lbZoom = Math.min(lbZoom + 0.25, 4.0);
-                updateLightboxTransform();
-            } else if (e.key === '-' || e.key === '_') {
-                lbZoom = Math.max(lbZoom - 0.25, 0.3);
-                updateLightboxTransform();
             } else if (e.key === '0') {
                 lbZoom = 1;
                 lbPanX = 0;
                 lbPanY = 0;
-                updateLightboxTransform();
-            } else if (e.key === 'ArrowLeft') {
-                lbPanX += 50;
-                updateLightboxTransform();
-            } else if (e.key === 'ArrowRight') {
-                lbPanX -= 50;
-                updateLightboxTransform();
-            } else if (e.key === 'ArrowUp') {
-                lbPanY += 50;
-                updateLightboxTransform();
-            } else if (e.key === 'ArrowDown') {
-                lbPanY -= 50;
                 updateLightboxTransform();
             }
         });

@@ -5,6 +5,13 @@
 window.CampusMeetData = window.CampusMeetData || {};
 
 window.CampusMeetData.searchRegistry = [
+    { id: 'lab4-overview', url: 'pages/lab4.html#lab4-overview', title: 'Лаб. №4: Стили интеграции и проектирование API', category: 'Лабораторная 4', keywords: 'api openapi swagger rest mcp docker требования интеграция' },
+    { id: 'lab4-requirements', url: 'pages/lab4.html#lab4-requirements', title: 'Лаб. №4: Акторы → User Stories → Use Cases', category: 'Лабораторная 4', keywords: 'требования реестр трассировка uc us' },
+    { id: 'lab4-database', url: 'pages/lab4.html#lab4-database', title: 'Лаб. №4: Логическая и физическая БД, 17 таблиц', category: 'Лабораторная 4', keywords: 'postgresql sqlite er sql ddl база данных' },
+    { id: 'lab4-api', url: 'pages/lab4.html#lab4-api', title: 'Лаб. №4: OpenAPI и mock-сервер', category: 'Лабораторная 4', keywords: 'маршруты rest bruno postman swagger mock http' },
+    { id: 'lab4-mcp', url: 'pages/lab4.html#lab4-mcp', title: 'Лаб. №4: MCP Tools, Resources и Prompts', category: 'Лабораторная 4', keywords: 'mcp stdio json rpc tools resources prompts inspector ассистент' },
+    { id: 'lab4-infrastructure', url: 'pages/lab4.html#lab4-infrastructure', title: 'Лаб. №4: Docker и CI/CD', category: 'Лабораторная 4', keywords: 'docker compose github actions sonarqube render инфраструктура' },
+    { id: 'report-lab4', url: 'pages/lab4.html#report-lab4', title: 'Отчет: Лабораторная работа №4', category: 'Отчеты', keywords: 'lab4_report отчет лаб 4 api mcp' },
     // Portal / Overview
     { id: 'portal-overview', url: 'index.html#portal-overview', title: 'Главная: Проектный портал CampusMeet (ФПМИ БГУ)', category: 'Портал', keywords: 'портал главная обзор паспорт цели kpi дорожная карта репозитории бгу фпми' },
 

@@ -1,0 +1,254 @@
+@startuml
+skinparam monochrome false
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 12
+skinparam roundcorner 6
+skinparam linetype ortho
+skinparam nodesep 45
+skinparam ranksep 50
+
+skinparam entity {
+    BackgroundColor #F8FAFC
+    BorderColor #334155
+    ArrowColor #2563EB
+    HeaderBackgroundColor #E2E8F0
+    FontColor #0F172A
+}
+
+skinparam package {
+    BackgroundColor #F1F5F9
+    BorderColor #94A3B8
+    FontColor #0F172A
+}
+
+title Физическая модель базы данных PostgreSQL 16 (17 отношений, Задание 2)
+
+' ==========================================
+' 1. ПОЛЬЗОВАТЕЛИ, ПЛОЩАДКИ И ИДЕМПОТЕНТНОСТЬ
+' ==========================================
+package "1. Пользователи, Площадки и Идемпотентность" {
+    entity "users" as users {
+        * id : varchar(36) <<PK>>
+        --
+        * email : varchar(255) <<UQ>>
+        * password_hash : text
+        * full_name : varchar(150)
+        * role : varchar(24)
+        * is_active : boolean
+        * created_at : timestamptz
+    }
+
+    entity "venues" as venues {
+        * id : varchar(36) <<PK>>
+        --
+        * name : varchar(200)
+        * address : text
+        latitude : numeric(10,7)
+        longitude : numeric(10,7)
+        * total_capacity : integer
+    }
+
+    entity "idempotency_keys" as idempotency_keys {
+        * actor_user_id : varchar(36) <<PK, FK>>
+        * operation : varchar(64) <<PK>>
+        * idempotency_key : varchar(128) <<PK>>
+        --
+        * request_hash : varchar(64)
+        * response_status : integer
+        response_body : text
+        * created_at : timestamptz
+    }
+}
+
+' ==========================================
+' 2. МЕРОПРИЯТИЯ И НАЗНАЧЕНИЯ
+' ==========================================
+package "2. Мероприятия и Назначения" {
+    entity "events" as events {
+        * id : varchar(36) <<PK>>
+        --
+        * slug : varchar(120) <<UQ>>
+        * title : varchar(200)
+        * event_type : varchar(20)
+        * status : varchar(24)
+        * venue_id : varchar(36) <<FK>>
+        * organizer_user_id : varchar(36) <<FK>>
+        * start_time : timestamptz
+        * end_time : timestamptz
+        * capacity_limit : integer
+        * waitlist_enabled : boolean
+        * version : integer
+    }
+
+    entity "event_staff" as event_staff {
+        * event_id : varchar(36) <<PK, FK>>
+        * user_id : varchar(36) <<PK, FK>>
+        --
+        * assignment : varchar(20)
+    }
+}
+
+' ==========================================
+' 3. БИЛЕТЫ И КОНТРОЛЬ ДОСТУПА
+' ==========================================
+package "3. Билеты и Контроль доступа" {
+    entity "tickets" as tickets {
+        * id : varchar(36) <<PK>>
+        --
+        * ticket_code : varchar(32) <<UQ>>
+        * event_id : varchar(36) <<FK>>
+        * user_id : varchar(36) <<FK>>
+        * status : varchar(20)
+        qr_token_hash : varchar(64)
+        signature_key_id : varchar(80)
+        * created_at : timestamptz
+    }
+
+    entity "waitlist_entries" as waitlist_entries {
+        * ticket_id : varchar(36) <<PK, FK>>
+        --
+        * queued_at : timestamptz
+        promoted_at : timestamptz
+        offer_expires_at : timestamptz
+    }
+
+    entity "check_in_logs" as check_in_logs {
+        * id : varchar(36) <<PK>>
+        --
+        * event_id : varchar(36) <<FK>>
+        * ticket_id : varchar(36) <<FK>>
+        * scanned_by_volunteer_id : varchar(36) <<FK>>
+        * client_scan_id : varchar(64) <<UQ>>
+        * verdict : varchar(20)
+        * verification_mode : varchar(20)
+        * scanned_at : timestamptz
+    }
+}
+
+' ==========================================
+' 4. ПРОГРАММА И ДОКЛАДЫ (CFP)
+' ==========================================
+package "4. Программа и Доклады (CFP)" {
+    entity "schedule_items" as schedule_items {
+        * id : varchar(36) <<PK>>
+        --
+        * event_id : varchar(36) <<FK>>
+        speaker_user_id : varchar(36) <<FK>>
+        * title : varchar(200)
+        room : varchar(60)
+        * start_time : timestamptz
+        * end_time : timestamptz
+    }
+
+    entity "speaker_proposals" as speaker_proposals {
+        * id : varchar(36) <<PK>>
+        --
+        * event_id : varchar(36) <<FK>>
+        * speaker_user_id : varchar(36) <<FK>>
+        * topic : varchar(200)
+        abstract_text : text
+        * status : varchar(20)
+    }
+
+    entity "personal_schedule" as personal_schedule {
+        * user_id : varchar(36) <<PK, FK>>
+        * schedule_item_id : varchar(36) <<PK, FK>>
+    }
+}
+
+' ==========================================
+' 5. ХАКАТОН И КОМАНДЫ
+' ==========================================
+package "5. Хакатон и Команды" {
+    entity "team_matches" as team_matches {
+        * id : varchar(36) <<PK>>
+        --
+        * event_id : varchar(36) <<FK>>
+        * captain_user_id : varchar(36) <<FK>>
+        * team_name : varchar(120)
+        looking_for_roles : text
+        max_members : integer
+        * status : varchar(20)
+    }
+
+    entity "team_members" as team_members {
+        * team_id : varchar(36) <<PK, FK>>
+        * event_id : varchar(36) <<FK>>
+        * user_id : varchar(36) <<PK, FK>>
+        --
+        * role_in_team : varchar(60)
+    }
+
+    entity "team_invitations" as team_invitations {
+        * id : varchar(36) <<PK>>
+        --
+        * team_id : varchar(36) <<FK>>
+        * user_id : varchar(36) <<FK>>
+        * status : varchar(20)
+    }
+}
+
+' ==========================================
+' 6. ОПОВЕЩЕНИЯ И АУДИТ АГЕНТА
+' ==========================================
+package "6. Оповещения и Аудит Агента" {
+    entity "emergency_announcements" as emergency_announcements {
+        * id : varchar(36) <<PK>>
+        --
+        * event_id : varchar(36) <<FK>>
+        * author_user_id : varchar(36) <<FK>>
+        * title : varchar(200)
+        * body_text : text
+        * created_at : timestamptz
+    }
+
+    entity "notification_deliveries" as notification_deliveries {
+        * id : varchar(36) <<PK>>
+        --
+        * announcement_id : varchar(36) <<FK>>
+        * user_id : varchar(36) <<FK>>
+        * channel : varchar(20)
+        * status : varchar(20)
+    }
+
+    entity "agent_audit_log" as agent_audit_log {
+        * id : varchar(36) <<PK>>
+        --
+        * actor_user_id : varchar(36) <<FK>>
+        * action : varchar(60)
+        target_id : varchar(64)
+        * outcome : varchar(20)
+        * created_at : timestamptz
+    }
+}
+
+' ==========================================
+' РЕЛЯЦИОННЫЕ СВЯЗИ
+' ==========================================
+
+users ||--down--o{ events
+venues ||--down--o{ events
+users ||--left--o{ idempotency_keys
+users ||--left--o{ agent_audit_log
+
+events ||--right--o{ event_staff
+
+events ||--down--o{ tickets
+users ||--down--o{ tickets
+tickets ||--right--o| waitlist_entries
+tickets ||--down--o{ check_in_logs
+
+events ||--right--o{ schedule_items
+events ||--right--o{ speaker_proposals
+schedule_items ||--down--o{ personal_schedule
+
+events ||--down--o{ team_matches
+team_matches ||--right--o{ team_members
+team_matches ||--down--o{ team_invitations
+
+events ||--down--o{ emergency_announcements
+emergency_announcements ||--down--o{ notification_deliveries
+
+@enduml

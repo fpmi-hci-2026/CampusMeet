@@ -134,17 +134,43 @@
 }
 
 /* --- DIAGRAM VIEWPORT & CANVAS (DEFAULT: EXPANDED / NATURAL) --- */
+.diagram-pages {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+.diagram-pages button,
+.diagram-pages select {
+    font: inherit;
+    color: var(--text-primary);
+    background: var(--surface-primary);
+    border: 1px solid var(--border-default);
+    border-radius: 4px;
+    min-height: 36px;
+    padding: 6px 12px;
+}
+.diagram-pages button:disabled { opacity: .4; }
+.diagram-pages :focus-visible { outline: 2px solid var(--text-primary); outline-offset: 2px; }
+
 .diagram-viewport {
     position: relative;
     height: auto;
-    max-height: none;
+    max-height: min(78vh, 900px);
     overflow: auto;
     background: var(--surface-primary);
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     padding: 20px;
     cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
     min-width: 0;
     max-width: 100%;
     width: 100%;
@@ -154,29 +180,32 @@
                 background-color var(--duration-base) var(--ease-snappy);
 }
 
-.diagram-viewport.is-grabbing {
+.diagram-viewport.is-panning {
     cursor: grabbing !important;
-    user-select: none;
+}
+
+.diagram-viewport img,
+.diagram-canvas img {
+    -webkit-user-drag: none;
+    user-drag: none;
+    pointer-events: none;
 }
 
 .diagram-canvas {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    transform-origin: center center;
+    align-items: flex-start;
+    justify-content: flex-start;
+    transform-origin: top left;
     transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
-    max-width: 100%;
-    width: 100%;
-    min-width: 0;
-}
-
-.diagram-viewport.is-grabbing .diagram-canvas {
-    transition: none !important;
+    max-width: none;
+    width: max-content;
+    min-width: 100%;
+    flex-shrink: 0;
 }
 
 .diagram-canvas img {
-    max-width: 100%;
-    width: 100%;
+    max-width: none;
+    width: auto;
     height: auto;
     object-fit: contain;
     display: block;

@@ -1,0 +1,119 @@
+@startuml
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 13
+skinparam roundcorner 6
+skinparam linetype ortho
+skinparam nodesep 30
+skinparam ranksep 40
+
+skinparam node {
+    BackgroundColor #F8FAFC
+    BorderColor #334155
+    FontColor #0F172A
+}
+
+skinparam artifact {
+    BackgroundColor #EFF6FF
+    BorderColor #2563EB
+    FontColor #0F172A
+}
+
+skinparam database {
+    BackgroundColor #F8FAFC
+    BorderColor #334155
+    FontColor #0F172A
+}
+
+skinparam cloud {
+    BackgroundColor #F1F5F9
+    BorderColor #64748B
+    FontColor #0F172A
+}
+
+title Диаграмма развертывания инфраструктуры Docker и CI/CD экосистемы CampusMeet (Задание 6)
+
+node "Пользовательские устройства (Client Tier)" {
+    node "Рабочая станция / Ноутбук" <<device>> {
+        node "Веб-браузер (Chrome / Safari / Firefox)" {
+            artifact "CampusMeet Web SPA\n(Node.js 22 Client / Demo)" as BrowserApp
+        }
+        node "IDE / LLM-ассистент" {
+            artifact "Claude Desktop / Cursor\n(MCP Host Process)" as MCPClient
+        }
+    }
+
+    node "Мобильный терминал" <<device>> {
+        artifact "CampusMeet Mobile Client\n(React Native / Expo Runtime)" as MobileApp
+    }
+}
+
+node "Локальный / Облачный хост контейнеризации (Docker Host)" <<server>> {
+    node "Docker Compose окружение (campusmeet-network: bridge)" {
+        
+        node "Сервис веб-интерфейса (web-service)" {
+            artifact "Docker Container: campusmeet-web\n(Node.js 22 Alpine, Port 3000:3000)" as WebContainer
+        }
+
+        node "Сервис Mock REST API (api-service)" {
+            artifact "Docker Container: campusmeet-api\n(Python 3.12 Slim, Port 8000:8000\nUvicorn / FastAPI Application)" as APIContainer
+        }
+
+        node "Локальный агентский сервис" {
+            artifact "MCP Server CLI Process\n(python3 -m campusmeet.mcp_server\nStdio JSON-RPC 2.0)" as MCPServerProc
+        }
+
+        node "СУБД физической модели (profile: database)" {
+            database "Docker Container: postgres-db\n(PostgreSQL 16 Alpine, Port 5432:5432\nDDL: schema.postgresql.sql)" as PostgresContainer
+        }
+
+        node "Анализ качества кода (profile: quality)" {
+            artifact "Docker Container: sonarqube\n(SonarQube Community, Port 9000:9000)" as SonarContainer
+        }
+
+        database "Docker Volume: mock-data\n(SQLite runtime stateful mock_data.db)" as SQLiteVolume
+    }
+}
+
+cloud "Непрерывная интеграция и Облако (CI/CD & Cloud Tier)" {
+    node "GitHub Actions Runners" {
+        artifact "Server CI Workflow\n(Lint, DDL verify, Swagger gen, PyTest, Docker build)" as GH_ServerCI
+        artifact "Web & Mobile CI Workflows\n(Node tests, API contract checks)" as GH_ClientCI
+    }
+
+    node "SonarCloud Service" {
+        artifact "SonarCloud Quality Gate\n(Static Analysis & Coverage)" as SonarCloud
+    }
+
+    node "Облачный хостинг Render" {
+        artifact "Render Web Service (PaaS)\n(Dockerfile deploy, blueprint render.yaml)" as RenderPaaS
+    }
+    
+    node "Внешние публичные API" {
+        artifact "OpenStreetMap Nominatim\n(Геокодирование адресов площадок)" as ExtOSM
+        artifact "Nager.Date API\n(Производственный календарь Беларуси)" as ExtNager
+    }
+}
+
+' Сетевые связи
+BrowserApp --> WebContainer : HTTP:3000
+BrowserApp --> APIContainer : HTTP:8000
+MobileApp --> APIContainer : HTTP:8000
+MCPClient <--> MCPServerProc : Stdio JSON-RPC
+
+WebContainer --> APIContainer : proxy
+APIContainer --> SQLiteVolume : SQL Mock Store
+MCPServerProc --> SQLiteVolume : Shared Store
+
+APIContainer ..> PostgresContainer : Валидация DDL физической модели
+APIContainer --> ExtOSM : HTTPS REST (Геокодирование)
+APIContainer --> ExtNager : HTTPS REST (Календарь)
+
+' CI/CD связи
+GH_ServerCI --> APIContainer : Docker smoke test & build
+GH_ServerCI --> SonarCloud : Анализ кода (SONAR_TOKEN)
+GH_ServerCI --> RenderPaaS : Webhook Deploy (Production)
+SonarContainer ..> APIContainer : Локальный анализ качества
+
+@enduml

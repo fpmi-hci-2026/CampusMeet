@@ -1,0 +1,260 @@
+@startuml
+skinparam monochrome false
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 13
+skinparam roundcorner 6
+skinparam linetype ortho
+skinparam nodesep 45
+skinparam ranksep 50
+
+skinparam entity {
+    BackgroundColor #F8FAFC
+    BorderColor #334155
+    ArrowColor #2563EB
+    HeaderBackgroundColor #E2E8F0
+    FontColor #0F172A
+}
+
+skinparam package {
+    BackgroundColor #F1F5F9
+    BorderColor #94A3B8
+    FontColor #0F172A
+}
+
+title Логическая модель базы данных экосистемы CampusMeet (17 сущностей, Задание 2)
+
+' ==========================================
+' 1. УЧЕТНЫЕ ЗАПИСИ, ПЛОЩАДКИ И СЕССИИ
+' ==========================================
+package "1. Пользователи, Площадки и Идемпотентность" {
+    entity "users\n(Пользователи)" as users {
+        * id : UUID <<PK>>
+        --
+        * email : String <<UQ>>
+        * password_hash : String
+        * full_name : String
+        * role : String (ATTENDEE, VOLUNTEER, ORGANIZER, SPEAKER, ADMIN)
+        is_active : Boolean
+        created_at : Timestamp
+    }
+
+    entity "venues\n(Университетские аудитории)" as venues {
+        * id : UUID <<PK>>
+        --
+        * name : String
+        * address : String
+        latitude : Numeric(10,7)
+        longitude : Numeric(10,7)
+        * total_capacity : Integer
+    }
+
+    entity "idempotency_keys\n(Ключи повторов запросов)" as idempotency_keys {
+        * actor_user_id : UUID <<PK, FK>>
+        * operation : String <<PK>>
+        * idempotency_key : String <<PK>>
+        --
+        * request_hash : String
+        * response_status : Integer
+        response_body : Text
+        created_at : Timestamp
+    }
+}
+
+' ==========================================
+' 2. МЕРОПРИЯТИЯ И ПЕРСОНАЛ
+' ==========================================
+package "2. Мероприятия и Назначения" {
+    entity "events\n(События и митапы)" as events {
+        * id : UUID <<PK>>
+        --
+        * slug : String <<UQ>>
+        * title : String
+        * event_type : String (MEETUP, HACKATHON, WORKSHOP)
+        * status : String (DRAFT, PUBLISHED, COMPLETED, CANCELLED)
+        * venue_id : UUID <<FK>>
+        * organizer_user_id : UUID <<FK>>
+        * start_time : Timestamp
+        * end_time : Timestamp
+        * capacity_limit : Integer
+        waitlist_enabled : Boolean
+        version : Integer
+    }
+
+    entity "event_staff\n(Назначенные волонтеры)" as event_staff {
+        * event_id : UUID <<PK, FK>>
+        * user_id : UUID <<PK, FK>>
+        --
+        * assignment : String (CHECKIN_LEAD, SCANNER, MODERATOR)
+    }
+}
+
+' ==========================================
+' 3. БИЛЕТЫ, ОЧЕРЕДЬ И ЧЕКИН
+' ==========================================
+package "3. Билеты и Контроль доступа" {
+    entity "tickets\n(Электронные билеты)" as tickets {
+        * id : UUID <<PK>>
+        --
+        * ticket_code : String <<UQ>>
+        * event_id : UUID <<FK>>
+        * user_id : UUID <<FK>>
+        * status : String (REGISTERED, WAITLISTED, CHECKED_IN, CANCELLED)
+        qr_token_hash : String
+        signature_key_id : String
+        created_at : Timestamp
+    }
+
+    entity "waitlist_entries\n(Очередь ожидания)" as waitlist_entries {
+        * ticket_id : UUID <<PK, FK>>
+        --
+        * queued_at : Timestamp
+        promoted_at : Timestamp
+        offer_expires_at : Timestamp
+    }
+
+    entity "check_in_logs\n(Журнал фиксации проходов)" as check_in_logs {
+        * id : UUID <<PK>>
+        --
+        * event_id : UUID <<FK>>
+        * ticket_id : UUID <<FK>>
+        * scanned_by_volunteer_id : UUID <<FK>>
+        * client_scan_id : String <<UQ>>
+        * verdict : String (GRANTED, DENIED_DUPLICATE, DENIED_INVALID)
+        * verification_mode : String (ONLINE, OFFLINE_SYNC)
+        * scanned_at : Timestamp
+    }
+}
+
+' ==========================================
+' 4. ПРОГРАММА, ДОКЛАДЫ И ЗАКЛАДКИ
+' ==========================================
+package "4. Программа и Доклады (CFP)" {
+    entity "schedule_items\n(Сетка расписания митапа)" as schedule_items {
+        * id : UUID <<PK>>
+        --
+        * event_id : UUID <<FK>>
+        speaker_user_id : UUID <<FK>>
+        * title : String
+        room : String
+        * start_time : Timestamp
+        * end_time : Timestamp
+    }
+
+    entity "speaker_proposals\n(Заявки на доклады)" as speaker_proposals {
+        * id : UUID <<PK>>
+        --
+        * event_id : UUID <<FK>>
+        * speaker_user_id : UUID <<FK>>
+        * topic : String
+        abstract_text : Text
+        * status : String (SUBMITTED, UNDER_REVIEW, ACCEPTED, REJECTED)
+    }
+
+    entity "personal_schedule\n(Личные закладки докладов)" as personal_schedule {
+        * user_id : UUID <<PK, FK>>
+        * schedule_item_id : UUID <<PK, FK>>
+    }
+}
+
+' ==========================================
+' 5. ХАКАТОН И КОМАНДЫ
+' ==========================================
+package "5. Хакатон и Команды" {
+    entity "team_matches\n(Команды хакатона)" as team_matches {
+        * id : UUID <<PK>>
+        --
+        * event_id : UUID <<FK>>
+        * captain_user_id : UUID <<FK>>
+        * team_name : String
+        looking_for_roles : Text
+        max_members : Integer
+        * status : String (FORMING, READY, LOCKED)
+    }
+
+    entity "team_members\n(Состав команды)" as team_members {
+        * team_id : UUID <<PK, FK>>
+        * event_id : UUID <<FK>>
+        * user_id : UUID <<PK, FK>>
+        --
+        * role_in_team : String
+    }
+
+    entity "team_invitations\n(Приглашения в команду)" as team_invitations {
+        * id : UUID <<PK>>
+        --
+        * team_id : UUID <<FK>>
+        * user_id : UUID <<FK>>
+        * status : String (PENDING, ACCEPTED, DECLINED, EXPIRED)
+    }
+}
+
+' ==========================================
+' 6. ОПОВЕЩЕНИЯ И АССИСТЕНТ
+' ==========================================
+package "6. Оповещения и Аудит Агента" {
+    entity "emergency_announcements\n(Срочные оповещения)" as emergency_announcements {
+        * id : UUID <<PK>>
+        --
+        * event_id : UUID <<FK>>
+        * author_user_id : UUID <<FK>>
+        * title : String
+        * body_text : Text
+        * created_at : Timestamp
+    }
+
+    entity "notification_deliveries\n(Каналы доставки Push/Email)" as notification_deliveries {
+        * id : UUID <<PK>>
+        --
+        * announcement_id : UUID <<FK>>
+        * user_id : UUID <<FK>>
+        * channel : String (PUSH, EMAIL, TELEGRAM)
+        * status : String (SENT, DELIVERED, FAILED)
+    }
+
+    entity "agent_audit_log\n(Журнал действий MCP)" as agent_audit_log {
+        * id : UUID <<PK>>
+        --
+        * actor_user_id : UUID <<FK>>
+        * action : String
+        target_id : String
+        * outcome : String (SUCCESS, FORBIDDEN, REJECTED)
+        * created_at : Timestamp
+    }
+}
+
+' ==========================================
+' РЕЛЯЦИОННЫЕ СВЯЗИ (ЧЕТКАЯ ИЕРАРХИЯ)
+' ==========================================
+
+' Уровень 1 -> Уровень 2
+users ||--down--o{ events
+venues ||--down--o{ events
+users ||--left--o{ idempotency_keys
+users ||--left--o{ agent_audit_log
+
+' Уровень 2 -> Назначения
+events ||--right--o{ event_staff
+
+' Уровень 2 -> Уровень 3 (Билеты и Чекин)
+events ||--down--o{ tickets
+users ||--down--o{ tickets
+tickets ||--right--o| waitlist_entries
+tickets ||--down--o{ check_in_logs
+
+' Уровень 2 -> Уровень 4 (Программа и CFP)
+events ||--right--o{ schedule_items
+events ||--right--o{ speaker_proposals
+schedule_items ||--down--o{ personal_schedule
+
+' Уровень 2 -> Уровень 5 (Хакатон)
+events ||--down--o{ team_matches
+team_matches ||--right--o{ team_members
+team_matches ||--down--o{ team_invitations
+
+' Уровень 2 -> Уровень 6 (Оповещения)
+events ||--down--o{ emergency_announcements
+emergency_announcements ||--down--o{ notification_deliveries
+
+@enduml

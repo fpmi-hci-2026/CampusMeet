@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CampusMeet — спецификация API (OpenAPI 3.0.3)</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.17.14/swagger-ui.css">
+  <style>
+    html, body {
+      height: auto !important;
+      min-height: 100vh !important;
+      overflow-x: hidden !important;
+      overflow-y: auto !important;
+      display: block !important;
+    }
+    body {
+      padding: 32px 24px 64px 24px !important;
+      margin: 0 auto !important;
+      max-width: 1240px !important;
+      background-color: var(--surface-canvas);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+    }
+    .api-top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .api-nav-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .api-nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all var(--transition-fast);
+    }
+    .api-nav-btn:hover {
+      background: var(--surface-hover);
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+    }
+    .api-nav-btn.primary {
+      background: var(--accent-solid);
+      color: #ffffff;
+      border-color: var(--accent-solid);
+    }
+    .api-nav-btn.primary:hover {
+      background: var(--accent-hover);
+    }
+    .api-nav-btn .icon {
+      width: 16px;
+      height: 16px;
+      stroke-width: 2;
+    }
+    .api-header-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 24px 28px;
+      margin-bottom: 28px;
+    }
+    .api-header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: var(--surface-sunken);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+    .api-header-card h1 {
+      font-size: 1.85rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      color: var(--text-primary);
+    }
+    .api-header-card p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+    .api-header-card p:last-child {
+      margin-bottom: 0;
+    }
+    #swagger-ui {
+      height: auto !important;
+      min-height: 300px;
+      overflow: visible !important;
+      margin-top: 16px;
+    }
+    .swagger-ui {
+      font-family: inherit !important;
+      color: var(--text-primary) !important;
+    }
+    .swagger-ui .wrapper {
+      padding: 0 !important;
+      max-width: 100% !important;
+    }
+    .swagger-ui .scheme-container {
+      background: var(--surface-card) !important;
+      box-shadow: none !important;
+      border: 1px solid var(--border-subtle) !important;
+      border-radius: var(--radius-md) !important;
+      padding: 16px 20px !important;
+      margin-bottom: 24px !important;
+    }
+    .swagger-ui .opblock {
+      border-radius: var(--radius-sm) !important;
+      margin-bottom: 12px !important;
+    }
+    .swagger-ui .opblock .opblock-summary {
+      padding: 8px 16px !important;
+    }
+    .offline-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin-top: 36px;
+    }
+    .offline-card summary {
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text-primary);
+      padding: 4px 0;
+    }
+    .contract-row {
+      padding: 18px 0;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .contract-row:first-of-type {
+      border-top: none;
+    }
+    .contract-row h2 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+    .contract-row code {
+      overflow-wrap: anywhere;
+      font-size: 0.9rem;
+      background: var(--surface-sunken);
+      padding: 3px 8px;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--border-subtle);
+    }
+    .contract-row p {
+      margin: 8px 0 10px 0;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+    pre {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      background: var(--surface-sunken);
+      padding: 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.82rem;
+    }
+  </style>
+  <script src="openapi.js" defer></script>
+  <script src="https://unpkg.com/swagger-ui-dist@5.17.14/swagger-ui-bundle.js" defer></script>
+  <script src="viewer.js" defer></script>
+</head>
+<body>
+  <header class="api-top-nav">
+    <div class="api-nav-links">
+      <a href="../pages/lab4.html" class="api-nav-btn">
+        <svg class="icon" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        Лабораторная №4
+      </a>
+      <a href="../index.html" class="api-nav-btn">
+        <svg class="icon" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        Главный портал
+      </a>
+      <a href="../pages/lab4.html#lab4-api" class="api-nav-btn">
+        <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+        Раздел API в отчете
+      </a>
+    </div>
+    <div class="api-nav-links">
+      <a href="openapi.json" download class="api-nav-btn primary">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        Скачать OpenAPI JSON
+      </a>
+      <a href="route-matrix.md" class="api-nav-btn">
+        <svg class="icon" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+        Матрица маршрутов (.md)
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <div class="api-header-card">
+      <div class="api-header-badge">Спецификация интерфейсов • OpenAPI 3.0.3</div>
+      <h1>CampusMeet REST API Documentation</h1>
+      <p><strong>Контракт первого уровня:</strong> 33 конечные точки, базовый путь <code>/api/v1</code>, строгая семантика HTTP, RFC 7807 Problem Details, контроль конкурентности ETag/If-Match и фильтрация повторных вызовов по <code>Idempotency-Key</code>.</p>
+      <p>Интерактивная консоль Swagger UI использует CDN-дистрибутив. Ниже доступен резервный автономный каталог операций без внешних зависимостей. Для исполнения реальных сетевых запросов («Try it out») запустите локальный Mock API сервер (порт 8000): <code>python3 -m campusmeet.mock_api</code>.</p>
+    </div>
+
+    <div id="swagger-ui"></div>
+
+    <details open class="offline-card" id="offline-contract">
+      <summary>Автономный каталог операций и контрактов (без внешнего CDN)</summary>
+      <div id="operations"></div>
+    </details>
+  </main>
+</body>
+</html>

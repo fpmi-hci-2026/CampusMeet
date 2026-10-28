@@ -26,6 +26,8 @@
         users: '<svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>',
         layout: '<svg class="icon icon-nav" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>',
         fileText: '<svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>',
+        'file-text': '<svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>',
+        code: '<svg class="icon icon-nav" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>',
         book: '<svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>',
         github: '<svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>',
         search: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
@@ -85,7 +87,7 @@
 
         // Build Reports list
         const reportsHtml = nav.labs
-            .filter(lab => lab.status === 'done')
+            .filter(lab => lab.status === 'done' || lab.status === 'review')
             .map(lab => `
                 <li class="nav-item">
                     <a href="${resolve(lab.report)}" class="nav-link" id="report-${lab.id}" target="_blank" rel="noopener noreferrer">
@@ -116,7 +118,6 @@
                 </div>
                 <h1>
                     <span>CampusMeet</span>
-                    <span class="version-badge">${nav.site.version}</span>
                 </h1>
                 <p>${nav.site.subtitle}</p>
                 <button type="button" class="omnibox-trigger-btn" id="sidebar-search-btn" onclick="if(window.openOmnibox)window.openOmnibox();">
@@ -238,7 +239,7 @@
                 <div class="lightbox-body">
                     <img id="lightbox-img" src="" alt="Схема">
                     <div class="lightbox-footer-hints">
-                        <span>Колесо: Zoom</span> • <span>Перетаскивание: Pan</span> • <span>Двойной клик: 100%/200%</span> • <span>Esc: Закрыть</span>
+                        <span>Зажмите мышь для панорамирования</span> • <span>+ / − или Ctrl + колесо: масштаб</span> • <span>Esc: Закрыть</span>
                     </div>
                 </div>
             `;
@@ -371,7 +372,7 @@
             const footerNote = document.createElement('div');
             footerNote.style.cssText = 'margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text-tertiary); flex-wrap: wrap; gap: 12px;';
             footerNote.innerHTML = `
-                <div>© 2025–2026 CampusMeet / EventHub • БГУ ФПМИ, Кафедра технологий программирования</div>
+                <div>© 2026–2027 CampusMeet / EventHub • БГУ ФПМИ, Кафедра технологий программирования</div>
                 <div>Команда: Минчук С., Иванова В., Шварцман Д.</div>
             `;
             contentContainer.appendChild(footerNote);

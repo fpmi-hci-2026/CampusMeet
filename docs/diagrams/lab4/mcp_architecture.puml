@@ -1,0 +1,85 @@
+@startuml
+skinparam monochrome false
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam defaultFontName "Helvetica, Arial, sans-serif"
+skinparam defaultFontSize 13
+skinparam roundcorner 6
+skinparam linetype ortho
+skinparam nodesep 35
+skinparam ranksep 40
+
+skinparam component {
+    BackgroundColor #EFF6FF
+    BorderColor #2563EB
+    FontColor #0F172A
+    ArrowColor #2563EB
+}
+
+skinparam node {
+    BackgroundColor #F8FAFC
+    BorderColor #334155
+    FontColor #0F172A
+}
+
+skinparam database {
+    BackgroundColor #F8FAFC
+    BorderColor #334155
+    FontColor #0F172A
+}
+
+title Архитектура и взаимодействие MCP-сервера CampusMeet (Задание 5)
+
+actor "Студент / Пользователь" as User
+
+node "Клиентская среда LLM (Host Client)" {
+    [LLM-хост\n(Claude Desktop / Cursor / Inspector)] as LLMHost
+    [AI-модель\n(Claude 3.5 / Gemini / GPT-4o)] as LLMModel
+    LLMHost <--> LLMModel : Inference / Reasoning
+}
+
+User --> LLMHost
+
+node "Процесс CampusMeet MCP Server (Python 3.12)" {
+    [Stdio JSON-RPC 2.0 Engine\n(Handshake, Dispatcher)] as StdioEngine
+    
+    package "MCP Примитивы (Model Context Protocol 2025-11-25)" {
+        component "5 Tools (Действия)\n---\n• list_events(query?)\n• check_event_capacity(event_id)\n• get_ticket(ticket_id)\n• register_for_event(event_id, join_waitlist, key)\n• cancel_ticket(ticket_id)" as MCPTools
+        
+        component "3 Resources + 1 Template (Данные)\n---\n• events://upcoming (Каталог анонсов)\n• tickets://mine (Собственные билеты)\n• policy://ticket-cancellation (Правила)\n• events://{event_id} (Карточка митапа)" as MCPResources
+        
+        component "2 Prompts (Сценарии)\n---\n• plan_visit(interest)\n• cancel_registration(ticket_id)" as MCPPrompts
+    }
+
+    component "Security & Identity Barrier\n---\n• Фиксированная сессия процесса (--token)\n• Валидация JSON Schema (additionalProperties=false)\n• Запрет подмены user_id в аргументах" as SecurityBarrier
+    
+    component "Общий модуль бизнес-логики (Domain Store)\n---\n• Атомарные транзакции квот\n• Продвижение очереди ожидания\n• Проверка прав владельца билета" as DomainStore
+}
+
+database "Локальное хранилище данных (Persistence)" {
+    database "SQLite Mock DB\n(17 таблиц, Foreign Keys)" as DB
+    database "Таблица agent_audit_log\n(actor, action, target, outcome, time)" as AuditLog
+}
+
+' Потоки взаимодействия
+LLMHost <--> StdioEngine : Двунаправленный протокол stdio\nJSON-RPC 2.0 (UTF-8 lines)
+
+StdioEngine --> MCPPrompts : prompts/list, prompts/get
+StdioEngine --> MCPResources : resources/list, resources/read
+StdioEngine --> MCPTools : tools/list, tools/call
+
+MCPTools --> SecurityBarrier : Входящий вызов Tool
+MCPResources --> SecurityBarrier : Чтение защищенного ресурса
+
+SecurityBarrier --> DomainStore : Авторизованный доменный вызов
+DomainStore --> DB : SQL-транзакции (ACID)
+DomainStore --> AuditLog : Фиксация аудита действий агента
+
+note bottom of SecurityBarrier
+  <b>Гарантии безопасности:</b>
+  1. Агент не имеет прямого доступа к SQL или файловой системе
+  2. Identity слушателя жестко привязана к процессу при запуске
+  3. Промпт не может повысить привилегии пользователя
+end note
+
+@enduml

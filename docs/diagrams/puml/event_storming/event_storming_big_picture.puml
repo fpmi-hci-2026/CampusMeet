@@ -1,8 +1,7 @@
 @startuml
-skinparam handwritten false
-skinparam shadowing true
+skinparam shadowing false
 skinparam defaultFontName "Helvetica, Arial, sans-serif"
-skinparam defaultFontSize 11
+skinparam defaultFontSize 16
 
 ' Цветовые константы EventStorming (Alberto Brandolini)
 <style>

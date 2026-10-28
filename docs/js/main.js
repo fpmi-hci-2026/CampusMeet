@@ -6,16 +6,19 @@
 (function () {
     'use strict';
 
-    document.addEventListener('DOMContentLoaded', function () {
+    function initialize() {
         // Safe mermaid initialization with strict monochrome theme
         // Safe mermaid initialization with strict monochrome theme
         if (typeof mermaid !== 'undefined') {
             const isLight = document.documentElement.getAttribute('data-theme') === 'light';
             mermaid.initialize({
                 startOnLoad: false,
+                flowchart: { useMaxWidth: false, nodeSpacing: 64, rankSpacing: 88, padding: 24 },
+                sequence: { useMaxWidth: false, actorMargin: 80, messageMargin: 60, wrap: true },
                 theme: 'base',
                 themeVariables: isLight ? {
                     darkMode: false,
+                    fontSize: '18px',
                     background: '#ffffff',
                     mainBkg: '#ffffff',
                     nodeBorder: '#d4d4d4',
@@ -37,6 +40,7 @@
                     fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
                 } : {
                     darkMode: true,
+                    fontSize: '18px',
                     background: '#171717',
                     mainBkg: '#212121',
                     nodeBorder: '#383838',
@@ -95,5 +99,12 @@
         if (backdrop && typeof window.closeMobileSidebar === 'function') {
             backdrop.addEventListener('click', window.closeMobileSidebar);
         }
-    });
+    }
+
+    // app-shell loads modules sequentially; DOMContentLoaded may already have fired.
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initialize, { once: true });
+    } else {
+        initialize();
+    }
 })();
