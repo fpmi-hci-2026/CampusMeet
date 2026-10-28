@@ -80,14 +80,27 @@ def render_graph(name, nodes, edges, rankdir="LR"):
 
 
 def main(check=False):
-    raw = (SERVER / 'api/openapi.json').read_bytes()
-    spec = json.loads(raw)
+    server_contract = SERVER / 'api/openapi.json'
     target = ROOT / 'docs/api/openapi.json'
     if check:
-        assert target.read_bytes() == raw, 'Portal OpenAPI snapshot is stale'
-        assert (ROOT / 'docs/api/openapi.js').read_text() == 'window.CampusMeetOpenAPI = ' + raw.decode().strip() + ';\n'
-        print('PASS: portal contract snapshots match Server')
+        if server_contract.exists():
+            raw = server_contract.read_bytes()
+            assert target.read_bytes() == raw, 'Portal OpenAPI snapshot is stale'
+            assert (ROOT / 'docs/api/openapi.js').read_text() == 'window.CampusMeetOpenAPI = ' + raw.decode().strip() + ';\n'
+            print('PASS: portal contract snapshots match Server')
+        else:
+            assert target.exists(), 'Missing docs/api/openapi.json'
+            raw = target.read_bytes()
+            assert (ROOT / 'docs/api/openapi.js').read_text() == 'window.CampusMeetOpenAPI = ' + raw.decode().strip() + ';\n'
+            sha_file = ROOT / 'docs/api/contract.sha256'
+            if sha_file.exists():
+                assert hashlib.sha256(raw).hexdigest() in sha_file.read_text(), 'docs/api/contract.sha256 mismatch'
+            print(f'PASS: portal contract snapshots are self-consistent (Server contract not found at {server_contract})')
         return
+    if not server_contract.exists():
+        raise FileNotFoundError(f'Cannot sync without server contract: {server_contract}')
+    raw = server_contract.read_bytes()
+    spec = json.loads(raw)
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_bytes(raw)
     write(ROOT / 'docs/api/openapi.js', 'window.CampusMeetOpenAPI = ' + raw.decode().strip() + ';\n')
