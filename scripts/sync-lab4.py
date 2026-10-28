@@ -11,7 +11,6 @@ import shutil
 import subprocess
 from html import escape
 from pathlib import Path
-from diagram_layout import render as render_svg
 
 ROOT = Path(__file__).resolve().parents[1]
 SERVER = ROOT.parent / "CampusMeet-Server"
@@ -67,18 +66,6 @@ def write(path, content):
     path.write_text(content)
 
 
-def render_graph(name, nodes, edges, rankdir="LR"):
-    lines = [f'digraph "{name}" {{', f'graph [rankdir={rankdir},bgcolor="white",pad="0.3",nodesep="0.3",ranksep="0.7"];', 'node [shape=box,style="rounded,filled",fillcolor="#f9f9f9",color="#b4b4b4",fontname="Arial",fontsize=12,margin="0.15,0.12"];', 'edge [color="#737373",fontname="Arial",fontsize=10];']
-    for identifier, label in nodes:
-        lines.append(json.dumps(identifier) + ' [label=' + json.dumps(label, ensure_ascii=False) + '];')
-    for source, target, label in edges:
-        lines.append(f'{json.dumps(source)} -> {json.dumps(target)} [label={json.dumps(label, ensure_ascii=False)}];')
-    lines.append('}')
-    dot = DIAGRAMS / (name + '.dot')
-    write(dot, '\n'.join(lines) + '\n')
-    render_svg(dot.with_suffix('.svg'), name, nodes, edges)
-
-
 def main(check=False):
     server_contract = SERVER / 'api/openapi.json'
     target = ROOT / 'docs/api/openapi.json'
@@ -129,13 +116,7 @@ def main(check=False):
             md[index] = '|' + '|'.join(columns[1:3]) + '|'
     write(ROOT / 'wiki/API_Requirements_and_Use_Cases.md', '\n'.join(md) + '\n')
 
-    nodes, edges = [], []
-    for i, (actor, stories) in enumerate(ACTORS):
-        identifier = f'actor{i}'
-        nodes.append((identifier, actor))
-        for story in stories:
-            edges.append((identifier, story, ''))
-    # Recompile all Lab 4 PlantUML diagrams using local plantuml.jar
+    # Recompile all Lab 4 PlantUML diagrams using local plantuml.jar if present
     jar = ROOT / 'scripts/plantuml.jar'
     if jar.exists():
         for puml in sorted(DIAGRAMS.glob('*.puml')):

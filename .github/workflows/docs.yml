@@ -28,5 +28,3 @@ jobs:
             mv linked-server ../CampusMeet-Server
           fi
           python scripts/check-lab4.py
-          python scripts/check-diagrams.py
-          node --test tests/diagram-gestures.test.cjs
