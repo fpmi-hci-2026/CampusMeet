@@ -1,0 +1,17 @@
+Task ID,Title,Repository,Proposed reviewer,Status,Artifact
+L4-01,Уточнить роли и истории API,CampusMeet,Иванова Виктория,To check,wiki/API_Requirements_and_Use_Cases.md
+L4-02,Проверить логическую и физическую БД,Server,Минчук Станислав,To check,database/schema.postgresql.sql
+L4-03,Проверить OpenAPI и трассировку,Server,Минчук Станислав,To check,api/openapi.json
+L4-04,Проверить mock и бизнес-инварианты,Server,Минчук Станислав,To check,tests/test_lab4.py
+L4-05,Проверить MCP MVP и протокол,Server,Минчук Станислав,To check,mcp/README.md
+L4-06,Проверить окружение Web,Web,Шварцман Дидар,To check,demo/
+L4-07,Проверить окружение Mobile,Mobile,Шварцман Дидар,To check,App.js
+L4-08,Проверить отчет и портал,CampusMeet,Иванова Виктория,To check,docs/pages/lab4.html
+L4-09,Запустить Docker и PostgreSQL,Server,Шварцман Дидар,To do,compose.yaml
+L4-10,Продемонстрировать Inspector/LLM-клиент,Server,Минчук Станислав,To do,mcp/README.md
+L4-11,Импортировать коллекцию в GUI и сохранить прогон,Server,Минчук Станислав,To do,api/bruno/
+L4-12,Создать/согласовать ветки и GitHub Projects,Все,Команда,To do,wiki/Infrastructure_and_CI.md
+L4-13,Выполнить общий коммит после ревью,Все,Команда,To do,Только совместно с пользователем
+L4-14,Подтвердить CI в GitHub,Все,Команда,To do,.github/workflows/
+L4-15,Настроить Sonar и проверить quality gate,Server/Web,Шварцман Дидар,To do,sonar-project.properties
+L4-16,Разместить учебный API и записать URL,Server,Команда,To do,render.yaml

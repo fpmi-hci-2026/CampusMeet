@@ -19,9 +19,9 @@
             title: 'CampusMeet Docs',
             subtitle: 'Проектирование человеко-машинных интерфейсов (ПЧМИ)',
             department: 'Белорусский государственный университет, ФПМИ',
-            course: 'ПЧМИ • 2025–2026',
-            version: 'v1.4.0',
-            github: 'https://github.com/fpmi-hci-2026/CampusMeet-Docs',
+            course: 'ПЧМИ • 2026–2027',
+            version: 'v1.5.0',
+            github: 'https://github.com/fpmi-hci-2026/CampusMeet',
             team: ['Минчук Станислав', 'Иванова Виктория', 'Шварцман Дидар']
         },
 
@@ -73,6 +73,19 @@
                 badge: 'L3',
                 icon: 'file-text',
                 desc: '12 User Stories (BDD/MoSCoW), 29 схем UML, EventStorming, C4 Model, ТЗ (SRS IEEE 830)'
+            },
+            {
+                id: 'lab4',
+                num: 4,
+                title: 'Лабораторная работа №4',
+                shortTitle: 'Лаб. №4',
+                subtitle: 'Стили интеграции программных систем и проектирование API',
+                path: 'pages/lab4.html',
+                report: 'reports/Lab4_report.md',
+                status: 'review',
+                badge: 'L4',
+                icon: 'code',
+                desc: '33 операции OpenAPI, 17 таблиц, HTTP mock, MCP Tools / Resources / Prompts, Docker и CI'
             }
         ],
 
@@ -87,7 +100,7 @@
         },
 
         repos: [
-            { id: 'repo-docs', name: 'CampusMeet-Docs', role: 'Портал и документация', url: 'https://github.com/fpmi-hci-2026/CampusMeet-Docs' },
+            { id: 'repo-docs', name: 'CampusMeet', role: 'Портал и документация', url: 'https://github.com/fpmi-hci-2026/CampusMeet' },
             { id: 'repo-server', name: 'CampusMeet-Server', role: 'REST API & БД (10 таблиц)', url: 'https://github.com/fpmi-hci-2026/CampusMeet-Server' },
             { id: 'repo-web', name: 'CampusMeet-Web', role: 'Next.js кабинет организатора', url: 'https://github.com/fpmi-hci-2026/CampusMeet-Web' },
             { id: 'repo-mobile', name: 'CampusMeet-Mobile', role: 'React Native мобильный билет', url: 'https://github.com/fpmi-hci-2026/CampusMeet-Mobile' }

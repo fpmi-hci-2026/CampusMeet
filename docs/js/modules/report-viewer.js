@@ -12,11 +12,13 @@
     let currentReportKey = null;
     let currentMarkdownText = '';
     let isRawMode = false;
+    let reportLinksInitialized = false;
 
     const REPORT_TITLES = {
         'Lab1_report.md': 'Лабораторная работа №1: Исследование пользователей и предметной области',
         'Lab2_report.md': 'Лабораторная работа №2: Проектирование информационной архитектуры и взаимодействия',
-        'Lab3_report.md': 'Лабораторная работа №3: Разработка требований к программной системе'
+        'Lab3_report.md': 'Лабораторная работа №3: Разработка требований к программной системе',
+        'Lab4_report.md': 'Лабораторная работа №4: Стили интеграции программных систем и проектирование API'
     };
 
     function normalizeReportKey(raw) {
@@ -25,6 +27,7 @@
         if (lower.includes('lab1')) return 'Lab1_report.md';
         if (lower.includes('lab2')) return 'Lab2_report.md';
         if (lower.includes('lab3')) return 'Lab3_report.md';
+        if (lower.includes('lab4')) return 'Lab4_report.md';
         return raw;
     }
 
@@ -334,6 +337,7 @@
         tocNav.innerHTML = '';
         let headerIndex = 0;
         const tocItems = [];
+        const headingTargets = new Map();
 
         headers.forEach(h => {
             headerIndex++;
@@ -343,6 +347,9 @@
             // Generate clean anchor ID
             const anchorId = 'sec-' + headerIndex + '-' + text.toLowerCase().replace(/[^a-zа-я0-9]+/gi, '-').slice(0, 40);
             h.id = anchorId;
+            const markdownAnchor = text.toLowerCase().replace(/[^\p{L}\p{N}_\s-]/gu, '').replace(/\s+/g, '-');
+            if (!headingTargets.has(markdownAnchor)) headingTargets.set(markdownAnchor, h);
+            headingTargets.set(anchorId, h);
 
             const level = h.tagName.toLowerCase() === 'h1' ? 1 : (h.tagName.toLowerCase() === 'h2' ? 2 : 3);
 
@@ -369,6 +376,18 @@
         });
 
         if (tocCount) tocCount.textContent = `${tocItems.length} тем`;
+
+        // Keep original Markdown contents links working inside the modal.
+        docEl.querySelectorAll('a[href^="#"]').forEach(link => {
+            let target;
+            try { target = headingTargets.get(decodeURIComponent(link.getAttribute('href').slice(1))); }
+            catch (_) { return; }
+            if (!target || !scrollPane) return;
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                scrollPane.scrollTo({ top: target.offsetTop - scrollPane.offsetTop - 20, behavior: 'smooth' });
+            });
+        });
 
         // 2. Scrollspy for Active TOC item
         if (scrollPane && tocItems.length > 0) {
@@ -400,15 +419,15 @@
             });
         }
 
-        // 3. Fix Image paths in report
+        // Resolve relative report assets/links from the Markdown file, including
+        // when the same report is opened from the portal root or a lab page.
         const inPages = window.location.pathname.includes('/pages/');
-        docEl.querySelectorAll('img').forEach(img => {
-            const src = img.getAttribute('src') || '';
-            if (src.startsWith('../') && !inPages) {
-                img.setAttribute('src', src.replace(/^\.\.\//, './'));
-            } else if (src.startsWith('./') && inPages) {
-                img.setAttribute('src', src.replace(/^\.\//, '../'));
-            }
+        const reportBase = new URL((inPages ? '../reports/' : './reports/') + currentReportKey, window.location.href);
+        docEl.querySelectorAll('img[src], a[href]').forEach(element => {
+            const attribute = element.tagName.toLowerCase() === 'img' ? 'src' : 'href';
+            const value = element.getAttribute(attribute) || '';
+            if (!value || value.startsWith('#') || /^[a-z][a-z0-9+.-]*:|^\/\//i.test(value)) return;
+            element.setAttribute(attribute, new URL(value, reportBase).href);
         });
 
         // 4. Wrap Tables in .table-responsive
@@ -420,6 +439,10 @@
             wrap.appendChild(tbl);
         });
 
+        if (typeof window.enhanceDiagrams === 'function') {
+            window.enhanceDiagrams(docEl);
+        }
+
         // 5. Code Copy Buttons inside Report
         if (typeof window.initCodeCopy === 'function') {
             window.initCodeCopy();
@@ -430,6 +453,8 @@
      * Initializes Global Link Interceptors for Reports
      */
     window.initReportLinks = function () {
+        if (reportLinksInitialized) return;
+        reportLinksInitialized = true;
         // Intercept any link matching report files
         document.addEventListener('click', function (e) {
             const link = e.target.closest('a');
@@ -440,6 +465,7 @@
                 href.includes('Lab1_report.md') ||
                 href.includes('Lab2_report.md') ||
                 href.includes('Lab3_report.md') ||
+                href.includes('Lab4_report.md') ||
                 link.hasAttribute('data-report-id')
             );
 

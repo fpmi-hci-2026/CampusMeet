@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusMeet / EventHub — Лабораторная работа №4: Интеграции, REST API и MCP-сервер</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../css/style.css">
+    <script>
+        (function() {
+            var t = null;
+            try { t = localStorage.getItem('cm_theme'); } catch(e) {}
+            if (!t) {
+                t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+            }
+            document.documentElement.setAttribute('data-theme', t);
+        })();
+    </script>
+</head>
+<body data-page="lab4">
+
+    <!-- Mobile Topbar -->
+    <header class="mobile-topbar">
+        <a href="../index.html" class="mobile-brand">
+            <img src="../assets/favicon.svg" alt="CampusMeet Logo">
+            <span>CampusMeet</span>
+        </a>
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <button class="theme-toggle-btn" type="button" aria-label="Переключить тему оформления" title="Светлая / Темная тема">
+                <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+            <button id="mobile-hamburger" class="hamburger-btn" type="button" aria-label="Открыть навигацию">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar">
+        <div class="sidebar-header">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span class="brand-badge" style="margin-bottom: 0;">ПЧМИ • ФПМИ БГУ</span>
+                <button class="theme-toggle-btn" type="button" aria-label="Переключить тему оформления" title="Светлая / Темная тема">
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <h1>CampusMeet</h1>
+            <p>Платформа студенческих митапов, хакатонов и офлайн-чекина</p>
+            <button class="omnibox-trigger-btn" type="button" aria-label="Быстрый поиск">
+                <span class="omnibox-trigger-label">
+                    <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    Поиск по порталу...
+                </span>
+                <span class="kbd-shortcut">⌘K</span>
+            </button>
+        </div>
+
+        <div class="nav-section-title">Разделы портала</div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="../index.html" class="nav-link">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    <span>Главный портал</span>
+                    <span class="nav-badge">Hub</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab1.html" class="nav-link">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    <span>Лабораторная №1</span>
+                    <span class="nav-badge">L1</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab2.html" class="nav-link">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                    <span>Лабораторная №2</span>
+                    <span class="nav-badge">L2</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab3.html" class="nav-link">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                    <span>Лабораторная №3</span>
+                    <span class="nav-badge">L3</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab4.html" class="nav-link active current-page">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    <span>Лабораторная №4</span>
+                    <span class="nav-badge">L4</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="wiki.html" class="nav-link">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    <span>База знаний (Wiki)</span>
+                    <span class="nav-badge">Docs</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-section-title">Содержание работы</div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#lab4-overview" class="nav-link active" onclick="switchTab('lab4-overview', this)">
+                    <span class="nav-num">01</span>
+                    <span>Паспорт и требования</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#lab4-database" class="nav-link" onclick="switchTab('lab4-database', this)">
+                    <span class="nav-num">02</span>
+                    <span>Модели данных (ERD)</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#lab4-api" class="nav-link" onclick="switchTab('lab4-api', this)">
+                    <span class="nav-num">03</span>
+                    <span>REST API & Mock</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#lab4-mcp" class="nav-link" onclick="switchTab('lab4-mcp', this)">
+                    <span class="nav-num">04</span>
+                    <span>MCP-сервер и AI</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#lab4-infrastructure" class="nav-link" onclick="switchTab('lab4-infrastructure', this)">
+                    <span class="nav-num">05</span>
+                    <span>Docker & CI/CD</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-section-title">Материалы и отчеты</div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="../reports/Lab4_report.md" class="nav-link" id="report-lab4" target="_blank" rel="noopener noreferrer">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    <span>Отчет Лаб. №4 (MD)</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="../api/index.html" class="nav-link" target="_blank" rel="noopener noreferrer">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                    <span>Swagger UI / OpenAPI</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="https://github.com/fpmi-hci-2026/CampusMeet-Server" class="nav-link" target="_blank" rel="noopener noreferrer">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    <span>GitHub: CampusMeet-Server</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main id="content">
+        <div class="content-container">
+
+            <!-- Breadcrumbs Navigation -->
+            <nav class="content-breadcrumbs" aria-label="Хлебные крошки">
+                <ol class="breadcrumbs-list">
+                    <li class="breadcrumb-item"><a href="../index.html">Главная</a></li>
+                    <li class="breadcrumb-separator">/</li>
+                    <li class="breadcrumb-item"><a href="lab4.html">Лабораторная работа №4</a></li>
+                    <li class="breadcrumb-separator">/</li>
+                    <li class="breadcrumb-item breadcrumb-active" id="active-breadcrumb-tab">Паспорт и требования</li>
+                </ol>
+            </nav>
+
+            <!-- TAB 1: Overview & Requirements -->
+            <section id="lab4-overview" class="tab-pane active">
+                <div class="section-header">
+                    <h2>Лабораторная работа №4: Стили интеграции программных систем и проектирование API</h2>
+                    <p>Формализация интеграционных требований, контрактное проектирование REST API (OpenAPI 3.0.3), реляционные модели данных (PostgreSQL 16 / SQLite), агентный сервер Model Context Protocol (MCP) и контейнеризация Docker</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">33</div>
+                        <div class="stat-label">Операции спецификации OpenAPI 3.0.3</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">17</div>
+                        <div class="stat-label">Отношений реляционной модели данных (3NF/BCNF)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">5 / 3 / 2</div>
+                        <div class="stat-label">Примитивов MCP (Tools, Resources, Prompts)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">Сервисов и профилей Docker Compose & CI/CD</div>
+                    </div>
+                </div>
+
+                <div class="profile-card" style="margin-top: 24px;">
+                    <h3>Паспорт Лабораторной работы №4</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;">
+                        В рамках лабораторной работы реализован переход от требований и информационной архитектуры (Лаб. 1–3) к строгим исполняемым контрактам интеграции. Разработана сквозная спецификация <strong>REST API /api/v1</strong>, спроектирована нормализованная база данных на 17 таблиц, развернут stateful Mock-сервер с поддержкой идемпотентности, реализован прототип <strong>MCP-сервера</strong> для диалогового управления через AI-ассистентов и настроены контейнеры Docker Compose.
+                    </p>
+                    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                        <a href="../reports/Lab4_report.md" class="btn btn-primary" target="_blank">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            Открыть академический отчет Lab4_report.md
+                        </a>
+                        <a href="../api/index.html" class="btn btn-secondary" target="_blank">
+                            <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                            Интерактивный Swagger UI
+                        </a>
+                        <a href="../api/openapi.json" class="btn btn-secondary" download>
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            Скачать OpenAPI 3.0.3 (JSON)
+                        </a>
+                        <a href="https://github.com/fpmi-hci-2026/CampusMeet-Server" class="btn btn-secondary" target="_blank">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                            Репозиторий Server
+                        </a>
+                    </div>
+                </div>
+
+                <div class="profile-card" style="margin-top: 24px;">
+                    <h3>1. Модель требований: Действующее лицо → User Story → Use Case (Задание 1)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">
+                        Ортогональная диаграмма вариантов использования REST API: декомпозиция акторов на пользовательский контур (Слушатель, Капитан, Волонтер) и организационный контур (Организатор, Спикер, Администратор, MCP-агент) со связями &lt;&lt;include&gt;&gt; и &lt;&lt;extend&gt;&gt;.
+                    </p>
+                    <img src="../diagrams/lab4/requirements.svg" alt="Модель требований и вариантов использования REST API" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); background: #ffffff; padding: 10px; margin-top: 8px;"/>
+                </div>
+
+                <h3 style="margin-top: 36px; margin-bottom: 16px;">Матрица ролей, пользовательских историй и вариантов использования (Рисунок 1)</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Действующее лицо (Роль)</th>
+                                <th>Пользовательская история (User Story)</th>
+                                <th>Вариант использования (Use Case)</th>
+                                <th>Маршрут и метод API</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Слушатель (Attendee)</strong></td>
+                                <td>US-01: Поиск митапов по тематикам и датам<br>US-02: Регистрация с гарантией квоты места<br>US-08: Просмотр билета и отмена брони</td>
+                                <td>UC-06: Поиск и каталог событий<br>UC-01: Регистрация на событие<br>UC-07/08: Управление билетом</td>
+                                <td><code>GET /events</code><br><code>POST /events/{id}/registrations</code><br><code>DELETE /tickets/{id}</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Волонтер (Volunteer)</strong></td>
+                                <td>US-06: Сканирование билета на входе<br>US-07: Автономная валидация без интернета</td>
+                                <td>UC-02: Оптический чекин билета<br>UC-02b: Пакетная синхронизация сканов</td>
+                                <td><code>POST /events/{id}/check-ins</code><br><code>POST /events/{id}/check-in-batches</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Организатор (Organizer)</strong></td>
+                                <td>US-10: Создание события и квот залов<br>US-13: Конструктор сетки докладов<br>US-14: Модерация заявок докладчиков CFP<br>US-15: Экстренная Push-рассылка участникам</td>
+                                <td>UC-03: Управление событиями (ETag)<br>UC-09: Сетка расписания<br>UC-04: Модерация заявок CFP<br>UC-10: Экстренное Push-оповещение</td>
+                                <td><code>POST /events</code>, <code>PUT /events/{id}</code><br><code>PUT /events/{id}/schedule</code><br><code>PATCH /proposals/{id}</code><br><code>POST /events/{id}/announcements</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Спикер (Speaker)</strong></td>
+                                <td>US-20: Подача тезисов и презентации CFP</td>
+                                <td>UC-04: Подача заявки доклада</td>
+                                <td><code>POST /events/{id}/proposals</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Капитан команды (Hacker Lead)</strong></td>
+                                <td>US-17: Создание команды хакатона и добор</td>
+                                <td>UC-05: Команды и инвайты</td>
+                                <td><code>POST /events/{id}/teams</code><br><code>POST /teams/{id}/invitations</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Администратор (Patron / Admin)</strong></td>
+                                <td>US-11: Аудит вместимости аудиторий<br>US-16: Аналитическая выгрузка явки</td>
+                                <td>UC-13: Аудит площадки и даты<br>UC-12: Аналитическая выгрузка явки</td>
+                                <td><code>GET /venues</code><br><code>POST /events/{id}/attendance-exports</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>AI-ассистент (MCP Agent)</strong></td>
+                                <td>US-MCP: Диалоговый подбор митапа и регистрация</td>
+                                <td>UC-15mcp: Вызовы MCP Tools / Resources</td>
+                                <td><code>tools/call register_for_event</code><br><code>resources/read tickets://mine</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 2: Database Models (ERD) -->
+            <section id="lab4-database" class="tab-pane">
+                <div class="section-header">
+                    <h2>Проектирование логической и физической моделей базы данных (Задание 2)</h2>
+                    <p>17 нормализованных отношений (3NF/BCNF), ограничения ссылочной целостности, внешние ключи, типы данных PostgreSQL 16 и локальный встраиваемый рантайм SQLite</p>
+                </div>
+
+                <div class="profile-card">
+                    <h3>Архитектура слоя персистентности данных</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+                        Схема базы данных спроектирована под целевую промышленную СУБД <strong>PostgreSQL 16</strong>. Модель состоит из 17 отношений, декомпозированных на 6 доменных кластеров. Для обеспечения полной автономности локального запуска Mock-сервера и MCP-агента без внешних сетевых зависимостей реализован эквивалентный DDL-скрипт для встраиваемой СУБД <strong>SQLite</strong> с сохранением строгой семантики внешних ключей и транзакций.
+                    </p>
+                    <div style="display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap;">
+                        <a href="https://github.com/fpmi-hci-2026/CampusMeet-Server/blob/main/database/schema.postgresql.sql" class="btn btn-secondary" target="_blank">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                            PostgreSQL 16 DDL-скрипт
+                        </a>
+                        <a href="https://github.com/fpmi-hci-2026/CampusMeet-Server/blob/main/database/schema.sqlite.sql" class="btn btn-secondary" target="_blank">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                            SQLite 3 DDL-скрипт
+                        </a>
+                    </div>
+                </div>
+
+                <div class="profile-card" style="margin-top: 24px;">
+                    <h3>1. Логическая модель данных (ER-диаграмма)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">
+                        Логическая структура 17 сущностей: кардинальности связей (1:N, 1:1), первичные ключи (PK) и логические типы атрибутов.
+                    </p>
+                    <img src="../diagrams/lab4/logical_erd.svg" alt="Логическая модель базы данных (17 сущностей)" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); background: #ffffff; padding: 10px; margin-top: 8px;"/>
+                </div>
+
+                <div class="profile-card" style="margin-top: 24px;">
+                    <h3>2. Физическая модель данных (PostgreSQL 16)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">
+                        Физическая реализация: точные типы полей (<code>varchar</code>, <code>timestamptz</code>, <code>numeric</code>, <code>text</code>), внешние ключи (FK) и уникальные ограничения (UQ).
+                    </p>
+                    <img src="../diagrams/lab4/physical_erd.svg" alt="Физическая модель базы данных PostgreSQL 16" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); background: #ffffff; padding: 10px; margin-top: 8px;"/>
+                </div>
+
+                <h3 style="margin-top: 36px; margin-bottom: 16px;">Реестр 17 отношений и ключей реляционной модели (Рисунки 2 и 3)</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Таблица (Отношение)</th>
+                                <th>Первичный ключ (PK)</th>
+                                <th>Внешние ключи (FK)</th>
+                                <th>Назначение в архитектуре</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>users</code></td><td><code>id (varchar 36)</code></td><td>—</td><td>Учетные записи (слушатели, волонтеры, организаторы, спикеры, админы)</td></tr>
+                            <tr><td><code>venues</code></td><td><code>id (varchar 36)</code></td><td>—</td><td>Университетские аудитории, координаты (lat/lon) и максимальная вместимость</td></tr>
+                            <tr><td><code>events</code></td><td><code>id (varchar 36)</code></td><td><code>venue_id</code>, <code>organizer_user_id</code></td><td>Мероприятия (митапы, хакатоны), квоты, таймлайн, версия ETag</td></tr>
+                            <tr><td><code>event_staff</code></td><td><code>event_id, user_id</code></td><td><code>event_id</code>, <code>user_id</code></td><td>Назначенные волонтеры контроля входа и модераторы залов</td></tr>
+                            <tr><td><code>tickets</code></td><td><code>id (varchar 36)</code></td><td><code>event_id</code>, <code>user_id</code></td><td>Электронные билеты с QR-хешем и статусом (REGISTERED, CHECKED_IN)</td></tr>
+                            <tr><td><code>waitlist_entries</code></td><td><code>ticket_id</code></td><td><code>ticket_id</code></td><td>Очередь ожидания при исчерпании квоты с таймером подтверждения</td></tr>
+                            <tr><td><code>check_in_logs</code></td><td><code>id (varchar 36)</code></td><td><code>event_id</code>, <code>ticket_id</code>, <code>scanned_by_volunteer_id</code></td><td>Журнал фиксации проходов: вердикты GRANTED / DENIED_DUPLICATE</td></tr>
+                            <tr><td><code>schedule_items</code></td><td><code>id (varchar 36)</code></td><td><code>event_id</code>, <code>speaker_user_id</code></td><td>Сетка программы митапа (таймслоты, темы, аудитории, докладчики)</td></tr>
+                            <tr><td><code>speaker_proposals</code></td><td><code>id (varchar 36)</code></td><td><code>event_id</code>, <code>speaker_user_id</code></td><td>Заявки на выступления (CFP) со статусами SUBMITTED / ACCEPTED</td></tr>
+                            <tr><td><code>personal_schedule</code></td><td><code>user_id, schedule_item_id</code></td><td><code>user_id</code>, <code>schedule_item_id</code></td><td>Персональная программа докладов слушателя (закладки)</td></tr>
+                            <tr><td><code>team_matches</code></td><td><code>id (varchar 36)</code></td><td><code>event_id</code>, <code>captain_user_id</code></td><td>Команды хакатона, профиль поиска ролей и лимиты состава</td></tr>
+                            <tr><td><code>team_members</code></td><td><code>team_id, user_id</code></td><td><code>team_id</code>, <code>event_id</code>, <code>user_id</code></td><td>Состав участников команды с указанием специализации</td></tr>
+                            <tr><td><code>team_invitations</code></td><td><code>id (varchar 36)</code></td><td><code>team_id</code>, <code>user_id</code></td><td>Приглашения и заявки на вступление в команду хакатона</td></tr>
+                            <tr><td><code>emergency_announcements</code></td><td><code>id (varchar 36)</code></td><td><code>event_id</code>, <code>author_user_id</code></td><td>Срочные широковещательные оповещения организатора</td></tr>
+                            <tr><td><code>notification_deliveries</code></td><td><code>id (varchar 36)</code></td><td><code>announcement_id</code>, <code>user_id</code></td><td>Статусы доставки сообщений по каналам Push, Email, Telegram</td></tr>
+                            <tr><td><code>idempotency_keys</code></td><td><code>actor_user_id, operation, idempotency_key</code></td><td><code>actor_user_id</code></td><td>Кэш ключей идемпотентности: хеш тела, код HTTP и тело ответа</td></tr>
+                            <tr><td><code>agent_audit_log</code></td><td><code>id (varchar 36)</code></td><td><code>actor_user_id</code></td><td>Журнал аудита действий AI-ассистента через протокол MCP</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 3: REST API & Mock Server -->
+            <section id="lab4-api" class="tab-pane">
+                <div class="section-header">
+                    <h2>Проектирование и реализация REST API и Mock-сервера (Задания 3 и 4)</h2>
+                    <p>Спецификация OpenAPI 3.0.3, 33 конечные точки, семантика HTTP, идемпотентность, ETag concurrency, RFC 7807 Problem Details и исполняемый Mock-сервер</p>
+                </div>
+
+                <div class="profile-card">
+                    <h3>1. Архитектура ресурсов REST API (/api/v1) (Рисунок 4)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">
+                        Модульная архитектура маршрутизаторов: шлюз безопасности, проверка токенов Bearer JWT, фильтрация повторных вызовов по Idempotency-Key и 8 ресурсных контроллеров.
+                    </p>
+                    <img src="../diagrams/lab4/api_resources.svg" alt="Архитектура ресурсов REST API CampusMeet" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); background: #ffffff; padding: 10px; margin-top: 8px;"/>
+                </div>
+
+                <div class="profile-card" style="margin-top: 24px;">
+                    <h3>2. Диаграмма последовательности работы REST API и Mock-сервера (Рисунок 5)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">
+                        Сценарии вызовов: регистрация с Idempotency-Key и транзакционным контролем квот, повторный сетевой запрос (возврат кешированного 201 Created) и отсечение повторного чекина (409 Conflict).
+                    </p>
+                    <img src="../diagrams/lab4/api_mock_sequence.svg" alt="Диаграмма последовательности REST API" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); background: #ffffff; padding: 10px; margin-top: 8px;"/>
+                </div>
+
+                <div class="profile-card" style="margin-top: 24px;">
+                    <h3>Запуск и автономное тестирование Mock API</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">
+                        Mock-сервер реализован на Python 3.12 (модуль <code>campusmeet.mock_api</code>) без сторонних фреймворков на базе стандартной библиотеки <code>http.server</code> и встроенной СУБД <code>sqlite3</code>:
+                    </p>
+                    <pre><code># Запуск Mock API сервера (порт 8000)
+cd CampusMeet-Server
+python3 -m campusmeet.mock_api
+
+# Запуск полного набора unit-тестов API и контрактов (34 теста)
+python3 -m unittest discover -s tests -v</code></pre>
+                    <div style="display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap;">
+                        <a href="https://github.com/fpmi-hci-2026/CampusMeet-Server/tree/main/api/bruno" class="btn btn-secondary" target="_blank">
+                            Коллекция Bruno API
+                        </a>
+                        <a href="https://github.com/fpmi-hci-2026/CampusMeet-Server/blob/main/api/CampusMeet.postman_collection.json" class="btn btn-secondary" target="_blank">
+                            Коллекция Postman (JSON)
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: MCP Server & AI -->
+            <section id="lab4-mcp" class="tab-pane">
+                <div class="section-header">
+                    <h2>Проектирование и реализация MCP-сервера (Задание 5)</h2>
+                    <p>Стандарт Model Context Protocol (MCP 2025-11-25), транспорт stdio JSON-RPC 2.0, примитивы Tools, Resources и Prompts, барьер безопасности и журнал аудита</p>
+                </div>
+
+                <div class="profile-card">
+                    <h3>1. Архитектура взаимодействия MCP-сервера (Рисунок 6)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">
+                        Взаимодействие клиентского LLM-хоста (Claude Desktop / Cursor) с процессом CampusMeet MCP Server через двунаправленный протокол stdio и барьер изоляции прав доступа.
+                    </p>
+                    <img src="../diagrams/lab4/mcp_architecture.svg" alt="Архитектура MCP-сервера CampusMeet" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); background: #ffffff; padding: 10px; margin-top: 8px;"/>
+                </div>
+
+                <h3 style="margin-top: 36px; margin-bottom: 16px;">Спецификация реализованных примитивов MCP</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Категория примитива</th>
+                                <th>Имя и сигнатура</th>
+                                <th>Назначение и передаваемые данные</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="5"><strong>5 Tools (Инструменты)</strong></td>
+                                <td><code>list_events(query, limit)</code></td>
+                                <td>Поиск и фильтрация предстоящих митапов по текстовому запросу</td>
+                            </tr>
+                            <tr>
+                                <td><code>check_event_capacity(event_id)</code></td>
+                                <td>Проверка лимита мест, текущей квоты и доступности листа ожидания</td>
+                            </tr>
+                            <tr>
+                                <td><code>get_ticket(ticket_id)</code></td>
+                                <td>Получение данных билета с проверкой принадлежности вызывающему пользователю</td>
+                            </tr>
+                            <tr>
+                                <td><code>register_for_event(event_id, waitlist, key)</code></td>
+                                <td>Атомарная регистрация на митап с поддержкой ключа идемпотентности</td>
+                            </tr>
+                            <tr>
+                                <td><code>cancel_ticket(ticket_id)</code></td>
+                                <td>Отмена брони, освобождение квоты и продвижение следующего из листа ожидания</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="4"><strong>3 Resources + 1 Template</strong></td>
+                                <td><code>events://upcoming</code></td>
+                                <td>Статически обновляемый каталог всех опубликованных мероприятий в формате JSON</td>
+                            </tr>
+                            <tr>
+                                <td><code>tickets://mine</code></td>
+                                <td>Реестр активных билетов текущего авторизованного пользователя</td>
+                            </tr>
+                            <tr>
+                                <td><code>policy://ticket-cancellation</code></td>
+                                <td>Юридические правила отмены билетов и регламент возврата квот</td>
+                            </tr>
+                            <tr>
+                                <td><code>events://{event_id}</code></td>
+                                <td>Шаблон динамического ресурса: полная карточка мероприятия и расписание</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2"><strong>2 Prompts (Шаблоны)</strong></td>
+                                <td><code>plan_visit(interest)</code></td>
+                                <td>Сценарий подбора программы докладов и формирования персонального расписания</td>
+                            </tr>
+                            <tr>
+                                <td><code>cancel_registration(ticket_id)</code></td>
+                                <td>Сценарий корректного диалогового подтверждения и отмены регистрации</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="profile-card" style="margin-top: 24px;">
+                    <h3>Инструкция по запуску и тестированию MCP-сервера</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">
+                        Сервер запускается в режиме stdio и ожидает JSON-RPC 2.0 команды от LLM-хоста или MCP Inspector:
+                    </p>
+                    <pre><code># Запуск MCP сервера от имени тестового пользователя
+python3 -m campusmeet.mcp_server --token demo-artem
+
+# Запуск интерактивного визуального инспектора MCP
+npx @modelcontextprotocol/inspector python3 -m campusmeet.mcp_server --token demo-artem</code></pre>
+                </div>
+            </section>
+
+            <!-- TAB 5: Infrastructure & CI/CD -->
+            <section id="lab4-infrastructure" class="tab-pane">
+                <div class="section-header">
+                    <h2>Проектирование и развертывание инфраструктуры проекта (Задание 6)</h2>
+                    <p>Docker Compose окружение, профили сервисов, GitHub Actions пайплайны CI/CD, статический анализ SonarQube и облачное развертывание на Render</p>
+                </div>
+
+                <div class="profile-card">
+                    <h3>1. Диаграмма развертывания инфраструктуры Docker (Рисунок 7)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">
+                        Топология сервисов: клиентский уровень (Web SPA, Expo), Docker Compose bridge-сеть, профили PostgreSQL и SonarQube, облачные сервисы CI/CD и внешние интеграции (OSM, Nager.Date).
+                    </p>
+                    <img src="../diagrams/lab4/infrastructure.svg" alt="Диаграмма развертывания инфраструктуры Docker" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); background: #ffffff; padding: 10px; margin-top: 8px;"/>
+                </div>
+
+                <div class="profile-card" style="margin-top: 24px;">
+                    <h3>Команды оркестрации Docker Compose</h3>
+                    <pre><code># Запуск базового окружения (API Mock + Web SPA)
+docker compose up -d
+
+# Запуск полного контура, включая СУБД PostgreSQL 16
+docker compose --profile database up -d
+
+# Запуск локального сервера анализа качества SonarQube
+docker compose --profile quality up -d</code></pre>
+                </div>
+            </section>
+
+            <!-- Bottom Pagination Navigation -->
+            <nav class="content-pager" aria-label="Навигация по разделам курса">
+                <a href="lab3.html" class="pager-card pager-prev">
+                    <span class="pager-caption">← ПРЕДЫДУЩИЙ РАЗДЕЛ</span>
+                    <span class="pager-title">Лабораторная №3: Разработка требований к системе</span>
+                    <span class="pager-desc">User Stories, диаграммы PlantUML, C4 Model и ТЗ по Карлу Вигерсу</span>
+                </a>
+                <a href="wiki.html" class="pager-card pager-next">
+                    <span class="pager-caption">СЛЕДУЮЩИЙ РАЗДЕЛ →</span>
+                    <span class="pager-title">База знаний (Wiki) и архитектурный паспорт</span>
+                    <span class="pager-desc">Инженерные регламенты, спецификации безопасности и DDL-схемы</span>
+                </a>
+            </nav>
+        </div>
+    </main>
+
+    <!-- Diagram Lightbox Dialog -->
+    <dialog id="lightbox-dialog" aria-labelledby="lightbox-title">
+        <div class="lightbox-header">
+            <div class="lightbox-meta">
+                <div class="lightbox-title" id="lightbox-title">Просмотр схемы</div>
+                <span class="lightbox-badge" id="lightbox-badge">SVG</span>
+            </div>
+            <div class="lightbox-controls">
+                <button class="lightbox-btn" id="lightbox-zoom-out" type="button" title="Уменьшить (−)">−</button>
+                <span class="lightbox-zoom-badge" id="lightbox-zoom-badge">100%</span>
+                <button class="lightbox-btn" id="lightbox-zoom-in" type="button" title="Увеличить (+)">+</button>
+                <button class="lightbox-btn" id="lightbox-zoom-reset" type="button" title="Сбросить (1:1)">1:1</button>
+                <button class="lightbox-btn" id="lightbox-fit-btn" type="button" title="Вписать в экран">Вписать</button>
+                <a class="lightbox-btn" id="lightbox-open-link" href="#" target="_blank" rel="noopener noreferrer" title="В новой вкладке">↗</a>
+                <button class="lightbox-btn" id="lightbox-close" type="button" title="Закрыть (Esc)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+            </div>
+        </div>
+        <div class="lightbox-body">
+            <img id="lightbox-img" src="" alt="Схема">
+            <div class="lightbox-footer-hints">
+                <span>Зажмите мышь для панорамирования</span> • <span>+ / − или Ctrl + колесо: масштаб</span> • <span>Esc: Закрыть</span>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Omnibox Search Dialog (⌘K) -->
+    <dialog id="omnibox-dialog" aria-label="Быстрый поиск">
+        <div class="omnibox-header">
+            <span class="omnibox-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
+            <input type="text" id="omnibox-input" class="omnibox-input" placeholder="Поиск по разделам, диаграммам, User Stories...">
+            <button type="button" class="omnibox-close-btn" onclick="document.getElementById('omnibox-dialog').close()" aria-label="Закрыть"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+        </div>
+        <ul id="omnibox-results" class="omnibox-results"></ul>
+    </dialog>
+
+    <!-- Vendor Libraries -->
+    <script src="../js/vendor/marked.min.js"></script>
+
+    <!-- Structured Data Modules -->
+    <script src="../js/data/search.js"></script>
+    <script src="../js/data/reports.js"></script>
+
+    <!-- Client Functional Modules -->
+    <script src="../js/modules/renderers.js"></script>
+    <script src="../js/modules/router.js"></script>
+    <script src="../js/data/diagram-pages.js"></script>
+    <script src="../js/modules/diagram-gestures.js"></script>
+    <script src="../js/modules/lightbox.js"></script>
+    <script src="../js/modules/omnibox.js"></script>
+    <script src="../js/modules/report-viewer.js"></script>
+    <script src="../js/modules/ui.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

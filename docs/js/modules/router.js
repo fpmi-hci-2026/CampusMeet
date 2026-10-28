@@ -60,6 +60,9 @@
                 targetPane = parentPane;
                 scrollToSubElement = true;
             } else {
+                // Declarative pages use ordinary document sections, not SPA tabs.
+                targetElem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (typeof window.closeMobileSidebar === 'function') window.closeMobileSidebar();
                 return;
             }
         }
@@ -151,7 +154,7 @@
             if (hash && document.getElementById(hash)) {
                 window.switchTab(hash);
             } else {
-                const firstPane = document.querySelector('.tab-pane');
+                const firstPane = document.querySelector('section.tab-pane');
                 if (firstPane) {
                     window.switchTab(firstPane.id);
                 }

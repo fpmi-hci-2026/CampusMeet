@@ -94,6 +94,13 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="lab4.html" class="nav-link">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    <span>Лабораторная №4</span>
+                    <span class="nav-badge">L4</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="wiki.html" class="nav-link current-page">
                     <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path><path d="M6 6h10"></path><path d="M6 10h10"></path></svg>
                     <span>База знаний (Wiki)</span>
@@ -187,6 +194,7 @@
             </nav>
 
             <!-- TAB: Wiki Functional -->
+            <div class="callout-card" style="padding:20px;border:1px solid var(--border-subtle);margin-bottom:24px"><strong>Уточнения ЛР4:</strong> <a href="lab4.html">API, MCP и физическая БД на 17 отношений</a> · <a href="../api/index.html">OpenAPI 3.0.3</a> · <a href="lab4.html#lab4-infrastructure">Инфраструктура и CI/CD</a>. Разделы ниже сохраняют исходные материалы ЛР1–3.</div>
             <section id="wiki-func" class="tab-pane active">
                 <h1>Функциональные требования и Use Case</h1>
                 <p>Полный перечень требований зафиксирован в wiki-странице <code>Functional_Requirements.md</code>.</p>
@@ -363,9 +371,7 @@ erDiagram
                 <span class="lightbox-badge" id="lightbox-badge">SVG</span>
             </div>
             <div class="lightbox-controls">
-                <button class="lightbox-btn" id="lightbox-zoom-out" type="button" title="Уменьшить (−)">−</button>
                 <span class="lightbox-zoom-badge" id="lightbox-zoom-badge">100%</span>
-                <button class="lightbox-btn" id="lightbox-zoom-in" type="button" title="Увеличить (+)">+</button>
                 <button class="lightbox-btn" id="lightbox-zoom-reset" type="button" title="Сбросить (1:1)">1:1</button>
                 <button class="lightbox-btn" id="lightbox-fit-btn" type="button" title="Вписать в экран">Вписать</button>
                 <a class="lightbox-btn" id="lightbox-open-link" href="#" target="_blank" rel="noopener noreferrer" title="В новой вкладке">↗</a>
@@ -375,7 +381,7 @@ erDiagram
         <div class="lightbox-body">
             <img id="lightbox-img" src="" alt="Схема">
             <div class="lightbox-footer-hints">
-                <span>Колесо: Zoom</span> • <span>Перетаскивание: Pan</span> • <span>Двойной клик: 100%/200%</span> • <span>Esc: Закрыть</span>
+                <span>Пинч / Ctrl + колесо: масштаб</span> • <span>Прокрутка: навигация</span> • <span>Esc: Закрыть</span>
             </div>
         </div>
     </dialog>
@@ -400,6 +406,8 @@ erDiagram
     <!-- Client Functional Modules -->
     <script src="../js/modules/renderers.js"></script>
     <script src="../js/modules/router.js"></script>
+    <script src="../js/data/diagram-pages.js"></script>
+    <script src="../js/modules/diagram-gestures.js"></script>
     <script src="../js/modules/lightbox.js"></script>
     <script src="../js/modules/omnibox.js"></script>
     <script src="../js/modules/report-viewer.js"></script>
