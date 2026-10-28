@@ -37,13 +37,20 @@
 * **Интерактивный SPA-портал документации (GitHub Pages):**  
   Интерактивные вкладки Лабораторной работы №3 с векторными схемами доступны в [docs/index.html](./docs/index.html).
 
-### 4. Инициализация и проверка реляционной схемы базы данных:
+### 4. Материалы Лабораторной работы №4:
+* **Тема по методичке 2026–2027:** «Стили интеграции программных систем и проектирование API».
+* **[Академический отчет](./docs/reports/Lab4_report.md)** и **[интерактивная страница ЛР4](./docs/pages/lab4.html)**.
+* **[OpenAPI 3.0.3: 33 операции](./docs/api/index.html)**, [модель требований](./wiki/API_Requirements_and_Use_Cases.md), [17 отношений и физические схемы](./wiki/Database_Models_Lab4.md).
+* **[MCP MVP](./wiki/MCP_Server.md):** 5 Tools, 3 Resources, 2 Prompts. Исполняемый код, SQL, mock, Bruno/Postman и тесты находятся в [CampusMeet-Server](https://github.com/fpmi-hci-2026/CampusMeet-Server).
+* **[Инфраструктура и CI](./wiki/Infrastructure_and_CI.md):** Dockerfiles, Compose и минимальные клиентские окружения.
+
+### 5. Инициализация и проверка реляционной схемы базы данных (исторический пример ЛР1):
 Схема базы данных спроектирована в рамках Лабораторной работы №1 и размещена в репозитории [CampusMeet-Server / database/schema.sql](https://github.com/fpmi-hci-2026/CampusMeet-Server/blob/main/database/schema.sql). Для валидации DDL-скрипта и создания тестовой базы данных выполните (при локальном расположении клонированных репозиториев в соседних папках):
 ```bash
 python3 -c "import sqlite3; conn = sqlite3.connect('../CampusMeet-Server/database/campusmeet.db'); conn.executescript(open('../CampusMeet-Server/database/schema.sql').read()); print('База данных успешно инициализирована (10 таблиц, тестовые данные добавлены)')"
 ```
 
-### 5. Клиентские и серверные модули (планируются к реализации в Лабораторных работах №5–7):
+### 6. Клиентские и серверные модули (планируются к реализации в Лабораторных работах №5–7):
 Каркасы репозиториев настроены согласно модульной архитектуре курса:
 * **Серверное приложение и API (Лаб. №6):** `CampusMeet-Server/` (FastAPI / Uvicorn).
 * **Веб-панель организатора (Лаб. №5–6):** `CampusMeet-Web/` (Next.js / React).
@@ -96,3 +103,13 @@ python3 -c "import sqlite3; conn = sqlite3.connect('../CampusMeet-Server/databas
 * **[Интерактивный портал документации GitHub Pages (docs/index.html)](./docs/index.html)**
 * **[База знаний GitHub Wiki (wiki/Home.md)](./wiki/Home.md)**
 * **[Схема реляционной базы данных (CampusMeet-Server / database/schema.sql)](https://github.com/fpmi-hci-2026/CampusMeet-Server/blob/main/database/schema.sql)**
+
+### Проверка материалов ЛР4
+
+```bash
+# Из CampusMeet, репозитории лежат рядом:
+python3 scripts/sync-lab4.py --check
+python3 scripts/sync-reports.py
+```
+
+Для запуска API/MCP и тестов смотрите README соседнего CampusMeet-Server. Для контейнеров API + Web выполните `docker compose up --build -d` из Server. Текущий комплект не утверждает завершение реализации всех 33 операций: stateful и example-маршруты обозначены в контракте и отчете.

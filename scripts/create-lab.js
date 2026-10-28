@@ -5,7 +5,7 @@
  * Usage:
  *   node scripts/create-lab.js <number> "<title>" "<subtitle>"
  * Example:
- *   node scripts/create-lab.js 4 "Экспертная оценка и юзабилити-тестирование" "Протоколы SUS, TSR и матрица правок"
+ *   node scripts/create-lab.js 4 "Стили интеграции программных систем и проектирование API" "OpenAPI, mock и MCP MVP"
  */
 
 const fs = require('fs');
@@ -18,7 +18,7 @@ if (args.length < 2) {
   node scripts/create-lab.js <номер> "<название>" ["<подзаголовок/описание>"]
 
 Пример:
-  node scripts/create-lab.js 4 "Экспертная оценка и юзабилити-тестирование" "Протоколы SUS, TSR и матрица правок"
+  node scripts/create-lab.js 4 "Стили интеграции программных систем и проектирование API" "OpenAPI, mock и MCP MVP"
 `);
     process.exit(1);
 }
