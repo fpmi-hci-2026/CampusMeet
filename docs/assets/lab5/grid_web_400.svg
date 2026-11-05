@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 850" width="460" height="850" font-family="'Inter', -apple-system, BlinkMacSystemFont, sans-serif">
+  
+  <defs>
+    <!-- Drop Shadow Standard -->
+    <filter id="shadow-card" x="-10%" y="-10%" width="120%" height="125%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000000" flood-opacity="0.30"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="3" flood-color="#000000" flood-opacity="0.15"/>
+    </filter>
+
+    <!-- Subtle Button Shadow -->
+    <filter id="shadow-btn" x="-10%" y="-15%" width="120%" height="135%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Modal Elevation Shadow -->
+    <filter id="shadow-modal" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="20" stdDeviation="30" flood-color="#000000" flood-opacity="0.60"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Glowing Accent -->
+    <filter id="glow-accent" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="grad-indigo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="50%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+
+    <linearGradient id="grad-warm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#78350f"/>
+      <stop offset="60%" stop-color="#b45309"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+
+    <linearGradient id="grad-mono" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+
+    <linearGradient id="grad-card-true-black" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#141414"/>
+      <stop offset="100%" stop-color="#0d0d0d"/>
+    </linearGradient>
+
+    <linearGradient id="grad-device-titanium" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a2a2a"/>
+      <stop offset="50%" stop-color="#171717"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+  </defs>
+
+
+  <rect width="460" height="850" fill="#f8fafc"/>
+
+  <!-- Info Header -->
+  
+  <g transform="translate(15, 15)">
+    <rect width="430" height="85" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+    <text x="12" y="22" font-size="11" font-weight="800" fill="#0f172a">400–575px (Смартфон стандартный / 4 колонки)</text>
+    <text x="12" y="42" font-size="10" fill="#475569">4 кол. по 81px | G: 12px | M: 20px</text>
+    <text x="12" y="62" font-size="9" font-family="'JetBrains Mono', monospace" fill="#6366f1">400px = 4×81 + 3×12 + 40px</text>
+  </g>
+
+  <!-- Viewport Boundary -->
+  <rect x="30" y="115" width="400" height="700" rx="10" fill="#ffffff" stroke="#0f172a" stroke-width="2" filter="url(#shadow-card)"/>
+
+  <!-- Grid Columns & Gutters -->
+  <rect x="50" y="125" width="81" height="680" fill="rgba(99, 102, 241, 0.08)" stroke="rgba(99, 102, 241, 0.25)" stroke-width="1"/><rect x="143" y="125" width="81" height="680" fill="rgba(99, 102, 241, 0.08)" stroke="rgba(99, 102, 241, 0.25)" stroke-width="1"/><rect x="236" y="125" width="81" height="680" fill="rgba(99, 102, 241, 0.08)" stroke="rgba(99, 102, 241, 0.25)" stroke-width="1"/><rect x="329" y="125" width="81" height="680" fill="rgba(99, 102, 241, 0.08)" stroke="rgba(99, 102, 241, 0.25)" stroke-width="1"/>
+  <rect x="131" y="125" width="12" height="680" fill="rgba(239, 68, 68, 0.06)"/><rect x="224" y="125" width="12" height="680" fill="rgba(239, 68, 68, 0.06)"/><rect x="317" y="125" width="12" height="680" fill="rgba(239, 68, 68, 0.06)"/>
+  <text x="90" y="142" font-size="10" font-weight="700" fill="#6366f1" text-anchor="middle">1</text><text x="90" y="795" font-size="9" font-weight="600" fill="#6366f1" text-anchor="middle">81px</text><text x="183" y="142" font-size="10" font-weight="700" fill="#6366f1" text-anchor="middle">2</text><text x="183" y="795" font-size="9" font-weight="600" fill="#6366f1" text-anchor="middle">81px</text><text x="276" y="142" font-size="10" font-weight="700" fill="#6366f1" text-anchor="middle">3</text><text x="276" y="795" font-size="9" font-weight="600" fill="#6366f1" text-anchor="middle">81px</text><text x="369" y="142" font-size="10" font-weight="700" fill="#6366f1" text-anchor="middle">4</text><text x="369" y="795" font-size="9" font-weight="600" fill="#6366f1" text-anchor="middle">81px</text>
+
+  <!-- Simulated Snapped Content Layer -->
+  <g transform="translate(50, 160)">
+    
+    <!-- Mobile 4 cols -->
+    <rect width="360" height="38" rx="6" fill="#0f172a"/>
+    <text x="12" y="24" font-size="11" font-weight="800" fill="#ffffff">CampusMeet</text>
+    <rect x="334" y="12" width="16" height="13" rx="2" fill="#334155"/>
+
+    <!-- Mobile Stack Card -->
+    <g transform="translate(0, 48)">
+      <rect width="360" height="290" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect width="360" height="75" rx="8" fill="#1e293b"/>
+      <text x="12" y="32" font-size="12" font-weight="800" fill="#ffffff">Minsk Go Meetup</text>
+      <text x="12" y="52" font-size="10" fill="#94a3b8">26 марта • 18:30</text>
+
+      <text x="12" y="105" font-size="11" fill="#334155">Ауд. 509 ФПМИ БГУ</text>
+      <rect x="12" y="125" width="120" height="22" rx="4" fill="#eff6ff"/>
+      <text x="72" y="140" font-size="9" font-weight="700" fill="#1d4ed8" text-anchor="middle">Свободно: 12 мест</text>
+
+      <rect x="12" y="225" width="336" height="40" rx="6" fill="#0f172a"/>
+      <text x="180" y="250" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">Получить билет</text>
+    </g>
+  </g>
+</svg>

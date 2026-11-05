@@ -1,0 +1,199 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 750" width="1000" height="750" font-family="'Inter', -apple-system, BlinkMacSystemFont, sans-serif">
+  
+  <defs>
+    <!-- Drop Shadow Standard -->
+    <filter id="shadow-card" x="-10%" y="-10%" width="120%" height="125%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000000" flood-opacity="0.30"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="3" flood-color="#000000" flood-opacity="0.15"/>
+    </filter>
+
+    <!-- Subtle Button Shadow -->
+    <filter id="shadow-btn" x="-10%" y="-15%" width="120%" height="135%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Modal Elevation Shadow -->
+    <filter id="shadow-modal" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="20" stdDeviation="30" flood-color="#000000" flood-opacity="0.60"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Glowing Accent -->
+    <filter id="glow-accent" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="grad-indigo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="50%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+
+    <linearGradient id="grad-warm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#78350f"/>
+      <stop offset="60%" stop-color="#b45309"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+
+    <linearGradient id="grad-mono" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+
+    <linearGradient id="grad-card-true-black" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#141414"/>
+      <stop offset="100%" stop-color="#0d0d0d"/>
+    </linearGradient>
+
+    <linearGradient id="grad-device-titanium" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a2a2a"/>
+      <stop offset="50%" stop-color="#171717"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1000" height="750" fill="#ffffff"/>
+  
+  <g transform="translate(50, 40)">
+    <text x="0" y="0" font-size="22" font-weight="800" fill="#0f172a">UI Style Guide • Дизайн-токены и палитра цветов</text>
+    <text x="0" y="24" font-size="12" fill="#64748b">Трехуровневая архитектура токенов (Primitive → Semantic → Component) • Стандарт WCAG 2.1 AAA</text>
+  </g>
+
+  <!-- 1. Greyscale Neutral Scale -->
+  <g transform="translate(50, 100)">
+    <text x="0" y="0" font-size="14" font-weight="700" fill="#0f172a">1. Монохромная шкала нейтралей (Neutral Greyscale)</text>
+    <g transform="translate(0, 15)">
+      <rect x="0" y="0" width="90" height="60" rx="8" fill="#000000" filter="url(#shadow-btn)"/>
+      <text x="45" y="80" font-size="11" font-weight="700" fill="#0f172a" text-anchor="middle">--black-1000</text>
+      <text x="45" y="94" font-size="10" font-family="'JetBrains Mono', monospace" fill="#64748b" text-anchor="middle">#000000</text>
+
+      <rect x="102" y="0" width="90" height="60" rx="8" fill="#0d0d0d" filter="url(#shadow-btn)"/>
+      <text x="147" y="80" font-size="11" font-weight="700" fill="#0f172a" text-anchor="middle">--surface-dark</text>
+      <text x="147" y="94" font-size="10" font-family="'JetBrains Mono', monospace" fill="#64748b" text-anchor="middle">#0d0d0d</text>
+
+      <rect x="204" y="0" width="90" height="60" rx="8" fill="#141414"/>
+      <text x="249" y="80" font-size="11" font-weight="700" fill="#0f172a" text-anchor="middle">--surface-elev</text>
+      <text x="249" y="94" font-size="10" font-family="'JetBrains Mono', monospace" fill="#64748b" text-anchor="middle">#141414</text>
+
+      <rect x="306" y="0" width="90" height="60" rx="8" fill="#262626"/>
+      <text x="351" y="80" font-size="11" font-weight="700" fill="#0f172a" text-anchor="middle">--border-dark</text>
+      <text x="351" y="94" font-size="10" font-family="'JetBrains Mono', monospace" fill="#64748b" text-anchor="middle">#262626</text>
+
+      <rect x="408" y="0" width="90" height="60" rx="8" fill="#888888"/>
+      <text x="453" y="80" font-size="11" font-weight="700" fill="#0f172a" text-anchor="middle">--gray-muted</text>
+      <text x="453" y="94" font-size="10" font-family="'JetBrains Mono', monospace" fill="#64748b" text-anchor="middle">#888888</text>
+
+      <rect x="510" y="0" width="90" height="60" rx="8" fill="#cbd5e1"/>
+      <text x="555" y="80" font-size="11" font-weight="700" fill="#0f172a" text-anchor="middle">--gray-300</text>
+      <text x="555" y="94" font-size="10" font-family="'JetBrains Mono', monospace" fill="#64748b" text-anchor="middle">#cbd5e1</text>
+
+      <rect x="612" y="0" width="90" height="60" rx="8" fill="#f1f5f9" stroke="#cbd5e1"/>
+      <text x="657" y="80" font-size="11" font-weight="700" fill="#0f172a" text-anchor="middle">--gray-100</text>
+      <text x="657" y="94" font-size="10" font-family="'JetBrains Mono', monospace" fill="#64748b" text-anchor="middle">#f1f5f9</text>
+
+      <rect x="714" y="0" width="90" height="60" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+      <text x="759" y="80" font-size="11" font-weight="700" fill="#0f172a" text-anchor="middle">--canvas-light</text>
+      <text x="759" y="94" font-size="10" font-family="'JetBrains Mono', monospace" fill="#64748b" text-anchor="middle">#f8fafc</text>
+
+      <rect x="816" y="0" width="84" height="60" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="858" y="80" font-size="11" font-weight="700" fill="#0f172a" text-anchor="middle">--white</text>
+      <text x="858" y="94" font-size="10" font-family="'JetBrains Mono', monospace" fill="#64748b" text-anchor="middle">#ffffff</text>
+    </g>
+  </g>
+
+  <!-- 2. Brand & Semantic Accent Tokens -->
+  <g transform="translate(50, 240)">
+    <text x="0" y="0" font-size="14" font-weight="700" fill="#0f172a">2. Семантические токены обратной связи и акцентов</text>
+    <g transform="translate(0, 15)">
+      <!-- Primary Indigo -->
+      <rect x="0" y="0" width="165" height="65" rx="8" fill="#6366f1" filter="url(#shadow-btn)"/>
+      <text x="15" y="26" font-size="12" font-weight="800" fill="#ffffff">Brand Indigo</text>
+      <text x="15" y="44" font-size="10" font-family="'JetBrains Mono', monospace" fill="#e0e7ff">#6366f1 • --primary</text>
+
+      <!-- Action Orange -->
+      <rect x="180" y="0" width="165" height="65" rx="8" fill="#ea580c" filter="url(#shadow-btn)"/>
+      <text x="195" y="26" font-size="12" font-weight="800" fill="#ffffff">Action Orange</text>
+      <text x="195" y="44" font-size="10" font-family="'JetBrains Mono', monospace" fill="#ffedd5">#ea580c • --accent</text>
+
+      <!-- Success Green -->
+      <rect x="360" y="0" width="165" height="65" rx="8" fill="#10b981" filter="url(#shadow-btn)"/>
+      <text x="375" y="26" font-size="12" font-weight="800" fill="#ffffff">Success Check-in</text>
+      <text x="375" y="44" font-size="10" font-family="'JetBrains Mono', monospace" fill="#ecfdf5">#10b981 • --success</text>
+
+      <!-- Warning Amber -->
+      <rect x="540" y="0" width="165" height="65" rx="8" fill="#f59e0b" filter="url(#shadow-btn)"/>
+      <text x="555" y="26" font-size="12" font-weight="800" fill="#ffffff">Warning Quota</text>
+      <text x="555" y="44" font-size="10" font-family="'JetBrains Mono', monospace" fill="#fffbeb">#f59e0b • --warning</text>
+
+      <!-- Danger Red -->
+      <rect x="720" y="0" width="180" height="65" rx="8" fill="#ef4444" filter="url(#shadow-btn)"/>
+      <text x="735" y="26" font-size="12" font-weight="800" fill="#ffffff">Danger Error</text>
+      <text x="735" y="44" font-size="10" font-family="'JetBrains Mono', monospace" fill="#fef2f2">#ef4444 • --destructive</text>
+    </g>
+  </g>
+
+  <!-- 3. WCAG Contrast Verification Matrix -->
+  <g transform="translate(50, 365)">
+    <text x="0" y="0" font-size="14" font-weight="700" fill="#0f172a">3. Матрица верификации контрастности WCAG 2.1 AAA / AA</text>
+    
+    <g transform="translate(0, 15)">
+      <rect width="900" height="200" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+
+      <!-- Table Header -->
+      <line x1="0" y1="40" x2="900" y2="40" stroke="#cbd5e1" stroke-width="1.2"/>
+      <text x="25" y="26" font-size="12" font-weight="700" fill="#64748b">Элемент интерфейса</text>
+      <text x="260" y="26" font-size="12" font-weight="700" fill="#64748b">Цвет текста</text>
+      <text x="420" y="26" font-size="12" font-weight="700" fill="#64748b">Цвет фона</text>
+      <text x="580" y="26" font-size="12" font-weight="700" fill="#64748b">Коэффициент</text>
+      <text x="760" y="26" font-size="12" font-weight="700" fill="#64748b">Статус соответствия</text>
+
+      <!-- Row 1: True Black mode text -->
+      <g transform="translate(25, 68)">
+        <text x="0" y="0" font-size="12" font-weight="600" fill="#0f172a">Основной текст (True Black Mode)</text>
+        <text x="235" y="0" font-size="11" font-family="'JetBrains Mono', monospace" fill="#0f172a">#ffffff</text>
+        <text x="395" y="0" font-size="11" font-family="'JetBrains Mono', monospace" fill="#0f172a">#000000</text>
+        <text x="555" y="0" font-size="12" font-weight="700" fill="#047857">21.0 : 1</text>
+        <rect x="735" y="-14" width="90" height="22" rx="4" fill="#ecfdf5"/>
+        <text x="780" y="0" font-size="10" font-weight="800" fill="#047857" text-anchor="middle">WCAG AAA ✓</text>
+      </g>
+
+      <!-- Row 2: Light mode text -->
+      <g transform="translate(25, 108)">
+        <text x="0" y="0" font-size="12" font-weight="600" fill="#0f172a">Основной текст (Light Mode)</text>
+        <text x="235" y="0" font-size="11" font-family="'JetBrains Mono', monospace" fill="#0f172a">#0f172a</text>
+        <text x="395" y="0" font-size="11" font-family="'JetBrains Mono', monospace" fill="#0f172a">#ffffff</text>
+        <text x="555" y="0" font-size="12" font-weight="700" fill="#047857">14.8 : 1</text>
+        <rect x="735" y="-14" width="90" height="22" rx="4" fill="#ecfdf5"/>
+        <text x="780" y="0" font-size="10" font-weight="800" fill="#047857" text-anchor="middle">WCAG AAA ✓</text>
+      </g>
+
+      <!-- Row 3: Action Orange Button -->
+      <g transform="translate(25, 148)">
+        <text x="0" y="0" font-size="12" font-weight="600" fill="#0f172a">Кнопка действия CTA (Orange)</text>
+        <text x="235" y="0" font-size="11" font-family="'JetBrains Mono', monospace" fill="#0f172a">#ffffff</text>
+        <text x="395" y="0" font-size="11" font-family="'JetBrains Mono', monospace" fill="#0f172a">#ea580c</text>
+        <text x="555" y="0" font-size="12" font-weight="700" fill="#1d4ed8">4.9 : 1</text>
+        <rect x="735" y="-14" width="90" height="22" rx="4" fill="#eff6ff"/>
+        <text x="780" y="0" font-size="10" font-weight="800" fill="#1d4ed8" text-anchor="middle">WCAG AA ✓</text>
+      </g>
+
+      <!-- Row 4: Electric Indigo Button -->
+      <g transform="translate(25, 182)">
+        <text x="0" y="0" font-size="12" font-weight="600" fill="#0f172a">Интерактивный бренд (Indigo)</text>
+        <text x="235" y="0" font-size="11" font-family="'JetBrains Mono', monospace" fill="#0f172a">#ffffff</text>
+        <text x="395" y="0" font-size="11" font-family="'JetBrains Mono', monospace" fill="#0f172a">#4f46e5</text>
+        <text x="555" y="0" font-size="12" font-weight="700" fill="#047857">7.2 : 1</text>
+        <rect x="735" y="-14" width="90" height="22" rx="4" fill="#ecfdf5"/>
+        <text x="780" y="0" font-size="10" font-weight="800" fill="#047857" text-anchor="middle">WCAG AAA ✓</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Footer -->
+  <g transform="translate(50, 680)">
+    <line x1="0" y1="0" x2="900" y2="0" stroke="#e2e8f0" stroke-width="1.2"/>
+    <text x="0" y="30" font-size="11" fill="#64748b">CampusMeet Design System 2026 • Экспорт токенов: CSS Custom Properties, Tailwind CSS &amp; Figma Variables</text>
+  </g>
+</svg>

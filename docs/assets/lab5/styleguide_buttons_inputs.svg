@@ -1,0 +1,204 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 750" width="1000" height="750" font-family="'Inter', -apple-system, BlinkMacSystemFont, sans-serif">
+  
+  <defs>
+    <!-- Drop Shadow Standard -->
+    <filter id="shadow-card" x="-10%" y="-10%" width="120%" height="125%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000000" flood-opacity="0.30"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="3" flood-color="#000000" flood-opacity="0.15"/>
+    </filter>
+
+    <!-- Subtle Button Shadow -->
+    <filter id="shadow-btn" x="-10%" y="-15%" width="120%" height="135%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Modal Elevation Shadow -->
+    <filter id="shadow-modal" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="20" stdDeviation="30" flood-color="#000000" flood-opacity="0.60"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Glowing Accent -->
+    <filter id="glow-accent" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="grad-indigo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="50%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+
+    <linearGradient id="grad-warm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#78350f"/>
+      <stop offset="60%" stop-color="#b45309"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+
+    <linearGradient id="grad-mono" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+
+    <linearGradient id="grad-card-true-black" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#141414"/>
+      <stop offset="100%" stop-color="#0d0d0d"/>
+    </linearGradient>
+
+    <linearGradient id="grad-device-titanium" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a2a2a"/>
+      <stop offset="50%" stop-color="#171717"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1000" height="750" fill="#ffffff"/>
+
+  <g transform="translate(50, 40)">
+    <text x="0" y="0" font-size="22" font-weight="800" fill="#0f172a">UI Style Guide • Интерактивные кнопки и поля ввода</text>
+    <text x="0" y="24" font-size="12" fill="#64748b">Полный спектр состояний: Default, Hover, Active, Focus Ring (2px offset), Loading, Disabled</text>
+  </g>
+
+  <!-- Button Matrix -->
+  <g transform="translate(50, 100)">
+    <text x="0" y="0" font-size="14" font-weight="700" fill="#0f172a">1. Матрица интерактивных состояний кнопок</text>
+
+    <!-- Headers -->
+    <g transform="translate(200, 20)">
+      <text x="0" y="0" font-size="12" font-weight="700" fill="#64748b">Default</text>
+      <text x="140" y="0" font-size="12" font-weight="700" fill="#64748b">Hover</text>
+      <text x="280" y="0" font-size="12" font-weight="700" fill="#64748b">Focus (2px ring)</text>
+      <text x="430" y="0" font-size="12" font-weight="700" fill="#64748b">Loading</text>
+      <text x="570" y="0" font-size="12" font-weight="700" fill="#64748b">Disabled</text>
+    </g>
+
+    <!-- Primary Button Row -->
+    <g transform="translate(0, 40)">
+      <text x="0" y="25" font-size="13" font-weight="700" fill="#0f172a">Primary CTA</text>
+      
+      <rect x="200" y="5" width="115" height="38" rx="8" fill="#6366f1" filter="url(#shadow-btn)"/>
+      <text x="257" y="29" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Записаться</text>
+
+      <rect x="340" y="5" width="115" height="38" rx="8" fill="#4f46e5"/>
+      <text x="397" y="29" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Записаться</text>
+
+      <rect x="477" y="2" width="121" height="44" rx="11" fill="none" stroke="#6366f1" stroke-width="2.5"/>
+      <rect x="480" y="5" width="115" height="38" rx="8" fill="#6366f1"/>
+      <text x="537" y="29" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Записаться</text>
+
+      <rect x="630" y="5" width="115" height="38" rx="8" fill="#6366f1"/>
+      <circle cx="670" cy="24" r="7" fill="none" stroke="#ffffff" stroke-width="2" stroke-dasharray="8 4"/>
+      <text x="705" y="28" font-size="11" font-weight="700" fill="#ffffff">Ждите...</text>
+
+      <rect x="770" y="5" width="115" height="38" rx="8" fill="#e2e8f0"/>
+      <text x="827" y="29" font-size="12" font-weight="700" fill="#94a3b8" text-anchor="middle">Записаться</text>
+    </g>
+
+    <!-- Secondary Outline Row -->
+    <g transform="translate(0, 95)">
+      <text x="0" y="25" font-size="13" font-weight="700" fill="#0f172a">Secondary</text>
+      
+      <rect x="200" y="5" width="115" height="38" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+      <text x="257" y="29" font-size="12" font-weight="600" fill="#0f172a" text-anchor="middle">Подробнее</text>
+
+      <rect x="340" y="5" width="115" height="38" rx="8" fill="#f8fafc" stroke="#0f172a" stroke-width="1.5"/>
+      <text x="397" y="29" font-size="12" font-weight="600" fill="#0f172a" text-anchor="middle">Подробнее</text>
+
+      <rect x="477" y="2" width="121" height="44" rx="11" fill="none" stroke="#6366f1" stroke-width="2.5"/>
+      <rect x="480" y="5" width="115" height="38" rx="8" fill="#f8fafc" stroke="#6366f1" stroke-width="1.5"/>
+      <text x="537" y="29" font-size="12" font-weight="600" fill="#6366f1" text-anchor="middle">Подробнее</text>
+
+      <rect x="630" y="5" width="115" height="38" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+      <circle cx="670" cy="24" r="7" fill="none" stroke="#6366f1" stroke-width="2" stroke-dasharray="8 4"/>
+      <text x="705" y="28" font-size="11" font-weight="600" fill="#6366f1">Загрузка</text>
+
+      <rect x="770" y="5" width="115" height="38" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+      <text x="827" y="29" font-size="12" font-weight="600" fill="#cbd5e1" text-anchor="middle">Подробнее</text>
+    </g>
+
+    <!-- Destructive Row -->
+    <g transform="translate(0, 150)">
+      <text x="0" y="25" font-size="13" font-weight="700" fill="#0f172a">Destructive</text>
+      
+      <rect x="200" y="5" width="115" height="38" rx="8" fill="#ef4444" filter="url(#shadow-btn)"/>
+      <text x="257" y="29" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Отменить</text>
+
+      <rect x="340" y="5" width="115" height="38" rx="8" fill="#dc2626"/>
+      <text x="397" y="29" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Отменить</text>
+
+      <rect x="477" y="2" width="121" height="44" rx="11" fill="none" stroke="#ef4444" stroke-width="2.5"/>
+      <rect x="480" y="5" width="115" height="38" rx="8" fill="#ef4444"/>
+      <text x="537" y="29" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Отменить</text>
+
+      <rect x="630" y="5" width="115" height="38" rx="8" fill="#ef4444"/>
+      <circle cx="670" cy="24" r="7" fill="none" stroke="#ffffff" stroke-width="2" stroke-dasharray="8 4"/>
+      <text x="705" y="28" font-size="11" font-weight="700" fill="#ffffff">Отмена...</text>
+
+      <rect x="770" y="5" width="115" height="38" rx="8" fill="#fee2e2"/>
+      <text x="827" y="29" font-size="12" font-weight="700" fill="#fca5a5" text-anchor="middle">Отменить</text>
+    </g>
+  </g>
+
+  <!-- Form Controls Matrix -->
+  <g transform="translate(50, 340)">
+    <text x="0" y="0" font-size="14" font-weight="700" fill="#0f172a">2. Поля ввода форм (Form Text Inputs)</text>
+
+    <!-- Input 1: Default -->
+    <g transform="translate(0, 25)">
+      <text x="0" y="0" font-size="12" font-weight="600" fill="#475569">Email студента (Default)</text>
+      <rect x="0" y="10" width="270" height="42" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+      <text x="15" y="36" font-size="12" fill="#94a3b8">student@bsu.by</text>
+    </g>
+
+    <!-- Input 2: Focus Active -->
+    <g transform="translate(310, 25)">
+      <text x="0" y="0" font-size="12" font-weight="600" fill="#6366f1">Корпоративный Email (Focused)</text>
+      <rect x="-2" y="8" width="274" height="46" rx="10" fill="none" stroke="#6366f1" stroke-width="2.5"/>
+      <rect x="0" y="10" width="270" height="42" rx="8" fill="#ffffff" stroke="#6366f1" stroke-width="1.5"/>
+      <text x="15" y="36" font-size="12" font-weight="500" fill="#0f172a">kovalev@bsu.by</text>
+      <line x1="125" y1="22" x2="125" y2="40" stroke="#6366f1" stroke-width="2"/>
+    </g>
+
+    <!-- Input 3: Error Validation -->
+    <g transform="translate(620, 25)">
+      <text x="0" y="0" font-size="12" font-weight="600" fill="#ef4444">Ошибка валидации (Error)</text>
+      <rect x="0" y="10" width="280" height="42" rx="8" fill="#fef2f2" stroke="#ef4444" stroke-width="1.5"/>
+      <text x="15" y="36" font-size="12" fill="#ef4444">kovalev@gmail.com</text>
+      <g transform="translate(250,23)" stroke="#ef4444" fill="none" stroke-width="1.5" stroke-linecap="round">
+          <line x1="4" y1="4" x2="12" y2="12"/>
+          <line x1="12" y1="4" x2="4" y2="12"/>
+        </g>
+      <text x="0" y="68" font-size="10" font-weight="600" fill="#ef4444">Требуется университетский домен @bsu.by</text>
+    </g>
+  </g>
+
+  <!-- Selection Controls (Radio & Checkbox & Switch) -->
+  <g transform="translate(50, 485)">
+    <text x="0" y="0" font-size="14" font-weight="700" fill="#0f172a">3. Элементы выбора (Selection Controls &amp; Switches)</text>
+
+    <g transform="translate(0, 25)">
+      <rect x="0" y="0" width="22" height="22" rx="6" fill="#6366f1"/>
+      <g transform="translate(3,3)" stroke="#ffffff" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="3 8 6.5 11.5 13 4.5"/>
+        </g>
+      <text x="32" y="16" font-size="12" font-weight="600" fill="#0f172a">Согласен с правилами посещения</text>
+
+      <rect x="310" y="0" width="22" height="22" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+      <text x="342" y="16" font-size="12" font-weight="500" fill="#475569">Уведомлять в Telegram о хакатонах</text>
+
+      <g transform="translate(620, 0)">
+        <rect width="44" height="24" rx="12" fill="#6366f1"/>
+        <circle cx="32" cy="12" r="9" fill="#ffffff" filter="url(#shadow-btn)"/>
+        <text x="54" y="16" font-size="12" font-weight="600" fill="#0f172a">PWA Offline Mode: ON</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Footer -->
+  <g transform="translate(50, 680)">
+    <line x1="0" y1="0" x2="900" y2="0" stroke="#e2e8f0" stroke-width="1.2"/>
+    <text x="0" y="30" font-size="11" fill="#64748b">CampusMeet Components • Полное соответствие WAI-ARIA Authoring Practices 1.2</text>
+  </g>
+</svg>
