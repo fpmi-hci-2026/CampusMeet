@@ -82,10 +82,23 @@
                 subtitle: 'Стили интеграции программных систем и проектирование API',
                 path: 'pages/lab4.html',
                 report: 'reports/Lab4_report.md',
-                status: 'review',
+                status: 'done',
                 badge: 'L4',
                 icon: 'code',
                 desc: '33 операции OpenAPI, 17 таблиц, HTTP mock, MCP Tools / Resources / Prompts, Docker и CI'
+            },
+            {
+                id: 'lab5',
+                num: 5,
+                title: 'Лабораторная работа №5',
+                shortTitle: 'Лаб. №5',
+                subtitle: 'Проектирование прототипа приложения и исследование визуального языка',
+                path: 'pages/lab5.html',
+                report: 'reports/Lab5_report.md',
+                status: 'done',
+                badge: 'L5',
+                icon: 'smartphone',
+                desc: 'Семантический дифференциал N=10, 3 палитры, 6 адаптивных сеток, 5 устройств, UI Style Guide и интерактивный прототип'
             }
         ],
 

@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusMeet / EventHub — Лабораторная работа №5: Проектирование прототипа приложения</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../css/style.css">
+    <script>
+        (function() {
+            var t = null;
+            try { t = localStorage.getItem('cm_theme'); } catch(e) {}
+            if (!t) {
+                t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+            }
+            document.documentElement.setAttribute('data-theme', t);
+        })();
+    </script>
+    <style>
+        /* Custom Lab 5 Interactive Widget Styles */
+        .interactive-widget {
+            background: var(--surface-primary);
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin: 20px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        }
+        .palette-tabs, .grid-tabs, .device-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .interactive-tab-btn {
+            background: var(--surface-secondary);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .interactive-tab-btn:hover {
+            background: var(--surface-hover);
+            color: var(--text-primary);
+        }
+        .interactive-tab-btn.active {
+            background: var(--action-primary-bg);
+            color: var(--action-primary-text);
+            border-color: var(--action-primary-bg);
+        }
+        .swatch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .swatch-card {
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 10px;
+            background: var(--surface-primary);
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+        .swatch-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--border-focus);
+        }
+        .swatch-color {
+            height: 44px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(0,0,0,0.08);
+        }
+        .swatch-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .swatch-hex {
+            font-size: 0.7rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-tertiary);
+        }
+        .preview-frame-container {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            background: var(--surface-canvas);
+            padding: 16px;
+            text-align: center;
+        }
+        .preview-frame-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius-sm);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        /* Mobile Simulator Frame */
+        .phone-simulator {
+            max-width: 380px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 12px solid #171717;
+            border-radius: 44px;
+            overflow: hidden;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+            font-family: 'Inter', sans-serif;
+            position: relative;
+        }
+        .phone-notch {
+            width: 120px;
+            height: 24px;
+            background: #000000;
+            border-radius: 12px;
+            margin: 8px auto 12px auto;
+        }
+        .phone-screen {
+            padding: 16px;
+            min-height: 520px;
+            background: #f9f9f9;
+            color: #0d0d0d;
+        }
+        .scanner-camera-box {
+            height: 180px;
+            border: 2px dashed #10b981;
+            border-radius: 12px;
+            background: rgba(16, 185, 129, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+        .scan-laser {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #10b981;
+            box-shadow: 0 0 10px #10b981;
+            animation: scanAnim 2s infinite linear;
+        }
+        @keyframes scanAnim {
+            0% { top: 10%; opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { top: 90%; opacity: 0; }
+        }
+    </style>
+</head>
+<body data-page="lab5">
+
+    <!-- Mobile Topbar -->
+    <header class="mobile-topbar">
+        <a href="../index.html" class="mobile-brand">
+            <img src="../assets/favicon.svg" alt="CampusMeet Logo">
+            <span>CampusMeet</span>
+        </a>
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <button class="theme-toggle-btn" type="button" aria-label="Переключить тему оформления" title="Светлая / Темная тема">
+                <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+            <button id="mobile-hamburger" class="hamburger-btn" type="button" aria-label="Открыть навигацию">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar">
+        <div class="sidebar-header">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span class="brand-badge" style="margin-bottom: 0;">ПЧМИ • ФПМИ БГУ</span>
+                <button class="theme-toggle-btn" type="button" aria-label="Переключить тему оформления" title="Светлая / Темная тема">
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <h1>CampusMeet</h1>
+            <p>Платформа студенческих митапов, хакатонов и офлайн-чекина</p>
+            <button class="omnibox-trigger-btn" type="button" aria-label="Быстрый поиск">
+                <span class="omnibox-trigger-label">
+                    <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    Поиск по порталу...
+                </span>
+                <span class="kbd-shortcut">⌘K</span>
+            </button>
+        </div>
+
+        <div class="nav-section-title">Разделы портала</div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="../index.html" class="nav-link">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    <span>Главный портал</span>
+                    <span class="nav-badge">Hub</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab1.html" class="nav-link">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    <span>Лабораторная №1</span>
+                    <span class="nav-badge">L1</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab2.html" class="nav-link">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                    <span>Лабораторная №2</span>
+                    <span class="nav-badge">L2</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab3.html" class="nav-link">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                    <span>Лабораторная №3</span>
+                    <span class="nav-badge">L3</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab4.html" class="nav-link">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    <span>Лабораторная №4</span>
+                    <span class="nav-badge">L4</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab5.html" class="nav-link active current-page">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                    <span>Лабораторная №5</span>
+                    <span class="nav-badge">L5</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="wiki.html" class="nav-link">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    <span>База знаний (Wiki)</span>
+                    <span class="nav-badge">Docs</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-section-title">Содержание работы</div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#lab5-overview" class="nav-link active" onclick="switchTab('lab5-overview', this)">
+                    <span class="nav-num">01</span>
+                    <span>Паспорт и цели</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#lab5-visual" class="nav-link" onclick="switchTab('lab5-visual', this)">
+                    <span class="nav-num">02</span>
+                    <span>Визуальный язык (Задание 1)</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#lab5-grids" class="nav-link" onclick="switchTab('lab5-grids', this)">
+                    <span class="nav-num">03</span>
+                    <span>Сетки и адаптив (Задание 2)</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#lab5-prototype" class="nav-link" onclick="switchTab('lab5-prototype', this)">
+                    <span class="nav-num">04</span>
+                    <span>Интерактивный прототип</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#lab5-styleguide" class="nav-link" onclick="switchTab('lab5-styleguide', this)">
+                    <span class="nav-num">05</span>
+                    <span>UI Style Guide (Задание 3)</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#lab5-report-view" class="nav-link" onclick="switchTab('lab5-report-view', this)">
+                    <span class="nav-num">06</span>
+                    <span>Академический отчет (MD)</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main id="content">
+        <div class="content-container">
+
+            <!-- Breadcrumbs Navigation -->
+            <nav class="content-breadcrumbs" aria-label="Хлебные крошки">
+                <ol class="breadcrumbs-list">
+                    <li class="breadcrumb-item"><a href="../index.html">Главная</a></li>
+                    <li class="breadcrumb-separator">/</li>
+                    <li class="breadcrumb-item"><a href="lab5.html">Лабораторная работа №5</a></li>
+                    <li class="breadcrumb-separator">/</li>
+                    <li class="breadcrumb-item breadcrumb-active" id="active-breadcrumb-tab">Паспорт и цели</li>
+                </ol>
+            </nav>
+
+            <!-- TAB 1: Overview -->
+            <section id="lab5-overview" class="tab-pane active">
+                <div class="section-header">
+                    <h2>Лабораторная работа №5: Проектирование прототипа приложения</h2>
+                    <p>Исследование визуального языка программной системы (семантический дифференциал N=10), расчет модульных сеток под 6 веб-разрешений, экраны для 5 мобильных устройств, кликабельный прототип и руководство по стилям (UI Style Guide)</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">15 пар</div>
+                        <div class="stat-label">Шкал семантического дифференциала Чарльза Осгуда</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">3 палитры</div>
+                        <div class="stat-label">Сравнительных цветовых решения для изоляции переменной</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">6 + 5</div>
+                        <div class="stat-label">Адаптивных сеток веб (1440..320px) и мобильных устройств</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">WCAG AAA</div>
+                        <div class="stat-label">Сертифицированный цветовой контраст (до 19.4:1)</div>
+                    </div>
+                </div>
+
+                <div class="profile-card" style="margin-top: 24px;">
+                    <h3>Паспорт Лабораторной работы №5</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;">
+                        В рамках лабораторной работы реализован переход от информационной архитектуры и API-контрактов (Лаб. 1–4) к детальному визуальному и эргономическому проектированию интерфейсов. Проведено психолингвистическое тестирование визуального языка на выборке $N=10$, выполнен строгий математический расчет модульных сеток по формуле из методических указаний Давидовской М.И., подготовлены макеты под ключевые устройства (iPhone, Galaxy, Pixel, iPad Pro, iPad Mini), разработан кликабельный прототип с Offline-чекином и составлен комплексный Style Guide.
+                    </p>
+                    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                        <a href="https://www.figma.com/design/2OnyJ5J50I6kueehY3VDXa" class="btn btn-primary" target="_blank" style="background: #0d0d0d; color: #ffffff; border: 1px solid #383838;">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"></path><path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"></path><path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 1 1-7 0z"></path><path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z"></path><path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"></path></svg>
+                            Открыть макеты в Figma Design
+                        </a>
+                        <a href="../reports/Lab5_report.md" class="btn btn-secondary" target="_blank">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                            Академический отчет Lab5_report.md
+                        </a>
+                        <button class="btn btn-secondary" onclick="switchTab('lab5-prototype')">
+                            <svg class="icon" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                            Запустить интерактивный прототип
+                        </button>
+                        <button class="btn btn-secondary" onclick="switchTab('lab5-visual')">
+                            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="m4.93 4.93 4.24 4.24"></path><path d="m14.83 9.17 4.24-4.24"></path></svg>
+                            Результаты теста N=10
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 24px;">
+                    <div class="card-header">
+                        <h4>Ключевые артефакты концептуального проектирования</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul style="line-height: 1.8; color: var(--text-secondary); font-size: 0.9rem;">
+                            <li><strong>Задание 1:</strong> 3 вида дизайн-макета веб-приложения и 3 вида мобильного приложения с изолированной цветовой переменной + таблица стилей элементов (панели, заголовки, текст, меню, рамки).</li>
+                            <li><strong>Тестирование:</strong> Анкетирование 10 пользователей по 15 шкалам Осгуда, расчет средних $M$ и среднеквадратичных отклонений $\sigma$, векторная диаграмма профилей.</li>
+                            <li><strong>Задание 2:</strong> Математический расчет 12-колоночной сетки для разрешений 1440px, 1140px, 768px, 576px, 400px, 320px; макеты экрана после авторизации для 5 устройств.</li>
+                            <li><strong>Интерактивность:</strong> Полнофункциональный прототип сценариев авторизации, каталога с фильтрацией, бронирования билета, Offline QR-пропуска и сканера волонтера.</li>
+                            <li><strong>Задание 3:</strong> UI Style Guide с палитрой дизайн-токенов, типографической модульной шкалой, матрицей кнопок, элементами форм и пространственной системой отступов 4/8pt.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: Visual Language Research -->
+            <section id="lab5-visual" class="tab-pane">
+                <div class="section-header">
+                    <h2>Задание 1. Исследование визуального языка продукта</h2>
+                    <p>Сравнительное тестирование 3 цветовых концепций при строго идентичной геометрии макетов (изоляция цветовой переменной) и психолингвистический анализ по 15 шкалам Чарльза Осгуда ($N=10$)</p>
+                </div>
+
+                <div class="interactive-widget">
+                    <h3 style="margin-bottom: 8px;">1. Интерактивный просмотрщик дизайн-макетов (Изоляция цвета)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 16px;">
+                        Выберите цветовую концепцию для изучения спецификации стилей компонентов и просмотра адаптированного макета каталога и билета:
+                    </p>
+
+                    <div class="palette-tabs">
+                        <button class="interactive-tab-btn active" onclick="selectPalette('v1_mono', this)">
+                            Вариант 1: Editorial Minimalist (Монохром)
+                        </button>
+                        <button class="interactive-tab-btn" onclick="selectPalette('v2_tech', this)">
+                            Вариант 2: True Black AMOLED &amp; Indigo
+                        </button>
+                        <button class="interactive-tab-btn" onclick="selectPalette('v3_warm', this)">
+                            Вариант 3: Warm Coral &amp; Amber
+                        </button>
+                    </div>
+
+                    <!-- Palette Swatches Matrix -->
+                    <div id="palette-swatches-container" class="swatch-grid">
+                        <!-- Rendered by JS -->
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; align-items: start;">
+                        <div>
+                            <h4 style="font-size: 0.9rem; margin-bottom: 8px;">Макет веб-каталога и спецификация палитры (Рисунок методички)</h4>
+                            <div class="preview-frame-container">
+                                <img id="web-mockup-img" src="../assets/lab5/visual_variant_1_mono.svg" alt="Web Visual Variant">
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 0.9rem; margin-bottom: 8px;">Мобильный экран (Билет участника)</h4>
+                            <div class="preview-frame-container">
+                                <img id="mobile-mockup-img" src="../assets/lab5/visual_variant_mobile_1.svg" alt="Mobile Visual Variant">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Semantic Differential Section -->
+                <div class="interactive-widget">
+                    <h3 style="margin-bottom: 8px;">2. Результаты тестирования визуального языка (Семантический дифференциал, N=10)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 16px;">
+                        Диаграмма-профиль построена на основе математического усреднения сырых оценок 10 респондентов по 15 полярным парам прилагательных (шкала от 1 до 5):
+                    </p>
+
+                    <div class="preview-frame-container" style="margin-bottom: 24px;">
+                        <img src="../assets/lab5/semantic_differential_profiles.svg" alt="Semantic Differential Chart">
+                    </div>
+
+                    <h4 style="font-size: 0.95rem; margin-bottom: 12px;">Сводная статистическая таблица средних значений (M ± σ)</h4>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>№</th>
+                                    <th>Полюс 5 (Положительный)</th>
+                                    <th>Полюс 1 (Отрицательный)</th>
+                                    <th>Вариант 1 (Editorial Mono)</th>
+                                    <th>Вариант 2 (Deep Tech Indigo)</th>
+                                    <th>Вариант 3 (Warm Coral)</th>
+                                    <th>Лидер шкалы</th>
+                                </tr>
+                            </thead>
+                            <tbody id="differential-table-body">
+                                <!-- Populated dynamically by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="callout-card" style="margin-top: 20px; background: rgba(16, 185, 129, 0.08); border-left: 4px solid #10b981;">
+                        <h4 style="color: #065f46; margin-bottom: 6px;">Вывод и обоснование целевого дизайна</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6;">
+                            По результатам тестирования утвержден <strong>гибридный синтез Варианта 1 и Варианта 2</strong>. Монохромная субтрактивная база Варианта 1 обеспечивает максимальную надежность (4.90), читаемость и академичность, в то время как точечные технологические акценты изумрудного света (#10b981) и ночной режим Варианта 2 транслируют инновационность (4.90), динамику и актуальность студенческого IT-сообщества.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: Grids & Breakpoints -->
+            <section id="lab5-grids" class="tab-pane">
+                <div class="section-header">
+                    <h2>Задание 2. Модульные сетки и адаптивные макеты</h2>
+                    <p>Математический расчет колонок, отступов (gutter) и полей (margins) по швейцарской методике для 6 разрешений веб-интерфейса и компоновка экранов для 5 мобильных устройств</p>
+                </div>
+
+                <div class="interactive-widget">
+                    <h3 style="margin-bottom: 8px;">1. Адаптивные модульные сетки веб-интерфейса (6 диапазонов)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 16px;">
+                        Выберите целевое разрешение экрана для просмотра формулы баланса и наложения модульной сетки:
+                    </p>
+
+                    <div class="grid-tabs">
+                        <button class="interactive-tab-btn active" onclick="selectGrid('1440', this)">1440px (Десктоп большой)</button>
+                        <button class="interactive-tab-btn" onclick="selectGrid('1140', this)">992–1199px (1140 Grid)</button>
+                        <button class="interactive-tab-btn" onclick="selectGrid('768', this)">768–991px (Планшет 8 col)</button>
+                        <button class="interactive-tab-btn" onclick="selectGrid('576', this)">576–767px (Фаблет 6 col)</button>
+                        <button class="interactive-tab-btn" onclick="selectGrid('400', this)">400–575px (Смартфон 4 col)</button>
+                        <button class="interactive-tab-btn" onclick="selectGrid('320', this)">320–399px (Компактный 4 col)</button>
+                    </div>
+
+                    <div class="callout-card" style="margin-bottom: 16px;">
+                        <span id="grid-formula-text" style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; font-weight: 600;">
+                            W (1320px) = 12 × 88px + 11 × 24px (Поля: 60px)
+                        </span>
+                    </div>
+
+                    <div class="preview-frame-container">
+                        <img id="grid-mockup-img" src="../assets/lab5/grid_web_1440.svg" alt="Modular Grid Layout">
+                    </div>
+                </div>
+
+                <div class="interactive-widget">
+                    <h3 style="margin-bottom: 8px;">2. Проектирование экрана после авторизации (5 мобильных устройств)</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 16px;">
+                        Компоновка авторизованного экрана участника с динамическим QR-билетом с учетом Safe Areas и вырезов камер:
+                    </p>
+
+                    <div class="device-tabs">
+                        <button class="interactive-tab-btn active" onclick="selectDevice('mobile_iphone_16_pro.svg', this)">Apple iPhone 16 Pro (393 × 852)</button>
+                        <button class="interactive-tab-btn" onclick="selectDevice('mobile_samsung_galaxy_s24.svg', this)">Samsung Galaxy S24 (412 × 915)</button>
+                        <button class="interactive-tab-btn" onclick="selectDevice('mobile_google_pixel_8.svg', this)">Google Pixel 8 (412 × 892)</button>
+                        <button class="interactive-tab-btn" onclick="selectDevice('mobile_ipad_pro_11.svg', this)">Apple iPad Pro 11" (834 × 1194)</button>
+                        <button class="interactive-tab-btn" onclick="selectDevice('mobile_ipad_mini.svg', this)">Apple iPad Mini (744 × 1133)</button>
+                    </div>
+
+                    <div class="preview-frame-container">
+                        <img id="device-mockup-img" src="../assets/lab5/mobile_iphone_16_pro.svg" alt="Device Screen Mockup">
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: Interactive Prototype -->
+            <section id="lab5-prototype" class="tab-pane">
+                <div class="section-header">
+                    <h2>Задание 2. Интерактивный кликабельный прототип</h2>
+                    <p>Исполняемая симуляция сквозных пользовательских сценариев: ролевая авторизация, поиск митапов, бронирование квоты, выпуск динамического QR-билета и оптический чекин волонтера</p>
+                </div>
+
+                <div class="interactive-widget">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+                        <div>
+                            <h3 style="margin-bottom: 4px;">Симулятор клиентского приложения CampusMeet</h3>
+                            <p style="color: var(--text-muted); font-size: 0.8rem; margin: 0;">Полная интерактивность: переключение ролей, бронирование, тикающий токен HMAC и сканер</p>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <span style="font-size: 0.8rem; font-weight: 600; align-self: center;">Активная роль:</span>
+                            <select id="proto-role-select" class="form-select" onchange="onRoleChange(this.value)" style="padding: 6px 12px; font-size: 0.8rem;">
+                                <option value="student">Студент / Слушатель (Артём)</option>
+                                <option value="volunteer">Волонтер регистрации (Дарья)</option>
+                                <option value="organizer">Организатор (Максим)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Simulator Container -->
+                    <div class="phone-simulator">
+                        <div class="phone-notch"></div>
+                        <div id="phone-screen-content" class="phone-screen">
+                            <!-- Populated dynamically by Prototype Engine -->
+                        </div>
+                    </div>
+
+                    <!-- Prototype Controls Bar -->
+                    <div style="text-align: center; margin-top: 16px;">
+                        <button class="btn btn-secondary" onclick="renderProtoScreen('catalog')" style="font-size: 0.8rem; padding: 6px 14px;">1. Каталог афиши</button>
+                        <button class="btn btn-secondary" onclick="renderProtoScreen('ticket')" style="font-size: 0.8rem; padding: 6px 14px;">2. Экран билета</button>
+                        <button class="btn btn-secondary" onclick="renderProtoScreen('scanner')" style="font-size: 0.8rem; padding: 6px 14px;">3. Сканер волонтера</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 5: Style Guide -->
+            <section id="lab5-styleguide" class="tab-pane">
+                <div class="section-header">
+                    <h2>Задание 3. Руководство по стилям (UI Style Guide)</h2>
+                    <p>Комплексная дизайн-система платформы CampusMeet: токены цветов, типографическая модульная шкала, интерактивные состояния компонентов и правила доступности WCAG 2.1 AAA</p>
+                </div>
+
+                <div class="interactive-widget">
+                    <h3 style="margin-bottom: 12px;">1. Векторные листы руководства по стилям</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div>
+                            <h4 style="font-size: 0.85rem; margin-bottom: 8px;">Цветовые токены и доступность (WCAG 2.1 AAA)</h4>
+                            <div class="preview-frame-container">
+                                <img src="../assets/lab5/styleguide_color_palette.svg" alt="Style Guide Colors">
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 0.85rem; margin-bottom: 8px;">Типографическая шкала (Inter, JetBrains Mono, Newsreader)</h4>
+                            <div class="preview-frame-container">
+                                <img src="../assets/lab5/styleguide_typography.svg" alt="Style Guide Typography">
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 0.85rem; margin-bottom: 8px;">Кнопки и элементы форм (Интерактивные состояния)</h4>
+                            <div class="preview-frame-container">
+                                <img src="../assets/lab5/styleguide_buttons_inputs.svg" alt="Style Guide Buttons & Inputs">
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 0.85rem; margin-bottom: 8px;">Библиотека сложных компонентов (Карточки, Тосты, Диалоги)</h4>
+                            <div class="preview-frame-container">
+                                <img src="../assets/lab5/styleguide_components.svg" alt="Style Guide Components">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Components Testing Sandbox -->
+                <div class="interactive-widget">
+                    <h3 style="margin-bottom: 12px;">2. Интерактивная песочница компонентов UI</h3>
+                    
+                    <div style="margin-bottom: 24px;">
+                        <h4 style="font-size: 0.9rem; margin-bottom: 12px;">Интерактивные кнопки (Кликните для проверки состояний)</h4>
+                        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                            <button class="btn btn-primary" onclick="alert('Primary action clicked!')">Primary Action</button>
+                            <button class="btn btn-secondary" onclick="alert('Secondary clicked!')">Secondary Action</button>
+                            <button class="btn" style="background: #ef4444; color: #ffffff;" onclick="alert('Danger action triggered!')">Danger Button</button>
+                            <button class="btn" style="background: #f4f4f4; color: #a1a1aa; cursor: not-allowed;" disabled>Disabled State</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 style="font-size: 0.9rem; margin-bottom: 12px;">Интерактивные поля ввода с валидацией</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+                            <div>
+                                <label style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 4px;">Имя студента</label>
+                                <input type="text" value="Ковалев Артём" style="width: 100%; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border-default); background: var(--surface-primary); color: var(--text-primary);">
+                            </div>
+                            <div>
+                                <label style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 4px;">Почта BSU (Live Email Validation)</label>
+                                <input id="test-email-input" type="email" value="kovalev@bsu.by" oninput="validateEmailLive(this)" style="width: 100%; padding: 8px 12px; border-radius: 6px; border: 2px solid #10b981; background: var(--surface-primary); color: var(--text-primary);">
+                                <span id="email-error-msg" style="font-size: 0.75rem; color: #10b981; display: block; margin-top: 4px;">✓ Допустимый домен BSU</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 6: Academic Markdown Report Viewer -->
+            <section id="lab5-report-view" class="tab-pane">
+                <div class="section-header">
+                    <h2>Академический отчет по Лабораторной работе №5</h2>
+                    <p>Полный текст отчета в формате Markdown, сгенерированный в соответствии с требованиями кафедры технологий программирования ФПМИ БГУ</p>
+                </div>
+
+                <div class="profile-card" style="margin-bottom: 24px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                        <div>
+                            <h3 style="margin: 0 0 4px 0;">Документ: docs/reports/Lab5_report.md</h3>
+                            <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted);">Размер документа: 5 разделов, детальные формулы расчета сеток, матрицы баллов N=10</p>
+                        </div>
+                        <a href="../reports/Lab5_report.md" class="btn btn-primary" download>
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            Скачать Lab5_report.md
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Markdown Container -->
+                <div id="markdown-report-container" class="markdown-body" style="background: var(--surface-primary); border: 1px solid var(--border-default); border-radius: var(--radius-lg); padding: 32px;">
+                    <div style="text-align: center; color: var(--text-muted); padding: 40px;">
+                        Загрузка академического отчета...
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Interactive Scripts for Lab 5 Logic -->
+    <script>
+        // 1. Data for 3 Palettes
+        const PALETTES_DATA = {
+            v1_mono: {
+                name: 'Академический Монохром (Swiss Minimalist)',
+                webImg: '../assets/lab5/visual_variant_1_mono.svg',
+                mobImg: '../assets/lab5/visual_variant_mobile_1.svg',
+                swatches: [
+                    { label: 'Canvas Slate', hex: '#f8fafc', color: '#f8fafc' },
+                    { label: 'Ink Primary', hex: '#0f172a', color: '#0f172a' },
+                    { label: 'Header Navy', hex: '#0f172a', color: '#0f172a' },
+                    { label: 'Academic Blue', hex: '#2563eb', color: '#2563eb' },
+                    { label: 'Card Border', hex: '#e2e8f0', color: '#e2e8f0' },
+                    { label: 'Text Muted', hex: '#64748b', color: '#64748b' }
+                ]
+            },
+            v2_tech: {
+                name: 'Современный Кибер-Тек (True Black AMOLED)',
+                webImg: '../assets/lab5/visual_variant_2_tech.svg',
+                mobImg: '../assets/lab5/visual_variant_mobile_2.svg',
+                swatches: [
+                    { label: 'Pure Black Canvas', hex: '#000000', color: '#000000' },
+                    { label: 'Neutral Carbon', hex: '#0d0d0d', color: '#0d0d0d' },
+                    { label: 'Border Charcoal', hex: '#222222', color: '#222222' },
+                    { label: 'Electric Indigo', hex: '#6366f1', color: '#6366f1' },
+                    { label: 'Action Orange', hex: '#ea580c', color: '#ea580c' },
+                    { label: 'Text White', hex: '#ffffff', color: '#ffffff' }
+                ]
+            },
+            v3_warm: {
+                name: 'Теплый Кампус (Warm Editorial Terracotta)',
+                webImg: '../assets/lab5/visual_variant_3_warm.svg',
+                mobImg: '../assets/lab5/visual_variant_mobile_3.svg',
+                swatches: [
+                    { label: 'Warm Paper', hex: '#fcfaf7', color: '#fcfaf7' },
+                    { label: 'Terracotta Brick', hex: '#ea580c', color: '#ea580c' },
+                    { label: 'Warm Ochre', hex: '#d97706', color: '#d97706' },
+                    { label: 'Border Sand', hex: '#e7e5e4', color: '#e7e5e4' },
+                    { label: 'Header Earth', hex: '#451a03', color: '#451a03' },
+                    { label: 'Ink Charcoal', hex: '#292524', color: '#292524' }
+                ]
+            }
+        };
+
+        function selectPalette(key, btn) {
+            document.querySelectorAll('.palette-tabs .interactive-tab-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            const p = PALETTES_DATA[key];
+            if (!p) return;
+
+            document.getElementById('web-mockup-img').src = p.webImg;
+            document.getElementById('mobile-mockup-img').src = p.mobImg;
+
+            const cont = document.getElementById('palette-swatches-container');
+            cont.innerHTML = p.swatches.map(s => `
+                <div class="swatch-card" onclick="copyToken('${s.hex}')" title="Нажмите, чтобы скопировать HEX">
+                    <div class="swatch-color" style="background: ${s.color};"></div>
+                    <div class="swatch-label">${s.label}</div>
+                    <div class="swatch-hex">${s.hex}</div>
+                </div>
+            `).join('');
+        }
+
+        function copyToken(hex) {
+            navigator.clipboard.writeText(hex).then(() => {
+                alert('Скопировано в буфер обмена: ' + hex);
+            }).catch(() => {});
+        }
+
+        // 2. Data for Semantic Differential Table
+        const DIFFERENTIAL_DATA = [
+            ['1', 'Добрый', 'Злой', '4.50 ± 0.53', '3.80 ± 0.79', '4.20 ± 0.63', 'Вариант 1 (Editorial Mono)'],
+            ['2', 'Современный', 'Классический', '4.10 ± 0.57', '4.80 ± 0.42', '3.60 ± 0.70', 'Вариант 2 (Tech Indigo)'],
+            ['3', 'Старый', 'Молодой (меньше=моложе)', '2.00 ± 0.47', '1.40 ± 0.52', '1.80 ± 0.63', 'Вариант 2 (Tech Indigo)'],
+            ['4', 'Безопасный', 'Опасный', '4.70 ± 0.48', '4.60 ± 0.52', '4.10 ± 0.74', 'Вариант 1 (Editorial Mono)'],
+            ['5', 'Красивый', 'Некрасивый', '4.40 ± 0.52', '4.70 ± 0.48', '3.90 ± 0.74', 'Вариант 2 (Tech Indigo)'],
+            ['6', 'Скучный', 'Интересный (меньше=интереснее)', '2.20 ± 0.63', '1.30 ± 0.48', '1.70 ± 0.67', 'Вариант 2 (Tech Indigo)'],
+            ['7', 'Бесполезный', 'Полезный (меньше=полезнее)', '1.40 ± 0.52', '1.20 ± 0.42', '1.50 ± 0.53', 'Вариант 2 (Tech Indigo)'],
+            ['8', 'Интуитивный', 'Запутанный', '4.60 ± 0.52', '4.40 ± 0.52', '3.80 ± 0.63', 'Вариант 1 (Editorial Mono)'],
+            ['9', 'Легкий', 'Перегруженный', '4.80 ± 0.42', '3.90 ± 0.74', '3.50 ± 0.71', 'Вариант 1 (Editorial Mono)'],
+            ['10', 'Профессиональный', 'Любительский', '4.80 ± 0.42', '4.70 ± 0.48', '3.70 ± 0.67', 'Вариант 1 (Editorial Mono)'],
+            ['11', 'Динамичный', 'Статичный', '3.20 ± 0.63', '4.70 ± 0.48', '4.10 ± 0.57', 'Вариант 2 (Tech Indigo)'],
+            ['12', 'Надежный', 'Ненадежный', '4.90 ± 0.32', '4.60 ± 0.52', '4.00 ± 0.67', 'Вариант 1 (Editorial Mono)'],
+            ['13', 'Дружелюбный', 'Отталкивающий', '4.30 ± 0.67', '4.10 ± 0.57', '4.60 ± 0.52', 'Вариант 3 (Warm Coral)'],
+            ['14', 'Инновационный', 'Консервативный', '3.90 ± 0.74', '4.90 ± 0.32', '3.40 ± 0.70', 'Вариант 2 (Tech Indigo)'],
+            ['15', 'Доступный', 'Недоступный', '4.70 ± 0.48', '4.30 ± 0.67', '4.20 ± 0.63', 'Вариант 1 (Editorial Mono)']
+        ];
+
+        function renderDifferentialTable() {
+            const tbody = document.getElementById('differential-table-body');
+            if (!tbody) return;
+            tbody.innerHTML = DIFFERENTIAL_DATA.map(r => `
+                <tr>
+                    <td><strong>${r[0]}</strong></td>
+                    <td style="font-weight: 600;">${r[1]}</td>
+                    <td style="color: var(--text-muted);">${r[2]}</td>
+                    <td>${r[3]}</td>
+                    <td>${r[4]}</td>
+                    <td>${r[5]}</td>
+                    <td><span class="badge" style="background: var(--surface-secondary); font-size: 0.75rem; font-weight: 700;">${r[6]}</span></td>
+                </tr>
+            `).join('');
+        }
+
+        // 3. Grids Selector Logic
+        const GRIDS_DATA = {
+            '1440': { img: '../assets/lab5/grid_web_1440.svg', formula: 'W (1320px) = 12 колонок × 88px + 11 отступов × 24px (Поля: 60px) • 1440px Viewport' },
+            '1140': { img: '../assets/lab5/grid_web_1140.svg', formula: 'W (1140px) = 12 колонок × 84px + 11 отступов × 12px (По методичке!) • 992–1199px Viewport' },
+            '768':  { img: '../assets/lab5/grid_web_768.svg',  formula: 'W (720px) = 8 колонок × 76px + 7 отступов × 16px (Поля: 24px) • 768–991px Viewport' },
+            '576':  { img: '../assets/lab5/grid_web_576.svg',  formula: 'W (540px) = 6 колонок × 80px + 5 отступов × 12px (Поля: 18px) • 576–767px Viewport' },
+            '400':  { img: '../assets/lab5/grid_web_400.svg',  formula: 'W (360px) = 4 колонки × 81px + 3 отступа × 12px (Поля: 20px) • 400–575px Viewport' },
+            '320':  { img: '../assets/lab5/grid_web_320.svg',  formula: 'W (288px) = 4 колонки × 66px + 3 отступа × 8px (Поля: 16px) • 320–399px Viewport' }
+        };
+
+        function selectGrid(key, btn) {
+            document.querySelectorAll('.grid-tabs .interactive-tab-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            const g = GRIDS_DATA[key];
+            if (!g) return;
+            document.getElementById('grid-mockup-img').src = g.img;
+            document.getElementById('grid-formula-text').textContent = g.formula;
+        }
+
+        function selectDevice(filename, btn) {
+            document.querySelectorAll('.device-tabs .interactive-tab-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            document.getElementById('device-mockup-img').src = '../assets/lab5/' + filename;
+        }
+
+        // 4. Interactive Prototype Simulator Logic
+        let protoState = {
+            role: 'student',
+            screen: 'catalog',
+            ticketConfirmed: false,
+            ticketCode: 'TKT-88F4-019B',
+            secondsLeft: 28,
+            checkinCount: 14,
+            filterCategory: 'all'
+        };
+
+        function onRoleChange(newRole) {
+            protoState.role = newRole;
+            if (newRole === 'volunteer') {
+                renderProtoScreen('scanner');
+            } else {
+                renderProtoScreen('catalog');
+            }
+        }
+
+        function renderProtoScreen(screenName) {
+            protoState.screen = screenName;
+            const container = document.getElementById('phone-screen-content');
+            if (!container) return;
+
+            if (screenName === 'catalog') {
+                container.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span style="font-weight: 800; font-size: 1.1rem;">CampusMeet</span>
+                        <span style="font-size: 0.75rem; background: #0d0d0d; color: #fff; padding: 3px 8px; border-radius: 12px;">ФПМИ БГУ</span>
+                    </div>
+
+                    <input type="text" placeholder="Поиск митапов... ⌘K" style="width: 100%; padding: 8px 12px; font-size: 0.8rem; border-radius: 8px; border: 1px solid #d4d4d4; margin-bottom: 12px;">
+
+                    <div style="display: flex; gap: 6px; margin-bottom: 14px; overflow-x: auto;">
+                        <button onclick="setProtoCategory('all')" style="padding: 4px 10px; font-size: 0.75rem; border-radius: 6px; border: 1px solid #171717; background: ${protoState.filterCategory==='all'?'#171717':'#fff'}; color: ${protoState.filterCategory==='all'?'#fff':'#0d0d0d'}; font-weight: 700;">Все</button>
+                        <button onclick="setProtoCategory('hack')" style="padding: 4px 10px; font-size: 0.75rem; border-radius: 6px; border: 1px solid #d4d4d4; background: ${protoState.filterCategory==='hack'?'#171717':'#fff'}; color: ${protoState.filterCategory==='hack'?'#fff':'#0d0d0d'};">Хакатоны</button>
+                        <button onclick="setProtoCategory('meet')" style="padding: 4px 10px; font-size: 0.75rem; border-radius: 6px; border: 1px solid #d4d4d4; background: ${protoState.filterCategory==='meet'?'#171717':'#fff'}; color: ${protoState.filterCategory==='meet'?'#fff':'#0d0d0d'};">Митапы</button>
+                    </div>
+
+                    <!-- Event Card 1 -->
+                    <div style="background: #ffffff; border: 1px solid #e5e5e5; border-radius: 12px; padding: 12px; margin-bottom: 12px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                            <span style="font-size: 0.65rem; font-weight: 800; color: #10b981;">GO / K8S</span>
+                            <span style="font-size: 0.65rem; background: #fef3c7; color: #b45309; padding: 2px 6px; border-radius: 4px; font-weight: 700;">Осталось 8 мест</span>
+                        </div>
+                        <h4 style="font-size: 0.95rem; margin: 0 0 4px 0;">Minsk Go Meetup #14</h4>
+                        <p style="font-size: 0.75rem; color: #737373; margin: 0 0 10px 0;">26 марта • 18:30 • Ауд. 509 ФПМИ</p>
+                        <button onclick="bookTicketModal()" style="width: 100%; padding: 8px; background: #0d0d0d; color: #fff; font-weight: 700; font-size: 0.8rem; border-radius: 6px; border: none; cursor: pointer;">
+                            Забронировать квоту
+                        </button>
+                    </div>
+
+                    <!-- Event Card 2 -->
+                    <div style="background: #ffffff; border: 1px solid #e5e5e5; border-radius: 12px; padding: 12px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                            <span style="font-size: 0.65rem; font-weight: 800; color: #8b5cf6;">AI HACKATHON</span>
+                            <span style="font-size: 0.65rem; background: #ecfdf5; color: #065f46; padding: 2px 6px; border-radius: 4px; font-weight: 700;">Регистрация открыта</span>
+                        </div>
+                        <h4 style="font-size: 0.95rem; margin: 0 0 4px 0;">Campus Hack 2026</h4>
+                        <p style="font-size: 0.75rem; color: #737373; margin: 0 0 10px 0;">29–30 марта • 24 часа Non-stop</p>
+                        <button onclick="alert('Переход на подачу заявки команды в раздел хакатонов')" style="width: 100%; padding: 8px; background: #ffffff; color: #0d0d0d; border: 1px solid #d4d4d4; font-weight: 700; font-size: 0.8rem; border-radius: 6px; cursor: pointer;">
+                            Подать командную заявку
+                        </button>
+                    </div>
+                `;
+            } else if (screenName === 'ticket') {
+                container.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span style="font-weight: 800; font-size: 1rem;">🎟 Мой билет</span>
+                        <span style="font-size: 0.7rem; color: #10b981; font-weight: 700;">✓ Офлайн-кеш сохранен</span>
+                    </div>
+
+                    <div style="background: #ffffff; border: 1px solid #e5e5e5; border-radius: 16px; padding: 14px; text-align: center;">
+                        <span style="font-size: 0.65rem; font-weight: 800; background: #ecfdf5; color: #065f46; padding: 2px 8px; border-radius: 4px;">CONFIRMED PASS</span>
+                        <h4 style="font-size: 1rem; margin: 8px 0 2px 0;">Minsk Go Meetup #14</h4>
+                        <p style="font-size: 0.75rem; color: #737373; margin: 0 0 12px 0;">26 марта • 18:30 • Ауд. 509</p>
+
+                        <!-- Dynamic QR SVG Box -->
+                        <div style="background: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 10px; padding: 12px; margin-bottom: 10px; display: inline-block;">
+                            <svg width="140" height="140" viewBox="0 0 100 100">
+                                <rect width="100" height="100" fill="#ffffff"/>
+                                <rect x="5" y="5" width="28" height="28" fill="#0d0d0d"/>
+                                <rect x="10" y="10" width="18" height="18" fill="#ffffff"/>
+                                <rect x="14" y="14" width="10" height="10" fill="#0d0d0d"/>
+                                <rect x="67" y="5" width="28" height="28" fill="#0d0d0d"/>
+                                <rect x="72" y="10" width="18" height="18" fill="#ffffff"/>
+                                <rect x="76" y="14" width="10" height="10" fill="#0d0d0d"/>
+                                <rect x="5" y="67" width="28" height="28" fill="#0d0d0d"/>
+                                <rect x="10" y="72" width="18" height="18" fill="#ffffff"/>
+                                <rect x="14" y="76" width="10" height="10" fill="#0d0d0d"/>
+                                <rect x="40" y="15" width="18" height="12" fill="#0d0d0d"/>
+                                <rect x="45" y="45" width="18" height="18" fill="#0d0d0d"/>
+                                <rect x="67" y="45" width="20" height="12" fill="#0d0d0d"/>
+                                <rect x="15" y="45" width="18" height="12" fill="#0d0d0d"/>
+                                <rect x="40" y="75" width="20" height="15" fill="#0d0d0d"/>
+                                <rect x="75" y="75" width="15" height="15" fill="#0d0d0d"/>
+                            </svg>
+                        </div>
+
+                        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 700; color: #0d0d0d;">
+                            ${protoState.ticketCode}
+                        </div>
+                        <div id="hmac-timer-text" style="font-size: 0.7rem; color: #10b981; margin: 4px 0 12px 0;">
+                            HMAC SHA-256 валиден: ${protoState.secondsLeft}с
+                        </div>
+
+                        <button onclick="alert('Билет экспортирован в Apple Wallet!')" style="width: 100%; padding: 8px; background: #000000; color: #fff; font-weight: 700; font-size: 0.75rem; border-radius: 8px; border: none; cursor: pointer; margin-bottom: 8px;">
+                            Добавить в Apple Wallet
+                        </button>
+                        <button onclick="renderProtoScreen('catalog')" style="width: 100%; padding: 8px; background: transparent; color: #737373; font-weight: 600; font-size: 0.75rem; border: none; cursor: pointer;">
+                            ← Вернуться к событиям
+                        </button>
+                    </div>
+                `;
+            } else if (screenName === 'scanner') {
+                container.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span style="font-weight: 800; font-size: 1rem;">📷 Сканер билетов</span>
+                        <span style="font-size: 0.75rem; background: #10b981; color: #fff; padding: 2px 8px; border-radius: 10px; font-weight: 700;">Режим волонтера</span>
+                    </div>
+
+                    <div class="scanner-camera-box">
+                        <div class="scan-laser"></div>
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                            <circle cx="12" cy="13" r="4"></circle>
+                        </svg>
+                        <span style="font-size: 0.75rem; color: #065f46; font-weight: 600; margin-top: 6px;">Наведите видоискатель на QR</span>
+                    </div>
+
+                    <div style="background: #ffffff; border: 1px solid #e5e5e5; border-radius: 12px; padding: 12px; margin-bottom: 12px;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 8px;">
+                            <span>Отмечено на площадке:</span>
+                            <strong id="proto-checkin-count" style="color: #10b981;">${protoState.checkinCount} чел.</strong>
+                        </div>
+                        <input id="proto-manual-token-input" type="text" value="${protoState.ticketCode}" placeholder="Введите токен билета" style="width: 100%; padding: 8px 10px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; border-radius: 6px; border: 1px solid #d4d4d4; margin-bottom: 8px;">
+                        <button onclick="simulateScanPass()" style="width: 100%; padding: 10px; background: #10b981; color: #ffffff; font-weight: 700; font-size: 0.85rem; border-radius: 6px; border: none; cursor: pointer;">
+                            ✓ Валидировать проход (&lt;500 мс)
+                        </button>
+                    </div>
+
+                    <button onclick="renderProtoScreen('catalog')" style="width: 100%; padding: 8px; background: transparent; color: #737373; font-weight: 600; font-size: 0.75rem; border: none; cursor: pointer;">
+                        ← В режим участника
+                    </button>
+                `;
+            }
+        }
+
+        function setProtoCategory(cat) {
+            protoState.filterCategory = cat;
+            renderProtoScreen('catalog');
+        }
+
+        function bookTicketModal() {
+            const confirmed = confirm("Подтвердить регистрацию на Minsk Go Meetup #14?\\nСтудент: Артём Ковалев (ФПМИ, 4 курс)\\nКвота мест: бронируется 1 бесплатный билет.");
+            if (confirmed) {
+                protoState.ticketConfirmed = true;
+                renderProtoScreen('ticket');
+            }
+        }
+
+        function simulateScanPass() {
+            protoState.checkinCount++;
+            if (navigator.vibrate) {
+                navigator.vibrate(200);
+            }
+            alert('✅ ПРОХОД РАЗРЕШЕН!\\n\\nБилет: ' + protoState.ticketCode + '\\nУчастник: Ковалев Артём\\nФакультет: ФПМИ БГУ, 4 курс\\nСтатус: Отмечен на входе (<500 мс)');
+            renderProtoScreen('scanner');
+        }
+
+        // Live Countdown for Ticket HMAC
+        setInterval(() => {
+            if (protoState.secondsLeft > 1) {
+                protoState.secondsLeft--;
+            } else {
+                protoState.secondsLeft = 30;
+                protoState.ticketCode = 'TKT-' + Math.floor(1000 + Math.random() * 9000).toString(16).toUpperCase() + '-PASS';
+            }
+            const el = document.getElementById('hmac-timer-text');
+            if (el) {
+                el.textContent = `HMAC SHA-256 валиден: ${protoState.secondsLeft}с`;
+            }
+        }, 1000);
+
+        function validateEmailLive(input) {
+            const val = input.value.trim();
+            const msg = document.getElementById('email-error-msg');
+            if (val.endsWith('@bsu.by') || val.endsWith('.bsu.by')) {
+                input.style.borderColor = '#10b981';
+                msg.style.color = '#10b981';
+                msg.textContent = '✓ Допустимый домен BSU';
+            } else {
+                input.style.borderColor = '#ef4444';
+                msg.style.color = '#ef4444';
+                msg.textContent = '⚠ Требуется корпоративная почта студента / сотрудника БГУ (*@bsu.by)';
+            }
+        }
+
+        // Markdown Report Loader
+        function loadMarkdownReport() {
+            const container = document.getElementById('markdown-report-container');
+            if (!container) return;
+
+            let reportMd = '';
+            if (window.CampusMeetReports && window.CampusMeetReports['Lab5_report.md']) {
+                reportMd = window.CampusMeetReports['Lab5_report.md'];
+            }
+
+            if (reportMd && typeof marked !== 'undefined') {
+                container.innerHTML = marked.parse(reportMd);
+            } else if (reportMd) {
+                container.innerHTML = '<pre style="white-space: pre-wrap; font-family: monospace;">' + reportMd.replace(/</g, '&lt;') + '</pre>';
+            }
+        }
+
+        // Document Ready Initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            selectPalette('v1_mono');
+            renderDifferentialTable();
+            renderProtoScreen('catalog');
+            loadMarkdownReport();
+        });
+    </script>
+</body>
+</html>

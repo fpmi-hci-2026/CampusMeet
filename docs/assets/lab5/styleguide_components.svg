@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 750" width="1000" height="750" font-family="'Inter', -apple-system, BlinkMacSystemFont, sans-serif">
+  
+  <defs>
+    <!-- Drop Shadow Standard -->
+    <filter id="shadow-card" x="-10%" y="-10%" width="120%" height="125%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000000" flood-opacity="0.30"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="3" flood-color="#000000" flood-opacity="0.15"/>
+    </filter>
+
+    <!-- Subtle Button Shadow -->
+    <filter id="shadow-btn" x="-10%" y="-15%" width="120%" height="135%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Modal Elevation Shadow -->
+    <filter id="shadow-modal" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="20" stdDeviation="30" flood-color="#000000" flood-opacity="0.60"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Glowing Accent -->
+    <filter id="glow-accent" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="grad-indigo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="50%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+
+    <linearGradient id="grad-warm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#78350f"/>
+      <stop offset="60%" stop-color="#b45309"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+
+    <linearGradient id="grad-mono" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+
+    <linearGradient id="grad-card-true-black" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#141414"/>
+      <stop offset="100%" stop-color="#0d0d0d"/>
+    </linearGradient>
+
+    <linearGradient id="grad-device-titanium" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a2a2a"/>
+      <stop offset="50%" stop-color="#171717"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1000" height="750" fill="#ffffff"/>
+
+  <g transform="translate(50, 40)">
+    <text x="0" y="0" font-size="22" font-weight="800" fill="#0f172a">UI Style Guide • Составные компоненты интерфейса</text>
+    <text x="0" y="24" font-size="12" fill="#64748b">Карточка события (Bento Card), статусные бейджи, всплывающее уведомление (Toast) и диалоговое окно (Modal)</text>
+  </g>
+
+  <!-- Component 1: Event Bento Card -->
+  <g transform="translate(50, 95)">
+    <text x="0" y="0" font-size="14" font-weight="700" fill="#0f172a">1. Карточка события (Event Bento Card)</text>
+    <g transform="translate(0, 15)">
+      <rect width="320" height="420" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow-card)"/>
+      
+      <rect width="320" height="135" rx="14" fill="#141414"/>
+      <rect x="16" y="16" width="90" height="22" rx="4" fill="rgba(255, 255, 255, 0.08)"/>
+      <text x="61" y="31" font-size="10" font-weight="800" fill="#ffffff" text-anchor="middle">ХАКАТОН 2026</text>
+      
+      <text x="16" y="70" font-size="18" font-weight="800" fill="#ffffff">Campus Hack: AI RAG</text>
+      <text x="16" y="94" font-size="11" fill="#888888">29–30 марта • ФПМИ БГУ • 24 часа</text>
+      
+      <g transform="translate(16, 150)">
+        <text x="0" y="15" font-size="12" fill="#475569">Разработка мультиагентных систем и RAG</text>
+        <text x="0" y="32" font-size="12" fill="#475569">пайплайнов для университетской базы знаний.</text>
+
+        <!-- Quota Progress -->
+        <g transform="translate(0, 50)">
+          <text x="0" y="0" font-size="11" font-weight="600" fill="#0f172a">Квота команд: 16 из 20 занято</text>
+          <text x="288" y="0" font-size="11" font-weight="700" fill="#6366f1" text-anchor="end">80%</text>
+          <rect x="0" y="8" width="288" height="6" rx="3" fill="#f1f5f9"/>
+          <rect x="0" y="8" width="230" height="6" rx="3" fill="#6366f1"/>
+        </g>
+
+        <!-- Tags -->
+        <g transform="translate(0, 95)">
+          <rect x="0" y="0" width="60" height="22" rx="4" fill="#f1f5f9"/>
+          <text x="30" y="15" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">Python</text>
+          
+          <rect x="68" y="0" width="65" height="22" rx="4" fill="#f1f5f9"/>
+          <text x="100" y="15" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">FastAPI</text>
+          
+          <rect x="140" y="0" width="65" height="22" rx="4" fill="#f1f5f9"/>
+          <text x="172" y="15" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">PyTorch</text>
+        </g>
+
+        <!-- CTA Button -->
+        <g transform="translate(0, 140)">
+          <rect width="288" height="42" rx="8" fill="#6366f1" filter="url(#shadow-btn)"/>
+          <text x="144" y="26" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Зарегистрировать команду</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Component 2: Badges & Chips -->
+  <g transform="translate(410, 95)">
+    <text x="0" y="0" font-size="14" font-weight="700" fill="#0f172a">2. Статусные бейджи (Badges &amp; Chips)</text>
+    <g transform="translate(0, 20)">
+      <rect x="0" y="0" width="115" height="28" rx="6" fill="#ecfdf5" stroke="#10b981" stroke-width="1"/>
+      <g transform="translate(8,6)" stroke="#047857" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="3 8 6.5 11.5 13 4.5"/>
+        </g>
+      <text x="65" y="18" font-size="11" font-weight="700" fill="#047857" text-anchor="middle">Билет активен</text>
+
+      <rect x="130" y="0" width="115" height="28" rx="6" fill="#fffbeb" stroke="#f59e0b" stroke-width="1"/>
+      <text x="187" y="18" font-size="11" font-weight="700" fill="#b45309" text-anchor="middle">Мало мест</text>
+
+      <rect x="260" y="0" width="115" height="28" rx="6" fill="#fef2f2" stroke="#ef4444" stroke-width="1"/>
+      <g transform="translate(268,6)" stroke="#b91c1c" fill="none" stroke-width="1.5" stroke-linecap="round">
+          <line x1="4" y1="4" x2="12" y2="12"/>
+          <line x1="12" y1="4" x2="4" y2="12"/>
+        </g>
+      <text x="325" y="18" font-size="11" font-weight="700" fill="#b91c1c" text-anchor="middle">Мест нет</text>
+
+      <rect x="390" y="0" width="115" height="28" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+      <text x="447" y="18" font-size="11" font-weight="700" fill="#475569" text-anchor="middle">Архив 2025</text>
+    </g>
+  </g>
+
+  <!-- Component 3: Toast Notification -->
+  <g transform="translate(410, 195)">
+    <text x="0" y="0" font-size="14" font-weight="700" fill="#0f172a">3. Всплывающее уведомление (Toast Notification)</text>
+    <g transform="translate(0, 15)">
+      <rect width="520" height="70" rx="10" fill="#0d0d0d" stroke="#222222" stroke-width="1" filter="url(#shadow-card)"/>
+      <circle cx="35" cy="35" r="16" fill="#10b981"/>
+      <g transform="translate(27,27)" stroke="#ffffff" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="3 8 6.5 11.5 13 4.5"/>
+        </g>
+      
+      <text x="65" y="30" font-size="13" font-weight="800" fill="#ffffff">Билет успешно забронирован!</text>
+      <text x="65" y="48" font-size="11" fill="#888888">Криптографический токен HMAC SHA-256 добавлен в ваш профиль.</text>
+
+      <g transform="translate(485,27)" stroke="#666666" fill="none" stroke-width="1.5" stroke-linecap="round">
+          <line x1="4" y1="4" x2="12" y2="12"/>
+          <line x1="12" y1="4" x2="4" y2="12"/>
+        </g>
+    </g>
+  </g>
+
+  <!-- Component 4: Confirm Dialog Modal -->
+  <g transform="translate(410, 325)">
+    <text x="0" y="0" font-size="14" font-weight="700" fill="#0f172a">4. Модальное окно подтверждения (Confirm Dialog)</text>
+    <g transform="translate(0, 15)">
+      <rect width="520" height="240" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow-modal)"/>
+      
+      <text x="25" y="35" font-size="16" font-weight="800" fill="#0f172a">Подтверждение бронирования билета</text>
+      <text x="25" y="60" font-size="12" fill="#64748b">Вы регистрируетесь на событие «Minsk Go Meetup #14» в аудитории 509 ФПМИ.</text>
+      <text x="25" y="78" font-size="12" fill="#64748b">Для прохода в кампус потребуется сгенерированный офлайн QR-токен.</text>
+
+      <rect x="25" y="100" width="470" height="42" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+      <g transform="translate(40,113)" stroke="#6366f1" fill="none" stroke-width="1.5">
+          <path d="M8 8.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+          <path d="M3 14c0-2.2 2.2-3.5 5-3.5s5 1.3 5 3.5"/>
+        </g>
+      <text x="65" y="126" font-size="12" font-weight="600" fill="#0f172a">Артём Ковалев • kovalev@bsu.by • ФПМИ, 4 курс</text>
+
+      <!-- Modal Actions -->
+      <g transform="translate(25, 168)">
+        <rect width="130" height="42" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+        <text x="65" y="26" font-size="12" font-weight="600" fill="#0f172a" text-anchor="middle">Отмена</text>
+
+        <rect x="145" width="325" height="42" rx="8" fill="#6366f1" filter="url(#shadow-btn)"/>
+        <text x="307" y="26" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Подтвердить и получить билет</text>
+      </g>
+    </g>
+  </g>
+</svg>

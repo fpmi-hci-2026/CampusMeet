@@ -5,6 +5,14 @@
 window.CampusMeetData = window.CampusMeetData || {};
 
 window.CampusMeetData.searchRegistry = [
+    // Lab 5
+    { id: 'lab5-overview', url: 'pages/lab5.html#lab5-overview', title: 'Лаб. №5: Проектирование прототипа и визуальный язык', category: 'Лабораторная 5', keywords: 'прототип визуальный язык стиль сетки figma адаптивность дифференциал' },
+    { id: 'lab5-visual', url: 'pages/lab5.html#lab5-visual', title: 'Лаб. №5: Исследование визуального языка (N=10, 3 палитры)', category: 'Лабораторная 5', keywords: 'семантический дифференциал осгуд палитры цвета тестирование n=10 диаграмма профиль' },
+    { id: 'lab5-grids', url: 'pages/lab5.html#lab5-grids', title: 'Лаб. №5: Модульные сетки (6 разрешений) и 5 устройств', category: 'Лабораторная 5', keywords: 'модульная сетка 12 колонок 1140 1440 responsive breakpoint iphone galaxy pixel ipad' },
+    { id: 'lab5-prototype', url: 'pages/lab5.html#lab5-prototype', title: 'Лаб. №5: Интерактивный кликабельный прототип экосистемы', category: 'Лабораторная 5', keywords: 'прототип интерактивный qr билет чекин сканер волонтер figma каталог' },
+    { id: 'lab5-styleguide', url: 'pages/lab5.html#lab5-styleguide', title: 'Лаб. №5: Руководство по стилям (UI Style Guide, WCAG AAA)', category: 'Лабораторная 5', keywords: 'style guide дизайн система типографика кнопки формы контраст wcag токены' },
+    { id: 'report-lab5', url: 'pages/lab5.html#report-lab5', title: 'Отчет: Лабораторная работа №5', category: 'Отчеты', keywords: 'lab5_report отчет лаб 5 прототип сетки стиль' },
+
     { id: 'lab4-overview', url: 'pages/lab4.html#lab4-overview', title: 'Лаб. №4: Стили интеграции и проектирование API', category: 'Лабораторная 4', keywords: 'api openapi swagger rest mcp docker требования интеграция' },
     { id: 'lab4-requirements', url: 'pages/lab4.html#lab4-requirements', title: 'Лаб. №4: Акторы → User Stories → Use Cases', category: 'Лабораторная 4', keywords: 'требования реестр трассировка uc us' },
     { id: 'lab4-database', url: 'pages/lab4.html#lab4-database', title: 'Лаб. №4: Логическая и физическая БД, 17 таблиц', category: 'Лабораторная 4', keywords: 'postgresql sqlite er sql ddl база данных' },
@@ -65,6 +73,16 @@ window.CampusMeetData.titleMap = {
     'lab3-uml': 'Диаграммы UML (PlantUML) — CampusMeet',
     'lab3-events': 'EventStorming & Event Modeling — CampusMeet',
     'lab3-c4-srs': 'C4 Model & ТЗ (SRS) — CampusMeet',
+    'lab4-overview': 'Лаб. №4: Стили интеграции и API — CampusMeet',
+    'lab4-database': 'Лаб. №4: База данных (17 таблиц) — CampusMeet',
+    'lab4-api': 'Лаб. №4: REST API и Mock-сервер — CampusMeet',
+    'lab4-mcp': 'Лаб. №4: MCP-сервер и AI-инструменты — CampusMeet',
+    'lab4-infrastructure': 'Лаб. №4: Docker и CI/CD — CampusMeet',
+    'lab5-overview': 'Лаб. №5: Проектирование прототипа — CampusMeet',
+    'lab5-visual': 'Лаб. №5: Исследование визуального языка — CampusMeet',
+    'lab5-grids': 'Лаб. №5: Модульные сетки и адаптивность — CampusMeet',
+    'lab5-prototype': 'Лаб. №5: Интерактивный прототип — CampusMeet',
+    'lab5-styleguide': 'Лаб. №5: Руководство по стилям — CampusMeet',
     'wiki-func': 'Wiki: Функциональные требования — CampusMeet',
     'wiki-arch': 'Wiki: Архитектура Web/Mobile — CampusMeet',
     'wiki-db': 'Wiki: Схема базы данных — CampusMeet',

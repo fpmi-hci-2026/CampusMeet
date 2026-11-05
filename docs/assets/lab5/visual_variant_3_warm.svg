@@ -1,0 +1,462 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1380" width="1200" height="1380" font-family="'Inter', -apple-system, BlinkMacSystemFont, sans-serif">
+  
+  <defs>
+    <!-- Drop Shadow Standard -->
+    <filter id="shadow-card" x="-10%" y="-10%" width="120%" height="125%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000000" flood-opacity="0.30"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="3" flood-color="#000000" flood-opacity="0.15"/>
+    </filter>
+
+    <!-- Subtle Button Shadow -->
+    <filter id="shadow-btn" x="-10%" y="-15%" width="120%" height="135%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Modal Elevation Shadow -->
+    <filter id="shadow-modal" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="20" stdDeviation="30" flood-color="#000000" flood-opacity="0.60"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Glowing Accent -->
+    <filter id="glow-accent" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="grad-indigo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="50%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+
+    <linearGradient id="grad-warm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#78350f"/>
+      <stop offset="60%" stop-color="#b45309"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+
+    <linearGradient id="grad-mono" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+
+    <linearGradient id="grad-card-true-black" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#141414"/>
+      <stop offset="100%" stop-color="#0d0d0d"/>
+    </linearGradient>
+
+    <linearGradient id="grad-device-titanium" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a2a2a"/>
+      <stop offset="50%" stop-color="#171717"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+  </defs>
+
+
+  <!-- Sheet Canvas Background -->
+  <rect width="1200" height="1380" fill="#fcfaf7"/>
+
+  <!-- Top Title Banner -->
+  <g transform="translate(60, 45)">
+    <rect width="1080" height="70" rx="12" fill="#ffffff" stroke="#d6d3d1" stroke-width="1" filter="url(#shadow-card)"/>
+    <text x="30" y="32" font-size="18" font-weight="800" fill="#292524">Исследование визуального языка веб-интерфейса • Теплый Кампус (Warm Editorial Terracotta)</text>
+    <text x="30" y="52" font-size="12" font-weight="500" fill="#78716c">Охра + Терракота + Кремовый холст • Гуманистическая эстетика сообщества • WCAG AAA 13.9:1 (Темный орех на кремовом) • 5.1:1 (Терракота)</text>
+    <rect x="940" y="20" width="110" height="30" rx="6" fill="#fef3c7"/>
+    <text x="995" y="40" font-size="11" font-weight="700" fill="#92400e" text-anchor="middle">Рис. 3 Метод</text>
+  </g>
+
+  <!-- Component Palette Table (Figures 1, 2, 3 in Lab Guide) -->
+  <g transform="translate(60, 135)">
+    <rect width="1080" height="230" rx="12" fill="#ffffff" stroke="#d6d3d1" stroke-width="1" filter="url(#shadow-card)"/>
+
+    <!-- Column 1: Панели -->
+    <g transform="translate(40, 20)">
+      <text x="75" y="20" font-size="13" font-weight="700" fill="#292524" text-anchor="middle">Панели</text>
+      
+      <text x="35" y="60" font-size="11" fill="#78716c" text-anchor="end">фон</text>
+      <rect x="45" y="42" width="80" height="30" rx="6" fill="#ffffff" stroke="#d6d3d1" stroke-width="1"/>
+      
+      <text x="35" y="110" font-size="11" fill="#78716c" text-anchor="end">граница</text>
+      <rect x="45" y="92" width="80" height="30" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+
+      <text x="35" y="160" font-size="11" fill="#78716c" text-anchor="end">акцент</text>
+      <rect x="45" y="142" width="80" height="30" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+      <text x="85" y="162" font-size="10" font-weight="700" fill="#d97706" text-anchor="middle">Active</text>
+    </g>
+
+    <!-- Column 2: Заголовок панели -->
+    <g transform="translate(240, 20)">
+      <text x="85" y="20" font-size="13" font-weight="700" fill="#292524" text-anchor="middle">Заголовок панели</text>
+
+      <text x="45" y="60" font-size="11" fill="#78716c" text-anchor="end">фон</text>
+      <rect x="55" y="42" width="100" height="30" rx="6" fill="#451a03"/>
+      <text x="105" y="62" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">#Header</text>
+
+      <text x="45" y="110" font-size="11" fill="#78716c" text-anchor="end">граница</text>
+      <rect x="55" y="92" width="100" height="30" rx="6" fill="#ffffff" stroke="#d6d3d1" stroke-width="2"/>
+
+      <text x="45" y="160" font-size="11" fill="#78716c" text-anchor="end">текст</text>
+      <rect x="55" y="142" width="100" height="30" rx="6" fill="#451a03"/>
+      <text x="105" y="162" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">События IT</text>
+    </g>
+
+    <!-- Column 3: Меню навигации -->
+    <g transform="translate(460, 20)">
+      <text x="80" y="20" font-size="13" font-weight="700" fill="#292524" text-anchor="middle">Меню навигации</text>
+
+      <text x="45" y="60" font-size="11" fill="#78716c" text-anchor="end">фон</text>
+      <rect x="55" y="42" width="95" height="30" rx="6" fill="#ffffff" stroke="#d6d3d1" stroke-width="1"/>
+      
+      <text x="45" y="110" font-size="11" fill="#78716c" text-anchor="end">актив</text>
+      <rect x="55" y="92" width="95" height="30" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+      <text x="102" y="111" font-size="11" font-weight="700" fill="#d97706" text-anchor="middle">Афиша</text>
+
+      <text x="45" y="160" font-size="11" fill="#78716c" text-anchor="end">ссылка</text>
+      <text x="55" y="162" font-size="12" font-weight="500" fill="#78716c">Хакатоны</text>
+    </g>
+
+    <!-- Column 4: Типографика -->
+    <g transform="translate(680, 20)">
+      <text x="95" y="20" font-size="13" font-weight="700" fill="#292524" text-anchor="middle">Типографика</text>
+
+      <text x="65" y="60" font-size="11" fill="#78716c" text-anchor="end">обычный</text>
+      <text x="75" y="60" font-size="12" fill="#292524">Регистрация на митап</text>
+
+      <text x="65" y="110" font-size="11" fill="#78716c" text-anchor="end">ссылка</text>
+      <text x="75" y="110" font-size="12" font-weight="600" fill="#d97706" text-decoration="underline">Подробнее о событии</text>
+
+      <text x="65" y="160" font-size="11" fill="#78716c" text-anchor="end">бейджи</text>
+      <rect x="75" y="146" width="85" height="22" rx="4" fill="#fef3c7"/>
+      <text x="117" y="161" font-size="10" font-weight="700" fill="#92400e" text-anchor="middle">OpenSource</text>
+    </g>
+
+    <!-- Column 5: Кнопки / Рамки -->
+    <g transform="translate(900, 20)">
+      <text x="75" y="20" font-size="13" font-weight="700" fill="#292524" text-anchor="middle">Кнопки / CTA</text>
+
+      <text x="45" y="60" font-size="11" fill="#78716c" text-anchor="end">главная</text>
+      <rect x="55" y="42" width="90" height="30" rx="6" fill="#ea580c"/>
+      <text x="100" y="61" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">Билет</text>
+
+      <text x="45" y="110" font-size="11" fill="#78716c" text-anchor="end">вторичная</text>
+      <rect x="55" y="92" width="90" height="30" rx="6" fill="#ffffff" stroke="#d6d3d1" stroke-width="1.5"/>
+      <text x="100" y="111" font-size="11" font-weight="600" fill="#292524" text-anchor="middle">Отмена</text>
+
+      <text x="45" y="160" font-size="11" fill="#78716c" text-anchor="end">постер</text>
+      <rect x="55" y="142" width="90" height="32" rx="4" fill="#ffffff" stroke="#d6d3d1" stroke-width="1.5" stroke-dasharray="4 2"/>
+      <text x="100" y="162" font-size="10" fill="#78716c" text-anchor="middle">16:9 Графика</text>
+    </g>
+  </g>
+
+  <!-- Complete Web Page Mockup (Browser Window) -->
+  <g transform="translate(60, 390)">
+    <!-- Browser Window Outer Frame -->
+    <rect width="1080" height="940" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow-card)"/>
+    
+    <!-- Chrome Titlebar -->
+    <rect width="1080" height="42" rx="12" fill="#e2e8f0"/>
+    <circle cx="22" cy="21" r="5.5" fill="#ef4444"/>
+    <circle cx="40" cy="21" r="5.5" fill="#f59e0b"/>
+    <circle cx="58" cy="21" r="5.5" fill="#10b981"/>
+    
+    <!-- URL Search Pill -->
+    <rect x="220" y="9" width="640" height="24" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="240" y="25" font-size="11" font-weight="500" fill="#78716c">https://campusmeet.bsu.by/events</text>
+    <g transform="translate(224,13)" stroke="#d97706" fill="none" stroke-width="1.5">
+          <path d="M8 2L3 4v4.5c0 3.5 2.5 5.5 5 6.5 2.5-1 5-3 5-6.5V4L8 2z"/>
+        </g>
+    <g transform="translate(880,13)" stroke="#78716c" fill="none" stroke-width="1.5">
+          <path d="M8 8.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+          <path d="M3 14c0-2.2 2.2-3.5 5-3.5s5 1.3 5 3.5"/>
+        </g>
+
+    <!-- Navigation Header -->
+    <g transform="translate(0, 42)">
+      <rect width="1080" height="64" fill="#ffffff" stroke="#d6d3d1" stroke-width="1"/>
+      
+      <!-- Brand Logo -->
+      <g transform="translate(30, 16)">
+        <rect width="34" height="34" rx="8" fill="#d97706"/>
+        <text x="17" y="23" font-size="14" font-weight="900" fill="#ffffff" text-anchor="middle">CM</text>
+        <text x="44" y="24" font-size="17" font-weight="800" fill="#292524">CampusMeet</text>
+      </g>
+
+      <!-- Nav Links -->
+      <g transform="translate(240, 37)">
+        <text x="0" y="0" font-size="13" font-weight="700" fill="#d97706">Афиша</text>
+        <rect x="0" y="8" width="45" height="2.5" fill="#d97706"/>
+        <text x="80" y="0" font-size="13" font-weight="500" fill="#78716c">Хакатоны</text>
+        <text x="180" y="0" font-size="13" font-weight="500" fill="#78716c">Биржа команд</text>
+        <text x="310" y="0" font-size="13" font-weight="500" fill="#78716c">Мой билет</text>
+        <text x="415" y="0" font-size="13" font-weight="500" fill="#78716c">О проекте</text>
+      </g>
+
+      <!-- Search & User Actions -->
+      <g transform="translate(780, 16)">
+        <rect width="180" height="34" rx="6" fill="#fcfaf7" stroke="#d6d3d1" stroke-width="1"/>
+        <g transform="translate(10,9)" stroke="#78716c" fill="none" stroke-width="1.5">
+          <circle cx="7" cy="7" r="4.5"/>
+          <line x1="10.5" y1="10.5" x2="14" y2="14" stroke-linecap="round"/>
+        </g>
+        <text x="32" y="21" font-size="11" fill="#78716c">Поиск митапов... (⌘K)</text>
+
+        <!-- Notification Bell -->
+        <circle cx="210" cy="17" r="15" fill="#fcfaf7" stroke="#d6d3d1" stroke-width="1"/>
+        <g transform="translate(202,9)" stroke="#292524" fill="none" stroke-width="1.5">
+          <path d="M8 2.5a4 4 0 0 0-4 4v3.5l-1.5 2h11l-1.5-2V6.5a4 4 0 0 0-4-4z"/>
+          <path d="M6.5 13a1.5 1.5 0 0 0 3 0"/>
+        </g>
+        <circle cx="218" cy="8" r="4" fill="#ef4444"/>
+
+        <!-- User Profile Pill -->
+        <circle cx="250" cy="17" r="16" fill="#d97706"/>
+        <text x="250" y="22" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">АК</text>
+      </g>
+    </g>
+
+    <!-- Main Content Area inside Browser -->
+    <g transform="translate(30, 126)">
+      <!-- Hero Banner Strip -->
+      <rect width="1020" height="150" rx="12" fill="#451a03" stroke="#d6d3d1" stroke-width="1"/>
+      <g transform="translate(30, 30)">
+        <rect width="140" height="22" rx="4" fill="#fef3c7"/>
+        <text x="70" y="15" font-size="10" font-weight="800" fill="#92400e" text-anchor="middle">БГУ • СЕЗОН 2026</text>
+        <text x="0" y="52" font-size="24" font-weight="800" fill="#ffffff">Митапы, хакатоны и нетворкинг для студентов</text>
+        <text x="0" y="76" font-size="13" fill="#78716c">Система бронирования квот, создания междисциплинарных команд и валидации участия с QR-токенами.</text>
+      </g>
+      <!-- CTA Button in Hero -->
+      <g transform="translate(820, 52)">
+        <rect width="160" height="44" rx="8" fill="#ea580c" filter="url(#shadow-btn)"/>
+        <text x="80" y="27" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">Создать митап +</text>
+      </g>
+
+      <!-- Section Title & Filter Chips -->
+      <g transform="translate(0, 180)">
+        <text x="0" y="20" font-size="17" font-weight="800" fill="#292524">Актуальные события кампуса</text>
+        <!-- Filter Tabs -->
+        <g transform="translate(480, 0)">
+          <rect x="0" y="0" width="80" height="28" rx="14" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+          <text x="40" y="18" font-size="11" font-weight="700" fill="#d97706" text-anchor="middle">Все (12)</text>
+          
+          <rect x="90" y="0" width="90" height="28" rx="14" fill="#ffffff" stroke="#d6d3d1" stroke-width="1"/>
+          <text x="135" y="18" font-size="11" font-weight="500" fill="#78716c" text-anchor="middle">Хакатоны</text>
+          
+          <rect x="190" y="0" width="85" height="28" rx="14" fill="#ffffff" stroke="#d6d3d1" stroke-width="1"/>
+          <text x="232" y="18" font-size="11" font-weight="500" fill="#78716c" text-anchor="middle">Воркшопы</text>
+          
+          <rect x="285" y="0" width="85" height="28" rx="14" fill="#ffffff" stroke="#d6d3d1" stroke-width="1"/>
+          <text x="327" y="18" font-size="11" font-weight="500" fill="#78716c" text-anchor="middle">Митапы</text>
+          
+          <rect x="380" y="0" width="140" height="28" rx="14" fill="#ffffff" stroke="#d6d3d1" stroke-width="1"/>
+          <text x="450" y="18" font-size="11" font-weight="500" fill="#78716c" text-anchor="middle">Мои регистрации (2)</text>
+        </g>
+      </g>
+
+      <!-- 3-Card Bento Grid -->
+      <g transform="translate(0, 225)">
+        <!-- Card 1: Featured (Minsk Go) -->
+        <g transform="translate(0, 0)">
+          <rect width="325" height="420" rx="12" fill="#ffffff" stroke="#d6d3d1" stroke-width="1" filter="url(#shadow-card)"/>
+          
+          <!-- Card Image Header -->
+          <rect width="325" height="140" rx="12" fill="#292524"/>
+          <rect x="15" y="15" width="85" height="22" rx="4" fill="#fef3c7"/>
+          <text x="57" y="30" font-size="10" font-weight="800" fill="#92400e" text-anchor="middle">ВЕРИФИЦИРОВАНО</text>
+          
+          <text x="15" y="70" font-size="17" font-weight="800" fill="#ffffff">Minsk Go Meetup #14</text>
+          <text x="15" y="92" font-size="12" fill="#78716c">Высоконагруженные микросервисы</text>
+          
+          <g transform="translate(15, 112)">
+            <g transform="translate(0,0)" stroke="#d97706" fill="none" stroke-width="1.5">
+          <rect x="2" y="3" width="12" height="11" rx="2"/>
+          <line x1="2" y1="6.5" x2="14" y2="6.5"/>
+          <line x1="5" y1="1.5" x2="5" y2="4"/>
+          <line x1="11" y1="1.5" x2="11" y2="4"/>
+        </g>
+            <text x="18" y="11" font-size="11" font-weight="600" fill="#ffffff">26 марта • 18:30</text>
+          </g>
+
+          <!-- Card Body -->
+          <g transform="translate(18, 155)">
+            <g transform="translate(0, 5)">
+              <g transform="translate(0,0)" stroke="#78716c" fill="none" stroke-width="1.5">
+          <path d="M8 2a4.5 4.5 0 0 0-4.5 4.5c0 3.2 4.5 7.5 4.5 7.5s4.5-4.3 4.5-7.5A4.5 4.5 0 0 0 8 2z"/>
+          <circle cx="8" cy="6.5" r="1.5"/>
+        </g>
+              <text x="18" y="11" font-size="11" fill="#78716c">ФПМИ БГУ, ауд. 509 (Ул. Ленинградская 16)</text>
+            </g>
+            
+            <g transform="translate(0, 30)">
+              <g transform="translate(0,0)" stroke="#78716c" fill="none" stroke-width="1.5">
+          <path d="M8 8.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+          <path d="M3 14c0-2.2 2.2-3.5 5-3.5s5 1.3 5 3.5"/>
+        </g>
+              <text x="18" y="11" font-size="11" fill="#78716c">Спикер: Алексей Смирнов (Lead Backend)</text>
+            </g>
+
+            <!-- Quota Bar -->
+            <g transform="translate(0, 60)">
+              <text x="0" y="0" font-size="11" font-weight="600" fill="#292524">Квота: 88 из 100 мест занято</text>
+              <text x="290" y="0" font-size="11" font-weight="700" fill="#d97706" text-anchor="end">88%</text>
+              <rect x="0" y="8" width="290" height="6" rx="3" fill="#fcfaf7"/>
+              <rect x="0" y="8" width="255" height="6" rx="3" fill="#d97706"/>
+            </g>
+
+            <!-- Tags -->
+            <g transform="translate(0, 100)">
+              <rect x="0" y="0" width="55" height="22" rx="4" fill="#fef3c7"/>
+              <text x="27" y="15" font-size="10" font-weight="600" fill="#92400e" text-anchor="middle">Golang</text>
+              
+              <rect x="62" y="0" width="70" height="22" rx="4" fill="#fef3c7"/>
+              <text x="97" y="15" font-size="10" font-weight="600" fill="#92400e" text-anchor="middle">HighLoad</text>
+              
+              <rect x="140" y="0" width="60" height="22" rx="4" fill="#fef3c7"/>
+              <text x="170" y="15" font-size="10" font-weight="600" fill="#92400e" text-anchor="middle">gRPC</text>
+            </g>
+
+            <!-- CTA Button -->
+            <g transform="translate(0, 145)">
+              <rect width="290" height="40" rx="8" fill="#ea580c"/>
+              <text x="145" y="25" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Забронировать билет</text>
+            </g>
+          </g>
+        </g>
+
+        <!-- Card 2: Hackathon -->
+        <g transform="translate(348, 0)">
+          <rect width="325" height="420" rx="12" fill="#ffffff" stroke="#d6d3d1" stroke-width="1" filter="url(#shadow-card)"/>
+          
+          <rect width="325" height="140" rx="12" fill="#292524"/>
+          <rect x="15" y="15" width="80" height="22" rx="4" fill="#fef3c7"/>
+          <text x="55" y="30" font-size="10" font-weight="800" fill="#92400e" text-anchor="middle">ХАКАТОН 24Ч</text>
+          
+          <text x="15" y="70" font-size="17" font-weight="800" fill="#ffffff">AI Agents Hackathon</text>
+          <text x="15" y="92" font-size="12" fill="#78716c">Мультиагентные системы и LLM</text>
+          
+          <g transform="translate(15, 112)">
+            <g transform="translate(0,0)" stroke="#d97706" fill="none" stroke-width="1.5">
+          <rect x="2" y="3" width="12" height="11" rx="2"/>
+          <line x1="2" y1="6.5" x2="14" y2="6.5"/>
+          <line x1="5" y1="1.5" x2="5" y2="4"/>
+          <line x1="11" y1="1.5" x2="11" y2="4"/>
+        </g>
+            <text x="18" y="11" font-size="11" font-weight="600" fill="#ffffff">29–30 марта • Старт 10:00</text>
+          </g>
+
+          <g transform="translate(18, 155)">
+            <g transform="translate(0, 5)">
+              <g transform="translate(0,0)" stroke="#78716c" fill="none" stroke-width="1.5">
+          <path d="M8 2a4.5 4.5 0 0 0-4.5 4.5c0 3.2 4.5 7.5 4.5 7.5s4.5-4.3 4.5-7.5A4.5 4.5 0 0 0 8 2z"/>
+          <circle cx="8" cy="6.5" r="1.5"/>
+        </g>
+              <text x="18" y="11" font-size="11" fill="#78716c">Главный корпус БГУ, Coworking 3 этаж</text>
+            </g>
+            
+            <g transform="translate(0, 30)">
+              <g transform="translate(0,0)" stroke="#78716c" fill="none" stroke-width="1.5">
+          <path d="M8 8.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+          <path d="M3 14c0-2.2 2.2-3.5 5-3.5s5 1.3 5 3.5"/>
+        </g>
+              <text x="18" y="11" fill="#78716c">Организатор: Научный сектор ФПМИ</text>
+            </g>
+
+            <g transform="translate(0, 60)">
+              <text x="0" y="0" font-size="11" font-weight="600" fill="#292524">Команды: 16 из 20 зарегистрировано</text>
+              <text x="290" y="0" font-size="11" font-weight="700" fill="#d97706" text-anchor="end">80%</text>
+              <rect x="0" y="8" width="290" height="6" rx="3" fill="#fcfaf7"/>
+              <rect x="0" y="8" width="232" height="6" rx="3" fill="#d97706"/>
+            </g>
+
+            <g transform="translate(0, 100)">
+              <rect x="0" y="0" width="60" height="22" rx="4" fill="#fef3c7"/>
+              <text x="30" y="15" font-size="10" font-weight="600" fill="#92400e" text-anchor="middle">Python</text>
+              
+              <rect x="68" y="0" width="60" height="22" rx="4" fill="#fef3c7"/>
+              <text x="98" y="15" font-size="10" font-weight="600" fill="#92400e" text-anchor="middle">LangChain</text>
+              
+              <rect x="136" y="0" width="50" height="22" rx="4" fill="#fef3c7"/>
+              <text x="161" y="15" font-size="10" font-weight="600" fill="#92400e" text-anchor="middle">RAG</text>
+            </g>
+
+            <g transform="translate(0, 145)">
+              <rect width="290" height="40" rx="8" fill="#ffffff" stroke="#d6d3d1" stroke-width="1.5"/>
+              <text x="145" y="25" font-size="12" font-weight="700" fill="#292524" text-anchor="middle">Подать заявку команды</text>
+            </g>
+          </g>
+        </g>
+
+        <!-- Card 3: Workshop -->
+        <g transform="translate(695, 0)">
+          <rect width="325" height="420" rx="12" fill="#ffffff" stroke="#d6d3d1" stroke-width="1" filter="url(#shadow-card)"/>
+          
+          <rect width="325" height="140" rx="12" fill="#292524"/>
+          <rect x="15" y="15" width="80" height="22" rx="4" fill="#fef3c7"/>
+          <text x="55" y="30" font-size="10" font-weight="800" fill="#92400e" text-anchor="middle">ВОРКШОП</text>
+          
+          <text x="15" y="70" font-size="17" font-weight="800" fill="#ffffff">DevOps &amp; Zero Trust</text>
+          <text x="15" y="92" font-size="12" fill="#78716c">Безопасность облачных кластеров</text>
+          
+          <g transform="translate(15, 112)">
+            <g transform="translate(0,0)" stroke="#d97706" fill="none" stroke-width="1.5">
+          <rect x="2" y="3" width="12" height="11" rx="2"/>
+          <line x1="2" y1="6.5" x2="14" y2="6.5"/>
+          <line x1="5" y1="1.5" x2="5" y2="4"/>
+          <line x1="11" y1="1.5" x2="11" y2="4"/>
+        </g>
+            <text x="18" y="11" font-size="11" font-weight="600" fill="#ffffff">3 апреля • 17:00</text>
+          </g>
+
+          <g transform="translate(18, 155)">
+            <g transform="translate(0, 5)">
+              <g transform="translate(0,0)" stroke="#78716c" fill="none" stroke-width="1.5">
+          <path d="M8 2a4.5 4.5 0 0 0-4.5 4.5c0 3.2 4.5 7.5 4.5 7.5s4.5-4.3 4.5-7.5A4.5 4.5 0 0 0 8 2z"/>
+          <circle cx="8" cy="6.5" r="1.5"/>
+        </g>
+              <text x="18" y="11" font-size="11" fill="#78716c">ФПМИ БГУ, Лаборатория 402</text>
+            </g>
+            
+            <g transform="translate(0, 30)">
+              <g transform="translate(0,0)" stroke="#78716c" fill="none" stroke-width="1.5">
+          <path d="M8 8.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+          <path d="M3 14c0-2.2 2.2-3.5 5-3.5s5 1.3 5 3.5"/>
+        </g>
+              <text x="18" y="11" font-size="11" fill="#78716c">Спикер: Максим Воронов (Security Lead)</text>
+            </g>
+
+            <g transform="translate(0, 60)">
+              <text x="0" y="0" font-size="11" font-weight="600" fill="#292524">Квота: 25 из 30 мест занято</text>
+              <text x="290" y="0" font-size="11" font-weight="700" fill="#d97706" text-anchor="end">83%</text>
+              <rect x="0" y="8" width="290" height="6" rx="3" fill="#fcfaf7"/>
+              <rect x="0" y="8" width="241" height="6" rx="3" fill="#d97706"/>
+            </g>
+
+            <g transform="translate(0, 100)">
+              <rect x="0" y="0" width="50" height="22" rx="4" fill="#fef3c7"/>
+              <text x="25" y="15" font-size="10" font-weight="600" fill="#92400e" text-anchor="middle">K8s</text>
+              
+              <rect x="58" y="0" width="55" height="22" rx="4" fill="#fef3c7"/>
+              <text x="85" y="15" font-size="10" font-weight="600" fill="#92400e" text-anchor="middle">Docker</text>
+              
+              <rect x="120" y="0" width="75" height="22" rx="4" fill="#fef3c7"/>
+              <text x="157" y="15" font-size="10" font-weight="600" fill="#92400e" text-anchor="middle">Zero Trust</text>
+            </g>
+
+            <g transform="translate(0, 145)">
+              <rect width="290" height="40" rx="8" fill="#ea580c"/>
+              <text x="145" y="25" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Занять место</text>
+            </g>
+          </g>
+        </g>
+      </g>
+
+      <!-- Footer Bar -->
+      <g transform="translate(0, 675)">
+        <line x1="0" y1="0" x2="1020" y2="0" stroke="#d6d3d1" stroke-width="1"/>
+        <text x="0" y="35" font-size="11" fill="#78716c">© 2026 CampusMeet • Белорусский государственный университет • Лабораторная работа №5 ПЧМИ</text>
+        <text x="1020" y="35" font-size="11" font-weight="600" fill="#d97706" text-anchor="end">Синхронизация Figma Design System • Токены WCAG AAA</text>
+      </g>
+    </g>
+  </g>
+</svg>

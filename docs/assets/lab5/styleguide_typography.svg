@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 750" width="1000" height="750" font-family="'Inter', -apple-system, BlinkMacSystemFont, sans-serif">
+  
+  <defs>
+    <!-- Drop Shadow Standard -->
+    <filter id="shadow-card" x="-10%" y="-10%" width="120%" height="125%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000000" flood-opacity="0.30"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="3" flood-color="#000000" flood-opacity="0.15"/>
+    </filter>
+
+    <!-- Subtle Button Shadow -->
+    <filter id="shadow-btn" x="-10%" y="-15%" width="120%" height="135%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Modal Elevation Shadow -->
+    <filter id="shadow-modal" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="20" stdDeviation="30" flood-color="#000000" flood-opacity="0.60"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Glowing Accent -->
+    <filter id="glow-accent" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="grad-indigo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="50%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+
+    <linearGradient id="grad-warm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#78350f"/>
+      <stop offset="60%" stop-color="#b45309"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+
+    <linearGradient id="grad-mono" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+
+    <linearGradient id="grad-card-true-black" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#141414"/>
+      <stop offset="100%" stop-color="#0d0d0d"/>
+    </linearGradient>
+
+    <linearGradient id="grad-device-titanium" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a2a2a"/>
+      <stop offset="50%" stop-color="#171717"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1000" height="750" fill="#ffffff"/>
+
+  <g transform="translate(50, 40)">
+    <text x="0" y="0" font-size="22" font-weight="800" fill="#0f172a">UI Style Guide • Иерархия типографики</text>
+    <text x="0" y="24" font-size="12" fill="#64748b">Шрифтовая пара: Inter (Основной гротеск) + JetBrains Mono (Токены, хэши и код) • 8pt вертикальный ритм</text>
+  </g>
+
+  <!-- Typography Table -->
+  <g transform="translate(50, 100)">
+    <rect width="900" height="580" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+
+    <line x1="0" y1="45" x2="900" y2="45" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="30" y="28" font-size="12" font-weight="700" fill="#64748b">Уровень стиля</text>
+    <text x="210" y="28" font-size="12" font-weight="700" fill="#64748b">Размер / Line-height</text>
+    <text x="390" y="28" font-size="12" font-weight="700" fill="#64748b">Начертание</text>
+    <text x="540" y="28" font-size="12" font-weight="700" fill="#64748b">Визуальный образец шрифта</text>
+
+    <!-- Display -->
+    <g transform="translate(30, 85)">
+      <text x="0" y="0" font-size="13" font-weight="700" fill="#0f172a">Display Hero</text>
+      <text x="180" y="0" font-size="11" font-family="'JetBrains Mono', monospace" fill="#64748b">36px / 44px</text>
+      <text x="360" y="0" font-size="12" fill="#475569">Black 800</text>
+      <text x="510" y="0" font-size="30" font-weight="800" fill="#0f172a">Студенческий хакатон</text>
+    </g>
+
+    <!-- H1 -->
+    <line x1="20" y1="125" x2="880" y2="125" stroke="#e2e8f0" stroke-width="1"/>
+    <g transform="translate(30, 160)">
+      <text x="0" y="0" font-size="13" font-weight="700" fill="#0f172a">Heading 1</text>
+      <text x="180" y="0" font-size="11" font-family="'JetBrains Mono', monospace" fill="#64748b">28px / 36px</text>
+      <text x="360" y="0" font-size="12" fill="#475569">Bold 700</text>
+      <text x="510" y="0" font-size="24" font-weight="700" fill="#0f172a">Minsk Go Meetup #14</text>
+    </g>
+
+    <!-- H2 -->
+    <line x1="20" y1="195" x2="880" y2="195" stroke="#e2e8f0" stroke-width="1"/>
+    <g transform="translate(30, 230)">
+      <text x="0" y="0" font-size="13" font-weight="700" fill="#0f172a">Heading 2</text>
+      <text x="180" y="0" font-size="11" font-family="'JetBrains Mono', monospace" fill="#64748b">20px / 28px</text>
+      <text x="360" y="0" font-size="12" fill="#475569">Bold 700</text>
+      <text x="510" y="0" font-size="18" font-weight="700" fill="#0f172a">Высоконагруженные микросервисы</text>
+    </g>
+
+    <!-- H3 / Subtitle -->
+    <line x1="20" y1="265" x2="880" y2="265" stroke="#e2e8f0" stroke-width="1"/>
+    <g transform="translate(30, 300)">
+      <text x="0" y="0" font-size="13" font-weight="700" fill="#0f172a">Heading 3</text>
+      <text x="180" y="0" font-size="11" font-family="'JetBrains Mono', monospace" fill="#64748b">16px / 24px</text>
+      <text x="360" y="0" font-size="12" fill="#475569">SemiBold 600</text>
+      <text x="510" y="0" font-size="15" font-weight="600" fill="#0f172a">Факультет прикладной математики и информатики</text>
+    </g>
+
+    <!-- Body Regular -->
+    <line x1="20" y1="335" x2="880" y2="335" stroke="#e2e8f0" stroke-width="1"/>
+    <g transform="translate(30, 370)">
+      <text x="0" y="0" font-size="13" font-weight="700" fill="#0f172a">Body Regular</text>
+      <text x="180" y="0" font-size="11" font-family="'JetBrains Mono', monospace" fill="#64748b">14px / 22px</text>
+      <text x="360" y="0" font-size="12" fill="#475569">Regular 400</text>
+      <text x="510" y="0" font-size="13" fill="#334155">Экосистема объединяет более 1200 студентов кампуса БГУ.</text>
+    </g>
+
+    <!-- Monospace Token -->
+    <line x1="20" y1="405" x2="880" y2="405" stroke="#e2e8f0" stroke-width="1"/>
+    <g transform="translate(30, 440)">
+      <text x="0" y="0" font-size="13" font-weight="700" fill="#0f172a">Mono Token</text>
+      <text x="180" y="0" font-size="11" font-family="'JetBrains Mono', monospace" fill="#64748b">13px / 20px</text>
+      <text x="360" y="0" font-size="12" fill="#475569">JetBrains Mono</text>
+      <text x="510" y="0" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#6366f1">TKT-88F4-019B-SHA256</text>
+    </g>
+
+    <!-- Caption / Micro -->
+    <line x1="20" y1="475" x2="880" y2="475" stroke="#e2e8f0" stroke-width="1"/>
+    <g transform="translate(30, 510)">
+      <text x="0" y="0" font-size="13" font-weight="700" fill="#0f172a">Caption Micro</text>
+      <text x="180" y="0" font-size="11" font-family="'JetBrains Mono', monospace" fill="#64748b">11px / 16px</text>
+      <text x="360" y="0" font-size="12" fill="#475569">Medium 500</text>
+      <text x="510" y="0" font-size="11" fill="#64748b">Обновлено 2 минуты назад • ФПМИ БГУ 2026</text>
+    </g>
+  </g>
+</svg>

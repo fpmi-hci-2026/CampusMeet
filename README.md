@@ -44,13 +44,22 @@
 * **[MCP MVP](./wiki/MCP_Server.md):** 5 Tools, 3 Resources, 2 Prompts. Исполняемый код, SQL, mock, Bruno/Postman и тесты находятся в [CampusMeet-Server](https://github.com/fpmi-hci-2026/CampusMeet-Server).
 * **[Инфраструктура и CI](./wiki/Infrastructure_and_CI.md):** Dockerfiles, Compose и минимальные клиентские окружения.
 
-### 5. Инициализация и проверка реляционной схемы базы данных (исторический пример ЛР1):
+### 5. Материалы Лабораторной работы №5:
+* **Тема по методичке 2024–2026:** «Проектирование прототипа приложения».
+* **[Официальный проект в Figma Design (2OnyJ5J50I6kueehY3VDXa)](https://www.figma.com/design/2OnyJ5J50I6kueehY3VDXa)**: все 22 векторных макета, сетки, экраны устройств и Style Guide развернуты в файле.
+* **[Академический отчет](./docs/reports/Lab5_report.md)** и **[интерактивная страница ЛР5](./docs/pages/lab5.html)**.
+* **Исследование визуального языка:** 15 пар семантического дифференциала Чарльза Осгуда, тестирование выборки $N=10$, 3 сравнительные цветовые палитры (Editorial Mono, Tech Indigo, Warm Coral) с изоляцией цветовой переменной, диаграмма-профиль [docs/assets/lab5/semantic_differential_profiles.svg](./docs/assets/lab5/semantic_differential_profiles.svg).
+* **Адаптивные модульные сетки:** 6 разрешений веб (1440px, 1140px, 768px, 576px, 400px, 320px) с математическим расчетом по формуле методички и макеты экрана после авторизации для 5 устройств (iPhone 16 Pro, Galaxy S24, Pixel 8, iPad Pro 11", iPad Mini).
+* **Интерактивный кликабельный прототип:** ролевая модель, каталог афиши, бронирование квоты, Offline QR-билет с тикающим таймером HMAC и сканер волонтера (<500 мс).
+* **UI Style Guide:** дизайн-токены, проверка доступности WCAG 2.1 AAA (19.4:1), типографика (Inter, JetBrains Mono, Newsreader), состояния кнопок и библиотека компонентов.
+
+### 6. Инициализация и проверка реляционной схемы базы данных (исторический пример ЛР1):
 Схема базы данных спроектирована в рамках Лабораторной работы №1 и размещена в репозитории [CampusMeet-Server / database/schema.sql](https://github.com/fpmi-hci-2026/CampusMeet-Server/blob/main/database/schema.sql). Для валидации DDL-скрипта и создания тестовой базы данных выполните (при локальном расположении клонированных репозиториев в соседних папках):
 ```bash
 python3 -c "import sqlite3; conn = sqlite3.connect('../CampusMeet-Server/database/campusmeet.db'); conn.executescript(open('../CampusMeet-Server/database/schema.sql').read()); print('База данных успешно инициализирована (10 таблиц, тестовые данные добавлены)')"
 ```
 
-### 6. Клиентские и серверные модули (планируются к реализации в Лабораторных работах №5–7):
+### 7. Клиентские и серверные модули (реализация в Лабораторных работах №6–7):
 Каркасы репозиториев настроены согласно модульной архитектуре курса:
 * **Серверное приложение и API (Лаб. №6):** `CampusMeet-Server/` (FastAPI / Uvicorn).
 * **Веб-панель организатора (Лаб. №5–6):** `CampusMeet-Web/` (Next.js / React).
@@ -98,7 +107,13 @@ python3 -c "import sqlite3; conn = sqlite3.connect('../CampusMeet-Server/databas
 ### Навигация по проектным материалам:
 * **[Комплексный отчет по Лабораторной работе №1 (docs/reports/Lab1_report.md)](./docs/reports/Lab1_report.md)**
 * **[Комплексный отчет по Лабораторной работе №2 (docs/reports/Lab2_report.md)](./docs/reports/Lab2_report.md)**
-* **[Векторные вайрфреймы и UI макеты (docs/assets/mockups/)](./docs/assets/mockups/)**
+* **[Комплексный отчет по Лабораторной работе №3 (docs/reports/Lab3_report.md)](./docs/reports/Lab3_report.md)**
+* **[Комплексный отчет по Лабораторной работе №4 (docs/reports/Lab4_report.md)](./docs/reports/Lab4_report.md)**
+* **[Комплексный отчет по Лабораторной работе №5 (docs/reports/Lab5_report.md)](./docs/reports/Lab5_report.md)**
+* **[Официальный проект в Figma Design](https://www.figma.com/design/2OnyJ5J50I6kueehY3VDXa)**
+* **[Интерактивная страница Лабораторной работы №5 (docs/pages/lab5.html)](./docs/pages/lab5.html)**
+* **[Векторные ассеты и макеты ЛР5 (docs/assets/lab5/)](./docs/assets/lab5/)**
+* **[Интерактивный портал документации GitHub Pages (docs/index.html)](./docs/index.html)**
 * **[Аналитическое исследование опроса N=68 (docs/survey/survey_analysis.md)](./docs/survey/survey_analysis.md)**
 * **[Интерактивный портал документации GitHub Pages (docs/index.html)](./docs/index.html)**
 * **[База знаний GitHub Wiki (wiki/Home.md)](./wiki/Home.md)**

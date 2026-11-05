@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 850" width="820" height="850" font-family="'Inter', -apple-system, BlinkMacSystemFont, sans-serif">
+  
+  <defs>
+    <!-- Drop Shadow Standard -->
+    <filter id="shadow-card" x="-10%" y="-10%" width="120%" height="125%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000000" flood-opacity="0.30"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="3" flood-color="#000000" flood-opacity="0.15"/>
+    </filter>
+
+    <!-- Subtle Button Shadow -->
+    <filter id="shadow-btn" x="-10%" y="-15%" width="120%" height="135%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Modal Elevation Shadow -->
+    <filter id="shadow-modal" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="20" stdDeviation="30" flood-color="#000000" flood-opacity="0.60"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Glowing Accent -->
+    <filter id="glow-accent" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="grad-indigo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="50%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+
+    <linearGradient id="grad-warm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#78350f"/>
+      <stop offset="60%" stop-color="#b45309"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+
+    <linearGradient id="grad-mono" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+
+    <linearGradient id="grad-card-true-black" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#141414"/>
+      <stop offset="100%" stop-color="#0d0d0d"/>
+    </linearGradient>
+
+    <linearGradient id="grad-device-titanium" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a2a2a"/>
+      <stop offset="50%" stop-color="#171717"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+  </defs>
+
+
+  <rect width="820" height="850" fill="#f8fafc"/>
+
+  <!-- Info Header -->
+  
+  <g transform="translate(40, 30)">
+    <rect width="740" height="70" rx="10" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow-card)"/>
+    <text x="25" y="28" font-size="16" font-weight="800" fill="#0f172a">Модульная сетка: 768–991px (Планшет книжный / 8 колонок)</text>
+    <text x="25" y="50" font-size="12" fill="#64748b">W = N×W_col + (N-1)×G + 2M  ==>  768px = 8×76 + 7×16 + 48px</text>
+    <rect x="500" y="20" width="220" height="30" rx="6" fill="#eff6ff" stroke="#bfdbfe"/>
+    <text x="610" y="40" font-size="11" font-weight="700" fill="#1d4ed8" text-anchor="middle">Контейнер: 720px | Gutter: 16px</text>
+  </g>
+
+  <!-- Viewport Boundary -->
+  <rect x="26" y="115" width="768" height="700" rx="10" fill="#ffffff" stroke="#0f172a" stroke-width="2" filter="url(#shadow-card)"/>
+
+  <!-- Grid Columns & Gutters -->
+  <rect x="50" y="125" width="76" height="680" fill="rgba(99, 102, 241, 0.08)" stroke="rgba(99, 102, 241, 0.25)" stroke-width="1"/><rect x="142" y="125" width="76" height="680" fill="rgba(99, 102, 241, 0.08)" stroke="rgba(99, 102, 241, 0.25)" stroke-width="1"/><rect x="234" y="125" width="76" height="680" fill="rgba(99, 102, 241, 0.08)" stroke="rgba(99, 102, 241, 0.25)" stroke-width="1"/><rect x="326" y="125" width="76" height="680" fill="rgba(99, 102, 241, 0.08)" stroke="rgba(99, 102, 241, 0.25)" stroke-width="1"/><rect x="418" y="125" width="76" height="680" fill="rgba(99, 102, 241, 0.08)" stroke="rgba(99, 102, 241, 0.25)" stroke-width="1"/><rect x="510" y="125" width="76" height="680" fill="rgba(99, 102, 241, 0.08)" stroke="rgba(99, 102, 241, 0.25)" stroke-width="1"/><rect x="602" y="125" width="76" height="680" fill="rgba(99, 102, 241, 0.08)" stroke="rgba(99, 102, 241, 0.25)" stroke-width="1"/><rect x="694" y="125" width="76" height="680" fill="rgba(99, 102, 241, 0.08)" stroke="rgba(99, 102, 241, 0.25)" stroke-width="1"/>
+  <rect x="126" y="125" width="16" height="680" fill="rgba(239, 68, 68, 0.06)"/><rect x="218" y="125" width="16" height="680" fill="rgba(239, 68, 68, 0.06)"/><rect x="310" y="125" width="16" height="680" fill="rgba(239, 68, 68, 0.06)"/><rect x="402" y="125" width="16" height="680" fill="rgba(239, 68, 68, 0.06)"/><rect x="494" y="125" width="16" height="680" fill="rgba(239, 68, 68, 0.06)"/><rect x="586" y="125" width="16" height="680" fill="rgba(239, 68, 68, 0.06)"/><rect x="678" y="125" width="16" height="680" fill="rgba(239, 68, 68, 0.06)"/>
+  <text x="88" y="142" font-size="10" font-weight="700" fill="#6366f1" text-anchor="middle">1</text><text x="88" y="795" font-size="9" font-weight="600" fill="#6366f1" text-anchor="middle">76px</text><text x="180" y="142" font-size="10" font-weight="700" fill="#6366f1" text-anchor="middle">2</text><text x="180" y="795" font-size="9" font-weight="600" fill="#6366f1" text-anchor="middle">76px</text><text x="272" y="142" font-size="10" font-weight="700" fill="#6366f1" text-anchor="middle">3</text><text x="272" y="795" font-size="9" font-weight="600" fill="#6366f1" text-anchor="middle">76px</text><text x="364" y="142" font-size="10" font-weight="700" fill="#6366f1" text-anchor="middle">4</text><text x="364" y="795" font-size="9" font-weight="600" fill="#6366f1" text-anchor="middle">76px</text><text x="456" y="142" font-size="10" font-weight="700" fill="#6366f1" text-anchor="middle">5</text><text x="456" y="795" font-size="9" font-weight="600" fill="#6366f1" text-anchor="middle">76px</text><text x="548" y="142" font-size="10" font-weight="700" fill="#6366f1" text-anchor="middle">6</text><text x="548" y="795" font-size="9" font-weight="600" fill="#6366f1" text-anchor="middle">76px</text><text x="640" y="142" font-size="10" font-weight="700" fill="#6366f1" text-anchor="middle">7</text><text x="640" y="795" font-size="9" font-weight="600" fill="#6366f1" text-anchor="middle">76px</text><text x="732" y="142" font-size="10" font-weight="700" fill="#6366f1" text-anchor="middle">8</text><text x="732" y="795" font-size="9" font-weight="600" fill="#6366f1" text-anchor="middle">76px</text>
+
+  <!-- Simulated Snapped Content Layer -->
+  <g transform="translate(50, 160)">
+    
+    <!-- Tablet 8 cols -->
+    <rect width="720" height="42" rx="8" fill="#0f172a"/>
+    <text x="15" y="26" font-size="13" font-weight="800" fill="#ffffff">CampusMeet Tablet</text>
+    <text x="705" y="26" font-size="11" fill="#94a3b8" text-anchor="end">Афиша • Билеты</text>
+
+    <!-- Hero Banner (8 cols) -->
+    <g transform="translate(0, 55)">
+      <rect width="720" height="120" rx="8" fill="#6366f1"/>
+      <text x="20" y="40" font-size="16" font-weight="800" fill="#ffffff">Митапы и хакатоны ФПМИ БГУ</text>
+      <text x="20" y="68" font-size="11" fill="#e0e7ff">Бронирование квот и QR-верификация билетов.</text>
+    </g>
+
+    <!-- 2 Cards (4 cols each) -->
+    <g transform="translate(0, 190)">
+      <rect width="352" height="250" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect width="352" height="70" rx="8" fill="#1e293b"/>
+      <text x="15" y="35" font-size="13" font-weight="700" fill="#ffffff">Minsk Go Meetup</text>
+      <text x="15" y="55" font-size="10" fill="#94a3b8">26 марта • 18:30</text>
+      <text x="15" y="105" font-size="11" fill="#475569">Ауд. 509 ФПМИ</text>
+      <rect x="15" y="190" width="322" height="36" rx="6" fill="#0f172a"/>
+      <text x="176" y="213" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">Билет</text>
+    </g>
+
+    <g transform="translate(368, 190)">
+      <rect width="352" height="250" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+      <rect width="352" height="70" rx="8" fill="#312e81"/>
+      <text x="15" y="35" font-size="13" font-weight="700" fill="#ffffff">AI Hackathon</text>
+      <text x="15" y="55" font-size="10" fill="#c7d2fe">29-30 марта</text>
+      <text x="15" y="105" font-size="11" fill="#475569">Coworking 3 этаж</text>
+      <rect x="15" y="190" width="322" height="36" rx="6" fill="#4338ca"/>
+      <text x="176" y="213" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">Заявка</text>
+    </g>
+  </g>
+</svg>

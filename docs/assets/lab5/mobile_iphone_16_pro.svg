@@ -1,0 +1,278 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 473 932" width="473" height="932" font-family="'Inter', -apple-system, BlinkMacSystemFont, sans-serif">
+  
+  <defs>
+    <!-- Drop Shadow Standard -->
+    <filter id="shadow-card" x="-10%" y="-10%" width="120%" height="125%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000000" flood-opacity="0.30"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="3" flood-color="#000000" flood-opacity="0.15"/>
+    </filter>
+
+    <!-- Subtle Button Shadow -->
+    <filter id="shadow-btn" x="-10%" y="-15%" width="120%" height="135%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Modal Elevation Shadow -->
+    <filter id="shadow-modal" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="20" stdDeviation="30" flood-color="#000000" flood-opacity="0.60"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Glowing Accent -->
+    <filter id="glow-accent" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="grad-indigo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="50%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+
+    <linearGradient id="grad-warm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#78350f"/>
+      <stop offset="60%" stop-color="#b45309"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+
+    <linearGradient id="grad-mono" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+
+    <linearGradient id="grad-card-true-black" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#141414"/>
+      <stop offset="100%" stop-color="#0d0d0d"/>
+    </linearGradient>
+
+    <linearGradient id="grad-device-titanium" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a2a2a"/>
+      <stop offset="50%" stop-color="#171717"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+  </defs>
+
+
+  <!-- True Black Canvas -->
+  <rect width="473" height="932" fill="#000000"/>
+
+  <!-- Device Label -->
+  <text x="236" y="28" font-size="13" font-weight="700" fill="#888888" text-anchor="middle">Apple iPhone 16 Pro (393×852 pt) • iOS 18</text>
+
+  <!-- Hardware Chassis Outer (Pure Dark Titanium / Neutral) -->
+  <g transform="translate(40, 40)">
+    <rect width="393" height="852" rx="48" fill="#141414" stroke="#2a2a2a" stroke-width="2.5" filter="url(#shadow-modal)"/>
+    <rect x="8" y="8" width="377" height="836" rx="40" fill="#000000"/>
+
+    
+    
+        <!-- Dynamic Island -->
+        <rect x="134" y="14" width="124" height="32" rx="16" fill="#0a0a0a"/>
+        <circle cx="236" cy="30" r="5" fill="#1a1a1a"/>
+        <circle cx="151" cy="30" r="4" fill="#22c55e"/>
+        
+
+    <!-- Status Bar -->
+    <text x="36" y="34" font-size="12" font-weight="700" fill="#ffffff">9:41</text>
+    <g transform="translate(328, 24)">
+      <rect x="0" y="7" width="2" height="3" fill="#ffffff"/>
+      <rect x="3" y="5" width="2" height="5" fill="#ffffff"/>
+      <rect x="6" y="3" width="2" height="7" fill="#ffffff"/>
+      <rect x="9" y="0" width="2" height="10" fill="#ffffff"/>
+      <!-- Battery -->
+      <rect x="16" y="0" width="16" height="9" rx="2" fill="none" stroke="#ffffff" stroke-width="1"/>
+      <rect x="18" y="2" width="10" height="5" rx="1" fill="#22c55e"/>
+    </g>
+
+    <!-- App Header & User Avatar Profile -->
+    <g transform="translate(20, 60)">
+      <rect width="32" height="32" rx="8" fill="#6366f1"/>
+      <text x="16" y="21" font-size="13" font-weight="900" fill="#ffffff" text-anchor="middle">CM</text>
+      
+      <text x="42" y="16" font-size="14" font-weight="800" fill="#ffffff">Мой билет</text>
+      <text x="42" y="29" font-size="10" fill="#888888">ФПМИ БГУ • Профиль Артёма</text>
+
+      <!-- Right Action Icons: Bell + Profile Avatar -->
+      <g transform="translate(283, 0)">
+        <circle cx="16" cy="16" r="14" fill="#0d0d0d" stroke="#222222" stroke-width="1"/>
+        <g transform="translate(8,8)" stroke="#ffffff" fill="none" stroke-width="1.5">
+          <path d="M8 2.5a4 4 0 0 0-4 4v3.5l-1.5 2h11l-1.5-2V6.5a4 4 0 0 0-4-4z"/>
+          <path d="M6.5 13a1.5 1.5 0 0 0 3 0"/>
+        </g>
+        <circle cx="22" cy="8" r="3.5" fill="#ef4444"/>
+
+        <!-- Profile Avatar Pill -->
+        <circle cx="48" cy="16" r="15" fill="#6366f1"/>
+        <text x="48" y="21" font-size="10" font-weight="800" fill="#ffffff" text-anchor="middle">АК</text>
+      </g>
+    </g>
+
+    <!-- Authenticated Ticket Card (True Black #0d0d0d) -->
+    <g transform="translate(18, 108)">
+      <rect width="357" height="490" rx="16" fill="#0d0d0d" stroke="#222222" stroke-width="1.5" filter="url(#shadow-card)"/>
+      
+      <!-- Top Ticket Header (Neutral Dark #141414) -->
+      <rect width="357" height="125" rx="16" fill="#141414"/>
+      <rect x="16" y="16" width="95" height="22" rx="4" fill="rgba(255, 255, 255, 0.08)"/>
+      <text x="63" y="31" font-size="10" font-weight="800" fill="#ffffff" text-anchor="middle">ДОСТУП АКТИВЕН</text>
+      
+      <text x="16" y="65" font-size="18" font-weight="800" fill="#ffffff">Minsk Go Meetup #14</text>
+      <text x="16" y="88" font-size="11" fill="#888888">26 марта 2026 • 18:30 • Ауд. 509 ФПМИ</text>
+      <text x="16" y="106" font-size="11" font-weight="600" fill="#818cf8">Ряд 4, Место 12 • Студенческая квота</text>
+
+      <!-- Perforation -->
+      <circle cx="0" cy="140" r="12" fill="#000000"/>
+      <circle cx="357" cy="140" r="12" fill="#000000"/>
+      <line x1="16" y1="140" x2="341" y2="140" stroke="#222222" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+      <!-- QR Code Matrix -->
+      <rect x="93" y="160" width="170" height="170" rx="8" fill="#ffffff"/>
+      <rect x="93.0" y="160.0" width="47.6" height="47.6" fill="#000000"/>
+      <rect x="99.8" y="166.8" width="34.0" height="34.0" fill="#ffffff"/>
+      <rect x="106.6" y="173.6" width="20.4" height="20.4" fill="#000000"/>
+      <rect x="215.4" y="160.0" width="47.6" height="47.6" fill="#000000"/>
+      <rect x="222.2" y="166.8" width="34.0" height="34.0" fill="#ffffff"/>
+      <rect x="229.0" y="173.6" width="20.4" height="20.4" fill="#000000"/>
+      <rect x="93.0" y="282.4" width="47.6" height="47.6" fill="#000000"/>
+      <rect x="99.8" y="289.2" width="34.0" height="34.0" fill="#ffffff"/>
+      <rect x="106.6" y="296.0" width="20.4" height="20.4" fill="#000000"/>
+      <rect x="201.8" y="268.8" width="34.0" height="34.0" fill="#000000"/>
+      <rect x="208.6" y="275.6" width="20.4" height="20.4" fill="#ffffff"/>
+      <rect x="215.4" y="282.4" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="147.4" y="160.0" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="147.4" y="173.6" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="147.4" y="187.2" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="147.4" y="200.8" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="93.0" y="214.4" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="106.6" y="214.4" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="120.2" y="214.4" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="133.8" y="214.4" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="140.6" y="214.4" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="154.2" y="214.4" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="167.8" y="214.4" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="181.4" y="214.4" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="195.0" y="214.4" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="208.6" y="214.4" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="154.2" y="160.0" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="161.0" y="166.8" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="167.8" y="173.6" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="174.6" y="180.4" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="181.4" y="187.2" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="188.2" y="194.0" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="195.0" y="200.8" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="201.8" y="207.6" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="161.0" y="228.0" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="167.8" y="228.0" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="174.6" y="228.0" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="188.2" y="228.0" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="161.0" y="241.6" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="174.6" y="241.6" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="181.4" y="248.4" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="167.8" y="255.2" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="188.2" y="255.2" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="147.4" y="268.8" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="147.4" y="282.4" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="147.4" y="296.0" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="147.4" y="309.6" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="147.4" y="323.2" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="161.0" y="282.4" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="174.6" y="296.0" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="188.2" y="309.6" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="201.8" y="323.2" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="242.6" y="214.4" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="256.2" y="214.4" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="242.6" y="228.0" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="249.4" y="234.8" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="256.2" y="241.6" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="242.6" y="255.2" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="249.4" y="262.0" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="256.2" y="268.8" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="215.4" y="228.0" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="222.2" y="234.8" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="229.0" y="241.6" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="235.8" y="248.4" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="242.6" y="282.4" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="249.4" y="289.2" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="256.2" y="296.0" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="229.0" y="309.6" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="235.8" y="316.4" width="6.8" height="6.8" fill="#000000"/>
+      <rect x="242.6" y="323.2" width="6.8" height="6.8" fill="#000000"/>
+
+      <!-- Security Countdown -->
+      <g transform="translate(178, 365)">
+        <text x="0" y="0" font-size="11" font-weight="700" fill="#6366f1" text-anchor="middle">HMAC SHA-256: Обновление через 18 сек</text>
+        <text x="0" y="20" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">TKT-88F4-019B-SHA256</text>
+      </g>
+
+      <!-- Offline Cache Status -->
+      <g transform="translate(18, 415)">
+        <rect width="321" height="32" rx="6" fill="#141414" stroke="#222222" stroke-width="1"/>
+        <g transform="translate(12,8)" stroke="#10b981" fill="none" stroke-width="1.5">
+          <path d="M8 2L3 4v4.5c0 3.5 2.5 5.5 5 6.5 2.5-1 5-3 5-6.5V4L8 2z"/>
+        </g>
+        <text x="35" y="20" font-size="10" font-weight="600" fill="#e5e5e5">Offline-First кеш подтвержден криптографически</text>
+      </g>
+    </g>
+
+    <!-- Pass Wallet Action Button -->
+    <g transform="translate(18, 615)">
+      <rect width="357" height="46" rx="10" fill="#0d0d0d" stroke="#333333" stroke-width="1.2"/>
+      <text x="178" y="28" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">Сохранить в Google / Apple Wallet</text>
+    </g>
+
+    <!-- Navigation Bar: 4 Strictly Centered Tabs -->
+    <g transform="translate(16, 772)">
+      <rect width="361" height="56" rx="18" fill="#0d0d0d" stroke="#222222" stroke-width="1.2"/>
+      
+      <!-- Tab 1: Афиша -->
+      <g transform="translate(45.1, 12)">
+        <g transform="translate(-8,0)" stroke="#888888" fill="none" stroke-width="1.5">
+          <rect x="2" y="3" width="12" height="11" rx="2"/>
+          <line x1="2" y1="6.5" x2="14" y2="6.5"/>
+          <line x1="5" y1="1.5" x2="5" y2="4"/>
+          <line x1="11" y1="1.5" x2="11" y2="4"/>
+        </g>
+        <text x="0" y="30" font-size="10" font-weight="500" fill="#888888" text-anchor="middle">Афиша</text>
+      </g>
+
+      <!-- Tab 2: Билет (Active) -->
+      <g transform="translate(135.4, 8)">
+        <rect x="-24" y="0" width="48" height="26" rx="13" fill="rgba(99, 102, 241, 0.2)"/>
+        <g transform="translate(-8,5)" fill="#818cf8">
+          <rect x="2" y="2" width="4" height="4"/>
+          <rect x="10" y="2" width="4" height="4"/>
+          <rect x="2" y="10" width="4" height="4"/>
+          <rect x="7" y="7" width="2" height="2"/>
+          <rect x="10" y="10" width="4" height="4"/>
+        </g>
+        <text x="0" y="34" font-size="10" font-weight="700" fill="#818cf8" text-anchor="middle">Билет</text>
+      </g>
+
+      <!-- Tab 3: Команды -->
+      <g transform="translate(225.6, 12)">
+        <g transform="translate(-8,0)" stroke="#888888" fill="none" stroke-width="1.4">
+          <circle cx="6" cy="6" r="2.5"/>
+          <path d="M2 13c0-1.8 1.8-2.8 4-2.8s4 1 4 2.8"/>
+          <circle cx="11.5" cy="5" r="2"/>
+          <path d="M11 9.5c1.5.3 3 1.2 3 2.5"/>
+        </g>
+        <text x="0" y="30" font-size="10" font-weight="500" fill="#888888" text-anchor="middle">Команды</text>
+      </g>
+
+      <!-- Tab 4: Профиль (Strictly Centered, never escapes) -->
+      <g transform="translate(315.9, 12)">
+        <g transform="translate(-8,0)" stroke="#888888" fill="none" stroke-width="1.5">
+          <path d="M8 8.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+          <path d="M3 14c0-2.2 2.2-3.5 5-3.5s5 1.3 5 3.5"/>
+        </g>
+        <text x="0" y="30" font-size="10" font-weight="500" fill="#888888" text-anchor="middle">Профиль</text>
+      </g>
+    </g>
+
+    <!-- Home Indicator -->
+    <rect x="131" y="836" width="130" height="4" rx="2" fill="#555555"/>
+    
+  </g>
+</svg>
