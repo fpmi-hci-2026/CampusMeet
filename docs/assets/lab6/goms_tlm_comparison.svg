@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 560" width="100%" height="auto" class="cm-diagram">
+<rect width="100%" height="100%" fill="var(--surface-primary, #ffffff)" rx="12"/>
+<text x="32" y="44" font-family="Inter, sans-serif" font-size="18" font-weight="700" fill="var(--text-primary, #0f172a)">Сравнение хронометража по моделям GOMS (Web) и TLM (Mobile)</text>
+<text x="32" y="68" font-family="Inter, sans-serif" font-size="12" fill="var(--text-secondary, #64748b)">Анализ сокращения времени взаимодействия при оптимизации компоновки и Tab-навигации</text>
+<text x="32" y="116" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="var(--text-primary, #0f172a)">Форма 1: Создание митапа / CFP</text>
+<text x="44" y="139" font-family="Inter, sans-serif" font-size="11" fill="var(--text-secondary, #475569)">Вар. А (Мышь)</text>
+<rect x="230" y="126" width="307.3" height="18" rx="4" fill="#ef4444"/>
+<text x="545.3" y="139" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="var(--text-primary, #0f172a)">32.35 с</text>
+<text x="44" y="162" font-family="Inter, sans-serif" font-size="11" fill="var(--text-secondary, #475569)">Вар. А (Tab)</text>
+<rect x="230" y="149" width="198.5" height="18" rx="4" fill="#f97316"/>
+<text x="436.5" y="162" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="var(--text-primary, #0f172a)">20.90 с</text>
+<text x="44" y="185" font-family="Inter, sans-serif" font-size="11" fill="var(--text-secondary, #475569)">Вар. Б (Мышь)</text>
+<rect x="230" y="172" width="229.0" height="18" rx="4" fill="#3b82f6"/>
+<text x="467.0" y="185" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="var(--text-primary, #0f172a)">24.10 с</text>
+<text x="44" y="208" font-family="Inter, sans-serif" font-size="11" fill="var(--text-secondary, #475569)">Вар. Б (Tab / Ctrl+Enter)</text>
+<rect x="230" y="195" width="133.9" height="18" rx="4" fill="#10b981"/>
+<text x="371.9" y="208" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="var(--text-primary, #0f172a)">14.10 с</text>
+<text x="32" y="246" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="var(--text-primary, #0f172a)">Форма 2: Регистрация участника</text>
+<text x="44" y="269" font-family="Inter, sans-serif" font-size="11" fill="var(--text-secondary, #475569)">Вар. А (Мышь)</text>
+<rect x="230" y="256" width="362.4" height="18" rx="4" fill="#ef4444"/>
+<text x="600.4" y="269" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="var(--text-primary, #0f172a)">38.15 с</text>
+<text x="44" y="292" font-family="Inter, sans-serif" font-size="11" fill="var(--text-secondary, #475569)">Вар. А (Tab)</text>
+<rect x="230" y="279" width="205.7" height="18" rx="4" fill="#f97316"/>
+<text x="443.7" y="292" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="var(--text-primary, #0f172a)">21.65 с</text>
+<text x="44" y="315" font-family="Inter, sans-serif" font-size="11" fill="var(--text-secondary, #475569)">Вар. Б (SSO + Мышь)</text>
+<rect x="230" y="302" width="88.4" height="18" rx="4" fill="#3b82f6"/>
+<text x="326.4" y="315" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="var(--text-primary, #0f172a)">9.30 с</text>
+<text x="44" y="338" font-family="Inter, sans-serif" font-size="11" fill="var(--text-secondary, #475569)">Вар. Б (SSO + Tab)</text>
+<rect x="230" y="325" width="46.1" height="18" rx="4" fill="#10b981"/>
+<text x="284.1" y="338" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="var(--text-primary, #0f172a)">4.85 с</text>
+<text x="32" y="376" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="var(--text-primary, #0f172a)">Форма 3: Поиск и фильтрация</text>
+<text x="44" y="399" font-family="Inter, sans-serif" font-size="11" fill="var(--text-secondary, #475569)">Вар. А (Мышь)</text>
+<rect x="230" y="386" width="235.1" height="18" rx="4" fill="#ef4444"/>
+<text x="473.1" y="399" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="var(--text-primary, #0f172a)">24.75 с</text>
+<text x="44" y="422" font-family="Inter, sans-serif" font-size="11" fill="var(--text-secondary, #475569)">Вар. А (Tab)</text>
+<rect x="230" y="409" width="147.7" height="18" rx="4" fill="#f97316"/>
+<text x="385.7" y="422" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="var(--text-primary, #0f172a)">15.55 с</text>
+<text x="44" y="445" font-family="Inter, sans-serif" font-size="11" fill="var(--text-secondary, #475569)">Вар. Б (Omnibox Мышь)</text>
+<rect x="230" y="432" width="114.5" height="18" rx="4" fill="#3b82f6"/>
+<text x="352.5" y="445" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="var(--text-primary, #0f172a)">12.05 с</text>
+<text x="44" y="468" font-family="Inter, sans-serif" font-size="11" fill="var(--text-secondary, #475569)">Вар. Б (Omnibox ⌘K Tab)</text>
+<rect x="230" y="455" width="66.5" height="18" rx="4" fill="#10b981"/>
+<text x="304.5" y="468" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="var(--text-primary, #0f172a)">7.00 с</text>
+<text x="32" y="506" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="var(--text-primary, #0f172a)">Мобильное приложение (TLM)</text>
+<text x="44" y="529" font-family="Inter, sans-serif" font-size="11" fill="var(--text-secondary, #475569)">Экран 1: SSO Вход</text>
+<rect x="230" y="516" width="36.6" height="18" rx="4" fill="#8b5cf6"/>
+<text x="274.6" y="529" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="var(--text-primary, #0f172a)">3.85 с</text>
+<text x="44" y="552" font-family="Inter, sans-serif" font-size="11" fill="var(--text-secondary, #475569)">Экран 2: QR Билет</text>
+<rect x="230" y="539" width="57.9" height="18" rx="4" fill="#06b6d4"/>
+<text x="295.9" y="552" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="var(--text-primary, #0f172a)">6.10 с</text>
+<text x="44" y="575" font-family="Inter, sans-serif" font-size="11" fill="var(--text-secondary, #475569)">Экран 3: Сканер допуска</text>
+<rect x="230" y="562" width="44.2" height="18" rx="4" fill="#10b981"/>
+<text x="282.2" y="575" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="var(--text-primary, #0f172a)">4.65 с</text>
+<g transform="translate(640, 110)">
+  <rect x="0" y="0" width="160" height="150" rx="8" fill="var(--surface-secondary, #f8fafc)" stroke="var(--border-subtle, #e2e8f0)"/>
+  <text x="12" y="22" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="var(--text-primary, #1e293b)">Обозначения:</text>
+  <rect x="12" y="32" width="10" height="10" rx="2" fill="#ef4444"/>
+  <text x="28" y="41" font-family="Inter, sans-serif" font-size="10" fill="var(--text-secondary, #475569)">Вар. А (Мышь)</text>
+  <rect x="12" y="52" width="10" height="10" rx="2" fill="#f97316"/>
+  <text x="28" y="61" font-family="Inter, sans-serif" font-size="10" fill="var(--text-secondary, #475569)">Вар. А (Tab-ввод)</text>
+  <rect x="12" y="72" width="10" height="10" rx="2" fill="#3b82f6"/>
+  <text x="28" y="81" font-family="Inter, sans-serif" font-size="10" fill="var(--text-secondary, #475569)">Вар. Б (Мышь)</text>
+  <rect x="12" y="92" width="10" height="10" rx="2" fill="#10b981"/>
+  <text x="28" y="101" font-family="Inter, sans-serif" font-size="10" fill="var(--text-secondary, #475569)">Вар. Б (Tab / Fast)</text>
+  <rect x="12" y="112" width="10" height="10" rx="2" fill="#8b5cf6"/>
+  <text x="28" y="121" font-family="Inter, sans-serif" font-size="10" fill="var(--text-secondary, #475569)">TLM Mobile Touch</text>
+</g>
+</svg>

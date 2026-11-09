@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" width="100%" height="auto" class="cm-diagram">
+<rect width="100%" height="100%" fill="var(--surface-primary, #ffffff)" rx="12"/>
+<text x="32" y="44" font-family="Inter, sans-serif" font-size="18" font-weight="700" fill="var(--text-primary, #0f172a)">Распределение оценок SUS (System Usability Scale, N=10)</text>
+<text x="32" y="68" font-family="Inter, sans-serif" font-size="12" fill="var(--text-secondary, #64748b)">Средний балл = 85.75 | Ранг A+ | «Лучший в классе» (Best Imaginable)</text>
+<rect x="80.0" y="100" width="290.0" height="180" fill="#fee2e2" opacity="0.6"/>
+<text x="225.0" y="120" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#334155" text-anchor="middle">Неприемлемо (F)</text>
+<rect x="370.0" y="100" width="104.4" height="180" fill="#fef3c7" opacity="0.6"/>
+<text x="422.2" y="120" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#334155" text-anchor="middle">Ниже среднего (D/C)</text>
+<rect x="474.4" y="100" width="71.3" height="180" fill="#e0f2fe" opacity="0.6"/>
+<text x="510.1" y="120" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#334155" text-anchor="middle">Хорошо (B)</text>
+<rect x="545.7" y="100" width="114.3" height="180" fill="#dcfce7" opacity="0.6"/>
+<text x="602.9" y="120" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#334155" text-anchor="middle">Отлично / Grade A+ (Best)</text>
+<line x1="474.4" y1="100" x2="474.4" y2="280" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4 4"/>
+<text x="474.4" y="296" font-family="JetBrains Mono, monospace" font-size="10" fill="#64748b" text-anchor="middle">Среднее в индустрии (68.0)</text>
+<line x1="545.7" y1="100" x2="545.7" y2="280" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4 4"/>
+<text x="545.7" y="296" font-family="JetBrains Mono, monospace" font-size="10" fill="#64748b" text-anchor="middle">Порог класса A (80.3)</text>
+<circle cx="587.5" cy="160" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+<text x="597.5" y="164" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#1e293b">U1: 87.5</text>
+<circle cx="573.0" cy="184" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+<text x="583.0" y="188" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#1e293b">U2: 85.0</text>
+<circle cx="544.0" cy="208" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+<text x="554.0" y="212" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#1e293b">U3: 80.0</text>
+<circle cx="616.5" cy="232" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+<text x="626.5" y="236" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#1e293b">U4: 92.5</text>
+<circle cx="602.0" cy="256" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+<text x="612.0" y="260" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#1e293b">U5: 90.0</text>
+<circle cx="587.5" cy="160" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+<text x="597.5" y="164" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#1e293b">U6: 87.5</text>
+<circle cx="558.5" cy="184" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+<text x="568.5" y="188" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#1e293b">U7: 82.5</text>
+<circle cx="529.5" cy="208" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+<text x="539.5" y="212" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#1e293b">U8: 77.5</text>
+<circle cx="587.5" cy="232" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+<text x="597.5" y="236" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#1e293b">U9: 87.5</text>
+<circle cx="573.0" cy="256" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+<text x="583.0" y="260" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#1e293b">U10: 85.0</text>
+<line x1="577.4" y1="90" x2="577.4" y2="305" stroke="#10b981" stroke-width="3"/>
+<rect x="517.4" y="68" width="120" height="24" rx="6" fill="#10b981"/>
+<text x="577.4" y="84" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">Mean SUS: 85.8</text>
+<line x1="80" y1="280" x2="660" y2="280" stroke="#0f172a" stroke-width="1.5"/>
+<line x1="80.0" y1="280" x2="80.0" y2="286" stroke="#0f172a" stroke-width="1.5"/>
+<text x="80.0" y="300" font-family="JetBrains Mono, monospace" font-size="11" fill="#475569" text-anchor="middle">0</text>
+<line x1="196.0" y1="280" x2="196.0" y2="286" stroke="#0f172a" stroke-width="1.5"/>
+<text x="196.0" y="300" font-family="JetBrains Mono, monospace" font-size="11" fill="#475569" text-anchor="middle">20</text>
+<line x1="312.0" y1="280" x2="312.0" y2="286" stroke="#0f172a" stroke-width="1.5"/>
+<text x="312.0" y="300" font-family="JetBrains Mono, monospace" font-size="11" fill="#475569" text-anchor="middle">40</text>
+<line x1="428.0" y1="280" x2="428.0" y2="286" stroke="#0f172a" stroke-width="1.5"/>
+<text x="428.0" y="300" font-family="JetBrains Mono, monospace" font-size="11" fill="#475569" text-anchor="middle">60</text>
+<line x1="544.0" y1="280" x2="544.0" y2="286" stroke="#0f172a" stroke-width="1.5"/>
+<text x="544.0" y="300" font-family="JetBrains Mono, monospace" font-size="11" fill="#475569" text-anchor="middle">80</text>
+<line x1="660.0" y1="280" x2="660.0" y2="286" stroke="#0f172a" stroke-width="1.5"/>
+<text x="660.0" y="300" font-family="JetBrains Mono, monospace" font-size="11" fill="#475569" text-anchor="middle">100</text>
+<text x="32" y="380" font-family="Inter, sans-serif" font-size="11" fill="var(--text-tertiary, #64748b)">Шкала: Sauro &amp; Lewis (2012), Bangor, Kortum &amp; Miller (2009). Все 10 оценок выше среднего индустриального значения 68.0.</text>
+</svg>

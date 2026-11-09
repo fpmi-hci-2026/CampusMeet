@@ -5,6 +5,15 @@
 window.CampusMeetData = window.CampusMeetData || {};
 
 window.CampusMeetData.searchRegistry = [
+    // Lab 6
+    { id: 'lab6-overview', url: 'pages/lab6.html#lab6-overview', title: 'Лаб. №6: Тестирование и оценка качества интерфейса', category: 'Лабораторная 6', keywords: 'тестирование оценка юзабилити качество sus goms tlm treejack карточная сортировка чек-листы' },
+    { id: 'lab6-performance', url: 'pages/lab6.html#lab6-performance', title: 'Лаб. №6: Метрики производительности, SUM и Scorecard', category: 'Лабораторная 6', keywords: 'task success time-on-task ошибки sum вильсон доверительный интервал лепестковая диаграмма scorecard' },
+    { id: 'lab6-treejack', url: 'pages/lab6.html#lab6-treejack', title: 'Лаб. №6: Обратная сортировка и Treejack IA', category: 'Лабораторная 6', keywords: 'treejack карточная сортировка directness sitemap информационная архитектура навигация' },
+    { id: 'lab6-expectations', url: 'pages/lab6.html#lab6-expectations', title: 'Лаб. №6: Тестирование ожиданий и чек-листы Web/Mobile', category: 'Лабораторная 6', keywords: 'тестирование ожиданий обманутые ожидания чек-лист web mobile wcag эвристики' },
+    { id: 'lab6-goms-tlm', url: 'pages/lab6.html#lab6-goms-tlm', title: 'Лаб. №6: Модели GOMS (12 расчетов) и TLM (3 экрана)', category: 'Лабораторная 6', keywords: 'goms klm tlm кард моран ньюэлл хронометраж tab мышь сенсор жесты' },
+    { id: 'lab6-sus', url: 'pages/lab6.html#lab6-sus', title: 'Лаб. №6: Анкета SUS (85.8 баллов, Grade A+)', category: 'Лабораторная 6', keywords: 'sus system usability scale анкета 10 вопросов брук бангор кортум перцентиль' },
+    { id: 'report-lab6', url: 'pages/lab6.html#report-lab6', title: 'Отчет: Лабораторная работа №6', category: 'Отчеты', keywords: 'lab6_report отчет лаб 6 тестирование goms sus tlm' },
+
     // Lab 5
     { id: 'lab5-overview', url: 'pages/lab5.html#lab5-overview', title: 'Лаб. №5: Проектирование прототипа и визуальный язык', category: 'Лабораторная 5', keywords: 'прототип визуальный язык стиль сетки figma адаптивность дифференциал' },
     { id: 'lab5-visual', url: 'pages/lab5.html#lab5-visual', title: 'Лаб. №5: Исследование визуального языка (N=10, 3 палитры)', category: 'Лабораторная 5', keywords: 'семантический дифференциал осгуд палитры цвета тестирование n=10 диаграмма профиль' },
@@ -83,6 +92,12 @@ window.CampusMeetData.titleMap = {
     'lab5-grids': 'Лаб. №5: Модульные сетки и адаптивность — CampusMeet',
     'lab5-prototype': 'Лаб. №5: Интерактивный прототип — CampusMeet',
     'lab5-styleguide': 'Лаб. №5: Руководство по стилям — CampusMeet',
+    'lab6-overview': 'Лаб. №6: Тестирование и оценка качества — CampusMeet',
+    'lab6-performance': 'Лаб. №6: Метрики производительности и SUM — CampusMeet',
+    'lab6-treejack': 'Лаб. №6: Обратная сортировка и Treejack — CampusMeet',
+    'lab6-expectations': 'Лаб. №6: Ожидания и чек-листы — CampusMeet',
+    'lab6-goms-tlm': 'Лаб. №6: Модели GOMS и TLM — CampusMeet',
+    'lab6-sus': 'Лаб. №6: Анкета SUS — CampusMeet',
     'wiki-func': 'Wiki: Функциональные требования — CampusMeet',
     'wiki-arch': 'Wiki: Архитектура Web/Mobile — CampusMeet',
     'wiki-db': 'Wiki: Схема базы данных — CampusMeet',

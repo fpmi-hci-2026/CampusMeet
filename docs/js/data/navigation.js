@@ -99,6 +99,19 @@
                 badge: 'L5',
                 icon: 'smartphone',
                 desc: 'Семантический дифференциал N=10, 3 палитры, 6 адаптивных сеток, 5 устройств, UI Style Guide и интерактивный прототип'
+            },
+            {
+                id: 'lab6',
+                num: 6,
+                title: 'Лабораторная работа №6',
+                shortTitle: 'Лаб. №6',
+                subtitle: 'Тестирование и количественная оценка качества интерфейса',
+                path: 'pages/lab6.html',
+                report: 'reports/Lab6_report.md',
+                status: 'done',
+                badge: 'L6',
+                icon: 'check-circle',
+                desc: '12 моделей GOMS, 3 модели TLM, Treejack IA, тестирование ожиданий, чек-листы Web/Mobile, SUS (85.8) и SUM'
             }
         ],
 
