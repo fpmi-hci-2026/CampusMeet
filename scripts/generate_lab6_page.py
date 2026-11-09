@@ -630,6 +630,7 @@ content = """<!DOCTYPE html>
     <script src="../js/data/navigation.js"></script>
     <script src="../js/data/search.js"></script>
     <script src="../js/data/reports.js"></script>
+    <script src="../js/data/lab6.js"></script>
     <script src="../js/modules/renderers.js"></script>
     <script src="../js/modules/router.js"></script>
     <script src="../js/data/diagram-pages.js"></script>
@@ -649,6 +650,15 @@ content = """<!DOCTYPE html>
 
         // Load JSON Data
         async function loadLab6Data() {
+            if (window.CampusMeetLab6Data) {
+                gomsData = window.CampusMeetLab6Data.gomsData || [];
+                checklistData = window.CampusMeetLab6Data.checklistData || {};
+                susQuestions = (window.CampusMeetLab6Data.usabilityMetrics && window.CampusMeetLab6Data.usabilityMetrics.susQuestions) || [];
+                initChecklists();
+                initSusSurvey();
+                updateGomsView();
+                return;
+            }
             try {
                 const [rGoms, rCl, rMetrics] = await Promise.all([
                     fetch('../data/lab6/goms-models.json').then(r => r.json()),
