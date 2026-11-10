@@ -63,7 +63,16 @@
   * **3 модели TLM (Mobile):** Touch-Level Model для сенсорных экранов (SSO-вход за 3.85 с, генерация офлайн QR-билета за 6.10 с, сканер волонтера за 4.65 с, [docs/assets/lab6/goms_tlm_comparison.svg](./docs/assets/lab6/goms_tlm_comparison.svg)).
 * **Экспертные чек-листы и стандартизированное анкетирование:** чек-листы Web (10 критериев WCAG 2.1 AA / Нильсен, 98.0%) и Mobile (8 критериев HIG / Material, 97.5%), опросник System Usability Scale (SUS = 85.75 баллов, 96-й перцентиль, Grade A+ / Best Imaginable, [docs/assets/lab6/sus_distribution_chart.svg](./docs/assets/lab6/sus_distribution_chart.svg)).
 
-### 7. Инициализация и проверка реляционной схемы базы данных (исторический пример ЛР1):
+### 7. Материалы Лабораторной работы №7:
+* **Тема по методичке 2024–2026:** «Разработка API и серверной части приложения».
+* **[Академический отчет](./docs/reports/Lab7_report.md)** и **[интерактивная страница ЛР7](./docs/pages/lab7.html)**.
+* **Серверная часть на FastAPI (ветка `lab7` в [CampusMeet-Server](https://github.com/fpmi-hci-2026/CampusMeet-Server)):** 33 маршрута OpenAPI 3.0.3, строгая типизация Pydantic v2, унифицированные ошибки RFC 7807 Problem Details, репозиторий SQLite/PostgreSQL с изоляцией транзакций.
+* **Транзакционная бизнес-логика:** управление квотами и местами, приоритетная очередь ожидания (Waitlist) с авто-продвижением при отмене билета, идемпотентность запросов через `Idempotency-Key` (RFC 7231).
+* **Криптографический протокол билетов:** генерация динамических токенов `v1.{ticket_id}.{user_id}.{signature}` на базе HMAC-SHA256, 60-секундная анти-скриншот защита и поддержка офлайн-верификации контролерами в аудиториях БГУ.
+* **Стартовые клиентские интерфейсы:** адаптивный Web-каталог событий (`web/`) с живым поиском и индикатором квот; мобильный пропуск AMOLED Pass (`mobile/`) для iPhone 16 Pro с векторной динамической SVG QR-матрицей и эмулятором сканера волонтера.
+* **Автоматизированное тестирование и CI/CD:** 53 автотеста (100% успех, 83% покрытие кода ядра, pytest/unittest), проверка линтерами Ruff и Flake8, Dockerfile и сервисная оркестрация Docker Compose.
+
+### 8. Инициализация и проверка реляционной схемы базы данных (исторический пример ЛР1):
 Схема базы данных спроектирована в рамках Лабораторной работы №1 и размещена в репозитории [CampusMeet-Server / database/schema.sql](https://github.com/fpmi-hci-2026/CampusMeet-Server/blob/main/database/schema.sql). Для валидации DDL-скрипта и создания тестовой базы данных выполните (при локальном расположении клонированных репозиториев в соседних папках):
 ```bash
 python3 -c "import sqlite3; conn = sqlite3.connect('../CampusMeet-Server/database/campusmeet.db'); conn.executescript(open('../CampusMeet-Server/database/schema.sql').read()); print('База данных успешно инициализирована (10 таблиц, тестовые данные добавлены)')"
