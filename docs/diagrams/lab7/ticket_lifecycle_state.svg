@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" width="100%" height="auto" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 640" width="100%" height="auto" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
 
   <defs>
     <filter id="shadow-card" x="-4%" y="-3%" width="108%" height="110%" filterUnits="userSpaceOnUse">
@@ -24,89 +24,103 @@
 
   <!-- Background -->
   <rect width="100%" height="100%" fill="#f8fafc"/>
-  <rect x="24" y="24" width="952" height="512" rx="16" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow-card)"/>
+  <rect x="24" y="24" width="1112" height="592" rx="16" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow-card)"/>
 
   <!-- Header -->
   <g transform="translate(54, 68)">
-    <rect x="0" y="-22" width="175" height="26" rx="13" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
-    <text x="87" y="-5" font-size="11" font-weight="700" fill="#15803d" text-anchor="middle" letter-spacing="0.5">STATE MACHINE DIAGRAM</text>
+    <rect x="0" y="-22" width="180" height="26" rx="13" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+    <text x="90" y="-5" font-size="11" font-weight="700" fill="#15803d" text-anchor="middle" letter-spacing="0.5">STATE MACHINE DIAGRAM</text>
     <text x="0" y="32" font-size="24" font-weight="800" fill="#0f172a">Конечный автомат жизненного цикла билета (Ticket States)</text>
     <text x="0" y="56" font-size="13" fill="#64748b">Переходы состояний: регистрация, попадание в очередь, гашение билета и аннулирование</text>
   </g>
 
   <!-- Start Point -->
-  <circle cx="90" cy="230" r="14" fill="#0f172a"/>
-  <circle cx="90" cy="230" r="18" fill="none" stroke="#94a3b8" stroke-width="2"/>
+  <circle cx="80" cy="240" r="14" fill="#0f172a"/>
+  <circle cx="80" cy="240" r="18" fill="none" stroke="#94a3b8" stroke-width="2"/>
 
-  <!-- Arrow Start -> Registered -->
-  <line x1="108" y1="230" x2="280" y2="230" stroke="#0f172a" stroke-width="1.8" marker-end="url(#arrow)"/>
-  <rect x="135" y="200" width="120" height="22" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
-  <text x="195" y="215" font-size="10.5" font-weight="600" fill="#047857" text-anchor="middle">[Квота свободна]</text>
+  <!-- Start -> Registered (Direct Horizontal Arrow) -->
+  <line x1="98" y1="240" x2="235" y2="240" stroke="#0f172a" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <rect x="110" y="210" width="112" height="24" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="166" y="226" font-size="10.5" font-weight="600" fill="#047857" text-anchor="middle">[Квота есть]</text>
 
-  <!-- Arrow Start -> Waitlisted -->
-  <path d="M 90 248 C 90 380, 160 380, 280 380" fill="none" stroke="#ca8a04" stroke-width="1.8" marker-end="url(#arrow)"/>
-  <rect x="120" y="355" width="135" height="22" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
-  <text x="187" y="370" font-size="10.5" font-weight="600" fill="#a16207" text-anchor="middle">[Мест нет &amp; waitlist]</text>
+  <!-- Start -> Waitlisted (Orthogonal L-path down and right) -->
+  <path d="M 80 258 L 80 440 L 235 440" fill="none" stroke="#ca8a04" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <rect x="95" y="412" width="128" height="24" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="159" y="428" font-size="10" font-weight="600" fill="#a16207" text-anchor="middle">[Мест нет / waitlist]</text>
 
-  <!-- State 1: Registered -->
-  <g transform="translate(285, 185)" filter="url(#shadow-node)">
-    <rect width="240" height="90" rx="12" fill="#ecfdf5" stroke="#10b981" stroke-width="1.8"/>
-    <text x="20" y="32" font-size="16" font-weight="800" fill="#065f46">registered</text>
-    <text x="20" y="54" font-size="11.5" fill="#047857">• Сформирован HMAC токен</text>
-    <text x="20" y="72" font-size="11.5" fill="#047857">• Отображается активный QR</text>
+  <!-- ================= STATE 1: REGISTERED ================= -->
+  <g transform="translate(240, 192)" filter="url(#shadow-node)">
+    <rect width="260" height="96" rx="12" fill="#ecfdf5" stroke="#10b981" stroke-width="1.8"/>
+    <text x="20" y="32" font-size="17" font-weight="800" fill="#065f46">registered</text>
+    <text x="20" y="56" font-size="11.5" fill="#047857">• Сформирован HMAC токен</text>
+    <text x="20" y="76" font-size="11.5" fill="#047857">• Отображается активный QR-код</text>
   </g>
 
-  <!-- State 2: Waitlisted -->
-  <g transform="translate(285, 335)" filter="url(#shadow-node)">
-    <rect width="240" height="90" rx="12" fill="#fefce8" stroke="#f59e0b" stroke-width="1.8"/>
-    <text x="20" y="32" font-size="16" font-weight="800" fill="#854d0e">waitlisted</text>
-    <text x="20" y="54" font-size="11.5" fill="#a16207">• Запись в waitlist_entries</text>
-    <text x="20" y="72" font-size="11.5" fill="#a16207">• QR заблокирован (null)</text>
+  <!-- ================= STATE 2: WAITLISTED ================= -->
+  <g transform="translate(240, 392)" filter="url(#shadow-node)">
+    <rect width="260" height="96" rx="12" fill="#fefce8" stroke="#f59e0b" stroke-width="1.8"/>
+    <text x="20" y="32" font-size="17" font-weight="800" fill="#854d0e">waitlisted</text>
+    <text x="20" y="56" font-size="11.5" fill="#a16207">• Запись в waitlist_entries</text>
+    <text x="20" y="76" font-size="11.5" fill="#a16207">• QR заблокирован (null)</text>
   </g>
 
   <!-- Transition: Waitlist -> Registered (FIFO Promotion) -->
-  <path d="M 405 335 L 405 285" fill="none" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)"/>
-  <rect x="415" y="295" width="170" height="26" rx="6" fill="#f0fdf4" stroke="#86efac"/>
-  <text x="500" y="312" font-size="10.5" font-weight="700" fill="#15803d" text-anchor="middle">⚡ FIFO авто-повышение</text>
+  <!-- Clean vertical line in Column 1 (x=330) with arrow pointing up -->
+  <line x1="330" y1="392" x2="330" y2="294" stroke="#10b981" stroke-width="2.2" marker-end="url(#arrow-green)"/>
+  <rect x="342" y="328" width="150" height="28" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.2" filter="url(#shadow-node)"/>
+  <text x="417" y="346" font-size="10.5" font-weight="700" fill="#15803d" text-anchor="middle">⚡ FIFO авто-повышение</text>
 
-  <!-- State 3: Checked In -->
-  <g transform="translate(680, 185)" filter="url(#shadow-node)">
-    <rect width="240" height="90" rx="12" fill="#faf5ff" stroke="#a855f7" stroke-width="1.8"/>
-    <text x="20" y="32" font-size="16" font-weight="800" fill="#581c87">checked_in</text>
-    <text x="20" y="54" font-size="11.5" fill="#6b21a8">• Билет погашен волонтером</text>
-    <text x="20" y="72" font-size="11.5" fill="#6b21a8">• Повторный вход запрещен</text>
+  <!-- ================= STATE 3: CHECKED IN ================= -->
+  <g transform="translate(750, 192)" filter="url(#shadow-node)">
+    <rect width="260" height="96" rx="12" fill="#faf5ff" stroke="#a855f7" stroke-width="1.8"/>
+    <text x="20" y="32" font-size="17" font-weight="800" fill="#581c87">checked_in</text>
+    <text x="20" y="56" font-size="11.5" fill="#6b21a8">• Билет погашен волонтером</text>
+    <text x="20" y="76" font-size="11.5" fill="#6b21a8">• Повторный вход запрещен</text>
   </g>
 
-  <!-- Transition: Registered -> CheckedIn -->
-  <line x1="525" y1="230" x2="675" y2="230" stroke="#7c3aed" stroke-width="2" marker-end="url(#arrow-purple)"/>
-  <rect x="545" y="205" width="110" height="22" rx="4" fill="#ffffff" stroke="#ddd6fe"/>
-  <text x="600" y="220" font-size="10.5" font-weight="700" fill="#6b21a8" text-anchor="middle">Check-in OK ✅</text>
+  <!-- Transition: Registered -> CheckedIn (Straight horizontal) -->
+  <line x1="500" y1="240" x2="744" y2="240" stroke="#7c3aed" stroke-width="2" marker-end="url(#arrow-purple)"/>
+  <rect x="565" y="224" width="120" height="26" rx="6" fill="#ffffff" stroke="#ddd6fe" stroke-width="1.2"/>
+  <text x="625" y="241" font-size="11" font-weight="700" fill="#6b21a8" text-anchor="middle">Check-in OK ✅</text>
 
-  <!-- State 4: Cancelled -->
-  <g transform="translate(680, 335)" filter="url(#shadow-node)">
-    <rect width="240" height="90" rx="12" fill="#fef2f2" stroke="#ef4444" stroke-width="1.8"/>
-    <text x="20" y="32" font-size="16" font-weight="800" fill="#991b1b">cancelled</text>
-    <text x="20" y="54" font-size="11.5" fill="#b91c1c">• Билет аннулирован</text>
-    <text x="20" y="72" font-size="11.5" fill="#b91c1c">• Квота передана в очередь</text>
+  <!-- ================= STATE 4: CANCELLED ================= -->
+  <g transform="translate(750, 392)" filter="url(#shadow-node)">
+    <rect width="260" height="96" rx="12" fill="#fef2f2" stroke="#ef4444" stroke-width="1.8"/>
+    <text x="20" y="32" font-size="17" font-weight="800" fill="#991b1b">cancelled</text>
+    <text x="20" y="56" font-size="11.5" fill="#b91c1c">• Билет аннулирован</text>
+    <text x="20" y="76" font-size="11.5" fill="#b91c1c">• Квота передана в очередь</text>
   </g>
 
-  <!-- Transition: Registered -> Cancelled -->
-  <path d="M 480 275 C 530 330, 600 350, 675 365" fill="none" stroke="#ef4444" stroke-width="1.8" marker-end="url(#arrow-red)"/>
-  <rect x="520" y="335" width="125" height="22" rx="4" fill="#ffffff" stroke="#fecaca"/>
-  <text x="582" y="350" font-size="10" font-weight="600" fill="#dc2626" text-anchor="middle">DELETE /tickets/{id}</text>
+  <!-- Transition: Registered -> Cancelled (Clean Bezier Route through center gap) -->
+  <path d="M 500 262 C 600 262, 650 415, 744 415" fill="none" stroke="#ef4444" stroke-width="1.8" marker-end="url(#arrow-red)"/>
+  <rect x="555" y="324" width="140" height="28" rx="6" fill="#ffffff" stroke="#fecaca" stroke-width="1.2" filter="url(#shadow-node)"/>
+  <text x="625" y="342" font-size="10.5" font-weight="700" fill="#dc2626" text-anchor="middle">DELETE /tickets/{id}</text>
 
-  <!-- Transition: Waitlisted -> Cancelled -->
-  <line x1="525" y1="380" x2="675" y2="380" stroke="#ef4444" stroke-width="1.8" marker-end="url(#arrow-red)"/>
-  <rect x="550" y="388" width="105" height="20" rx="4" fill="#ffffff" stroke="#fecaca"/>
-  <text x="602" y="402" font-size="9.5" font-weight="600" fill="#dc2626" text-anchor="middle">Отказ от очереди</text>
+  <!-- Transition: Waitlisted -> Cancelled (Straight horizontal) -->
+  <line x1="500" y1="440" x2="744" y2="440" stroke="#ef4444" stroke-width="1.8" marker-end="url(#arrow-red)"/>
+  <rect x="565" y="448" width="120" height="26" rx="6" fill="#ffffff" stroke="#fecaca" stroke-width="1.2"/>
+  <text x="625" y="465" font-size="10" font-weight="600" fill="#dc2626" text-anchor="middle">Отказ от очереди</text>
 
-  <!-- End point -->
-  <g transform="translate(775, 470)">
-    <circle cx="25" cy="25" r="14" fill="#0f172a"/>
-    <circle cx="25" cy="25" r="18" fill="none" stroke="#94a3b8" stroke-width="2"/>
-    <text x="55" y="30" font-size="12" font-weight="600" fill="#64748b">Финальное состояние билета</text>
+  <!-- ================= TERMINAL END POINTS (SEPARATED & ACCURATE) ================= -->
+  <!-- CheckedIn Terminal Point -->
+  <g transform="translate(1040, 240)">
+    <circle cx="0" cy="0" r="14" fill="#047857"/>
+    <circle cx="0" cy="0" r="18" fill="none" stroke="#10b981" stroke-width="2"/>
+    <!-- Checkmark inside -->
+    <path d="M -5 0 L -1 4 L 5 -3" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
   </g>
-  <line x1="800" y1="275" x2="800" y2="335" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
-  <line x1="800" y1="425" x2="800" y2="470" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="1010" y1="240" x2="1022" y2="240" stroke="#10b981" stroke-width="1.8" marker-end="url(#arrow-green)"/>
+
+  <!-- Cancelled Terminal Point -->
+  <g transform="translate(1040, 440)">
+    <circle cx="0" cy="0" r="14" fill="#b91c1c"/>
+    <circle cx="0" cy="0" r="18" fill="none" stroke="#ef4444" stroke-width="2"/>
+    <!-- Cross inside -->
+    <path d="M -4 -4 L 4 4 M 4 -4 L -4 4" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+  </g>
+  <line x1="1010" y1="440" x2="1022" y2="440" stroke="#ef4444" stroke-width="1.8" marker-end="url(#arrow-red)"/>
+
+  <text x="1040" y="278" font-size="11" font-weight="600" fill="#047857" text-anchor="middle">Использован</text>
+  <text x="1040" y="478" font-size="11" font-weight="600" fill="#b91c1c" text-anchor="middle">Аннулирован</text>
 
 </svg>

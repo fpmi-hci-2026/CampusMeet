@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 920" width="100%" height="auto" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 1000" width="100%" height="auto" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
 
   <defs>
     <filter id="shadow-card" x="-4%" y="-3%" width="108%" height="110%" filterUnits="userSpaceOnUse">
@@ -14,9 +14,6 @@
     <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10b981"/>
     </marker>
-    <marker id="arrow-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#ef4444"/>
-    </marker>
     <marker id="arrow-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#7c3aed"/>
     </marker>
@@ -24,159 +21,172 @@
 
   <!-- Background -->
   <rect width="100%" height="100%" fill="#f8fafc"/>
-  <rect x="24" y="24" width="1152" height="872" rx="16" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow-card)"/>
+  <rect x="24" y="24" width="1192" height="952" rx="16" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow-card)"/>
 
   <!-- Header -->
   <g transform="translate(54, 68)">
-    <rect x="0" y="-22" width="168" height="26" rx="13" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
-    <text x="84" y="-5" font-size="11" font-weight="700" fill="#2563eb" text-anchor="middle" letter-spacing="0.5">C4 CONTAINER MODEL</text>
+    <rect x="0" y="-22" width="170" height="26" rx="13" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+    <text x="85" y="-5" font-size="11" font-weight="700" fill="#2563eb" text-anchor="middle" letter-spacing="0.5">C4 CONTAINER MODEL</text>
     <text x="0" y="32" font-size="24" font-weight="800" fill="#0f172a">Контейнерная архитектура экосистемы CampusMeet (ЛР7)</text>
     <text x="0" y="58" font-size="13" fill="#64748b">Взаимодействие клиентов, модульного FastAPI сервера, крипто-сервиса HMAC и транзакционного хранилища</text>
   </g>
 
   <!-- 1. ACTORS TIER -->
-  <g transform="translate(54, 160)">
-    <rect width="1092" height="110" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+  <g transform="translate(54, 155)">
+    <rect width="1132" height="116" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
     <text x="20" y="24" font-size="12" font-weight="700" fill="#64748b" letter-spacing="0.5">Действующие лица системы (Пользователи &amp; Роли RBAC)</text>
 
-    <!-- Student -->
+    <!-- Student (Left) -->
     <g transform="translate(40, 36)" filter="url(#shadow-node)">
-      <rect width="310" height="58" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
-      <text x="18" y="25" font-size="14" font-weight="700" fill="#0f172a">👤 Студент / Участник</text>
-      <text x="18" y="44" font-size="11" fill="#64748b">Роль: attendee (просмотр, регистрация, билет)</text>
+      <rect width="320" height="62" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+      <text x="18" y="26" font-size="14" font-weight="700" fill="#0f172a">👤 Студент / Участник</text>
+      <text x="18" y="46" font-size="11.5" fill="#64748b">Роль: student (поиск событий, бронь, waitlist)</text>
     </g>
 
-    <!-- Volunteer -->
-    <g transform="translate(390, 36)" filter="url(#shadow-node)">
-      <rect width="310" height="58" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
-      <text x="18" y="25" font-size="14" font-weight="700" fill="#0f172a">📷 Волонтер на входе</text>
-      <text x="18" y="44" font-size="11" fill="#64748b">Роль: volunteer (валидация проходов, check-in)</text>
+    <!-- Organizer (Middle) -->
+    <g transform="translate(406, 36)" filter="url(#shadow-node)">
+      <rect width="320" height="62" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+      <text x="18" y="26" font-size="14" font-weight="700" fill="#0f172a">🎓 Организатор / Преподаватель</text>
+      <text x="18" y="46" font-size="11.5" fill="#64748b">Роль: organizer (квоты, публикация митапов)</text>
     </g>
 
-    <!-- Organizer -->
-    <g transform="translate(740, 36)" filter="url(#shadow-node)">
-      <rect width="310" height="58" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
-      <text x="18" y="25" font-size="14" font-weight="700" fill="#0f172a">🎓 Организатор / Преподаватель</text>
-      <text x="18" y="44" font-size="11" fill="#64748b">Роль: organizer (квоты, публикация митапов)</text>
+    <!-- Volunteer (Right) -->
+    <g transform="translate(772, 36)" filter="url(#shadow-node)">
+      <rect width="320" height="62" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+      <text x="18" y="26" font-size="14" font-weight="700" fill="#0f172a">📷 Волонтер на входе</text>
+      <text x="18" y="46" font-size="11.5" fill="#64748b">Роль: volunteer (проверка HMAC, очный check-in)</text>
     </g>
   </g>
 
-  <!-- Connectors Actors -> Clients -->
-  <line x1="249" y1="270" x2="249" y2="310" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="600" y1="270" x2="895" y2="310" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="950" y1="270" x2="400" y2="310" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <!-- Connectors: Actors -> Clients (NO CROSSING!) -->
+  <!-- Student -> Web Client (Straight Down) -->
+  <line x1="254" y1="271" x2="254" y2="320" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Organizer -> Web Client (Clean Orthogonal Route to Web Client Right Side) -->
+  <path d="M 566 271 L 566 295 L 450 295 L 450 320" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Volunteer -> Mobile Client (Straight Down) -->
+  <line x1="932" y1="271" x2="932" y2="320" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
 
   <!-- 2. CLIENT TIER -->
-  <g transform="translate(54, 312)">
-    <rect width="1092" height="135" rx="12" fill="#faf5ff" stroke="#e9d5ff" stroke-width="1.5"/>
+  <g transform="translate(54, 320)">
+    <rect width="1132" height="135" rx="12" fill="#faf5ff" stroke="#e9d5ff" stroke-width="1.5"/>
     <text x="20" y="24" font-size="12" font-weight="700" fill="#7e22ce" letter-spacing="0.5">Клиентский уровень (First Page Starter Modules)</text>
 
     <!-- Web Client -->
     <g transform="translate(40, 36)" filter="url(#shadow-node)">
-      <rect width="480" height="80" rx="8" fill="#ffffff" stroke="#d8b4fe" stroke-width="1.2"/>
-      <rect x="380" y="10" width="88" height="20" rx="10" fill="#f3e8ff"/>
-      <text x="424" y="24" font-size="10" font-weight="700" fill="#9333ea" text-anchor="middle">SPA CLIENT</text>
+      <rect width="500" height="82" rx="8" fill="#ffffff" stroke="#d8b4fe" stroke-width="1.2"/>
+      <rect x="400" y="10" width="88" height="20" rx="10" fill="#f3e8ff"/>
+      <text x="444" y="24" font-size="10" font-weight="700" fill="#9333ea" text-anchor="middle">SPA CLIENT</text>
       <text x="18" y="28" font-size="15" font-weight="700" fill="#0f172a">💻 Web Event Catalog (/web/)</text>
-      <text x="18" y="48" font-size="11.5" fill="#475569">Адаптивный каталог событий, живой поиск с дебаунсом 300мс,</text>
-      <text x="18" y="66" font-size="11.5" fill="#475569">фильтры категорий, цветовой индикатор квот и бронирование</text>
+      <text x="18" y="49" font-size="11.5" fill="#475569">Адаптивный каталог событий, живой поиск с дебаунсом 300мс,</text>
+      <text x="18" y="68" font-size="11.5" fill="#475569">фильтры категорий, цветовой индикатор квот и форма бронирования</text>
     </g>
 
     <!-- Mobile Client -->
-    <g transform="translate(570, 36)" filter="url(#shadow-node)">
-      <rect width="480" height="80" rx="8" fill="#ffffff" stroke="#d8b4fe" stroke-width="1.2"/>
-      <rect x="375" y="10" width="93" height="20" rx="10" fill="#f3e8ff"/>
-      <text x="421" y="24" font-size="10" font-weight="700" fill="#9333ea" text-anchor="middle">AMOLED PWA</text>
+    <g transform="translate(592, 36)" filter="url(#shadow-node)">
+      <rect width="500" height="82" rx="8" fill="#ffffff" stroke="#d8b4fe" stroke-width="1.2"/>
+      <rect x="395" y="10" width="93" height="20" rx="10" fill="#f3e8ff"/>
+      <text x="441" y="24" font-size="10" font-weight="700" fill="#9333ea" text-anchor="middle">AMOLED PWA</text>
       <text x="18" y="28" font-size="15" font-weight="700" fill="#0f172a">📱 Mobile Pass Screen (/mobile/)</text>
-      <text x="18" y="48" font-size="11.5" fill="#475569">Электронный пропуск iPhone 16 Pro (375x812 pt), динамический</text>
-      <text x="18" y="66" font-size="11.5" fill="#475569">векторный SVG QR-код, 60с таймер и эмулятор сканера волонтера</text>
+      <text x="18" y="49" font-size="11.5" fill="#475569">Электронный пропуск iPhone 16 Pro (375x812 pt), динамический</text>
+      <text x="18" y="68" font-size="11.5" fill="#475569">векторный SVG QR-код, 60с таймер и эмулятор сканера волонтера</text>
     </g>
   </g>
 
-  <!-- Connectors Clients -> Server -->
-  <line x1="334" y1="447" x2="334" y2="495" stroke="#7c3aed" stroke-width="1.8" marker-end="url(#arrow-purple)"/>
-  <rect x="250" y="460" width="168" height="20" rx="10" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
-  <text x="334" y="474" font-size="10" font-weight="600" fill="#6b21a8" text-anchor="middle">REST API / Bearer Token</text>
+  <!-- Connectors: Clients -> Server -->
+  <line x1="344" y1="455" x2="344" y2="505" stroke="#7c3aed" stroke-width="1.8" marker-end="url(#arrow-purple)"/>
+  <rect x="250" y="468" width="188" height="22" rx="11" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="344" y="483" font-size="10" font-weight="600" fill="#6b21a8" text-anchor="middle">REST API / Bearer Token</text>
 
-  <line x1="864" y1="447" x2="864" y2="495" stroke="#7c3aed" stroke-width="1.8" marker-end="url(#arrow-purple)"/>
-  <rect x="780" y="460" width="168" height="20" rx="10" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
-  <text x="864" y="474" font-size="10" font-weight="600" fill="#6b21a8" text-anchor="middle">POST /check-ins &amp; tickets</text>
+  <line x1="896" y1="455" x2="896" y2="505" stroke="#7c3aed" stroke-width="1.8" marker-end="url(#arrow-purple)"/>
+  <rect x="800" y="468" width="192" height="22" rx="11" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="896" y="483" font-size="10" font-weight="600" fill="#6b21a8" text-anchor="middle">POST /check-ins &amp; tickets</text>
 
   <!-- 3. SERVER TIER (FASTAPI APPLICATION) -->
-  <g transform="translate(54, 498)">
-    <rect width="1092" height="235" rx="12" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+  <g transform="translate(54, 505)">
+    <rect width="1132" height="275" rx="12" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
     <text x="20" y="24" font-size="12" font-weight="700" fill="#15803d" letter-spacing="0.5">Серверная часть (FastAPI Application &amp; Uvicorn ASGI Server • Python 3.12+)</text>
 
-    <!-- Sub-module: Gateway -->
-    <g transform="translate(40, 40)" filter="url(#shadow-node)">
-      <rect width="230" height="170" rx="8" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
-      <text x="16" y="26" font-size="13" font-weight="700" fill="#0f172a">🌐 API Gateway (app.py)</text>
-      <text x="16" y="48" font-size="11" fill="#475569">• 33 роута OpenAPI 3.0.3</text>
-      <text x="16" y="68" font-size="11" fill="#475569">• CORS Middleware</text>
-      <text x="16" y="88" font-size="11" fill="#475569">• Swagger UI (/docs)</text>
-      <text x="16" y="108" font-size="11" fill="#475569">• ReDoc (/redoc)</text>
-      <text x="16" y="128" font-size="11" fill="#475569">• Static mounts (/web, /mobile)</text>
-      <text x="16" y="148" font-size="11" fill="#475569">• Healthcheck (/health)</text>
+    <!-- Sub-module 1: Gateway -->
+    <g transform="translate(30, 42)" filter="url(#shadow-node)">
+      <rect width="250" height="205" rx="8" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+      <text x="16" y="26" font-size="13.5" font-weight="700" fill="#0f172a">🌐 API Gateway (app.py)</text>
+      <line x1="16" y1="36" x2="234" y2="36" stroke="#f1f5f9" stroke-width="1"/>
+      <text x="16" y="56" font-size="11.5" fill="#475569">• 33 роута OpenAPI 3.0.3</text>
+      <text x="16" y="78" font-size="11.5" fill="#475569">• CORS Middleware</text>
+      <text x="16" y="100" font-size="11.5" fill="#475569">• Swagger UI (/docs)</text>
+      <text x="16" y="122" font-size="11.5" fill="#475569">• ReDoc (/redoc)</text>
+      <text x="16" y="144" font-size="11.5" fill="#475569">• Static mounts (/web, /mobile)</text>
+      <text x="16" y="166" font-size="11.5" fill="#475569">• Healthcheck (/health)</text>
+      <text x="16" y="188" font-size="11.5" fill="#475569">• RFC 7807 Exception Handlers</text>
     </g>
 
-    <!-- Sub-module: Schemas -->
-    <g transform="translate(295, 40)" filter="url(#shadow-node)">
-      <rect width="240" height="170" rx="8" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
-      <text x="16" y="26" font-size="13" font-weight="700" fill="#0f172a">📋 DTO Schemas (schemas.py)</text>
-      <text x="16" y="48" font-size="11" fill="#475569">• Pydantic v2 на Rust</text>
-      <text x="16" y="68" font-size="11" fill="#475569">• Строгая проверка типов</text>
-      <text x="16" y="88" font-size="11" fill="#475569">• EventCreate, EventResponse</text>
-      <text x="16" y="108" font-size="11" fill="#475569">• RegistrationRequest / Ticket</text>
-      <text x="16" y="128" font-size="11" fill="#475569">• CheckInRequest / Response</text>
-      <text x="16" y="148" font-size="11" fill="#475569">• RFC 7807 ProblemDetails</text>
+    <!-- Sub-module 2: Schemas -->
+    <g transform="translate(305, 42)" filter="url(#shadow-node)">
+      <rect width="250" height="205" rx="8" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+      <text x="16" y="26" font-size="13.5" font-weight="700" fill="#0f172a">📋 DTO Schemas (schemas.py)</text>
+      <line x1="16" y1="36" x2="234" y2="36" stroke="#f1f5f9" stroke-width="1"/>
+      <text x="16" y="56" font-size="11.5" fill="#475569">• Pydantic v2 Core (Rust engine)</text>
+      <text x="16" y="78" font-size="11.5" fill="#475569">• Строгая типизация моделей</text>
+      <text x="16" y="100" font-size="11.5" fill="#475569">• EventCreate, EventResponse</text>
+      <text x="16" y="122" font-size="11.5" fill="#475569">• RegistrationRequest / Ticket</text>
+      <text x="16" y="144" font-size="11.5" fill="#475569">• CheckInRequest / Response</text>
+      <text x="16" y="166" font-size="11.5" fill="#475569">• ProblemDetails (RFC 7807)</text>
+      <text x="16" y="188" font-size="11.5" fill="#475569">• Field-level Validation Rules</text>
     </g>
 
-    <!-- Sub-module: Crypto -->
-    <g transform="translate(560, 40)" filter="url(#shadow-node)">
-      <rect width="240" height="170" rx="8" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
-      <text x="16" y="26" font-size="13" font-weight="700" fill="#0f172a">🔐 Crypto Engine (crypto.py)</text>
-      <text x="16" y="48" font-size="11" fill="#475569">• HMAC-SHA256 подпись</text>
-      <text x="16" y="68" font-size="11" fill="#475569">• v1.ticket.user.signature</text>
-      <text x="16" y="88" font-size="11" fill="#475569">• compare_digest (защита</text>
-      <text x="16" y="106" font-size="11" fill="#475569">   от Timing Attacks)</text>
-      <text x="16" y="128" font-size="11" fill="#475569">• Офлайн верификация</text>
-      <text x="16" y="148" font-size="11" fill="#475569">• Tamper Detection (100%)</text>
+    <!-- Sub-module 3: Crypto -->
+    <g transform="translate(580, 42)" filter="url(#shadow-node)">
+      <rect width="250" height="205" rx="8" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+      <text x="16" y="26" font-size="13.5" font-weight="700" fill="#0f172a">🔐 Crypto Engine (crypto.py)</text>
+      <line x1="16" y1="36" x2="234" y2="36" stroke="#f1f5f9" stroke-width="1"/>
+      <text x="16" y="56" font-size="11.5" fill="#475569">• HMAC-SHA256 подпись токена</text>
+      <text x="16" y="78" font-size="11.5" fill="#475569">• v1.{tkt_id}.{usr_id}.{sig}</text>
+      <text x="16" y="100" font-size="11.5" fill="#475569">• hmac.compare_digest</text>
+      <text x="16" y="122" font-size="11.5" fill="#475569">• Защита от Timing Attacks</text>
+      <text x="16" y="144" font-size="11.5" fill="#475569">• Офлайн верификация билетов</text>
+      <text x="16" y="166" font-size="11.5" fill="#475569">• Tamper Detection (100% тест)</text>
+      <text x="16" y="188" font-size="11.5" fill="#475569">• Регенерация секретного ключа</text>
     </g>
 
-    <!-- Sub-module: Store -->
-    <g transform="translate(825, 40)" filter="url(#shadow-node)">
-      <rect width="230" height="170" rx="8" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
-      <text x="16" y="26" font-size="13" font-weight="700" fill="#0f172a">⚡ Business Logic (store.py)</text>
-      <text x="16" y="48" font-size="11" fill="#475569">• Атомарный учет квот мест</text>
-      <text x="16" y="68" font-size="11" fill="#475569">• FIFO Waitlist очередь</text>
-      <text x="16" y="88" font-size="11" fill="#475569">• Авто-повышение билетов</text>
-      <text x="16" y="108" font-size="11" fill="#475569">• Idempotency-Key кэш</text>
-      <text x="16" y="128" font-size="11" fill="#475569">• Check-in валидация</text>
-      <text x="16" y="148" font-size="11" fill="#475569">• Журнал check_in_logs</text>
+    <!-- Sub-module 4: Store -->
+    <g transform="translate(855, 42)" filter="url(#shadow-node)">
+      <rect width="250" height="205" rx="8" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+      <text x="16" y="26" font-size="13.5" font-weight="700" fill="#0f172a">⚡ Business Logic (store.py)</text>
+      <line x1="16" y1="36" x2="234" y2="36" stroke="#f1f5f9" stroke-width="1"/>
+      <text x="16" y="56" font-size="11.5" fill="#475569">• Атомарный учет квот мест</text>
+      <text x="16" y="78" font-size="11.5" fill="#475569">• FIFO Waitlist очередь</text>
+      <text x="16" y="100" font-size="11.5" fill="#475569">• Авто-повышение билетов</text>
+      <text x="16" y="122" font-size="11.5" fill="#475569">• Idempotency-Key кэш</text>
+      <text x="16" y="144" font-size="11.5" fill="#475569">• Check-in валидация</text>
+      <text x="16" y="166" font-size="11.5" fill="#475569">• Журнал аудита check_in_logs</text>
+      <text x="16" y="188" font-size="11.5" fill="#475569">• Встроенный seeded demo-store</text>
     </g>
   </g>
 
-  <!-- Connectors Server -> DB -->
-  <line x1="940" y1="733" x2="940" y2="780" stroke="#10b981" stroke-width="1.8" marker-end="url(#arrow-green)"/>
-  <rect x="850" y="747" width="180" height="20" rx="10" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
-  <text x="940" y="761" font-size="10" font-weight="600" fill="#047857" text-anchor="middle">SQL Transactions (ACID)</text>
+  <!-- Connectors: Server -> DB -->
+  <line x1="980" y1="780" x2="980" y2="835" stroke="#10b981" stroke-width="1.8" marker-end="url(#arrow-green)"/>
+  <rect x="880" y="796" width="200" height="22" rx="11" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="980" y="811" font-size="10.5" font-weight="600" fill="#047857" text-anchor="middle">SQL Transactions (ACID)</text>
 
   <!-- 4. DATA STORAGE TIER -->
-  <g transform="translate(54, 782)">
-    <rect width="1092" height="92" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+  <g transform="translate(54, 835)">
+    <rect width="1132" height="95" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
     <text x="20" y="24" font-size="12" font-weight="700" fill="#64748b" letter-spacing="0.5">Слой постоянного хранения данных (Relational Database Tier)</text>
 
     <!-- SQLite -->
-    <g transform="translate(180, 34)" filter="url(#shadow-node)">
-      <rect width="340" height="46" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+    <g transform="translate(140, 36)" filter="url(#shadow-node)">
+      <rect width="380" height="46" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
       <text x="20" y="28" font-size="13" font-weight="700" fill="#0f172a">🗄️ SQLite 3 (WAL mode)</text>
-      <text x="200" y="28" font-size="11" fill="#64748b">Локальный запуск &amp; pytest (53 теста)</text>
+      <text x="200" y="28" font-size="11.5" fill="#64748b">Локальный запуск &amp; pytest (53 теста)</text>
     </g>
 
     <!-- PostgreSQL -->
-    <g transform="translate(580, 34)" filter="url(#shadow-node)">
-      <rect width="340" height="46" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+    <g transform="translate(612, 36)" filter="url(#shadow-node)">
+      <rect width="380" height="46" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
       <text x="20" y="28" font-size="13" font-weight="700" fill="#0f172a">🐘 PostgreSQL 16 (Alpine)</text>
-      <text x="200" y="28" font-size="11" fill="#64748b">Docker Compose &amp; Render Cloud</text>
+      <text x="210" y="28" font-size="11.5" fill="#64748b">Docker Compose &amp; Render Cloud</text>
     </g>
   </g>
 </svg>
