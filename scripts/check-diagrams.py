@@ -59,14 +59,38 @@ def main():
         else:
             _,_,view_w,view_h = map(float,root.get('viewBox').split())
             width_str = root.get('width') or str(view_w)
+            if '%' in width_str:
+                width_str = str(view_w)
             scale = float(width_str.replace('px', ''))/view_w
-            labels=[]
-            for item in root.iter('{' + NS + '}text'):
-                text=''.join(item.itertext())
-                x,y=float(item.get('x',0)),float(item.get('y',0))
-                size=float(item.get('font-size',16))
-                length=float(item.get('textLength',width(text,int(size))))
-                labels.append((x,y-size,x+length,y+size*.15))
+
+            def collect_texts(elem, cur_x=0.0, cur_y=0.0):
+                results = []
+                t = elem.get('transform', '')
+                dx, dy = 0.0, 0.0
+                if 'translate' in t:
+                    m = re.search(r'translate\(\s*([-\d.]+)(?:[,\s]+([-\d.]+))?\)', t)
+                    if m:
+                        dx = float(m.group(1))
+                        dy = float(m.group(2)) if m.group(2) else 0.0
+                new_x = cur_x + dx
+                new_y = cur_y + dy
+                if elem.tag == '{' + NS + '}text':
+                    text = ''.join(elem.itertext())
+                    size = float(elem.get('font-size', 16))
+                    length = float(elem.get('textLength', width(text, int(size))))
+                    raw_x = float(elem.get('x', 0))
+                    if elem.get('text-anchor') == 'middle':
+                        raw_x -= length / 2
+                    elif elem.get('text-anchor') == 'end':
+                        raw_x -= length
+                    x = new_x + raw_x
+                    y = new_y + float(elem.get('y', 0))
+                    results.append((x, y - size, x + length, y + size * .15))
+                for child in elem:
+                    results.extend(collect_texts(child, new_x, new_y))
+                return results
+
+            labels = collect_texts(root)
             hits=[(a,b) for i,a in enumerate(labels) for b in labels[i+1:] if overlap(a,b)]
             if hits:
                 errors.append(f'{path.name}: legacy text overlaps: {len(hits)}; first={hits[0]}')
