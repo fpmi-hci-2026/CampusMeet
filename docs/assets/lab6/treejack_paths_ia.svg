@@ -1,26 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 580" width="100%" height="auto" font-family="Inter, -apple-system, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" width="100%" height="auto" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif">
 
   <defs>
     <!-- Drop Shadow Standard -->
     <filter id="shadow-card" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
-      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.08"/>
-      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.04"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.07"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.03"/>
     </filter>
 
     <filter id="shadow-badge" x="-10%" y="-15%" width="120%" height="135%" filterUnits="userSpaceOnUse">
-      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.06"/>
-    </filter>
-
-    <filter id="radar-glow" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
-      <feGaussianBlur stdDeviation="4" result="blur"/>
-      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.05"/>
     </filter>
 
     <!-- Radar Gradients -->
     <linearGradient id="actualGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.38"/>
-      <stop offset="50%" stop-color="#2563eb" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="#10b981" stop-opacity="0.20"/>
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.35"/>
+      <stop offset="50%" stop-color="#2563eb" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0.18"/>
     </linearGradient>
 
     <!-- Bar Gradients -->
@@ -47,132 +42,161 @@
   </defs>
 
 <rect width="100%" height="100%" fill="#f8fafc"/>
-<rect x="24" y="24" width="912" height="532" rx="16" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow-card)"/>
-<g transform="translate(54, 62)">
+<rect x="24" y="24" width="952" height="652" rx="16" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow-card)"/>
+<g transform="translate(50, 60)">
   <text x="0" y="0" font-size="20" font-weight="800" fill="#0f172a">Тестирование информационной архитектуры: Treejack &amp; Directness</text>
   <text x="0" y="24" font-size="12" fill="#64748b">Обратная карточная сортировка древовидного меню (N = 10 респондентов, 4 ключевые сквозные задачи)</text>
 </g>
-<g transform="translate(680, 46)">
-  <rect x="0" y="0" width="226" height="42" rx="8" fill="#eff6ff" stroke="#bfdbfe"/>
-  <text x="14" y="18" font-size="10" font-weight="700" fill="#1d4ed8">ИНФО-АРХИТЕКТУРА (SITEMAP)</text>
-  <text x="14" y="34" font-family="JetBrains Mono, monospace" font-size="14" font-weight="800" fill="#1e3a8a">Успех 95% • Direct 88.8%</text>
-</g>
-<g transform="translate(54, 116)">
-  <rect x="0" y="0" width="852" height="84" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2"/>
-  <rect x="14" y="14" width="28" height="24" rx="4" fill="#0f172a"/>
-  <text x="28" y="30" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">01</text>
-  <text x="50" y="31" font-size="13" font-weight="700" fill="#0f172a">Задача 1: Подача заявки спикера с докладом в секцию CFP</text>
-  <g transform="translate(14, 48)">
-    <rect x="0" y="0" width="67" height="22" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="33.5" y="15" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">События</text>
-    <text x="72.0" y="15" font-size="11" font-weight="700" fill="#94a3b8">→</text>
-    <rect x="85.0" y="0" width="116" height="22" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="143.0" y="15" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">AI Tech Meetup</text>
-    <text x="206.0" y="15" font-size="11" font-weight="700" fill="#94a3b8">→</text>
-    <rect x="219.0" y="0" width="123" height="22" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="280.5" y="15" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">Программа &amp; CFP</text>
-    <text x="347.0" y="15" font-size="11" font-weight="700" fill="#94a3b8">→</text>
-    <rect x="360.0" y="0" width="109" height="22" rx="4" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1"/>
-    <text x="414.5" y="15" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#1d4ed8" text-anchor="middle">Подать доклад</text>
+<g transform="translate(50, 105)">
+  <g transform="translate(0, 0)">
+    <rect x="0" y="0" width="220" height="38" rx="8" fill="#ecfdf5" stroke="#a7f3d0"/>
+    <text x="14" y="16" font-size="9.5" font-weight="700" fill="#047857">УСПЕШНОСТЬ (TASK SUCCESS)</text>
+    <text x="14" y="30" font-family="JetBrains Mono, monospace" font-size="13" font-weight="800" fill="#065f46">95.0% • 38 из 40 тестов</text>
   </g>
-  <g transform="translate(540, 18)">
-    <rect x="0" y="0" width="86" height="48" rx="6" fill="#ecfdf5" stroke="#a7f3d0"/>
-    <text x="43" y="18" font-size="9" font-weight="700" fill="#047857" text-anchor="middle">УСПЕХ</text>
-    <text x="43" y="38" font-family="JetBrains Mono, monospace" font-size="14" font-weight="800" fill="#065f46" text-anchor="middle">100%</text>
-    <rect x="96" y="0" width="104" height="48" rx="6" fill="#eff6ff" stroke="#bfdbfe"/>
-    <text x="148" y="18" font-size="9" font-weight="700" fill="#1d4ed8" text-anchor="middle">ПРЯМИЗНА (DIR)</text>
-    <text x="148" y="38" font-family="JetBrains Mono, monospace" font-size="14" font-weight="800" fill="#1e3a8a" text-anchor="middle">90%</text>
-    <rect x="210" y="0" width="90" height="48" rx="6" fill="#f8fafc" stroke="#e2e8f0"/>
-    <text x="255" y="18" font-size="9" font-weight="700" fill="#475569" text-anchor="middle">ВРЕМЯ (С)</text>
-    <text x="255" y="38" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700" fill="#0f172a" text-anchor="middle">12.4 с</text>
+  <g transform="translate(235, 0)">
+    <rect x="0" y="0" width="220" height="38" rx="8" fill="#eff6ff" stroke="#bfdbfe"/>
+    <text x="14" y="16" font-size="9.5" font-weight="700" fill="#1d4ed8">ПРЯМИЗНА ПУТЕЙ (DIRECTNESS)</text>
+    <text x="14" y="30" font-family="JetBrains Mono, monospace" font-size="13" font-weight="800" fill="#1e40af">88.8% • Без блужданий</text>
+  </g>
+  <g transform="translate(470, 0)">
+    <rect x="0" y="0" width="220" height="38" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+    <text x="14" y="16" font-size="9.5" font-weight="700" fill="#475569">СРЕДНЕЕ ВРЕМЯ ПОИСКА</text>
+    <text x="14" y="30" font-family="JetBrains Mono, monospace" font-size="13" font-weight="800" fill="#0f172a">12.95 с (Ориентир: 16 с)</text>
+  </g>
+  <g transform="translate(705, 0)">
+    <rect x="0" y="0" width="195" height="38" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+    <text x="14" y="16" font-size="9.5" font-weight="700" fill="#475569">ОБЪЁМ ТЕСТИРОВАНИЯ</text>
+    <text x="14" y="30" font-family="JetBrains Mono, monospace" font-size="12" font-weight="700" fill="#0f172a">4 задачи × 10 чел.</text>
   </g>
 </g>
-<g transform="translate(54, 214)">
-  <rect x="0" y="0" width="852" height="84" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2"/>
-  <rect x="14" y="14" width="28" height="24" rx="4" fill="#0f172a"/>
-  <text x="28" y="30" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">02</text>
-  <text x="50" y="31" font-size="13" font-weight="700" fill="#0f172a">Задача 2: Выгрузка CSV-списка участников для печати бейджей</text>
-  <g transform="translate(14, 48)">
-    <rect x="0" y="0" width="158" height="22" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="79.0" y="15" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">Кабинет организатора</text>
-    <text x="163.0" y="15" font-size="11" font-weight="700" fill="#94a3b8">→</text>
-    <rect x="176.0" y="0" width="88" height="22" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="220.0" y="15" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">Мои митапы</text>
-    <text x="269.0" y="15" font-size="11" font-weight="700" fill="#94a3b8">→</text>
-    <rect x="282.0" y="0" width="81" height="22" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="322.5" y="15" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">Участники</text>
-    <text x="368.0" y="15" font-size="11" font-weight="700" fill="#94a3b8">→</text>
-    <rect x="381.0" y="0" width="95" height="22" rx="4" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1"/>
-    <text x="428.5" y="15" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#1d4ed8" text-anchor="middle">Экспорт CSV</text>
+<g transform="translate(50, 165)">
+  <rect x="0" y="0" width="900" height="102" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2"/>
+  <rect x="16" y="14" width="28" height="22" rx="4" fill="#0f172a"/>
+  <text x="30" y="29" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">01</text>
+  <text x="52" y="30" font-size="13.5" font-weight="700" fill="#0f172a">Задача 1: Подача заявки спикера с докладом в секцию CFP</text>
+  <g transform="translate(16, 52)">
+    <rect x="0" y="0" width="65" height="24" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="32.5" y="16" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">События</text>
+    <text x="71.0" y="16" font-size="11" font-weight="700" fill="#94a3b8">→</text>
+    <rect x="85.0" y="0" width="114" height="24" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="142.0" y="16" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">AI Tech Meetup</text>
+    <text x="205.0" y="16" font-size="11" font-weight="700" fill="#94a3b8">→</text>
+    <rect x="219.0" y="0" width="121" height="24" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="279.5" y="16" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">Программа &amp; CFP</text>
+    <text x="346.0" y="16" font-size="11" font-weight="700" fill="#94a3b8">→</text>
+    <rect x="360.0" y="0" width="107" height="24" rx="4" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1"/>
+    <text x="413.5" y="16" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#1d4ed8" text-anchor="middle">Подать доклад</text>
   </g>
-  <g transform="translate(540, 18)">
-    <rect x="0" y="0" width="86" height="48" rx="6" fill="#ecfdf5" stroke="#a7f3d0"/>
-    <text x="43" y="18" font-size="9" font-weight="700" fill="#047857" text-anchor="middle">УСПЕХ</text>
-    <text x="43" y="38" font-family="JetBrains Mono, monospace" font-size="14" font-weight="800" fill="#065f46" text-anchor="middle">90%</text>
-    <rect x="96" y="0" width="104" height="48" rx="6" fill="#eff6ff" stroke="#bfdbfe"/>
-    <text x="148" y="18" font-size="9" font-weight="700" fill="#1d4ed8" text-anchor="middle">ПРЯМИЗНА (DIR)</text>
-    <text x="148" y="38" font-family="JetBrains Mono, monospace" font-size="14" font-weight="800" fill="#1e3a8a" text-anchor="middle">80%</text>
-    <rect x="210" y="0" width="90" height="48" rx="6" fill="#f8fafc" stroke="#e2e8f0"/>
-    <text x="255" y="18" font-size="9" font-weight="700" fill="#475569" text-anchor="middle">ВРЕМЯ (С)</text>
-    <text x="255" y="38" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700" fill="#0f172a" text-anchor="middle">16.8 с</text>
-  </g>
-</g>
-<g transform="translate(54, 312)">
-  <rect x="0" y="0" width="852" height="84" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2"/>
-  <rect x="14" y="14" width="28" height="24" rx="4" fill="#0f172a"/>
-  <text x="28" y="30" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">03</text>
-  <text x="50" y="31" font-size="13" font-weight="700" fill="#0f172a">Задача 3: Поиск сохраненного офлайн QR-билета в кошельке</text>
-  <g transform="translate(14, 48)">
-    <rect x="0" y="0" width="95" height="22" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="47.5" y="15" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">Мой профиль</text>
-    <text x="100.0" y="15" font-size="11" font-weight="700" fill="#94a3b8">→</text>
-    <rect x="113.0" y="0" width="88" height="22" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="157.0" y="15" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">Мои билеты</text>
-    <text x="206.0" y="15" font-size="11" font-weight="700" fill="#94a3b8">→</text>
-    <rect x="219.0" y="0" width="151" height="22" rx="4" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1"/>
-    <text x="294.5" y="15" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#1d4ed8" text-anchor="middle">Офлайн-билет (HMAC)</text>
-  </g>
-  <g transform="translate(540, 18)">
-    <rect x="0" y="0" width="86" height="48" rx="6" fill="#ecfdf5" stroke="#a7f3d0"/>
-    <text x="43" y="18" font-size="9" font-weight="700" fill="#047857" text-anchor="middle">УСПЕХ</text>
-    <text x="43" y="38" font-family="JetBrains Mono, monospace" font-size="14" font-weight="800" fill="#065f46" text-anchor="middle">100%</text>
-    <rect x="96" y="0" width="104" height="48" rx="6" fill="#eff6ff" stroke="#bfdbfe"/>
-    <text x="148" y="18" font-size="9" font-weight="700" fill="#1d4ed8" text-anchor="middle">ПРЯМИЗНА (DIR)</text>
-    <text x="148" y="38" font-family="JetBrains Mono, monospace" font-size="14" font-weight="800" fill="#1e3a8a" text-anchor="middle">100%</text>
-    <rect x="210" y="0" width="90" height="48" rx="6" fill="#f8fafc" stroke="#e2e8f0"/>
-    <text x="255" y="18" font-size="9" font-weight="700" fill="#475569" text-anchor="middle">ВРЕМЯ (С)</text>
-    <text x="255" y="38" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700" fill="#0f172a" text-anchor="middle">8.5 с</text>
+  <g transform="translate(640, 16)">
+    <rect x="0" y="0" width="76" height="68" rx="6" fill="#ecfdf5" stroke="#a7f3d0"/>
+    <text x="38" y="18" font-size="9" font-weight="700" fill="#047857" text-anchor="middle">УСПЕХ</text>
+    <text x="38" y="42" font-family="JetBrains Mono, monospace" font-size="15" font-weight="800" fill="#065f46" text-anchor="middle">100%</text>
+    <text x="38" y="58" font-size="8.5" fill="#059669" text-anchor="middle">10 из 10 тестов</text>
+    <rect x="84" y="0" width="76" height="68" rx="6" fill="#eff6ff" stroke="#bfdbfe"/>
+    <text x="122" y="18" font-size="9" font-weight="700" fill="#1d4ed8" text-anchor="middle">ПРЯМИЗНА</text>
+    <text x="122" y="42" font-family="JetBrains Mono, monospace" font-size="15" font-weight="800" fill="#1e40af" text-anchor="middle">90%</text>
+    <text x="122" y="58" font-size="8.5" fill="#2563eb" text-anchor="middle">прямой путь</text>
+    <rect x="168" y="0" width="76" height="68" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="206" y="18" font-size="9" font-weight="700" fill="#475569" text-anchor="middle">ВРЕМЯ</text>
+    <text x="206" y="42" font-family="JetBrains Mono, monospace" font-size="14" font-weight="800" fill="#0f172a" text-anchor="middle">12.4 с</text>
+    <text x="206" y="58" font-size="8.5" fill="#64748b" text-anchor="middle">≤ 15.0 с</text>
   </g>
 </g>
-<g transform="translate(54, 410)">
-  <rect x="0" y="0" width="852" height="84" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2"/>
-  <rect x="14" y="14" width="28" height="24" rx="4" fill="#0f172a"/>
-  <text x="28" y="30" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">04</text>
-  <text x="50" y="31" font-size="13" font-weight="700" fill="#0f172a">Задача 4: Активация пакетного офлайн-сканера допуска волонтёра</text>
-  <g transform="translate(14, 48)">
-    <rect x="0" y="0" width="137" height="22" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="68.5" y="15" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">Кабинет волонтёра</text>
-    <text x="142.0" y="15" font-size="11" font-weight="700" fill="#94a3b8">→</text>
-    <rect x="155.0" y="0" width="116" height="22" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="213.0" y="15" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">Сканер допуска</text>
-    <text x="276.0" y="15" font-size="11" font-weight="700" fill="#94a3b8">→</text>
-    <rect x="289.0" y="0" width="102" height="22" rx="4" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1"/>
-    <text x="340.0" y="15" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#1d4ed8" text-anchor="middle">Офлайн-пакет</text>
+<g transform="translate(50, 281)">
+  <rect x="0" y="0" width="900" height="102" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2"/>
+  <rect x="16" y="14" width="28" height="22" rx="4" fill="#0f172a"/>
+  <text x="30" y="29" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">02</text>
+  <text x="52" y="30" font-size="13.5" font-weight="700" fill="#0f172a">Задача 2: Выгрузка CSV-списка участников для печати бейджей</text>
+  <g transform="translate(16, 52)">
+    <rect x="0" y="0" width="156" height="24" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="78.0" y="16" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">Кабинет организатора</text>
+    <text x="162.0" y="16" font-size="11" font-weight="700" fill="#94a3b8">→</text>
+    <rect x="176.0" y="0" width="86" height="24" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="219.0" y="16" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">Мои митапы</text>
+    <text x="268.0" y="16" font-size="11" font-weight="700" fill="#94a3b8">→</text>
+    <rect x="282.0" y="0" width="79" height="24" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="321.5" y="16" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">Участники</text>
+    <text x="367.0" y="16" font-size="11" font-weight="700" fill="#94a3b8">→</text>
+    <rect x="381.0" y="0" width="93" height="24" rx="4" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1"/>
+    <text x="427.5" y="16" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#1d4ed8" text-anchor="middle">Экспорт CSV</text>
   </g>
-  <g transform="translate(540, 18)">
-    <rect x="0" y="0" width="86" height="48" rx="6" fill="#ecfdf5" stroke="#a7f3d0"/>
-    <text x="43" y="18" font-size="9" font-weight="700" fill="#047857" text-anchor="middle">УСПЕХ</text>
-    <text x="43" y="38" font-family="JetBrains Mono, monospace" font-size="14" font-weight="800" fill="#065f46" text-anchor="middle">90%</text>
-    <rect x="96" y="0" width="104" height="48" rx="6" fill="#eff6ff" stroke="#bfdbfe"/>
-    <text x="148" y="18" font-size="9" font-weight="700" fill="#1d4ed8" text-anchor="middle">ПРЯМИЗНА (DIR)</text>
-    <text x="148" y="38" font-family="JetBrains Mono, monospace" font-size="14" font-weight="800" fill="#1e3a8a" text-anchor="middle">85%</text>
-    <rect x="210" y="0" width="90" height="48" rx="6" fill="#f8fafc" stroke="#e2e8f0"/>
-    <text x="255" y="18" font-size="9" font-weight="700" fill="#475569" text-anchor="middle">ВРЕМЯ (С)</text>
-    <text x="255" y="38" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700" fill="#0f172a" text-anchor="middle">14.1 с</text>
+  <g transform="translate(640, 16)">
+    <rect x="0" y="0" width="76" height="68" rx="6" fill="#ecfdf5" stroke="#a7f3d0"/>
+    <text x="38" y="18" font-size="9" font-weight="700" fill="#047857" text-anchor="middle">УСПЕХ</text>
+    <text x="38" y="42" font-family="JetBrains Mono, monospace" font-size="15" font-weight="800" fill="#065f46" text-anchor="middle">90%</text>
+    <text x="38" y="58" font-size="8.5" fill="#059669" text-anchor="middle">9 из 10 тестов</text>
+    <rect x="84" y="0" width="76" height="68" rx="6" fill="#eff6ff" stroke="#bfdbfe"/>
+    <text x="122" y="18" font-size="9" font-weight="700" fill="#1d4ed8" text-anchor="middle">ПРЯМИЗНА</text>
+    <text x="122" y="42" font-family="JetBrains Mono, monospace" font-size="15" font-weight="800" fill="#1e40af" text-anchor="middle">80%</text>
+    <text x="122" y="58" font-size="8.5" fill="#2563eb" text-anchor="middle">1 возврат</text>
+    <rect x="168" y="0" width="76" height="68" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="206" y="18" font-size="9" font-weight="700" fill="#475569" text-anchor="middle">ВРЕМЯ</text>
+    <text x="206" y="42" font-family="JetBrains Mono, monospace" font-size="14" font-weight="800" fill="#0f172a" text-anchor="middle">16.8 с</text>
+    <text x="206" y="58" font-size="8.5" fill="#64748b" text-anchor="middle">≤ 20.0 с</text>
   </g>
 </g>
-<g transform="translate(54, 526)">
-  <rect x="0" y="0" width="852" height="30" rx="6" fill="#f1f5f9"/>
-  <text x="14" y="19" font-size="11" fill="#475569">🌲 <tspan font-weight="600" fill="#0f172a">Вывод Treejack:</tspan> Иерархия разделов интуитивно понятна пользователям. Показатель прямолинейности 88.8% подтверждает отсутствие паразитных блужданий по веткам меню.</text>
+<g transform="translate(50, 397)">
+  <rect x="0" y="0" width="900" height="102" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2"/>
+  <rect x="16" y="14" width="28" height="22" rx="4" fill="#0f172a"/>
+  <text x="30" y="29" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">03</text>
+  <text x="52" y="30" font-size="13.5" font-weight="700" fill="#0f172a">Задача 3: Поиск сохраненного офлайн QR-билета в кошельке</text>
+  <g transform="translate(16, 52)">
+    <rect x="0" y="0" width="93" height="24" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="46.5" y="16" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">Мой профиль</text>
+    <text x="99.0" y="16" font-size="11" font-weight="700" fill="#94a3b8">→</text>
+    <rect x="113.0" y="0" width="86" height="24" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="156.0" y="16" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">Мои билеты</text>
+    <text x="205.0" y="16" font-size="11" font-weight="700" fill="#94a3b8">→</text>
+    <rect x="219.0" y="0" width="149" height="24" rx="4" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1"/>
+    <text x="293.5" y="16" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#1d4ed8" text-anchor="middle">Офлайн-билет (HMAC)</text>
+  </g>
+  <g transform="translate(640, 16)">
+    <rect x="0" y="0" width="76" height="68" rx="6" fill="#ecfdf5" stroke="#a7f3d0"/>
+    <text x="38" y="18" font-size="9" font-weight="700" fill="#047857" text-anchor="middle">УСПЕХ</text>
+    <text x="38" y="42" font-family="JetBrains Mono, monospace" font-size="15" font-weight="800" fill="#065f46" text-anchor="middle">100%</text>
+    <text x="38" y="58" font-size="8.5" fill="#059669" text-anchor="middle">10 из 10 тестов</text>
+    <rect x="84" y="0" width="76" height="68" rx="6" fill="#eff6ff" stroke="#bfdbfe"/>
+    <text x="122" y="18" font-size="9" font-weight="700" fill="#1d4ed8" text-anchor="middle">ПРЯМИЗНА</text>
+    <text x="122" y="42" font-family="JetBrains Mono, monospace" font-size="15" font-weight="800" fill="#1e40af" text-anchor="middle">100%</text>
+    <text x="122" y="58" font-size="8.5" fill="#2563eb" text-anchor="middle">без возвратов</text>
+    <rect x="168" y="0" width="76" height="68" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="206" y="18" font-size="9" font-weight="700" fill="#475569" text-anchor="middle">ВРЕМЯ</text>
+    <text x="206" y="42" font-family="JetBrains Mono, monospace" font-size="14" font-weight="800" fill="#0f172a" text-anchor="middle">8.5 с</text>
+    <text x="206" y="58" font-size="8.5" fill="#64748b" text-anchor="middle">≤ 10.0 с</text>
+  </g>
+</g>
+<g transform="translate(50, 513)">
+  <rect x="0" y="0" width="900" height="102" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2"/>
+  <rect x="16" y="14" width="28" height="22" rx="4" fill="#0f172a"/>
+  <text x="30" y="29" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">04</text>
+  <text x="52" y="30" font-size="13.5" font-weight="700" fill="#0f172a">Задача 4: Активация пакетного офлайн-сканера допуска волонтёра</text>
+  <g transform="translate(16, 52)">
+    <rect x="0" y="0" width="135" height="24" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="67.5" y="16" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">Кабинет волонтёра</text>
+    <text x="141.0" y="16" font-size="11" font-weight="700" fill="#94a3b8">→</text>
+    <rect x="155.0" y="0" width="114" height="24" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="212.0" y="16" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">Сканер допуска</text>
+    <text x="275.0" y="16" font-size="11" font-weight="700" fill="#94a3b8">→</text>
+    <rect x="289.0" y="0" width="100" height="24" rx="4" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1"/>
+    <text x="339.0" y="16" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#1d4ed8" text-anchor="middle">Офлайн-пакет</text>
+  </g>
+  <g transform="translate(640, 16)">
+    <rect x="0" y="0" width="76" height="68" rx="6" fill="#ecfdf5" stroke="#a7f3d0"/>
+    <text x="38" y="18" font-size="9" font-weight="700" fill="#047857" text-anchor="middle">УСПЕХ</text>
+    <text x="38" y="42" font-family="JetBrains Mono, monospace" font-size="15" font-weight="800" fill="#065f46" text-anchor="middle">90%</text>
+    <text x="38" y="58" font-size="8.5" fill="#059669" text-anchor="middle">9 из 10 тестов</text>
+    <rect x="84" y="0" width="76" height="68" rx="6" fill="#eff6ff" stroke="#bfdbfe"/>
+    <text x="122" y="18" font-size="9" font-weight="700" fill="#1d4ed8" text-anchor="middle">ПРЯМИЗНА</text>
+    <text x="122" y="42" font-family="JetBrains Mono, monospace" font-size="15" font-weight="800" fill="#1e40af" text-anchor="middle">85%</text>
+    <text x="122" y="58" font-size="8.5" fill="#2563eb" text-anchor="middle">1 возврат</text>
+    <rect x="168" y="0" width="76" height="68" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="206" y="18" font-size="9" font-weight="700" fill="#475569" text-anchor="middle">ВРЕМЯ</text>
+    <text x="206" y="42" font-family="JetBrains Mono, monospace" font-size="14" font-weight="800" fill="#0f172a" text-anchor="middle">14.1 с</text>
+    <text x="206" y="58" font-size="8.5" fill="#64748b" text-anchor="middle">≤ 18.0 с</text>
+  </g>
+</g>
+<g transform="translate(50, 656)">
+  <rect x="0" y="0" width="900" height="28" rx="6" fill="#f1f5f9"/>
+  <text x="14" y="18" font-size="11.5" fill="#475569">🌲 <tspan font-weight="700" fill="#0f172a">Вывод Treejack:</tspan> Информационная архитектура эффективна: прямолинейность 88.8% и среднее время 12.95 с подтверждают логичность меню.</text>
 </g>
 </svg>
