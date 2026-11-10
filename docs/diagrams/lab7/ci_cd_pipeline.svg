@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 520" width="100%" height="auto" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+
+  <defs>
+    <filter id="shadow-card" x="-4%" y="-3%" width="108%" height="110%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.06"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.03"/>
+    </filter>
+    <filter id="shadow-node" x="-8%" y="-6%" width="116%" height="118%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.05"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#475569"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10b981"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#ef4444"/>
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#f8fafc"/>
+  <rect x="24" y="24" width="1052" height="472" rx="16" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow-card)"/>
+
+  <!-- Header -->
+  <g transform="translate(54, 68)">
+    <rect x="0" y="-22" width="160" height="26" rx="13" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+    <text x="80" y="-5" font-size="11" font-weight="700" fill="#1d4ed8" text-anchor="middle" letter-spacing="0.5">CI/CD PIPELINE</text>
+    <text x="0" y="32" font-size="24" font-weight="800" fill="#0f172a">Конвейер непрерывной интеграции GitHub Actions (ci.yml)</text>
+    <text x="0" y="56" font-size="13" fill="#64748b">Автоматизированные проверки контрактов, линтинг, запуск 53 тестов и сборка Docker контейнера</text>
+  </g>
+
+  <!-- Trigger Block -->
+  <g transform="translate(54, 150)" filter="url(#shadow-node)">
+    <rect width="180" height="130" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="18" y="32" font-size="13" font-weight="800" fill="#0f172a">⚡ Триггер CI</text>
+    <text x="18" y="58" font-size="11" fill="#475569">• push (ветка lab7)</text>
+    <text x="18" y="78" font-size="11" fill="#475569">• pull_request</text>
+    <text x="18" y="98" font-size="11" fill="#475569">• workflow_dispatch</text>
+  </g>
+
+  <!-- Arrow Trigger -> Job 1 -->
+  <line x1="234" y1="215" x2="275" y2="215" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- JOB 1: Test & Contracts -->
+  <g transform="translate(280, 140)">
+    <rect width="490" height="320" rx="12" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+    <text x="20" y="28" font-size="13" font-weight="800" fill="#166534">Job 1: test (ubuntu-latest + PostgreSQL 16 Service Container)</text>
+
+    <!-- Step 1 -->
+    <g transform="translate(20, 45)" filter="url(#shadow-node)">
+      <rect width="450" height="42" rx="6" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="16" y="26" font-size="11.5" font-weight="700" fill="#0f172a">1. Setup Python 3.12 &amp; PostgreSQL Service</text>
+      <text x="350" y="26" font-size="10" font-weight="700" fill="#15803d">READY (5s)</text>
+    </g>
+
+    <!-- Step 2 -->
+    <g transform="translate(20, 97)" filter="url(#shadow-node)">
+      <rect width="450" height="42" rx="6" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="16" y="26" font-size="11.5" font-weight="700" fill="#0f172a">2. Linting: ruff check &amp; flake8 (PEP 8)</text>
+      <text x="365" y="26" font-size="10" font-weight="700" fill="#15803d">PASSED</text>
+    </g>
+
+    <!-- Step 3 -->
+    <g transform="translate(20, 149)" filter="url(#shadow-node)">
+      <rect width="450" height="42" rx="6" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="16" y="26" font-size="11.5" font-weight="700" fill="#0f172a">3. Contract Diff: export_contracts.py (33 routes)</text>
+      <text x="345" y="26" font-size="10" font-weight="700" fill="#15803d">ZERO DIFF</text>
+    </g>
+
+    <!-- Step 4 -->
+    <g transform="translate(20, 201)" filter="url(#shadow-node)">
+      <rect width="450" height="42" rx="6" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="16" y="26" font-size="11.5" font-weight="700" fill="#0f172a">4. Pytest Test Suite (53/53 passed, 83% coverage)</text>
+      <text x="360" y="26" font-size="10" font-weight="800" fill="#15803d">53/53 (1.7s)</text>
+    </g>
+
+    <!-- Step 5 -->
+    <g transform="translate(20, 253)" filter="url(#shadow-node)">
+      <rect width="450" height="42" rx="6" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="16" y="26" font-size="11.5" font-weight="700" fill="#0f172a">5. Apply Physical Schema (PostgreSQL DDL 17 tables)</text>
+      <text x="365" y="26" font-size="10" font-weight="700" fill="#15803d">SUCCESS</text>
+    </g>
+  </g>
+
+  <!-- Arrow Job 1 -> Job 2 -->
+  <line x1="770" y1="215" x2="815" y2="215" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <text x="792" y="200" font-size="9" font-weight="700" fill="#15803d" text-anchor="middle">needs</text>
+
+  <!-- JOB 2: Container -->
+  <g transform="translate(820, 140)">
+    <rect width="250" height="320" rx="12" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+    <text x="20" y="28" font-size="13" font-weight="800" fill="#1e40af">Job 2: container</text>
+
+    <!-- Container Steps -->
+    <g transform="translate(15, 45)" filter="url(#shadow-node)">
+      <rect width="220" height="70" rx="6" fill="#ffffff" stroke="#bfdbfe"/>
+      <text x="12" y="25" font-size="11.5" font-weight="700" fill="#0f172a">🐳 Docker Build</text>
+      <text x="12" y="44" font-size="10" fill="#475569">python:3.12-slim образ</text>
+      <text x="12" y="58" font-size="10" fill="#475569">Пользователь: campusmeet</text>
+    </g>
+
+    <g transform="translate(15, 130)" filter="url(#shadow-node)">
+      <rect width="220" height="70" rx="6" fill="#ffffff" stroke="#bfdbfe"/>
+      <text x="12" y="25" font-size="11.5" font-weight="700" fill="#0f172a">🩺 Healthcheck Loop</text>
+      <text x="12" y="44" font-size="10" fill="#475569">curl http://.../api/v1/health</text>
+      <text x="12" y="58" font-size="10" fill="#15803d; font-weight: 700">STATUS: OK (attempt 1)</text>
+    </g>
+
+    <g transform="translate(15, 215)" filter="url(#shadow-node)">
+      <rect width="220" height="70" rx="6" fill="#ffffff" stroke="#bfdbfe"/>
+      <text x="12" y="25" font-size="11.5" font-weight="700" fill="#0f172a">🚀 Smoke HTTP Suite</text>
+      <text x="12" y="44" font-size="10" fill="#475569">scripts/smoke_http.py</text>
+      <text x="12" y="58" font-size="10" fill="#15803d; font-weight: 700">VERIFIED IN CONTAINER</text>
+    </g>
+  </g>
+</svg>

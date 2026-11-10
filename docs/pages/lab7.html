@@ -318,6 +318,11 @@
                 </div>
             </div>
 
+            <div style="margin-top: 28px;">
+                <h3>Контейнерная архитектура C4 (FastAPI, Клиенты, Хранилище)</h3>
+                <img src="../diagrams/lab7/c4_container_architecture.svg" alt="Контейнерная архитектура C4 экосистемы CampusMeet" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); background: #ffffff; padding: 10px; margin-top: 8px;"/>
+            </div>
+
             <div class="lab7-terminal">
 # Проверка здоровья API
 curl -s http://127.0.0.1:8000/api/v1/health | jq
@@ -434,6 +439,17 @@ curl -s http://127.0.0.1:8000/api/v1/health | jq
                 Для защиты билетов от подделок и совместного использования скриншотов реализован протокол динамических токенов с серверным секретом.
             </p>
 
+            <div class="two-col" style="margin: 20px 0 28px;">
+                <div>
+                    <h4>Жизненный цикл билета (State Machine)</h4>
+                    <img src="../diagrams/lab7/ticket_lifecycle_state.svg" alt="Конечный автомат жизненного цикла билета" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); background: #ffffff; padding: 8px; margin-top: 6px;"/>
+                </div>
+                <div>
+                    <h4>Протокол верификации чекина волонтером</h4>
+                    <img src="../diagrams/lab7/checkin_flow.svg" alt="Диаграмма верификации билетов и чекина волонтером" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); background: #ffffff; padding: 8px; margin-top: 6px;"/>
+                </div>
+            </div>
+
             <div class="interactive-widget">
                 <h3>Интерактивный симулятор крипто-токена билета</h3>
                 <p style="color: var(--text-muted); font-size: 0.88rem;">
@@ -474,6 +490,11 @@ curl -s http://127.0.0.1:8000/api/v1/health | jq
             <p>
                 Тестовый набор объединяет 34 теста обратной совместимости ЛР4 и 19 новых интеграционных тестов ЛР7. Все 53 теста выполняются за 1.74 секунды с суммарным покрытием 83%.
             </p>
+
+            <div style="margin: 20px 0 28px;">
+                <h3>Диаграмма последовательности: Квотирование, Waitlist и авто-продвижение</h3>
+                <img src="../diagrams/lab7/waitlist_sequence.svg" alt="Диаграмма последовательности квотирования и Waitlist" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); background: #ffffff; padding: 10px; margin-top: 8px;"/>
+            </div>
 
             <div class="interactive-widget">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
@@ -519,6 +540,11 @@ curl -s http://127.0.0.1:8000/api/v1/health | jq
             <p>
                 Контейнеризация сервиса на базе Dockerfile и автоматический пайплайн непрерывной интеграции гарантируют надежность поставки в продакшн:
             </p>
+
+            <div style="margin-bottom: 28px;">
+                <h3>Конвейер непрерывной интеграции GitHub Actions</h3>
+                <img src="../diagrams/lab7/ci_cd_pipeline.svg" alt="Конвейер непрерывной интеграции GitHub Actions CI/CD" style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); background: #ffffff; padding: 10px; margin-top: 8px;"/>
+            </div>
 
             <div class="two-col">
                 <div class="profile-card">
@@ -573,6 +599,31 @@ curl -s http://127.0.0.1:8000/api/v1/health | jq
         </div>
     </main>
 
+    <!-- Diagram Lightbox Dialog -->
+    <dialog id="lightbox-dialog" aria-labelledby="lightbox-title">
+        <div class="lightbox-header">
+            <div class="lightbox-meta">
+                <div class="lightbox-title" id="lightbox-title">Просмотр схемы</div>
+                <span class="lightbox-badge" id="lightbox-badge">SVG</span>
+            </div>
+            <div class="lightbox-controls">
+                <button class="lightbox-btn" id="lightbox-zoom-out" type="button" title="Уменьшить (−)">−</button>
+                <span class="lightbox-zoom-badge" id="lightbox-zoom-badge">100%</span>
+                <button class="lightbox-btn" id="lightbox-zoom-in" type="button" title="Увеличить (+)">+</button>
+                <button class="lightbox-btn" id="lightbox-zoom-reset" type="button" title="Сбросить (1:1)">1:1</button>
+                <button class="lightbox-btn" id="lightbox-fit-btn" type="button" title="Вписать в экран">Вписать</button>
+                <a class="lightbox-btn" id="lightbox-open-link" href="#" target="_blank" rel="noopener noreferrer" title="В новой вкладке">↗</a>
+                <button class="lightbox-btn" id="lightbox-close" type="button" title="Закрыть (Esc)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+            </div>
+        </div>
+        <div class="lightbox-body">
+            <img id="lightbox-img" src="" alt="Схема">
+            <div class="lightbox-footer-hints">
+                <span>Зажмите мышь для панорамирования</span> • <span>+ / − или Ctrl + колесо: масштаб</span> • <span>Esc: Закрыть</span>
+            </div>
+        </div>
+    </dialog>
+
     <!-- Omnibox Search Dialog (⌘K) -->
     <dialog id="omnibox-dialog" aria-label="Быстрый поиск">
         <div class="omnibox-header">
@@ -593,6 +644,8 @@ curl -s http://127.0.0.1:8000/api/v1/health | jq
     <!-- Client Functional Modules -->
     <script src="../js/modules/renderers.js"></script>
     <script src="../js/modules/router.js"></script>
+    <script src="../js/modules/diagram-gestures.js"></script>
+    <script src="../js/modules/lightbox.js"></script>
     <script src="../js/modules/omnibox.js"></script>
     <script src="../js/modules/report-viewer.js"></script>
     <script src="../js/modules/ui.js"></script>

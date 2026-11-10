@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 840" width="100%" height="auto" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+
+  <defs>
+    <filter id="shadow-card" x="-4%" y="-3%" width="108%" height="110%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.06"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.03"/>
+    </filter>
+    <filter id="shadow-node" x="-8%" y="-6%" width="116%" height="118%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.05"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#475569"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10b981"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#ef4444"/>
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#f8fafc"/>
+  <rect x="24" y="24" width="1052" height="792" rx="16" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow-card)"/>
+
+  <!-- Header -->
+  <g transform="translate(54, 68)">
+    <rect x="0" y="-22" width="160" height="26" rx="13" fill="#fdf4ff" stroke="#f5d0fe" stroke-width="1"/>
+    <text x="80" y="-5" font-size="11" font-weight="700" fill="#a21caf" text-anchor="middle" letter-spacing="0.5">SEQUENCE DIAGRAM</text>
+    <text x="0" y="32" font-size="24" font-weight="800" fill="#0f172a">Квотирование, очередь ожидания (Waitlist) и авто-продвижение</text>
+    <text x="0" y="56" font-size="13" fill="#64748b">Сценарий заполнения мест (2/2), FIFO постановки в очередь и передачи квоты при отмене билета</text>
+  </g>
+
+  <!-- Lifeline Columns -->
+  <!-- Col 1: Artem (180), Col 2: Vlad (430), Col 3: API (700), Col 4: Store DB (950) -->
+
+  <!-- Lifelines vertical dashed -->
+  <line x1="160" y1="160" x2="160" y2="780" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6,6"/>
+  <line x1="420" y1="160" x2="420" y2="780" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6,6"/>
+  <line x1="700" y1="160" x2="700" y2="780" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6,6"/>
+  <line x1="950" y1="160" x2="950" y2="780" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6,6"/>
+
+  <!-- Lifeline Header Badges -->
+  <g transform="translate(80, 120)" filter="url(#shadow-node)">
+    <rect width="160" height="44" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+    <text x="80" y="27" font-size="13" font-weight="700" fill="#0f172a" text-anchor="middle">👤 Артем (Участник)</text>
+  </g>
+  <g transform="translate(340, 120)" filter="url(#shadow-node)">
+    <rect width="160" height="44" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+    <text x="80" y="27" font-size="13" font-weight="700" fill="#0f172a" text-anchor="middle">👤 Влад (Кандидат)</text>
+  </g>
+  <g transform="translate(615, 120)" filter="url(#shadow-node)">
+    <rect width="170" height="44" rx="8" fill="#eff6ff" stroke="#60a5fa" stroke-width="1.2"/>
+    <text x="85" y="27" font-size="13" font-weight="700" fill="#1e40af" text-anchor="middle">🌐 FastAPI Сервер</text>
+  </g>
+  <g transform="translate(865, 120)" filter="url(#shadow-node)">
+    <rect width="170" height="44" rx="8" fill="#f0fdf4" stroke="#4ade80" stroke-width="1.2"/>
+    <text x="85" y="27" font-size="13" font-weight="700" fill="#166534" text-anchor="middle">💾 База данных Store</text>
+  </g>
+
+  <!-- ================= PHASE 1: WAITLIST JOIN ================= -->
+  <g transform="translate(60, 190)">
+    <rect width="980" height="175" rx="8" fill="#fefce8" stroke="#fef08a" stroke-width="1.2"/>
+    <text x="16" y="22" font-size="12" font-weight="800" fill="#854d0e">ФАЗА 1: Квота мест исчерпана (2/2) — Влад становится в очередь ожидания (join_waitlist: true)</text>
+  </g>
+
+  <!-- Activation bars Phase 1 -->
+  <rect x="694" y="235" width="12" height="110" rx="3" fill="#93c5fd"/>
+  <rect x="944" y="255" width="12" height="75" rx="3" fill="#86efac"/>
+
+  <!-- Vlad -> API -->
+  <line x1="420" y1="240" x2="694" y2="240" stroke="#0f172a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="557" y="233" font-size="11.5" font-weight="600" fill="#0f172a" text-anchor="middle">POST /events/ev-campusmeet-2026/registrations {"join_waitlist": true}</text>
+
+  <!-- API -> DB Check Quota -->
+  <line x1="706" y1="260" x2="944" y2="260" stroke="#0f172a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="825" y="253" font-size="11" fill="#475569" text-anchor="middle">SELECT COUNT(*) FROM tickets WHERE status='registered'</text>
+
+  <!-- DB -> API Full -->
+  <line x1="944" y1="285" x2="706" y2="285" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)"/>
+  <text x="825" y="278" font-size="11" fill="#475569" text-anchor="middle">2 билета зарегистрировано (квота 2/2 исчерпана)</text>
+
+  <!-- API -> DB Insert waitlist -->
+  <line x1="706" y1="310" x2="944" y2="310" stroke="#0f172a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="825" y="303" font-size="11" fill="#475569" text-anchor="middle">INSERT INTO tickets (status='waitlisted'), waitlist_entries</text>
+
+  <!-- API -> Vlad -->
+  <line x1="694" y1="335" x2="420" y2="335" stroke="#047857" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-green)"/>
+  <text x="557" y="328" font-size="11.5" font-weight="700" fill="#047857" text-anchor="middle">201 Created: { status: "waitlisted", queue_position: 1 }</text>
+
+
+  <!-- ================= PHASE 2: CANCELLATION & PROMOTION ================= -->
+  <g transform="translate(60, 390)">
+    <rect width="980" height="195" rx="8" fill="#f5f3ff" stroke="#ddd6fe" stroke-width="1.2"/>
+    <text x="16" y="22" font-size="12" font-weight="800" fill="#5b21b6">ФАЗА 2: Артем отменяет свой билет — Сервер автоматически повышает статус Влада (FIFO)</text>
+  </g>
+
+  <!-- Activation bars Phase 2 -->
+  <rect x="694" y="435" width="12" height="135" rx="3" fill="#93c5fd"/>
+  <rect x="944" y="455" width="12" height="100" rx="3" fill="#86efac"/>
+
+  <!-- Artem -> API -->
+  <line x1="160" y1="440" x2="694" y2="440" stroke="#0f172a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="427" y="433" font-size="11.5" font-weight="600" fill="#0f172a" text-anchor="middle">DELETE /api/v1/tickets/tkt-artem-001 (Bearer demo-artem)</text>
+
+  <!-- API -> DB Cancel ticket -->
+  <line x1="706" y1="465" x2="944" y2="465" stroke="#0f172a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="825" y="458" font-size="11" fill="#475569" text-anchor="middle">UPDATE tickets SET status='cancelled' WHERE id='tkt-artem-001'</text>
+
+  <!-- DB Self-call: Promote -->
+  <path d="M 956 485 L 990 485 L 990 520 L 956 520" fill="none" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#arrow-purple)"/>
+  <text x="1000" y="497" font-size="10.5" font-weight="600" fill="#6b21a8">Атомарная процедура авто-продвижения:</text>
+  <text x="1000" y="513" font-size="10" fill="#475569">1. SELECT oldest FROM waitlist_entries</text>
+  <text x="1000" y="527" font-size="10" fill="#475569">2. UPDATE tickets SET status='registered' (tkt-vlad)</text>
+  <text x="1000" y="541" font-size="10" fill="#475569">3. DELETE FROM waitlist_entries</text>
+
+  <!-- API -> Artem Confirmed -->
+  <line x1="694" y1="560" x2="160" y2="560" stroke="#047857" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-green)"/>
+  <text x="427" y="553" font-size="11.5" font-weight="700" fill="#047857" text-anchor="middle">200 OK: { id: "tkt-artem-001", status: "cancelled" }</text>
+
+
+  <!-- ================= PHASE 3: VLAD CHECKS TICKET ================= -->
+  <g transform="translate(60, 610)">
+    <rect width="980" height="150" rx="8" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.2"/>
+    <text x="16" y="22" font-size="12" font-weight="800" fill="#065f46">ФАЗА 3: Влад запрашивает свой профиль и получает активный билет с HMAC токеном</text>
+  </g>
+
+  <!-- Activation bars Phase 3 -->
+  <rect x="694" y="650" width="12" height="90" rx="3" fill="#93c5fd"/>
+  <rect x="944" y="670" width="12" height="50" rx="3" fill="#86efac"/>
+
+  <!-- Vlad -> API -->
+  <line x1="420" y1="655" x2="694" y2="655" stroke="#0f172a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="557" y="648" font-size="11.5" font-weight="600" fill="#0f172a" text-anchor="middle">GET /api/v1/tickets/tkt-vlad-001 (Bearer demo-vlad)</text>
+
+  <!-- API -> DB Fetch -->
+  <line x1="706" y1="675" x2="944" y2="675" stroke="#0f172a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="825" y="668" font-size="11" fill="#475569" text-anchor="middle">SELECT * FROM tickets WHERE id='tkt-vlad-001'</text>
+
+  <!-- DB -> API status=registered -->
+  <line x1="944" y1="705" x2="706" y2="705" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)"/>
+  <text x="825" y="698" font-size="11" fill="#475569" text-anchor="middle">status='registered', ticket_code='CM-VLAD-2026'</text>
+
+  <!-- API -> Vlad with HMAC -->
+  <line x1="694" y1="730" x2="420" y2="730" stroke="#047857" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-green)"/>
+  <text x="557" y="723" font-size="11.5" font-weight="700" fill="#047857" text-anchor="middle">200 OK: { status: "registered", qr_payload: "v1.tkt-vlad.usr-vlad.8a2b3c..." }</text>
+
+</svg>

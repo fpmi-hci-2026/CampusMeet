@@ -166,31 +166,51 @@ CampusMeet-Server/
 
 ### 2.3. Схема взаимодействия компонентов (C4 Container Diagram)
 
+В соответствии с методологией **C4 Model (Container Level)** разработана архитектурная диаграмма, специфицирующая связи между ролями пользователей, клиентскими приложениями (Web SPA и Mobile PWA), модульным ASGI-ядром FastAPI и транзакционным хранилищем данных:
+
+![Контейнерная архитектурная диаграмма экосистемы CampusMeet](../diagrams/lab7/c4_container_architecture.svg)
+
+Ниже представлена структурная схема компонентного взаимодействия в нотации Mermaid:
+
 ```mermaid
-C4Container
-    title C4 Model: Контейнерная диаграмма экосистемы CampusMeet (ЛР7)
-    
-    Person(student, "Студент / Участник", "Просматривает каталог, бронирует билет, предъявляет QR")
-    Person(volunteer, "Волонтер-контролер", "Сканирует QR-билеты на входе в аудиторию")
-    Person(organizer, "Организатор / Преподаватель", "Создает мероприятия, управляет квотами")
-    
-    System_Boundary(campusmeet_system, "Экосистема CampusMeet") {
-        Container(web_app, "Web Client (SPA)", "HTML5, CSS3, ES6 JavaScript", "Адаптивный каталог событий, фильтрация, бронирование")
-        Container(mobile_app, "Mobile Pass (PWA)", "AMOLED UI, Dynamic SVG QR", "Электронный билет с динамической HMAC подписью и таймером")
-        Container(api_gateway, "FastAPI Application", "Python 3.12, Uvicorn", "Обработка REST API, валидация Pydantic, проверка ролей")
-        Container(crypto_engine, "Crypto Engine", "HMAC-SHA256", "Генерация и верификация крипто-подписей билетов")
-        ContainerDb(database, "Relational Database", "SQLite 3 / PostgreSQL 16", "Хранение пользователей, событий, билетов, логов проходов")
-    }
-    
-    Rel(student, web_app, "Просматривает и бронирует", "HTTPS")
-    Rel(student, mobile_app, "Открывает билет", "AMOLED Screen")
-    Rel(volunteer, api_gateway, "Сканирует QR-код билета", "POST /check-ins")
-    Rel(organizer, web_app, "Управляет событиями", "HTTPS")
-    
-    Rel(web_app, api_gateway, "Вызовы REST API", "JSON / Bearer Token")
-    Rel(mobile_app, api_gateway, "Получение билета и HMAC токена", "JSON / Bearer Token")
-    Rel(api_gateway, crypto_engine, "Вычисление и проверка подписи", "Internal Call")
-    Rel(api_gateway, database, "Транзакции SQL (ACID)", "SQL / WAL")
+flowchart TD
+    subgraph Users["👤 Действующие лица системы (Пользователи & Роли RBAC)"]
+        U_STU["👤 Студент / Участник<br/><i>(Роль: attendee)</i>"]
+        U_VOL["📷 Волонтер на входе<br/><i>(Роль: volunteer)</i>"]
+        U_ORG["🎓 Организатор ФПМИ<br/><i>(Роль: organizer)</i>"]
+    end
+
+    subgraph Clients["📱 Клиентские интерфейсы (First Page Modules)"]
+        C_WEB["💻 Web Event Catalog (/web/)<br/><b>Каталог событий, фильтрация,</b><br/><b>квоты и модальное бронирование</b>"]
+        C_MOB["📱 Mobile Pass Screen (/mobile/)<br/><b>AMOLED пропуск iPhone 16 Pro,</b><br/><b>динамический QR и 60с таймер</b>"]
+    end
+
+    subgraph Server["⚙️ Серверная часть (FastAPI & Uvicorn ASGI • Python 3.12+)"]
+        S_GATEWAY["🌐 API Gateway (app.py)<br/><b>33 маршрута OpenAPI 3.0.3</b><br/><b>CORS, RBAC, RFC 7807 Errors</b>"]
+        S_SCHEMAS["📋 Схемы данных (schemas.py)<br/><b>Валидация Pydantic v2 DTO</b>"]
+        S_CRYPTO["🔐 Модуль crypto.py<br/><b>Подпись HMAC-SHA256</b><br/><b>compare_digest (защита от атак)</b>"]
+        S_STORE["⚡ Транзакционный сервис (store.py)<br/><b>Атомарные квоты, FIFO Waitlist,</b><br/><b>идемпотентность Idempotency-Key</b>"]
+    end
+
+    subgraph Database["💾 Слой хранения данных (ACID Реляционная БД)"]
+        DB_SQL["🗄️ SQLite 3 (WAL mode)<br/><b>Локальный запуск & pytest</b>"]
+        DB_PG["🐘 PostgreSQL 16<br/><b>Docker Compose & Render Cloud</b>"]
+    end
+
+    U_STU -->|Бронирование мест| C_WEB
+    U_STU -->|Предъявление пропуска| C_MOB
+    U_VOL -->|Сканирование QR-кода| C_MOB
+    U_ORG -->|Управление митапами| C_WEB
+
+    C_WEB -->|JSON / Bearer Token| S_GATEWAY
+    C_MOB -->|POST /check-ins / Bearer| S_GATEWAY
+
+    S_GATEWAY --> S_SCHEMAS
+    S_GATEWAY --> S_CRYPTO
+    S_GATEWAY --> S_STORE
+
+    S_STORE --> DB_SQL
+    S_STORE --> DB_PG
 ```
 
 ---
@@ -300,28 +320,50 @@ $$\text{free\_spots} = \max(0, \text{capacity\_limit} - \text{registered\_count}
    - Если `join_waitlist: false`, транзакция прерывается с ошибкой `409 CAPACITY_EXCEEDED`.
 4. **Автоматическое продвижение (Promotion):** При отмене любого активного билета (`DELETE /api/v1/tickets/{id}`) сервер находит самую раннюю заявку в `waitlist_entries` (FIFO), переводит соответствующий билет из статуса `waitlisted` в `registered` и удаляет запись из очереди ожидания.
 
+![Диаграмма последовательности: Квотирование, Waitlist и авто-продвижение](../diagrams/lab7/waitlist_sequence.svg)
+
+Ниже представлена детальная диаграмма последовательности (Sequence Diagram) сквозного сценария квотирования и авто-продвижения:
+
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Attendee as Участник (Artem)
-    actor Waitlisted as Ожидающий (Vlad)
-    participant API as FastAPI Server
-    participant Store as SQLite/Postgres Store
-    
-    Note over Attendee,Store: Места на мероприятии исчерпаны (2/2)
-    Waitlisted->>API: POST /registrations (join_waitlist: true)
-    API->>Store: Проверка квоты -> Мест нет
-    Store-->>API: Создан билет (status: waitlisted, queue_pos: 1)
-    API-->>Waitlisted: 201 Created (Билет в листе ожидания)
-    
-    Note over Attendee,Store: Артем решает отменить свой билет
-    Attendee->>API: DELETE /api/v1/tickets/tkt-artem
-    API->>Store: UPDATE tickets SET status='cancelled'
-    Store->>Store: SELECT oldest FROM waitlist_entries
-    Store->>Store: UPDATE tickets SET status='registered' WHERE id='tkt-vlad'
-    Store->>Store: DELETE FROM waitlist_entries WHERE ticket_id='tkt-vlad'
-    Store-->>API: Билет Влада повышен до 'registered'
-    API-->>Attendee: 200 OK (Билет отменен, квота передана)
+    actor Artem as 👤 Артем (Зарегистрирован)
+    actor Vlad as 👤 Влад (Кандидат)
+    participant API as 🌐 FastAPI Server
+    participant DB as 💾 База данных Store
+
+    Note over Vlad,API: Фаза 1: Квота мест исчерпана (2/2) — Постановка в очередь ожидания
+    Vlad->>API: POST /events/ev-campusmeet-2026/registrations<br/>{"join_waitlist": true}
+    activate API
+    API->>DB: Проверка квоты (registered_count == limit)
+    activate DB
+    DB-->>API: Свободных мест нет (квота 2/2 исчерпана)
+    API->>DB: INSERT INTO tickets (status='waitlisted')<br/>INSERT INTO waitlist_entries (FIFO)
+    DB-->>API: Запись в очереди создана
+    deactivate DB
+    API-->>Vlad: 201 Created: {status: "waitlisted", queue_pos: 1}
+    deactivate API
+
+    Note over Artem,API: Фаза 2: Артем отменяет билет — Сервер автоматически повышает статус Влада
+    Artem->>API: DELETE /api/v1/tickets/tkt-artem-001 (Bearer demo-artem)
+    activate API
+    API->>DB: UPDATE tickets SET status='cancelled'
+    activate DB
+    DB->>DB: Атомарная процедура авто-продвижения:<br/>1. Выборка первой заявки FIFO<br/>2. UPDATE tickets (status='registered')<br/>3. DELETE FROM waitlist_entries
+    DB-->>API: Билет Влада повышен до 'registered'
+    deactivate DB
+    API-->>Artem: 200 OK: {status: "cancelled"}
+    deactivate API
+
+    Note over Vlad,API: Фаза 3: Влад запрашивает свой билет и получает HMAC токен
+    Vlad->>API: GET /api/v1/tickets/tkt-vlad-001 (Bearer demo-vlad)
+    activate API
+    API->>DB: SELECT * FROM tickets WHERE id='tkt-vlad-001'
+    activate DB
+    DB-->>API: Билет активен (status='registered')
+    deactivate DB
+    API-->>Vlad: 200 OK: {status: "registered", qr_payload: "v1.tkt-vlad..."}
+    deactivate API
 ```
 
 ---
@@ -370,6 +412,26 @@ def verify_ticket_signature(token: str, event_id: str) -> bool:
 2. **Константное время сравнения (`compare_digest`):** Защита от атак по времени (Timing Attacks).
 3. **Офлайн-верификация:** Волонтерское приложение с предзагруженным публичным/симметричным ключом может мгновенно проверять билеты в подвальных аудиториях БГУ при полном отсутствии сети.
 
+![Диаграмма состояний жизненного цикла билета](../diagrams/lab7/ticket_lifecycle_state.svg)
+
+Схема переходов состояний билета (State Machine) представлена ниже:
+
+```mermaid
+stateDiagram-v2
+    direction LR
+    [*] --> registered : Места есть в квоте
+    [*] --> waitlisted : Места исчерпаны (join_waitlist=true)
+
+    waitlisted --> registered : Освобождение квоты (FIFO авто-продвижение)
+    waitlisted --> cancelled : Отказ от очереди ожидания
+
+    registered --> checked_in : Успешный чекин волонтером (GRANTED)
+    registered --> cancelled : Отмена билета участником (DELETE /tickets)
+
+    checked_in --> [*] : Мероприятие завершено
+    cancelled --> [*] : Квота возвращена в общий пул
+```
+
 ---
 
 ### 4.5. Валидация проходов на входе, защита от повторных сканирований и аудит
@@ -391,6 +453,43 @@ def verify_ticket_signature(token: str, event_id: str) -> bool:
    - Если статус `checked_in`: возвращается ошибка **`409 DENIED_ALREADY_USED`**, проход блокируется (защита от прохода нескольких людей по одному билету или пересланному скриншоту).
    - Если статус `waitlisted` или `cancelled`: вердикт `DENIED_INVALID_STATUS`.
 4. Вся история сканирований протоколируется в таблице `check_in_logs` с указанием волонтера, времени и вердикта.
+
+![Диаграмма процесса верификации билетов и чекина](../diagrams/lab7/checkin_flow.svg)
+
+Диаграмма последовательности процесса чекина на входе в аудиторию:
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Vol as 📷 Волонтер (Дарья)
+    participant API as 🌐 FastAPI (/check-ins)
+    participant Sec as 🔐 Модуль crypto.py
+    participant DB as 💾 База данных Store
+
+    Vol->>API: POST /events/{id}/check-ins<br/>{client_scan_id, qr_payload}
+    activate API
+
+    API->>API: Проверка роли (volunteer/organizer)
+    API->>Sec: verify_ticket_signature(token, event_id)
+    activate Sec
+    Sec-->>API: HMAC подпись подлинна (compare_digest == True)
+    deactivate Sec
+
+    API->>DB: Поиск билета и проверка текущего статуса
+    activate DB
+
+    alt Билет в статусе 'registered' (Первичный проход)
+        DB->>DB: UPDATE tickets SET status='checked_in'<br/>INSERT INTO check_in_logs (verdict='GRANTED')
+        DB-->>API: Проход успешно подтвержден
+        API-->>Vol: 201 Created: {verdict: "GRANTED", status: "checked_in"} ✅
+    else Билет уже 'checked_in' (Повторное сканирование!)
+        DB->>DB: INSERT INTO check_in_logs (verdict='DENIED_ALREADY_USED')
+        DB-->>API: Зафиксирован инцидент повторного прохода
+        API-->>Vol: 409 Conflict: {title: "DENIED_ALREADY_USED"} ⛔
+    end
+    deactivate DB
+    deactivate API
+```
 
 ---
 
@@ -615,6 +714,36 @@ volumes:
 4. Прогон наборов `unittest` (34 теста ЛР4) и `pytest` (19 тестов ЛР7) с формированием отчета покрытия.
 5. Применение физической схемы данных PostgreSQL `schema.postgresql.sql`.
 6. Сборка Docker-образа и проведение дымового тестирования (Smoke Test) контейнера с curl-проверкой healthcheck.
+
+![Диаграмма конвейера непрерывной интеграции CI/CD](../diagrams/lab7/ci_cd_pipeline.svg)
+
+Схема конвейера непрерывной интеграции представлена ниже:
+
+```mermaid
+flowchart LR
+    subgraph Trigger["⚡ Триггер CI"]
+        P["Git Push / PR<br/>(ветка lab7)"]
+    end
+
+    subgraph Job1["Job: test (PostgreSQL 16 Service)"]
+        S1["1. Setup Python 3.12<br/>& Postgres Service"]
+        S2["2. Ruff Check & Flake8<br/>(PEP 8 compliance)"]
+        S3["3. Contract Diff Check<br/>(33 routes openapi.json)"]
+        S4["4. 53 Unit/Integration Tests<br/>(pytest-cov 83%)"]
+        S5["5. Apply PG Schema<br/>(schema.postgresql.sql)"]
+        S1 --> S2 --> S3 --> S4 --> S5
+    end
+
+    subgraph Job2["Job: container & smoke"]
+        C1["1. Docker Build<br/>(python:3.12-slim)"]
+        C2["2. Healthcheck Loop<br/>(/api/v1/health)"]
+        C3["3. Smoke Test Suite<br/>(smoke_http.py)"]
+        C1 --> C2 --> C3
+    end
+
+    P --> Job1
+    Job1 -->|needs: test| Job2
+```
 
 ---
 
