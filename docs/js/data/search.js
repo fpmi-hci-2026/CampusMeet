@@ -5,6 +5,13 @@
 window.CampusMeetData = window.CampusMeetData || {};
 
 window.CampusMeetData.searchRegistry = [
+    // Lab 7
+    { id: 'lab7-overview', url: 'pages/lab7.html#lab7-overview', title: 'Лаб. №7: Архитектура сервера и стек FastAPI', category: 'Лабораторная 7', keywords: 'fastapi uvicorn pydantic python rest api сервер архитектура бэкенд' },
+    { id: 'lab7-clients', url: 'pages/lab7.html#lab7-clients', title: 'Лаб. №7: Клиентские экраны (Web каталог и Mobile AMOLED pass)', category: 'Лабораторная 7', keywords: 'web каталог мероприятий iphone 16 amoled pass билет qr код мобильный клиент' },
+    { id: 'lab7-crypto', url: 'pages/lab7.html#lab7-crypto', title: 'Лаб. №7: Крипто-билеты HMAC-SHA256 и анти-скриншот', category: 'Лабораторная 7', keywords: 'hmac sha256 криптография подпись токен анти-скриншот таймер 60 секунд офлайн' },
+    { id: 'lab7-tests', url: 'pages/lab7.html#lab7-tests', title: 'Лаб. №7: Автоматизированное тестирование (53 теста, 83% coverage)', category: 'Лабораторная 7', keywords: 'тестирование pytest unittest 53 теста покрытие coverage waitlist бронирование' },
+    { id: 'lab7-ci-docker', url: 'pages/lab7.html#lab7-ci-docker', title: 'Лаб. №7: Dockerfile, Docker Compose и GitHub Actions CI', category: 'Лабораторная 7', keywords: 'docker dockerfile compose ci cd github actions render деплой контейнеризация' },
+    { id: 'report-lab7', url: 'pages/lab7.html#report-lab7', title: 'Отчет: Лабораторная работа №7', category: 'Отчеты', keywords: 'lab7_report отчет лаб 7 fastapi сервер api' },
     // Lab 6
     { id: 'lab6-overview', url: 'pages/lab6.html#lab6-overview', title: 'Лаб. №6: Тестирование и оценка качества интерфейса', category: 'Лабораторная 6', keywords: 'тестирование оценка юзабилити качество sus goms tlm treejack карточная сортировка чек-листы' },
     { id: 'lab6-performance', url: 'pages/lab6.html#lab6-performance', title: 'Лаб. №6: Метрики производительности, SUM и Scorecard', category: 'Лабораторная 6', keywords: 'task success time-on-task ошибки sum вильсон доверительный интервал лепестковая диаграмма scorecard' },

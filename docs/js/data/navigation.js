@@ -112,6 +112,19 @@
                 badge: 'L6',
                 icon: 'check-circle',
                 desc: '12 моделей GOMS, 3 модели TLM, Treejack IA, тестирование ожиданий, чек-листы Web/Mobile, SUS (85.8) и SUM'
+            },
+            {
+                id: 'lab7',
+                num: 7,
+                title: 'Лабораторная работа №7',
+                shortTitle: 'Лаб. №7',
+                subtitle: 'Разработка API и серверной части приложения',
+                path: 'pages/lab7.html',
+                report: 'reports/Lab7_report.md',
+                status: 'done',
+                badge: 'L7',
+                icon: 'server',
+                desc: 'FastAPI бэкенд, HMAC-SHA256 крипто-билеты, 53 теста (pytest/unittest), Web каталог, Mobile AMOLED pass и Docker'
             }
         ],
 

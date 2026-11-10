@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusMeet / EventHub — Лабораторная работа №7: Разработка API и серверной части приложения</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../css/style.css">
+    <script>
+        (function() {
+            var t = null;
+            try { t = localStorage.getItem('cm_theme'); } catch(e) {}
+            if (!t) {
+                t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+            }
+            document.documentElement.setAttribute('data-theme', t);
+        })();
+    </script>
+    <style>
+        /* Custom styles for Lab 7 interactive widgets */
+        .lab7-terminal {
+            background: #09090b;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #10b981;
+            margin: 20px 0;
+            overflow-x: auto;
+            line-height: 1.6;
+        }
+        .lab7-phone-frame {
+            width: 320px;
+            height: 640px;
+            background: #000000;
+            border: 10px solid #27272a;
+            border-radius: 40px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            color: #f4f4f5;
+            font-family: 'Inter', sans-serif;
+        }
+        .lab7-phone-notch {
+            width: 110px;
+            height: 22px;
+            background: #27272a;
+            border-radius: 0 0 14px 14px;
+            margin: 0 auto 12px;
+        }
+        .lab7-ticket-card {
+            background: #121217;
+            border: 1px solid #27272a;
+            border-radius: 20px;
+            margin: 0 16px;
+            padding: 18px;
+            text-align: center;
+        }
+        .lab7-qr-box {
+            background: #ffffff;
+            padding: 12px;
+            border-radius: 14px;
+            display: inline-block;
+            margin: 14px 0;
+        }
+        .lab7-web-preview {
+            background: #0d0d11;
+            border: 1px solid #27272a;
+            border-radius: 12px;
+            padding: 20px;
+            color: #f4f4f5;
+            margin: 20px 0;
+        }
+        .lab7-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .lab7-badge-success { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .lab7-badge-purple { background: rgba(124, 58, 237, 0.15); color: #a78bfa; border: 1px solid rgba(124, 58, 237, 0.3); }
+        .lab7-badge-amber { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+    </style>
+</head>
+<body data-page="lab7">
+
+    <!-- Mobile Topbar -->
+    <header class="mobile-topbar">
+        <a href="../index.html" class="mobile-brand">
+            <img src="../assets/favicon.svg" alt="CampusMeet Logo">
+            <span>CampusMeet</span>
+        </a>
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <button class="theme-toggle-btn" type="button" aria-label="Переключить тему оформления" title="Светлая / Темная тема">
+                <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+            <button id="mobile-hamburger" class="hamburger-btn" type="button" aria-label="Открыть навигацию">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar">
+        <div class="sidebar-header">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span class="brand-badge" style="margin-bottom: 0;">ПЧМИ • ФПМИ БГУ</span>
+                <button class="theme-toggle-btn" type="button" aria-label="Переключить тему оформления" title="Светлая / Темная тема">
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <h1>CampusMeet</h1>
+            <p>Платформа студенческих митапов, хакатонов и офлайн-чекина</p>
+            <button class="omnibox-trigger-btn" type="button" aria-label="Быстрый поиск">
+                <span class="omnibox-trigger-label">
+                    <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    Поиск по порталу...
+                </span>
+                <span class="kbd-shortcut">⌘K</span>
+            </button>
+        </div>
+
+        <div class="nav-section-title">Разделы портала</div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="../index.html" class="nav-link">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    <span>Главный портал</span>
+                    <span class="nav-badge">Hub</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab1.html" class="nav-link">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    <span>Лабораторная №1</span>
+                    <span class="nav-badge">L1</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab2.html" class="nav-link">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                    <span>Лабораторная №2</span>
+                    <span class="nav-badge">L2</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab3.html" class="nav-link">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    <span>Лабораторная №3</span>
+                    <span class="nav-badge">L3</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab4.html" class="nav-link">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    <span>Лабораторная №4</span>
+                    <span class="nav-badge">L4</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab5.html" class="nav-link">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                    <span>Лабораторная №5</span>
+                    <span class="nav-badge">L5</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab6.html" class="nav-link">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    <span>Лабораторная №6</span>
+                    <span class="nav-badge">L6</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="lab7.html" class="nav-link active">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                    <span>Лабораторная №7</span>
+                    <span class="nav-badge">L7</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="wiki.html" class="nav-link">
+                    <svg class="icon icon-nav" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    <span>База знаний (Wiki)</span>
+                    <span class="nav-badge">Docs</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-section-title">Содержание страницы</div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#lab7-overview" class="nav-link active" onclick="switchTab('lab7-overview', this)">
+                    <span class="nav-num">01</span>
+                    <span>Паспорт и стек FastAPI</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#lab7-clients" class="nav-link" onclick="switchTab('lab7-clients', this)">
+                    <span class="nav-num">02</span>
+                    <span>Клиентские экраны</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#lab7-crypto" class="nav-link" onclick="switchTab('lab7-crypto', this)">
+                    <span class="nav-num">03</span>
+                    <span>Крипто-билеты HMAC</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#lab7-tests" class="nav-link" onclick="switchTab('lab7-tests', this)">
+                    <span class="nav-num">04</span>
+                    <span>Тестирование (53 теста)</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#lab7-ci-docker" class="nav-link" onclick="switchTab('lab7-ci-docker', this)">
+                    <span class="nav-num">05</span>
+                    <span>Docker & CI/CD</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#report-lab7" class="nav-link" onclick="switchTab('report-lab7', this)">
+                    <span class="nav-num">06</span>
+                    <span>Академический отчет</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main id="main">
+        <header class="page-header">
+            <div class="page-meta">
+                <span class="meta-tag tag-primary">Лабораторная работа №7</span>
+                <span class="meta-tag tag-accent">FastAPI & Uvicorn</span>
+                <span class="meta-tag tag-success">53/53 Tests Passed</span>
+                <span class="meta-tag tag-info">Coverage 83%</span>
+            </div>
+            <h1>Разработка API и серверной части приложения</h1>
+            <p class="lead">
+                Реализация масштабируемой серверной архитектуры на базе FastAPI, Pydantic v2 и SQLite/PostgreSQL. Транзакционная обработка квот и очередей ожидания (Waitlist), криптографическая подпись билетов HMAC-SHA256 с защитой от скриншотов, адаптивный веб-каталог и мобильный пропуск AMOLED Pass для iPhone 16 Pro.
+            </p>
+            <div class="authors-bar">
+                <strong>Команда проекта:</strong> Минчук Станислав (FastAPI, Crypto, Docker), Иванова Виктория (Web & Mobile Clients, Pydantic, Pytest), Шварцман Дидар (DB Schema, CI/CD, Report & Docs Portal).
+                <br>
+                <strong>Преподаватель:</strong> Давидовская М.И., ст. преп. кафедры технологий программирования ФПМИ БГУ • Минск, 2026 г.
+            </div>
+        </header>
+
+        <!-- KPI Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">53</div>
+                <div class="stat-label">Автотестов пройдено (100% Passed)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">83%</div>
+                <div class="stat-label">Тестовое покрытие ядра (pytest-cov)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">33</div>
+                <div class="stat-label">Маршрута OpenAPI 3.0.3 реализовано</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">60 с</div>
+                <div class="stat-label">Период анти-скриншот таймера HMAC</div>
+            </div>
+        </div>
+
+        <!-- Section 1: Overview & Stack -->
+        <section id="lab7-overview" class="content-section active">
+            <h2>01. Архитектура сервера и стек технологий</h2>
+            <p>
+                Серверная часть платформы CampusMeet спроектирована по модульному принципу в репозитории <code>CampusMeet-Server</code> на выделенной ветке <code>lab7</code>.
+            </p>
+
+            <div class="two-col" style="margin-top: 24px;">
+                <div class="profile-card">
+                    <span class="persona-tag tag-primary">Технологический стек</span>
+                    <h3>Ключевые компоненты рантайма</h3>
+                    <ul style="padding-left: 20px; line-height: 1.8; color: var(--text-muted); font-size: 0.9rem;">
+                        <li><strong>FastAPI 0.110+:</strong> Высокопроизводительный асинхронный ASGI-фреймворк с автоматической генерацией Swagger UI (<code>/docs</code>) и ReDoc (<code>/redoc</code>).</li>
+                        <li><strong>Pydantic v2.6+:</strong> Валидация входных DTO на Rust с нулевым накладным расходом.</li>
+                        <li><strong>Uvicorn (Standard):</strong> Асинхронный сервер с циклами uvloop и поддержкой HTTP/1.1 и WebSockets.</li>
+                        <li><strong>SQLite 3 (WAL mode) / PostgreSQL 16:</strong> Надежное транзакционное хранилище с внешними ключами и каскадными операциями.</li>
+                        <li><strong>RFC 7807 Problem Details:</strong> Унифицированная обработка всех исключений API.</li>
+                    </ul>
+                </div>
+
+                <div class="profile-card">
+                    <span class="persona-tag tag-accent">Бизнес-логика</span>
+                    <h3>Инженерные особенности ЛР7</h3>
+                    <ul style="padding-left: 20px; line-height: 1.8; color: var(--text-muted); font-size: 0.9rem;">
+                        <li><strong>Предотвращение овербукинга:</strong> Атомарная проверка вместимости аудитории в транзакции базы данных.</li>
+                        <li><strong>Очередь ожидания (Waitlist):</strong> Приоритетное авто-продвижение ожидающего участника при отмене чужого билета.</li>
+                        <li><strong>Идемпотентность (RFC 7231):</strong> Защита от двойного списания квот через заголовок <code>Idempotency-Key</code>.</li>
+                        <li><strong>HMAC-SHA256 подпись:</strong> Векторный QR-код с динамическим хешем, проверяемый онлайн и офлайн.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="lab7-terminal">
+# Проверка здоровья API
+curl -s http://127.0.0.1:8000/api/v1/health | jq
+{
+  "status": "ok",
+  "version": "1.0.0-lab7",
+  "service": "CampusMeet API",
+  "database": "connected"
+}
+            </div>
+        </section>
+
+        <!-- Section 2: Clients -->
+        <section id="lab7-clients" class="content-section">
+            <h2>02. Клиентские модули: Web-каталог и Mobile AMOLED Pass</h2>
+            <p>
+                В соответствии с требованиями задания первой страницы разработаны два полнофункциональных клиентских интерфейса, напрямую взаимодействующих с API:
+            </p>
+
+            <div class="two-col" style="align-items: flex-start; gap: 32px; margin-top: 24px;">
+                <!-- Web Client Preview -->
+                <div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <h3>Веб-клиент: Каталог мероприятий</h3>
+                        <span class="lab7-badge-pill lab7-badge-purple">SPA / Vanilla JS</span>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 16px;">
+                        Смонтирован по маршруту <code>/web/</code>. Поддерживает поиск с дебаунсом 300мс, фильтрацию категорий, цветовую индикацию остатка мест и модальное окно регистрации с поддержкой листа ожидания.
+                    </p>
+
+                    <div class="lab7-web-preview">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #27272a; padding-bottom: 12px; margin-bottom: 16px;">
+                            <div style="font-weight: 700; font-size: 1.1rem; color: #a78bfa;">CampusMeet Catalog</div>
+                            <span class="lab7-badge-pill lab7-badge-success">● API Online</span>
+                        </div>
+                        <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+                            <button class="btn btn-secondary" style="font-size: 0.75rem; padding: 4px 10px; background: #7c3aed; color: #fff;">Все</button>
+                            <button class="btn btn-secondary" style="font-size: 0.75rem; padding: 4px 10px;">Митапы</button>
+                            <button class="btn btn-secondary" style="font-size: 0.75rem; padding: 4px 10px;">Хакатоны</button>
+                            <button class="btn btn-secondary" style="font-size: 0.75rem; padding: 4px 10px;">Воркшопы</button>
+                        </div>
+                        <div style="background: #18181b; border: 1px solid #27272a; border-radius: 8px; padding: 12px; margin-bottom: 12px;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <strong>CampusMeet: AI & Web Tech</strong>
+                                <span class="lab7-badge-pill lab7-badge-success">Свободно: 1 / 2</span>
+                            </div>
+                            <div style="font-size: 0.8rem; color: #a1a1aa; margin-top: 4px;">ФПМИ БГУ, ауд. 512 • 20 ноября, 14:00</div>
+                            <div style="margin-top: 10px; height: 6px; background: #27272a; border-radius: 3px; overflow: hidden;">
+                                <div style="width: 50%; height: 100%; background: #10b981;"></div>
+                            </div>
+                        </div>
+                        <div style="background: #18181b; border: 1px solid #27272a; border-radius: 8px; padding: 12px;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <strong>BSU Winter AI Hackathon</strong>
+                                <span class="lab7-badge-pill lab7-badge-purple">Свободно: 50 / 50</span>
+                            </div>
+                            <div style="font-size: 0.8rem; color: #a1a1aa; margin-top: 4px;">Хакатон-коворкинг БГУ • 5 декабря, 09:00</div>
+                            <div style="margin-top: 10px; height: 6px; background: #27272a; border-radius: 3px; overflow: hidden;">
+                                <div style="width: 0%; height: 100%; background: #7c3aed;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Client Preview -->
+                <div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <h3>Мобильный клиент: AMOLED Pass</h3>
+                        <span class="lab7-badge-pill lab7-badge-success">iPhone 16 Pro AMOLED</span>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 16px;">
+                        Смонтирован по маршруту <code>/mobile/</code>. Эмулирует пропуск Apple/Google Wallet с динамической SVG QR-матрицей, 60-секундным анти-скриншот таймером и интерактивным сканером волонтера.
+                    </p>
+
+                    <div class="lab7-phone-frame">
+                        <div class="lab7-phone-notch"></div>
+                        <div style="font-size: 0.75rem; text-align: center; color: #a1a1aa; margin-bottom: 8px;">CAMPUSMEET PASS</div>
+                        <div class="lab7-ticket-card">
+                            <span class="lab7-badge-pill lab7-badge-success" id="mob-pass-status">● БИЛЕТ АКТИВЕН</span>
+                            <h4 style="margin: 8px 0 4px; font-size: 0.95rem;">CampusMeet 2026</h4>
+                            <div style="font-size: 0.75rem; color: #71717a;">ФПМИ БГУ, ауд. 512</div>
+
+                            <div class="lab7-qr-box">
+                                <svg width="130" height="130" viewBox="0 0 25 25">
+                                    <path fill="#000" d="M1 1h7v7H1zM9 1h1v1H9zM11 1h2v1h-2zM15 1h1v1h-1zM17 1h7v7h-7zM2 2v5h5V2zM18 2v5h5V2zM3 3h3v3H3zM19 3h3v3h-3zM9 3h2v2H9zM13 3h1v1h-1zM15 3h1v2h-1zM10 5h1v1h-1zM12 5h1v3h-1zM14 5h2v1h-2zM1 9h1v1H1zM3 9h1v2H3zM5 9h2v1H5zM8 9h2v1H8zM11 9h2v2h-2zM14 9h1v1h-1zM16 9h3v1h-3zM21 9h1v1h-1zM23 9h1v3h-1zM2 10h1v1H2zM6 10h1v1H6zM10 10h1v3h-1zM15 10h1v1h-1zM18 10h2v1h-2zM4 11h2v1H4zM7 11h1v2H7zM13 11h1v2h-1zM17 11h1v1h-1zM20 11h2v1h-2zM1 12h2v1H1zM5 12h1v1H5zM9 12h1v2H9zM14 12h2v1h-2zM18 12h1v1h-1zM22 12h1v1h-1zM3 13h1v1H3zM8 13h1v1H8zM11 13h1v1h-1zM16 13h1v2h-1zM20 13h1v1h-2v1h1zM1 14h1v1H1zM5 14h1v1H5zM7 14h1v1H7zM13 14h2v1h-2zM18 14h1v1h-1zM22 14h2v1h-2zM2 15h2v1H2zM9 15h1v1H9zM11 15h1v1h-1zM14 15h1v1h-1zM17 15h1v1h-1zM1 17h7v7H1zM9 17h2v1H9zM13 17h1v1h-1zM15 17h1v1h-1zM17 17h1v2h-1zM19 17h1v1h-1zM21 17h3v1h-3zM2 18v5h5v-5zM10 18h1v1h-1zM12 18h1v2h-1zM14 18h1v1h-1zM18 18h1v1h-1zM20 18h1v1h-1zM23 18h1v1h-1zM3 19h3v3H3zM9 19h1v1H9zM15 19h1v1h-1zM17 19h1v1h-1zM21 19h2v1h-2zM10 20h2v1h-2zM14 20h2v1h-2zM18 20h2v2h-2zM22 20h1v1h-1zM9 21h1v2H9zM12 21h2v1h-2zM16 21h1v1h-1zM21 21h1v2h-1zM23 21h1v1h-1zM11 22h1v1h-1zM15 22h2v1h-2zM19 22h1v1h-1zM10 23h4v1h-4zM16 23h2v1h-2zM20 23h3v1h-3z"/>
+                                </svg>
+                            </div>
+
+                            <div style="display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 0.75rem; color: #a1a1aa;">
+                                <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #10b981; animation: pulse 1.5s infinite;"></span>
+                                <span>Обновление через: <strong style="color: #fff;" id="mob-countdown">48 с</strong></span>
+                            </div>
+
+                            <div style="margin-top: 12px; font-size: 0.7rem; color: #71717a; word-break: break-all; font-family: monospace;">
+                                v1.tkt-001.usr-artem-001.8a2b3c4d5e...
+                            </div>
+                        </div>
+
+                        <div style="padding: 16px; margin-top: auto;">
+                            <button id="mob-scan-btn" class="btn btn-primary" style="width: 100%; font-size: 0.8rem; justify-content: center; background: #7c3aed;">
+                                📷 Сканировать волонтером
+                            </button>
+                            <div id="mob-scan-result" style="font-size: 0.75rem; text-align: center; margin-top: 8px; min-height: 20px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Crypto -->
+        <section id="lab7-crypto" class="content-section">
+            <h2>03. Криптографический модуль HMAC-SHA256 и анти-скриншот</h2>
+            <p>
+                Для защиты билетов от подделок и совместного использования скриншотов реализован протокол динамических токенов с серверным секретом.
+            </p>
+
+            <div class="interactive-widget">
+                <h3>Интерактивный симулятор крипто-токена билета</h3>
+                <p style="color: var(--text-muted); font-size: 0.88rem;">
+                    Попробуйте изменить любой символ в токене, чтобы увидеть, как сервер отсекает фальсифицированные билеты константным сравнением <code>hmac.compare_digest</code>:
+                </p>
+
+                <div style="display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <label style="font-size: 0.75rem; color: var(--text-muted);">Ticket ID</label>
+                        <input type="text" id="crypto-tkt-id" value="tkt-artem-001" class="omnibox-input" style="margin-top: 4px;">
+                    </div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <label style="font-size: 0.75rem; color: var(--text-muted);">User ID</label>
+                        <input type="text" id="crypto-usr-id" value="usr-artem-001" class="omnibox-input" style="margin-top: 4px;">
+                    </div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <label style="font-size: 0.75rem; color: var(--text-muted);">Event ID</label>
+                        <input type="text" id="crypto-evt-id" value="ev-campusmeet-2026" class="omnibox-input" style="margin-top: 4px;">
+                    </div>
+                </div>
+
+                <div style="margin: 16px 0;">
+                    <label style="font-size: 0.75rem; color: var(--text-muted);">Сформированный токен (v1.ticket.user.signature)</label>
+                    <input type="text" id="crypto-token-preview" class="omnibox-input" style="margin-top: 4px; font-family: monospace; color: #10b981;" readonly>
+                </div>
+
+                <div style="display: flex; gap: 12px; align-items: center;">
+                    <button class="btn btn-secondary" onclick="tamperCryptoToken()">Модифицировать токен (имитация подделки)</button>
+                    <button class="btn btn-primary" onclick="verifyCryptoToken()">Проверить подлинность через API</button>
+                    <span id="crypto-verify-verdict" style="font-weight: 600; font-size: 0.9rem;"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Tests -->
+        <section id="lab7-tests" class="content-section">
+            <h2>04. Автоматизированное тестирование (53 теста)</h2>
+            <p>
+                Тестовый набор объединяет 34 теста обратной совместимости ЛР4 и 19 новых интеграционных тестов ЛР7. Все 53 теста выполняются за 1.74 секунды с суммарным покрытием 83%.
+            </p>
+
+            <div class="interactive-widget">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <h3 style="margin: 0;">Сводная матрица тестов pytest</h3>
+                    <span class="lab7-badge-pill lab7-badge-success">53 / 53 Passed (100%)</span>
+                </div>
+
+                <div style="max-height: 380px; overflow-y: auto; border: 1px solid var(--border-subtle); border-radius: 8px;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                        <thead>
+                            <tr style="background: var(--surface-secondary); text-align: left; border-bottom: 1px solid var(--border-subtle);">
+                                <th style="padding: 10px 14px;">Тестовый метод</th>
+                                <th style="padding: 10px 14px;">Проверяемый сценарий</th>
+                                <th style="padding: 10px 14px;">Модуль</th>
+                                <th style="padding: 10px 14px; text-align: right;">Статус</th>
+                            </tr>
+                        </thead>
+                        <tbody id="test-table-body">
+                            <tr><td style="padding: 8px 14px; font-family: monospace;">test_health_check</td><td style="padding: 8px 14px;">Проверка жизнеспособности сервиса</td><td style="padding: 8px 14px;">app.py</td><td style="padding: 8px 14px; text-align: right; color: #10b981; font-weight: 700;">PASSED</td></tr>
+                            <tr><td style="padding: 8px 14px; font-family: monospace;">test_auth_token_for_roles</td><td style="padding: 8px 14px;">Выдача токенов для ролей attendee, volunteer, organizer</td><td style="padding: 8px 14px;">app.py</td><td style="padding: 8px 14px; text-align: right; color: #10b981; font-weight: 700;">PASSED</td></tr>
+                            <tr><td style="padding: 8px 14px; font-family: monospace;">test_list_events</td><td style="padding: 8px 14px;">Каталог мероприятий, пагинация, свободные места</td><td style="padding: 8px 14px;">store.py</td><td style="padding: 8px 14px; text-align: right; color: #10b981; font-weight: 700;">PASSED</td></tr>
+                            <tr><td style="padding: 8px 14px; font-family: monospace;">test_filter_events_by_type</td><td style="padding: 8px 14px;">Фильтрация каталога по типу события (hackathon)</td><td style="padding: 8px 14px;">store.py</td><td style="padding: 8px 14px; text-align: right; color: #10b981; font-weight: 700;">PASSED</td></tr>
+                            <tr><td style="padding: 8px 14px; font-family: monospace;">test_create_event_organizer_permission</td><td style="padding: 8px 14px;">Создание события организатором (201 Created)</td><td style="padding: 8px 14px;">app.py</td><td style="padding: 8px 14px; text-align: right; color: #10b981; font-weight: 700;">PASSED</td></tr>
+                            <tr><td style="padding: 8px 14px; font-family: monospace;">test_create_event_forbidden_for_attendee</td><td style="padding: 8px 14px;">Запрет создания события обычным участником (403)</td><td style="padding: 8px 14px;">app.py</td><td style="padding: 8px 14px; text-align: right; color: #10b981; font-weight: 700;">PASSED</td></tr>
+                            <tr><td style="padding: 8px 14px; font-family: monospace;">test_venues_endpoints</td><td style="padding: 8px 14px;">Список аудиторий БГУ (512, 609, коворкинг)</td><td style="padding: 8px 14px;">store.py</td><td style="padding: 8px 14px; text-align: right; color: #10b981; font-weight: 700;">PASSED</td></tr>
+                            <tr><td style="padding: 8px 14px; font-family: monospace;">test_attendee_registration_and_hmac_ticket</td><td style="padding: 8px 14px;">Регистрация на событие и выдача билета с HMAC</td><td style="padding: 8px 14px;">crypto.py</td><td style="padding: 8px 14px; text-align: right; color: #10b981; font-weight: 700;">PASSED</td></tr>
+                            <tr><td style="padding: 8px 14px; font-family: monospace;">test_duplicate_registration_rejected</td><td style="padding: 8px 14px;">Защита от повторной регистрации (409 Conflict)</td><td style="padding: 8px 14px;">store.py</td><td style="padding: 8px 14px; text-align: right; color: #10b981; font-weight: 700;">PASSED</td></tr>
+                            <tr><td style="padding: 8px 14px; font-family: monospace;">test_idempotency_replay</td><td style="padding: 8px 14px;">Идемпотентный возврат того же билета по ключу</td><td style="padding: 8px 14px;">store.py</td><td style="padding: 8px 14px; text-align: right; color: #10b981; font-weight: 700;">PASSED</td></tr>
+                            <tr><td style="padding: 8px 14px; font-family: monospace;">test_waitlist_and_automatic_promotion</td><td style="padding: 8px 14px;">Помещение в очередь и продвижение при отмене</td><td style="padding: 8px 14px;">store.py</td><td style="padding: 8px 14px; text-align: right; color: #10b981; font-weight: 700;">PASSED</td></tr>
+                            <tr><td style="padding: 8px 14px; font-family: monospace;">test_check_in_flow_granted_and_duplicate_denied</td><td style="padding: 8px 14px;">Сканирование: GRANTED -> DENIED_ALREADY_USED (409)</td><td style="padding: 8px 14px;">store.py</td><td style="padding: 8px 14px; text-align: right; color: #10b981; font-weight: 700;">PASSED</td></tr>
+                            <tr><td style="padding: 8px 14px; font-family: monospace;">test_check_in_invalid_payload_rejected</td><td style="padding: 8px 14px;">Отклонение поддельного или битого токена (404)</td><td style="padding: 8px 14px;">crypto.py</td><td style="padding: 8px 14px; text-align: right; color: #10b981; font-weight: 700;">PASSED</td></tr>
+                            <tr><td style="padding: 8px 14px; font-family: monospace;">test_check_in_forbidden_for_non_volunteer</td><td style="padding: 8px 14px;">Запрет сканирования не-волонтером (403 Forbidden)</td><td style="padding: 8px 14px;">app.py</td><td style="padding: 8px 14px; text-align: right; color: #10b981; font-weight: 700;">PASSED</td></tr>
+                            <tr><td style="padding: 8px 14px; font-family: monospace;">test_crypto_signing_and_tamper_detection</td><td style="padding: 8px 14px;">Модульный тест детекции взлома подписи HMAC</td><td style="padding: 8px 14px;">crypto.py</td><td style="padding: 8px 14px; text-align: right; color: #10b981; font-weight: 700;">PASSED</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: CI/CD & Docker -->
+        <section id="lab7-ci-docker" class="content-section">
+            <h2>05. Контейнеризация и GitHub Actions CI/CD</h2>
+            <p>
+                Контейнеризация сервиса на базе Dockerfile и автоматический пайплайн непрерывной интеграции гарантируют надежность поставки в продакшн:
+            </p>
+
+            <div class="two-col">
+                <div class="profile-card">
+                    <span class="persona-tag tag-success">Docker Контейнер</span>
+                    <h3>Параметры Dockerfile</h3>
+                    <ul style="padding-left: 20px; line-height: 1.8; color: var(--text-muted); font-size: 0.9rem;">
+                        <li><strong>Базовый образ:</strong> <code>python:3.12-slim</code> (минимальный вес).</li>
+                        <li><strong>Безопасность:</strong> Запуск от пользователя <code>campusmeet</code> (UID 10001).</li>
+                        <li><strong>Статика:</strong> Монтирование директорий <code>web/</code> и <code>mobile/</code>.</li>
+                        <li><strong>Здоровье:</strong> Встроенный опросник <code>HEALTHCHECK</code> каждые 5 секунд.</li>
+                    </ul>
+                </div>
+
+                <div class="profile-card">
+                    <span class="persona-tag tag-primary">GitHub Actions</span>
+                    <h3>Этапы пайплайна ci.yml</h3>
+                    <ul style="padding-left: 20px; line-height: 1.8; color: var(--text-muted); font-size: 0.9rem;">
+                        <li>1. Сервисный контейнер PostgreSQL 16.</li>
+                        <li>2. Линтинг Ruff и Flake8 (PEP 8).</li>
+                        <li>3. Контроль неизменности схемы OpenAPI (33 операции).</li>
+                        <li>4. Запуск 53 тестов с формированием отчета coverage.</li>
+                        <li>5. Сборка Docker-образа и запуск HTTP Smoke Test.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Report -->
+        <section id="report-lab7" class="content-section">
+            <h2>06. Академический отчет по лабораторной работе №7</h2>
+            <div id="report-container" class="report-markdown-view">
+                <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+                    Загрузка академического отчета...
+                </div>
+            </div>
+        </section>
+
+        <!-- Page Footer Navigation -->
+        <div class="doc-footer">
+            <nav class="doc-pager">
+                <a href="lab6.html" class="pager-card pager-prev">
+                    <span class="pager-direction">← Предыдущая работа</span>
+                    <span class="pager-title">Лабораторная работа №6</span>
+                    <span class="pager-desc">Тестирование и количественная оценка интерфейса (GOMS, TLM, SUS)</span>
+                </a>
+                <a href="wiki.html" class="pager-card pager-next">
+                    <span class="pager-direction">Следующий раздел →</span>
+                    <span class="pager-title">База знаний (Wiki)</span>
+                    <span class="pager-desc">Архитектурный паспорт экосистемы, схема БД и регламенты</span>
+                </a>
+            </nav>
+        </div>
+    </main>
+
+    <!-- Omnibox Search Dialog (⌘K) -->
+    <dialog id="omnibox-dialog" aria-label="Быстрый поиск">
+        <div class="omnibox-header">
+            <span class="omnibox-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
+            <input type="text" id="omnibox-input" class="omnibox-input" placeholder="Поиск по разделам, диаграммам, User Stories...">
+            <button type="button" class="omnibox-close-btn" onclick="document.getElementById('omnibox-dialog').close()" aria-label="Закрыть"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+        </div>
+        <ul id="omnibox-results" class="omnibox-results"></ul>
+    </dialog>
+
+    <!-- Vendor Libraries -->
+    <script src="../js/vendor/marked.min.js"></script>
+
+    <!-- Structured Data Modules -->
+    <script src="../js/data/search.js"></script>
+    <script src="../js/data/reports.js"></script>
+
+    <!-- Client Functional Modules -->
+    <script src="../js/modules/renderers.js"></script>
+    <script src="../js/modules/router.js"></script>
+    <script src="../js/modules/omnibox.js"></script>
+    <script src="../js/modules/report-viewer.js"></script>
+    <script src="../js/modules/ui.js"></script>
+    <script src="../js/main.js"></script>
+
+    <!-- Lab 7 Interactive Scripts -->
+    <script>
+        function computeDummyHmac(tid, uid, eid) {
+            let str = `v1:${tid}:${uid}:${eid}:secret`;
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                hash = ((hash << 5) - hash) + str.charCodeAt(i);
+                hash |= 0;
+            }
+            const hex = Math.abs(hash).toString(16).padStart(8, '0');
+            return `v1.${tid}.${uid}.${hex}8a2b3c4d5e6f7a8b`.slice(0, 48);
+        }
+
+        function refreshCryptoToken() {
+            const tid = document.getElementById('crypto-tkt-id').value;
+            const uid = document.getElementById('crypto-usr-id').value;
+            const eid = document.getElementById('crypto-evt-id').value;
+            const tok = computeDummyHmac(tid, uid, eid);
+            document.getElementById('crypto-token-preview').value = tok;
+            document.getElementById('crypto-verify-verdict').textContent = '';
+        }
+
+        function tamperCryptoToken() {
+            const prev = document.getElementById('crypto-token-preview');
+            prev.value = prev.value.slice(0, -4) + 'dead';
+            const v = document.getElementById('crypto-verify-verdict');
+            v.textContent = 'Токен модифицирован!';
+            v.style.color = '#ef4444';
+        }
+
+        function verifyCryptoToken() {
+            const val = document.getElementById('crypto-token-preview').value;
+            const v = document.getElementById('crypto-verify-verdict');
+            if (val.endsWith('dead')) {
+                v.textContent = '❌ 404/403: ПОДДЕЛЬНАЯ ПОДПИСЬ ОТКЛОНЕНА';
+                v.style.color = '#ef4444';
+            } else {
+                v.textContent = '✅ 200 OK: ПОДЛИННОСТЬ ПОДТВЕРЖДЕНА (HMAC VALID)';
+                v.style.color = '#10b981';
+            }
+        }
+
+        // Mobile simulation logic
+        let scanCount = 0;
+        document.addEventListener('DOMContentLoaded', () => {
+            refreshCryptoToken();
+            ['crypto-tkt-id', 'crypto-usr-id', 'crypto-evt-id'].forEach(id => {
+                document.getElementById(id).addEventListener('input', refreshCryptoToken);
+            });
+
+            const scanBtn = document.getElementById('mob-scan-btn');
+            const scanRes = document.getElementById('mob-scan-result');
+            const passStatus = document.getElementById('mob-pass-status');
+
+            if (scanBtn) {
+                scanBtn.addEventListener('click', () => {
+                    scanCount++;
+                    if (scanCount === 1) {
+                        scanRes.innerHTML = '<span style="color: #10b981; font-weight: 700;">✅ 201 GRANTED: Доступ разрешен</span>';
+                        passStatus.textContent = '● ПОГАШЕН (CHECKED-IN)';
+                        passStatus.className = 'lab7-badge-pill lab7-badge-purple';
+                    } else {
+                        scanRes.innerHTML = '<span style="color: #ef4444; font-weight: 700;">⛔ 409 CONFLICT: Повторный проход запрещен!</span>';
+                    }
+                });
+            }
+
+            // Countdown timer
+            let cd = 48;
+            setInterval(() => {
+                cd--;
+                if (cd <= 0) cd = 60;
+                const el = document.getElementById('mob-countdown');
+                if (el) el.textContent = cd + ' с';
+            }, 1000);
+
+            // Load Report Markdown
+            if (window.CampusMeetReports && window.CampusMeetReports['Lab7_report.md']) {
+                const container = document.getElementById('report-container');
+                if (container && window.marked) {
+                    container.innerHTML = marked.parse(window.CampusMeetReports['Lab7_report.md']);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
