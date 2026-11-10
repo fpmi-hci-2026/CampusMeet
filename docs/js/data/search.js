@@ -63,7 +63,10 @@ window.CampusMeetData.searchRegistry = [
     // Academic Reports (Markdown Previews)
     { id: 'report-lab1', url: 'pages/lab1.html#report-lab1', title: 'Отчет: Лабораторная работа №1 (Lab1_report.md)', category: 'Отчеты', keywords: 'отчет лаб 1 markdown lab1_report md исследование hcd опрос персоны' },
     { id: 'report-lab2', url: 'pages/lab2.html#report-lab2', title: 'Отчет: Лабораторная работа №2 (Lab2_report.md)', category: 'Отчеты', keywords: 'отчет лаб 2 markdown lab2_report md инфо-архитектура cjm раскадровки макеты' },
-    { id: 'report-lab3', url: 'pages/lab3.html#report-lab3', title: 'Отчет: Лабораторная работа №3 (Lab3_report.md)', category: 'Отчеты', keywords: 'отчет лаб 3 markdown lab3_report md user stories uml c4 srs тз' }
+    { id: 'report-lab3', url: 'pages/lab3.html#report-lab3', title: 'Отчет: Лабораторная работа №3 (Lab3_report.md)', category: 'Отчеты', keywords: 'отчет лаб 3 markdown lab3_report md user stories uml c4 srs тз' },
+    { id: 'report-lab4', url: 'pages/lab4.html#report-lab4', title: 'Отчет: Лабораторная работа №4 (Lab4_report.md)', category: 'Отчеты', keywords: 'отчет лаб 4 markdown lab4_report md openapi rest mock mcp docker' },
+    { id: 'report-lab5', url: 'pages/lab5.html#report-lab5', title: 'Отчет: Лабораторная работа №5 (Lab5_report.md)', category: 'Отчеты', keywords: 'отчет лаб 5 markdown lab5_report md visual прототип figma styleguide палитры сетки' },
+    { id: 'report-lab6', url: 'pages/lab6.html#report-lab6', title: 'Отчет: Лабораторная работа №6 (Lab6_report.md)', category: 'Отчеты', keywords: 'отчет лаб 6 markdown lab6_report md тестирование goms sus tlm treejack юзабилити' }
 ];
 
 window.CampusMeetData.titleMap = {

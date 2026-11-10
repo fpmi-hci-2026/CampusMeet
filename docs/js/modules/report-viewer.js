@@ -18,16 +18,18 @@
         'Lab1_report.md': 'Лабораторная работа №1: Исследование пользователей и предметной области',
         'Lab2_report.md': 'Лабораторная работа №2: Проектирование информационной архитектуры и взаимодействия',
         'Lab3_report.md': 'Лабораторная работа №3: Разработка требований к программной системе',
-        'Lab4_report.md': 'Лабораторная работа №4: Стили интеграции программных систем и проектирование API'
+        'Lab4_report.md': 'Лабораторная работа №4: Стили интеграции программных систем и проектирование API',
+        'Lab5_report.md': 'Лабораторная работа №5: Проектирование прототипа приложения',
+        'Lab6_report.md': 'Лабораторная работа №6: Тестирование и оценка качества интерфейса'
     };
 
     function normalizeReportKey(raw) {
         if (!raw) return 'Lab1_report.md';
         const lower = raw.toLowerCase();
-        if (lower.includes('lab1')) return 'Lab1_report.md';
-        if (lower.includes('lab2')) return 'Lab2_report.md';
-        if (lower.includes('lab3')) return 'Lab3_report.md';
-        if (lower.includes('lab4')) return 'Lab4_report.md';
+        const m = lower.match(/lab(\d+)/);
+        if (m) {
+            return `Lab${m[1]}_report.md`;
+        }
         return raw;
     }
 
@@ -462,16 +464,17 @@
 
             const href = link.getAttribute('href') || '';
             const isReportLink = (
-                href.includes('Lab1_report.md') ||
-                href.includes('Lab2_report.md') ||
-                href.includes('Lab3_report.md') ||
-                href.includes('Lab4_report.md') ||
-                link.hasAttribute('data-report-id')
+                /Lab\d+_report\.md/i.test(href) ||
+                href.includes('_report.md') ||
+                link.hasAttribute('data-report-id') ||
+                (link.id && link.id.startsWith('report-lab'))
             );
 
             if (isReportLink) {
                 e.preventDefault();
-                const reportId = link.getAttribute('data-report-id') || href.split('/').pop().split('?')[0].split('#')[0];
+                const reportId = link.getAttribute('data-report-id') ||
+                    (link.id && link.id.startsWith('report-') ? link.id.replace(/^report-/, '') : null) ||
+                    href.split('/').pop().split('?')[0].split('#')[0];
                 window.openReportViewer(reportId);
             }
         });
